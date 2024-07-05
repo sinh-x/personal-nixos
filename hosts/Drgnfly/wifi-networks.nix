@@ -2,7 +2,7 @@
   networking.hostName = "Drgnfly"; # Define your hostname.
   # Pick only one of the below networking options.
   networking.wireless = {
-    environmentFile = "/run/secrets/wireless.env";
+    environmentFile = "/home/sinh/wireless.env";
     enable = true;  # Enables wireless support via wpa_supplicant.
     userControlled.enable = true;
     networks = {

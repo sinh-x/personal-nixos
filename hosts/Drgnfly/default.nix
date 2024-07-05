@@ -19,7 +19,7 @@
     ./wifi-networks.nix
   ];
 
-  networking.hostName = "Elderwood";
+  networking.hostName = "Drgnfly";
 
   modules = {
     r_setup.enable = true;
@@ -99,6 +99,11 @@
 
   hardware.acpilight.enable = true;
   hardware.bluetooth.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    displaylink
+  ];
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
