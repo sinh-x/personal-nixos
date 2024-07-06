@@ -108,12 +108,12 @@
 
   # TODO: Set your hostname
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 24800 ];
+  networking.firewall.allowedTCPPorts = [ 24800 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.ena eble = false;
   networking.wireless = {
-    environmentFile = "/home/sinh/git-repos/sinh_x/nixos-systems/local/wireless.env";
+    environmentFile = "/home/sinh/.config/wireless.env";
     enable = true;
     userControlled.enable = true;
     networks = {
@@ -133,16 +133,16 @@
   # };
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
-  # services.openssh = {
-  #   enable = true;
-  #   settings = {
-  #     # Opinionated: forbid root login through SSH.
-  #     PermitRootLogin = "no";
-  #     # Opinionated: use keys only.
-  #     # Remove if you want to SSH using passwords
-  #     PasswordAuthentication = false;
-  #   };
-  # };
+  services.openssh = {
+    enable = true;
+     settings = {
+      # opinionated: forbid root login through ssh.
+      PermitRootLogin = "no";
+      # opinionated: use keys only.
+      # remove if you want to ssh using passwords
+      PasswordAuthentication = false;
+    };
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
