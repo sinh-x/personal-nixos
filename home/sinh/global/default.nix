@@ -304,6 +304,7 @@
       set -Ux fish_tmux_autostarted false
       set -Ux fish_tmux_autoconnect true
       set -Ux fish_tmux_autoquit false
+      set -Ux fish_tmux_config /home/sinh/.config/tmux.conf
 
       # ----- Tmux session wizard -----
       fish_add_path $HOME/.config/tmux/plugins/tmux-session-wizard/bin

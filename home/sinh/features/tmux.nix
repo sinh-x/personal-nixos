@@ -11,12 +11,34 @@
       owner = "akohlbecker";
       repo = "aw-watcher-tmux";
       rev = "efaa7610add52bd2b39cd98d0e8e082b1e126487";
-      sha256 = "";
+      sha256 = "sha256-L6YLyEOmb+vdz6bJdB0m5gONPpBp2fV3i9PiLSNrZNM=";
+    };
+  };
+  tmux-fzf-session-switch = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "tmux-fzf-session-switch";
+    version = "v2.";
+    src = pkgs.fetchFromGitHub {
+      owner = "brokenricefilms";
+      repo = "tmux-fzf-session-switch";
+      rev = "v2.1";
+      sha256 = "sha256-T2fyvpygaZ22DlgBLR9fGH8w9JLsooNLT6+W4mdDBQ4=";
+    };
+  };
+  tokyo-night-tmux = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "tokyo-night-tmux";
+    version = "v1.5.5";
+    src = pkgs.fetchFromGitHub {
+      owner = "janoamaral";
+      repo = "tokyo-night-tmux";
+      rev = "v1.5.5";
+      sha256 = "sha256-ATaSfJSg/Hhsd4LwoUgHkAApcWZV3O3kLOn61r1Vbag=";
     };
   };
 in {
   programs.tmux = {
     enable = true;
+    prefix = "C-a";
+
     plugins = with pkgs.tmuxPlugins; [
       tmux-fzf
       resurrect
@@ -27,24 +49,12 @@ in {
       yank
       fzf-tmux-url
       sessionist
+      tmux-fzf-session-switch
       aw-watcher-tmux
+      tokyo-night-tmux
     ];
 
     extraConfig = ''
-      # # -- navigation ----------------------------------------------------------------
-      # # smart pane switching with awareness of vim splits.
-      # # see: https://github.com/christoomey/vim-tmux-navigator
-      is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-          | grep -iqe '^[^txz ]+ +(\\s+\\/)?g?(view|l?n?vim?x?|fzf)(diff)?$'"
-      bind-key -n 'c-left' if-shell "$is_vim" 'send-keys c-left' 'select-pane -l'
-      bind-key -n 'c-down' if-shell "$is_vim" 'send-keys c-down'  'select-pane -d'
-      bind-key -n 'c-up' if-shell "$is_vim" 'send-keys c-up'  'select-pane -u'
-      bind-key -n 'c-right' if-shell "$is_vim" 'send-keys c-right'  'select-pane -r'
-      tmux_version='$(tmux -v | sed -en "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
-      if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
-          "bind-key -n 'c-\\' if-shell \"$is_vim\" 'send-keys c-\\'  'select-pane -l'"
-      if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
-          "bind-key -n 'c-\\' if-shell \"$is_vim\" 'send-keys c-\\\\'  'select-pane -l'"
 
       # binding windowr navigation to alt+shift
       bind -n m-n previous-window
