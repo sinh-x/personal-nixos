@@ -15,6 +15,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
+    ../features/tmux.nix
   ];
 
 
@@ -22,6 +23,14 @@
   home = {
     username = "sinh";
     homeDirectory = "/home/sinh";
+    sessionVariables = {
+      IMSETTINGS_MODULE="fcitx5";
+      INPUT_METHOD="fcitx5";
+      GTK_IM_MODULE="fcitx5";
+      QT_IM_MODULE="fcitx5";
+      "GLFW_IM_MODULE" ="ibus";
+      XMODIFIERS="fcitx5";
+    };
   };
 
   # Add stuff for your user as you see fit:
@@ -30,7 +39,7 @@
   home.packages = with pkgs; [
 
     sct # for setting color temperature
- 
+
     firefox
     tree
     google-chrome
@@ -76,7 +85,6 @@
 
     # # utility
     copyq
-    libsForQt5.fcitx5-unikey
     virtualbox
 
     nh
@@ -166,7 +174,6 @@
     acpilight
     unzip
     fish
-    tmux
     neovim
 
     pulsemixer
@@ -175,8 +182,6 @@
   fonts.fontconfig = {
     enable = true;
   };
-
-  
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
@@ -213,7 +218,7 @@
       name = "IosevkaTerm Nerd Font"; 
       size = 10;
     };
-    theme = "Tokyo Night";
+    theme = "Gruvbox Material Dark Hard";
     extraConfig = ''
       confirm_os_window_close 0
     '';
