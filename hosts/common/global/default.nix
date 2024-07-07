@@ -93,5 +93,19 @@
     vim
     wget
     curl
+
+    # fish plugins
+    fishPlugins.z
+    fishPlugins.fzf-fish
+    fishPlugins.tide
+    fishPlugins.puffer
+    fishPlugins.done
+
   ];
+
+  programs = {
+    fish = {
+      enable = true;
+    };
+  };
 }
