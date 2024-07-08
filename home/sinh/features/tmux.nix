@@ -39,22 +39,44 @@ in {
     enable = true;
     prefix = "C-a";
 
-    plugins = with pkgs.tmuxPlugins; [
-      tmux-fzf
-      resurrect
-      continuum
-      copycat
-      logging
-      sensible
-      yank
-      fzf-tmux-url
-      sessionist
-      tmux-fzf-session-switch
+    plugins = with pkgs; [
+      tmuxPlugins.tmux-fzf
+      tmuxPlugins.resurrect
+      tmuxPlugins.copycat
+      tmuxPlugins.logging
+      tmuxPlugins.sensible
+      tmuxPlugins.yank
+      tmuxPlugins.fzf-tmux-url
+      tmuxPlugins.sessionist
+      { 
+        plugin = tmux-fzf-session-switch;
+        extraConfig = ''
+          set -g @fzf-goto-session 'f'
+        '';
+      }
       aw-watcher-tmux
-      tokyo-night-tmux
+      {
+        plugin = tokyo-night-tmux;
+        extraConfig = ''
+          # now playing widget
+          set -g @tokyo-night-tmux_show_music 1
+
+          # netspeed widget
+          set -g @tokyo-night-tmux_show_netspeed 1
+          set -g @tokyo-night-tmux_netspeed_iface "wlo1" # detected via default route
+          set -g @tokyo-night-tmux_netspeed_showip 1      # display ipv4 address (default 0)
+          set -g @tokyo-night-tmux_netspeed_refresh 1     # update interval in seconds (default 1)
+        '';
+      }
+      tmuxPlugins.continuum
     ];
 
     extraConfig = ''
+      unbind C-b
+
+      set -g prefix C-a
+      bind C-a send-prefix
+
 
       # binding windowr navigation to alt+shift
       bind -n m-n previous-window
@@ -63,36 +85,14 @@ in {
       ## set vi-mode
       set-window-option -g mode-keys vi
 
-      # keybindings
-      bind-key -t copy-mode-vi v send-keys -x begin-selection
-      bind-key -t copy-mode-vi c-v send-keys -x rectangle-toggle
-      bind-key -t copy-mode-vi y send-keys -x copy-selection-and-cancel
-
       # open panes in current working directory
       bind '"' split-window -v -c "#{pane_current_path}"
       bind '%' split-window -h -c "#{pane_current_path}"
-
-      ## join windows: <prefix> s, <prefix> j
-      bind-key j command-prompt -p "join pane from:"  "join-pane -s '%%'"
-      bind-key s command-prompt -p "send pane to:"  "join-pane -t '%%'"
 
       # tmux-logging config ---------------------------------
       set -g @logging-path "/home/sinh/synced-files/tmux-logs"
       set -g @save-complete-history-path "/home/sinh/synced-files/tmux-history"
       set -g @screen-capture-path "/home/sinh/pictures/tmux"
-
-      # tokyo-night config ---------------------------------
-      # now playing widget
-      set -g @tokyo-night-tmux_show_music 1
-
-      # netspeed widget
-      set -g @tokyo-night-tmux_show_netspeed 1
-      set -g @tokyo-night-tmux_netspeed_iface "wlo1" # detected via default route
-      set -g @tokyo-night-tmux_netspeed_showip 1      # display ipv4 address (default 0)
-      set -g @tokyo-night-tmux_netspeed_refresh 1     # update interval in seconds (default 1)
-
-      # tmux-fzf-session-switch ---------------------------------
-      set -g @fzf-goto-session 'f'
 
       # tmux resurrect ------------------------------------------
       set -g @resurrect-dir '/home/sinh/synced-files/tmux-sessions-sinh-desktop/'
