@@ -15,7 +15,6 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
-    ../features/tmux.nix
     ../features/fish.nix
   ];
 
@@ -59,6 +58,7 @@
     caprine-bin
     zoom-us
     viber
+    slack
 
     helix
     lazygit
@@ -178,6 +178,7 @@
     neovim
 
     pulsemixer
+    tmux
   ];
 
   fonts.fontconfig = {

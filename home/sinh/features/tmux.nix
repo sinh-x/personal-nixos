@@ -5,7 +5,7 @@
   ...
 }: let
   aw-watcher-tmux = pkgs.tmuxPlugins.mkTmuxPlugin {
-    pluginName = "aw-watcher-tmux";
+    pluginName = "aw_watcher_tmux";
     version = "1.0";
     src = pkgs.fetchFromGitHub {
       owner = "akohlbecker";
@@ -38,64 +38,67 @@ in {
   programs.tmux = {
     enable = true;
     prefix = "C-a";
+    mouse = true;
+    shell = "\${pkg.fish}/bin/fish";
 
-    plugins = with pkgs; [
-      tmuxPlugins.tmux-fzf
-      tmuxPlugins.resurrect
-      tmuxPlugins.copycat
-      tmuxPlugins.logging
-      tmuxPlugins.sensible
-      tmuxPlugins.yank
-      tmuxPlugins.fzf-tmux-url
-      tmuxPlugins.sessionist
-      { 
-        plugin = tmux-fzf-session-switch;
-        extraConfig = ''
-          set -g @fzf-goto-session 'f'
-        '';
-      }
-      aw-watcher-tmux
-      {
-        plugin = tokyo-night-tmux;
-        extraConfig = ''
-          # now playing widget
-          set -g @tokyo-night-tmux_show_music 1
-
-          # netspeed widget
-          set -g @tokyo-night-tmux_show_netspeed 1
-          set -g @tokyo-night-tmux_netspeed_iface "wlo1" # detected via default route
-          set -g @tokyo-night-tmux_netspeed_showip 1      # display ipv4 address (default 0)
-          set -g @tokyo-night-tmux_netspeed_refresh 1     # update interval in seconds (default 1)
-        '';
-      }
-      tmuxPlugins.continuum
-    ];
-
-    extraConfig = ''
-      unbind C-b
-
-      set -g prefix C-a
-      bind C-a send-prefix
-
-
-      # binding windowr navigation to alt+shift
-      bind -n m-n previous-window
-      bind -n m-e next-window
-
-      ## set vi-mode
-      set-window-option -g mode-keys vi
-
-      # open panes in current working directory
-      bind '"' split-window -v -c "#{pane_current_path}"
-      bind '%' split-window -h -c "#{pane_current_path}"
-
-      # tmux-logging config ---------------------------------
-      set -g @logging-path "/home/sinh/synced-files/tmux-logs"
-      set -g @save-complete-history-path "/home/sinh/synced-files/tmux-history"
-      set -g @screen-capture-path "/home/sinh/pictures/tmux"
-
-      # tmux resurrect ------------------------------------------
-      set -g @resurrect-dir '/home/sinh/synced-files/tmux-sessions-sinh-desktop/'
-    '';
+    # plugins = with pkgs; [
+    #   tmuxPlugins.tmux-fzf
+    #   tmuxPlugins.resurrect
+    #   tmuxPlugins.copycat
+    #   tmuxPlugins.logging
+    #   tmuxPlugins.sensible
+    #   tmuxPlugins.yank
+    #   tmuxPlugins.fzf-tmux-url
+    #   tmuxPlugins.sessionist
+    #   { 
+    #     plugin = tmux-fzf-session-switch;
+    #     extraConfig = ''
+    #       set -g @fzf-goto-session 'f'
+    #     '';
+    #   }
+    #   aw-watcher-tmux
+    #   {
+    #     plugin = tokyo-night-tmux;
+    #     extraConfig = ''
+    #       # now playing widget
+    #       set -g @tokyo-night-tmux_show_music 1
+    #
+    #       # netspeed widget
+    #       set -g @tokyo-night-tmux_show_netspeed 1
+    #       set -g @tokyo-night-tmux_netspeed_iface "wlo1" # detected via default route
+    #       set -g @tokyo-night-tmux_netspeed_showip 1      # display ipv4 address (default 0)
+    #       set -g @tokyo-night-tmux_netspeed_refresh 1     # update interval in seconds (default 1)
+    #     '';
+    #   }
+    #   tmuxPlugins.continuum
+    # ];
+    #
+    # extraConfig = ''
+    #   unbind C-b
+    #
+    #   set -g prefix C-a
+    #   bind C-a send-prefix
+    #
+    #   run-shell /nix/store/m6bbqwwbxx0kgghhg6ddccq9gv1bj2qc-tmuxplugin-tmux-fzf-session-switch-v2./share/tmux-plugins/tmux-fzf-session-switch/main.tmux
+    #
+    #   # binding windowr navigation to alt+shift
+    #   bind -n m-n previous-window
+    #   bind -n m-e next-window
+    #
+    #   ## set vi-mode
+    #   set-window-option -g mode-keys vi
+    #
+    #   # open panes in current working directory
+    #   bind '"' split-window -v -c "#{pane_current_path}"
+    #   bind '%' split-window -h -c "#{pane_current_path}"
+    #
+    #   # tmux-logging config ---------------------------------
+    #   set -g @logging-path "/home/sinh/synced-files/tmux-logs"
+    #   set -g @save-complete-history-path "/home/sinh/synced-files/tmux-history"
+    #   set -g @screen-capture-path "/home/sinh/pictures/tmux"
+    #
+    #   # tmux resurrect ------------------------------------------
+    #   set -g @resurrect-dir '/home/sinh/synced-files/tmux-sessions-sinh-desktop/'
+    # '';
   };
 }
