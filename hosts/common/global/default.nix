@@ -47,6 +47,9 @@
 
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" "8.8.4.4" ];
 
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.guest.enable = true;
+  
   # Set your time zone.
   time.timeZone = "Asia/Ho_Chi_Minh";
 

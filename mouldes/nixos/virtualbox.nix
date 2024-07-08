@@ -7,8 +7,7 @@ in {
     modules.virtualbox.enable = lib.mkEnableOption "R and r-packages installation";
   };
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      virtualbox
-    ];
+    virtualisation.virtualbox.host.enable = true;
+    virtualisation.virtualbox.guest.enable = true;
   };
 }

@@ -11,7 +11,7 @@
      isNormalUser = true;
        extraGroups = [ 
          "wheel" "network" "power" "video" "audio"
-         "tty" "dialout"
+         "tty" "dialout" "vboxusers"
        ];
 
     shell = pkgs.fish;
