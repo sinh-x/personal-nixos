@@ -5,5 +5,6 @@
   imports = [ 
     ./r_setup.nix 
     ./nix_ld.nix
+    ./virtualbox.nix
   ];
 }

@@ -86,7 +86,6 @@
 
     # # utility
     copyq
-    virtualbox
 
     nh
 
@@ -170,7 +169,6 @@
     xml2
     libxml2
     pkg-config
-    openssl
     ocamlPackages.ssl
     acpilight
     unzip
@@ -179,6 +177,9 @@
 
     pulsemixer
     tmux
+
+    p7zip
+    zip
   ];
 
   fonts.fontconfig = {

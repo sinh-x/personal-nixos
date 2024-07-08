@@ -42,6 +42,7 @@ in {
         nspr
         nss
         openssl
+        ocamlPackages.ssl
         pango
         pipewire
         stdenv.cc.cc

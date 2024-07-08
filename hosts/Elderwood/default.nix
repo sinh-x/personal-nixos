@@ -23,6 +23,7 @@
   modules = {
     r_setup.enable = true;
     nix_ld.enable = true;
+    virtualbox.enable = true;
   };
 
   nix = let

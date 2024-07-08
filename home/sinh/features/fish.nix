@@ -88,6 +88,7 @@
 
       # ----- Tmux session wizard -----
       fish_add_path $HOME/.config/tmux/plugins/tmux-session-wizard/bin
+      fish_add_path $HOME/.config/sinh-scripts
 
       # ----- sinh-x plugin -----
       set sinh_git_folders (/usr/bin/env cat ~/.config/sinh-x-local/sinh_git_folders.txt | read -z)

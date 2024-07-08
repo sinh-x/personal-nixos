@@ -93,6 +93,8 @@
     vim
     wget
     curl
+    openssl
+    ocamlPackages.ssl
 
     # fish plugins
     fishPlugins.z
