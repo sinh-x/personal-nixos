@@ -111,15 +111,7 @@
            sha256 = "YnkX18J/1KDW5C0JpWIDmAQD3dfxJ68OmVttgI0v0iE=";  
          };
       }
-      {
-        name = "tmux";
-        src = pkgs.fetchFromGitHub {
-          owner = "budimanjojo";
-          repo = "tmux.fish";
-          rev = "e95dbc11fa57d738cd837cb659d50b73ec0a8d90";
-          sha256 = "tNq/F9NQZZ1pd0ZWPzQVwuHABCVECmXRN12ovGSUUFU=";
-        };
-      }
+      
     ];
   };
 }

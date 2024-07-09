@@ -60,23 +60,17 @@
     viber
     slack
 
-    helix
-    lazygit
-
-    rstudio
     # programming
     clang
     go
-    kotlin
-
     jre_minimal
     julia-lts
-
+    kotlin
     luajit
-    #
     mercurial
     nodejs_22
     prettierd
+    rstudio
 
     rustc
     cargo
@@ -84,18 +78,9 @@
     tree-sitter
     zig
 
-    # utility
-    copyq
-    nh
-
-    awscli2
-
-    tree
-
     # editor
     lldb
     icu
-
     lua-language-server
     stylua
 
@@ -107,14 +92,17 @@
     # shell
     neofetch
 
-    # bspwm setup
+    # cli utilities
+    awscli2
     bat
     btop
     fzf
     git
     gh
     htop
+    lazygit
     tldr
+    tree
 
     # file manager
     dua
@@ -133,6 +121,7 @@
     bitwarden
     bluez
     bc
+    nh
 
     libcpr
     ocamlPackages.ocurl
@@ -148,7 +137,6 @@
     fish
     neovim
 
-    pulsemixer
     tmux
 
     p7zip

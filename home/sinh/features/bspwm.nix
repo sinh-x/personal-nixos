@@ -3,6 +3,7 @@
   ...
 }: {
   home.packages = with pkgs; [
+    copyq
     dmenu
     dunst
     feh
@@ -13,6 +14,7 @@
     killall
     libnotify
     polybar
+    pulsemixer
     rofi
     screenkey
     xclip

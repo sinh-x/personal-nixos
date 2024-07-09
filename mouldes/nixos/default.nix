@@ -6,5 +6,6 @@
     ./r_setup.nix 
     ./nix_ld.nix
     ./virtualbox.nix
+    ./fcitx5.nix
   ];
 }
