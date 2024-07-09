@@ -84,9 +84,8 @@
     tree-sitter
     zig
 
-    # # utility
+    # utility
     copyq
-
     nh
 
     awscli2
@@ -110,38 +109,12 @@
 
     # bspwm setup
     bat
-    bspwm
     btop
-    dunst
-    eww
-    eza
-    feh
-    flameshot
     fzf
     git
     gh
-    gsettings-qt
-    gsimplecal
     htop
-    input-leap
-    # picom
-    rofi
-    polybar
-    xfce.thunar
     tldr
-    dmenu
-    libnotify
-    sxhkd
-    killall
-    screenkey
-    light
-    xcolor
-    xdg-utils
-    xdo
-    xclip
-    xdotool
-    xorg.xev
-    xorg.xinit
 
     # file manager
     dua
