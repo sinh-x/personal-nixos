@@ -17,6 +17,7 @@
     pulsemixer
     rofi
     screenkey
+    sxhkd
     xclip
     xcolor
     xdg-utils

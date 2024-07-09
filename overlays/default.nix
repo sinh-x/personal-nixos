@@ -35,5 +35,6 @@ in {
 
   # Modifies existing packages
   modifications = final: prev: {
+     zjstatus = inputs.zjstatus.packages.${prev.system}.default;
   };
 }

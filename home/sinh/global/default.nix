@@ -104,6 +104,8 @@
     tldr
     tree
 
+    cargo-wasi
+
     # file manager
     dua
     yazi
@@ -134,13 +136,12 @@
     ocamlPackages.ssl
     acpilight
     unzip
-    fish
     neovim
-
-    tmux
 
     p7zip
     zip
+
+    zjstatus
   ];
 
   fonts.fontconfig = {
