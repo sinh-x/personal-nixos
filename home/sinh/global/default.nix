@@ -211,9 +211,15 @@
     enable = true;
   };
 
+  programs.lsd = {
+    enable = true;
+    enableAliases = true;
+  };
+
   programs.alacritty = {
     enable = true;
   };
+
 
   programs.kitty = {
     enable = true;
@@ -225,6 +231,11 @@
     extraConfig = ''
       confirm_os_window_close 0
     '';
+  };
+
+  programs.zellij = {
+    enable = true;
+    enableFishIntegration = true;
   };
 
 

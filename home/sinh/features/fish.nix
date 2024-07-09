@@ -72,7 +72,7 @@
       set -x BAT_THEME tokyonight_night
 
       # ---- Eza (better ls) -----
-      alias ls "eza --icons=always"
+      # alias ls "eza --icons=always"
 
       # ----- Zoxide (better cd) ------
       zoxide init fish | source
