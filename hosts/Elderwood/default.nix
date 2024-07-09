@@ -24,6 +24,7 @@
     r_setup.enable = true;
     nix_ld.enable = true;
     virtualbox.enable = true;
+    fcitx5.enable = true;
   };
 
   nix = let

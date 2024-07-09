@@ -65,15 +65,6 @@
   #   usxeXkbConfig = true; # use xkb.options in tty.
   # };
 
-  i18n.inputMethod = {
-    enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      fcitx5-mozc
-      fcitx5-gtk
-      libsForQt5.fcitx5-unikey
-    ];
-  };
-
   fonts.packages = with pkgs; [
     corefonts
     icomoon-feather
@@ -98,13 +89,6 @@
     curl
     openssl
     ocamlPackages.ssl
-
-    # fish plugins
-    fishPlugins.z
-    fishPlugins.fzf-fish
-    fishPlugins.tide
-    fishPlugins.puffer
-    fishPlugins.done
 
   ];
 
