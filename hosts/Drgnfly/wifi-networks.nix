@@ -30,6 +30,9 @@
       "DoveZi Coffee" = {
         psk = "@dovezi@";
       };
+      "CAFE_KOHI_5Ghz" = {
+        psk = "@kohitayninh@";
+      };
     };
   };
 }
