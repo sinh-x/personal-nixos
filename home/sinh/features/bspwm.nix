@@ -11,10 +11,13 @@
     flameshot
     gsettings-qt
     gsimplecal
+    gtk3
+    pastel
     input-leap
     killall
     libnotify
     polybar
+    pamixer
     pulsemixer
     rofi
     screenkey

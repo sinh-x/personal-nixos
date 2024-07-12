@@ -74,7 +74,7 @@
     powerline-fonts
     (nerdfonts.override {
       fonts = [
-        "FiraCode" "Hack" "Iosevka" "IosevkaTerm"
+        "FiraCode" "Hack" "Iosevka" "IosevkaTerm" "JetBrainsMono"
       ];
     })
     wps-missing-fonts
