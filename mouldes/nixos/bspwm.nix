@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  cfg = config.modules.bspmw;
+  cfg = config.modules.bspwm;
 in {
   options = {
     modules.bspwm.enable = lib.mkEnableOption "R and r-packages installation";
@@ -15,17 +15,10 @@ in {
             enable = true;
             greeters.gtk.enable = true;
           };
-        sessionCommands = ''
-          ${pkgs.bspwm}/bin/bspc wm -r
-          source $HOME/.config/bspwm/bspwmrc
-        '';
         };
         windowManager.bspwm = {
           enable = true;
           package = pkgs.bspwm;
-          sxhkd = {
-            package = pkgs.sxhkd;
-          };
         };
       };
     displayManager.defaultSession = "none+bspwm";
@@ -45,7 +38,7 @@ in {
       input-leap
       killall
       libnotify
-      polybar
+      polybarFull
       pamixer
       pulsemixer
       rofi

@@ -7,5 +7,6 @@
     ./nix_ld.nix
     ./virtualbox.nix
     ./fcitx5.nix
+    ./bspwm.nix
   ];
 }
