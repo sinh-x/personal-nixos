@@ -92,6 +92,9 @@
 
       # ----- sinh-x plugin -----
       set sinh_git_folders (/usr/bin/env cat ~/.config/sinh-x-local/sinh_git_folders.txt | read -z)
+
+      # ----- global sessions vars -----
+      source ~/.config/sinh-x-local/global_sessions_vars.fish
     '';
     plugins = [
       {

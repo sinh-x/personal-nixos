@@ -182,7 +182,6 @@
     enable = true;
   };
 
-
   programs.kitty = {
     enable = true;
     font = {
@@ -198,6 +197,10 @@
   programs.zellij = {
     enable = true;
     enableFishIntegration = false;
+    settings = {
+      defaultShell = "fish";
+      scrollback_editor = "nvim";
+    };
   };
 
 

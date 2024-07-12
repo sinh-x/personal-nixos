@@ -10,7 +10,7 @@
         psk = "@vuonnha@";
       };
       "VINA_NHA MINH 1" = {
-        psk = "@vinanhaminh@";
+        psk = "@nhaminh@";
       };
       "La Preso 5.0Ghz" = {
         psk = "@lapreso@";
