@@ -25,6 +25,7 @@
     nix_ld.enable = true;
     virtualbox.enable = true;
     fcitx5.enable = true;
+    bspwm.enable = true;
   };
 
   nix = let
@@ -56,31 +57,6 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
-  # Enable the X11 windowing system.
-  services = {
-    xserver = {
-    enable = true;
-    displayManager = {
-      lightdm = {
-        enable = true;
-        greeters.gtk.enable = true;
-      };
-    sessionCommands = ''
-      ${pkgs.bspwm}/bin/bspc wm -r
-      source $HOME/.config/bspwm/bspwmrc
-    '';
-    };
-    windowManager.bspwm = {
-      enable = true;
-      package = pkgs.bspwm;
-      sxhkd = {
-        package = pkgs.sxhkd;
-      };
-    };
-    };
-   displayManager.defaultSession = "none+bspwm";
-  };
-  
   services.picom = {
     enable = true;
     shadow = true;

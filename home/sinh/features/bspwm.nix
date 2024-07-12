@@ -3,32 +3,5 @@
   ...
 }: {
   home.packages = with pkgs; [
-    betterlockscreen
-    copyq
-    dmenu
-    dunst
-    feh
-    flameshot
-    gsettings-qt
-    gsimplecal
-    gtk3
-    pastel
-    input-leap
-    killall
-    libnotify
-    polybar
-    pamixer
-    pulsemixer
-    rofi
-    screenkey
-    sxhkd
-    xclip
-    xcolor
-    xdg-utils
-    xdo
-    xdotool
-    xfce.thunar
-    xorg.xev
-    xorg.xinit
   ];
 }
