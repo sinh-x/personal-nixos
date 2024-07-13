@@ -93,6 +93,7 @@
     neofetch
 
     # cli utilities
+    atuin
     awscli2
     bat
     btop
@@ -103,9 +104,6 @@
     lazygit
     tldr
     tree
-
-    cargo-wasi
-
     # file manager
     dua
     yazi
@@ -116,6 +114,9 @@
     poppler
     ripgrep
     zoxide
+
+    cargo-wasi
+
 
     # utility
     p7zip

@@ -68,6 +68,9 @@
       set -x FZF_CTRL_T_OPTS "--preview '$show_file_or_dir_preview'"
       set -x FZF_ALT_C_OPTS "--preview 'eza --tree --color=always {} | head -200'"
 
+      # ----- Atuin -----
+      atuin init fish | source
+
       # ----- Bat (better cat) -----
       set -x BAT_THEME tokyonight_night
 
