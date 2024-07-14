@@ -69,7 +69,7 @@
       set -x FZF_ALT_C_OPTS "--preview 'eza --tree --color=always {} | head -200'"
 
       # ----- Atuin -----
-      atuin init fish | source
+      atuin init fish --disable-up-arrow | source
 
       # ----- Bat (better cat) -----
       set -x BAT_THEME tokyonight_night
