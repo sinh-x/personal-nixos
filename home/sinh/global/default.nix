@@ -38,6 +38,8 @@
   # home.packages = with pkgs; [ steam ];
   home.packages = with pkgs; [
 
+    ip_update
+
     sct # for setting color temperature
 
     firefox
