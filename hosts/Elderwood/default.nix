@@ -103,6 +103,7 @@
 
   environment.systemPackages = with pkgs; [
     noip
+    cups-pdf-to-pdf
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -123,6 +124,10 @@
       # remove if you want to ssh using passwords
       PasswordAuthentication = false;
     };
+  };
+
+  services.printing = {
+    enable = true;
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

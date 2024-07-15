@@ -50,8 +50,6 @@
     # office
     wpsoffice
     obsidian
-    cups
-    cups-pdf-to-pdf
 
     activitywatch
     qmk
