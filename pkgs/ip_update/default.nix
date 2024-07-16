@@ -4,7 +4,7 @@ let
   src = pkgs.fetchFromGitHub {
     owner = "sinh-x";
     repo = "ip_update";
-    rev = "b672d020bc88ac6155aeb88fd1a6dca87a1fb8d7";
+    rev = "fc7350ad71975e304bc3d6d40c45ab83df243f99";
     sha256 = "sha256-H76Co7WLjEFmZoMJN/plBrVNrW4AzJsiREYIcRc7pd0=";
   };
 in
