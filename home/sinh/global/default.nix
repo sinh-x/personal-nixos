@@ -40,6 +40,8 @@
 
     ip_update
 
+    yt-dlp
+
     sct # for setting color temperature
 
     firefox
