@@ -67,6 +67,7 @@
 
   fonts.packages = with pkgs; [
     corefonts
+    lato
     icomoon-feather
     material-icons
     meslo-lgs-nf
