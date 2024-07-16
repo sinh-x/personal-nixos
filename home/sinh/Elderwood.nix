@@ -6,5 +6,4 @@
     ./features/mpd.nix
   ];
 
-
 }

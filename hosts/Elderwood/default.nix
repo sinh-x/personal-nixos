@@ -28,6 +28,11 @@
     bspwm.enable = true;
   };
 
+  services.ip_updater = {
+    enable = true;
+    package = pkgs.ip_update;
+  };
+
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
   in {
