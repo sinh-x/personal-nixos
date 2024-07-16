@@ -14,7 +14,7 @@
 
     ../common/optional/pipewire.nix
 
-    ../../mouldes/nixos
+    ../../modules/nixos
     
   ];
 
