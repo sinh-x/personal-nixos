@@ -8,6 +8,7 @@
   imports =
     [
       inputs.home-manager.nixosModules.home-manager
+      outputs.nixosModules
     ];
 
   home-manager.useGlobalPkgs = true;

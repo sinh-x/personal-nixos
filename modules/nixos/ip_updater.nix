@@ -14,18 +14,27 @@ in
       default = pkgs.ip_update;
       description = "The package to use for the ip_updater service.";
     };
+
+    wasabiAccessKeyFile = mkOption {
+      type = types.path;
+      default = "";
+      description = "The file that contains the Wasabi access key for the ip_updater service.";
+    };
   };
 
   config = mkIf cfg.enable {
-    systemd.user.services.ip_updater = {
+    systemd.services.ip_updater = {
       description = "Run ip_update";
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/ip_update";
+        EnvironmentFile = cfg.wasabiAccessKeyFile;
+        StandardOutput = "journal";
+        StandardError = "journal";
       };
-      wantedBy = [ "default.target" ];
+      wantedBy = [ "multi-user.target" ];
     };
 
-    systemd.user.timers.ip_updater = {
+    systemd.timers.ip_updater = {
       description = "Schedule ip_update 5mins after boot";
       timerConfig = {
         OnBootSec = "5min";

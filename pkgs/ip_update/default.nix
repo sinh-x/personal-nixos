@@ -4,8 +4,8 @@ let
   src = pkgs.fetchFromGitHub {
     owner = "sinh-x";
     repo = "ip_update";
-    rev = "fc7350ad71975e304bc3d6d40c45ab83df243f99";
-    sha256 = "sha256-H76Co7WLjEFmZoMJN/plBrVNrW4AzJsiREYIcRc7pd0=";
+    rev = "3e0191d757420b9a179327f8e9b4c0c8f558b223";
+    sha256 = "sha256-CBHsn4M6o78x9hcc203HcNlFkplcCTjXVqK4b3k4ZEY=";
   };
 in
 pkgs.rustPlatform.buildRustPackage rec {
@@ -14,7 +14,7 @@ pkgs.rustPlatform.buildRustPackage rec {
 
   inherit src;
 
-  cargoSha256 = "sha256-yICTbIDOyTCy443pBa0yS+W2WOUCbBJijj53JooL9Kw=";
+  cargoSha256 = "sha256-QD3LgDxnAXR4VUnXwchW80vffeAp1JylGq5bKdCcdgE=";
   buildInputs = [ pkgs.openssl ];
   nativeBuildInputs = [ pkgs.cargo pkgs.rustc pkgs.pkg-config pkgs.openssl ];
   LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [

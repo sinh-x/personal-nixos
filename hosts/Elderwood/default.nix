@@ -13,8 +13,6 @@
     ../common/users/sinh
 
     ../common/optional/pipewire.nix
-
-    ../../modules/nixos
     
   ];
 
@@ -31,6 +29,7 @@
   services.ip_updater = {
     enable = true;
     package = pkgs.ip_update;
+    wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-local/wasabi-access-key.env";
   };
 
   nix = let
