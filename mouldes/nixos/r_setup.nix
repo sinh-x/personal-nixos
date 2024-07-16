@@ -63,7 +63,6 @@ in {
         modelr
         nlme
         nloptr
-        officer
         openxlsx
         rJava
         reactable
