@@ -15,8 +15,6 @@
     ../common/optional/pipewire.nix
 
     ./wifi-networks.nix
-
-    ../../modules/nixos
   ];
 
   networking.hostName = "Drgnfly";
