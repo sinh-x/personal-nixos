@@ -16,7 +16,8 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     ../features/fish.nix
-  ];
+  ]
+  ++ (builtins.attrValues outputs.homeManagerModules);
 
 
   # TODO: Set your username

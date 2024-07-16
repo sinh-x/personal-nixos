@@ -45,6 +45,11 @@
     }
   ];
 
+  services.ip_updater = {
+    enable = true;
+    package = pkgs.ip_update;
+  };
+
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" "8.8.4.4" ];
 
   virtualisation.virtualbox.host.enable = true;
