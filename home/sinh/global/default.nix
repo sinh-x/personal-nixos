@@ -41,6 +41,10 @@
     
     anydesk
 
+    libsForQt5.kdenlive
+    ffmpeg_7-full
+    mpv
+
     ip_update
 
     yt-dlp
