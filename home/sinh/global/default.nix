@@ -38,6 +38,8 @@
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
   home.packages = with pkgs; [
+    
+    anydesk
 
     ip_update
 
