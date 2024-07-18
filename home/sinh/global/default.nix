@@ -70,6 +70,7 @@
     zoom-us
     viber
     slack
+    discord
 
     # programming
     clang
@@ -148,7 +149,6 @@
     ocamlPackages.ssl
     acpilight
     unzip
-    neovim
 
     p7zip
     zip

@@ -12,6 +12,16 @@
     zjstatus = {
       url = "github:dj95/zjstatus";
     };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    Neve = {
+      url = "github:sinh-x/Neve";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... } @ inputs: 
