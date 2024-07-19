@@ -24,8 +24,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... } @ inputs: 
-  let
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  } @ inputs: let
     inherit (self) outputs;
     systems = [
       "aarch64-linux"
@@ -36,8 +40,7 @@
     ];
 
     forAllSystems = nixpkgs.lib.genAttrs systems;
-  in 
-  {
+  in {
     # Accessible through 'nix build', 'nix shell', etc
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     # Formatter for your nix files, available through 'nix fmt'
@@ -55,20 +58,19 @@
 
     nixosConfigurations = {
       Elderwood = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs outputs; };
+        specialArgs = {inherit inputs outputs;};
 
         modules = [
           ./hosts/Elderwood
         ];
-      };    
+      };
       Drgnfly = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs outputs; };
+        specialArgs = {inherit inputs outputs;};
 
         modules = [
           ./hosts/Drgnfly
         ];
-      };    
-
+      };
     };
   };
 }
