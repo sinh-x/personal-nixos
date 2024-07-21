@@ -9,28 +9,28 @@
   ...
 }: {
   # You can import other home-manager modules here
-  imports = [
-    # If you want to use home-manager modules from other flakes (such as nix-colors):
-    # inputs.nix-colors.homeManagerModule
+  imports =
+    [
+      # If you want to use home-manager modules from other flakes (such as nix-colors):
+      # inputs.nix-colors.homeManagerModule
 
-    # You can also split up your configuration and import pieces of it here:
-    # ./nvim.nix
-    ../features/fish.nix
-  ]
-  ++ (builtins.attrValues outputs.homeManagerModules);
-
+      # You can also split up your configuration and import pieces of it here:
+      # ./nvim.nix
+      ../features/fish.nix
+    ]
+    ++ (builtins.attrValues outputs.homeManagerModules);
 
   # TODO: Set your username
   home = {
     username = "sinh";
     homeDirectory = "/home/sinh";
     sessionVariables = {
-      IMSETTINGS_MODULE="fcitx5";
-      INPUT_METHOD="fcitx5";
-      GTK_IM_MODULE="fcitx5";
-      QT_IM_MODULE="fcitx5";
-      "GLFW_IM_MODULE" ="ibus";
-      XMODIFIERS="fcitx5";
+      IMSETTINGS_MODULE = "fcitx5";
+      INPUT_METHOD = "fcitx5";
+      GTK_IM_MODULE = "fcitx5";
+      QT_IM_MODULE = "fcitx5";
+      "GLFW_IM_MODULE" = "ibus";
+      XMODIFIERS = "fcitx5";
     };
   };
 
@@ -38,7 +38,6 @@
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
   home.packages = with pkgs; [
-    
     anydesk
 
     libsForQt5.kdenlive
@@ -129,7 +128,6 @@
 
     cargo-wasi
 
-
     # utility
     p7zip
     alsa-oss
@@ -188,7 +186,7 @@
   programs.kitty = {
     enable = true;
     font = {
-      name = "IosevkaTerm Nerd Font"; 
+      name = "IosevkaTerm Nerd Font";
       size = 10;
     };
     theme = "Gruvbox Material Dark Hard";
@@ -205,7 +203,6 @@
       scrollback_editor = "nvim";
     };
   };
-
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "24.05";
