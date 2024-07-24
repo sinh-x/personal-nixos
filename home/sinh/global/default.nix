@@ -125,6 +125,7 @@
     poppler
     ripgrep
     zoxide
+    zellij
 
     cargo-wasi
 
@@ -187,7 +188,7 @@
     enable = true;
     font = {
       name = "IosevkaTerm Nerd Font";
-      size = 10;
+      size = 11;
     };
     theme = "Gruvbox Material Dark Hard";
     extraConfig = ''
@@ -195,14 +196,15 @@
     '';
   };
 
-  programs.zellij = {
-    enable = true;
-    enableFishIntegration = false;
-    settings = {
-      defaultShell = "fish";
-      scrollback_editor = "nvim";
-    };
-  };
+  # programs.zellij = {
+  #   enable = true;
+  #   enableFishIntegration = false;
+  #   settings = {
+  #     defaultShell = "fish";
+  #     scrollback_editor = "nvim";
+  #     theme = "Tokyo Night";
+  #   };
+  # };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "24.05";
