@@ -3,7 +3,7 @@
   # Pick only one of the below networking options.
   networking.wireless = {
     environmentFile = "/home/sinh/wireless.env";
-    enable = true;  # Enables wireless support via wpa_supplicant.
+    enable = true; # Enables wireless support via wpa_supplicant.
     userControlled.enable = true;
     networks = {
       "5G_Vuon Nha" = {
@@ -32,6 +32,9 @@
       };
       "CAFE_KOHI_5Ghz" = {
         psk = "@kohitayninh@";
+      };
+      "Tra Sua L'Latino 5 5Ghz" = {
+        psk = "@llatino@";
       };
     };
   };
