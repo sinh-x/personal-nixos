@@ -89,12 +89,6 @@
     tree-sitter
     zig
 
-    # editor
-    lldb
-    icu
-    lua-language-server
-    stylua
-
     # sync
     rclone
     rustic-rs
