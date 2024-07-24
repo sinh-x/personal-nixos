@@ -140,6 +140,8 @@
     zip
 
     zjstatus
+
+    inputs.rust_cli_pomodoro.defaultPackage.x86_64-linux
   ];
 
   fonts.fontconfig = {
@@ -160,6 +162,11 @@
       command = "syncthing-tray";
       package = pkgs.syncthing-tray;
     };
+  };
+
+  services.rust-cli-pomodoro = {
+    enable = true;
+    package = inputs.rust_cli_pomodoro.defaultPackage.x86_64-linux;
   };
 
   programs.lsd = {

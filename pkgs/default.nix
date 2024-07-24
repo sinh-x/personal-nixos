@@ -2,7 +2,7 @@
 # You can build them using 'nix build .#example'
 {pkgs ? import <nixpkgs> {}, ...}: rec {
   # example = pkgs.callPackage ./example { };
-  wps-missing-fonts = pkgs.callPackage ./wps-missing-fonts { };
-  archcraft-icons-fonts = pkgs.callPackage ./archcraft-icons-fonts { };
-  ip_update = pkgs.callPackage ./ip_update { };
+  wps-missing-fonts = pkgs.callPackage ./wps-missing-fonts {};
+  archcraft-icons-fonts = pkgs.callPackage ./archcraft-icons-fonts {};
+  ip_update = pkgs.callPackage ./ip_update {};
 }

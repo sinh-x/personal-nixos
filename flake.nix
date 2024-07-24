@@ -22,6 +22,10 @@
     Neve = {
       url = "github:sinh-x/Neve";
     };
+
+    rust_cli_pomodoro = {
+      url = "github:sinh-x/rust-cli-pomodoro/nix-implementation"; # adjust the path to your flake
+    };
   };
 
   outputs = {
