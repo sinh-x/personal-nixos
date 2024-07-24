@@ -64,13 +64,6 @@
     activitywatch
     qmk
 
-    # # Chat
-    caprine-bin
-    zoom-us
-    viber
-    slack
-    discord
-
     # programming
     clang
     go
