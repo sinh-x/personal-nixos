@@ -20,16 +20,16 @@ in {
   config = mkIf cfg.enable {
     assertions = [(hm.assertions.assertPlatform "services.rust-cli-pomodoro" pkgs platforms.linux)];
 
-    systemd.user.services.rust-cli-pomodoro = {
+    systemd.user.services.pomodoro-cli = {
       Unit = {
-        AssertFileIsExecutable = "${cfg.package}/bin/pomodoro";
+        AssertFileIsExecutable = "${cfg.package}/bin/daemon";
         Description = "pomodoro services";
-        Documentation = "";
+        Documentation = "A pmodooro cli tool";
         PartOf = ["default.target"];
       };
 
       Service = {
-        ExecStart = "${cfg.package}/bin/pomodoro";
+        ExecStart = "${cfg.package}/bin/daemon";
       };
 
       Install = {
