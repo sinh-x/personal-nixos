@@ -640,11 +640,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1721885579,
-        "narHash": "sha256-FsomdHpf8Edw7LuLZngXdXey/DtviLBR3uQJt5txNVA=",
+        "lastModified": 1722002357,
+        "narHash": "sha256-Kg2kSwiAAtmVlXMnOMqTvLcmv6MBxp0LOAYlxCAgm4s=",
         "owner": "sinh-x",
         "repo": "rust-cli-pomodoro",
-        "rev": "5aad7585763b0e8a9f9414fa6bcc6ab91553fb5d",
+        "rev": "07dbdc58bcb5606766bd40a12c4cb8554c43989a",
         "type": "github"
       },
       "original": {
