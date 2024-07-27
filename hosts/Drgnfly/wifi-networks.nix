@@ -36,6 +36,9 @@
       "Tra Sua L'Latino 5 5Ghz" = {
         psk = "@llatino@";
       };
+      "Home Coffee 01" = {
+        psk = "@homecoffee@";
+      };
     };
   };
 }
