@@ -24,9 +24,11 @@ in {
       inputs;
   };
 
-  # Adds pkgs.stable == inputs.nixpkgs-stable.legacyPackages.${pkgs.system}
-  stable = final: _: {
-    stable = inputs.nixpkgs-stable.legacyPackages.${final.system};
+  unstable-packages = final: _prev: {
+    unstable = import inputs.nixpkgs-unstable {
+      inherit (final) system;
+      config.allowUnfree = true;
+    };
   };
 
   # Adds my custom packages
@@ -35,6 +37,6 @@ in {
 
   # Modifies existing packages
   modifications = final: prev: {
-     zjstatus = inputs.zjstatus.packages.${prev.system}.default;
+    zjstatus = inputs.zjstatus.packages.${prev.system}.default;
   };
 }

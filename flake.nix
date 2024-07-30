@@ -2,7 +2,8 @@
   description = "Sinh's NixOS configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -24,13 +25,14 @@
     };
 
     rust_cli_pomodoro = {
-      url = "github:sinh-x/rust-cli-pomodoro/nix-implementation"; # adjust the path to your flake
+      url = "github:sinh-x/rust-cli-pomodoro/nix-implementation";
     };
   };
 
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     home-manager,
     ...
   } @ inputs: let
@@ -82,6 +84,6 @@
           ./hosts/littleBee
         ];
       };
-     };
+    };
   };
 }
