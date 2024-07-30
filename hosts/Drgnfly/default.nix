@@ -13,6 +13,7 @@
     ../common/users/sinh
 
     ../common/optional/pipewire.nix
+    ../common/optional/sddm.nix
 
     ./wifi-networks.nix
   ];
@@ -43,7 +44,7 @@
       flake-registry = "";
       # Workaround for https://github.com/NixOS/nix/issues/9574
       nix-path = config.nix.nixPath;
-      trusted-users = [ "root" "sinh" ];
+      trusted-users = ["root" "sinh"];
       auto-optimise-store = true;
     };
     # Opinionated: disable channels
@@ -72,15 +73,15 @@
   # Enable the X11 windowing system.
   services = {
     xserver = {
-      videoDrivers = [ "displaylink" "modesetting" ];
+      videoDrivers = ["displaylink" "modesetting"];
     };
   };
-  
+
   services.picom = {
     enable = true;
     shadow = true;
   };
-  
+
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
   services.libinput.enable = true;
@@ -92,9 +93,8 @@
     displaylink
   ];
 
-
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [22];
   # networking.firewall.allowedUDPPorts = [ ... ];
 
   # Some programs need SUID wrappers, can be configured further or are

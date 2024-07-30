@@ -34,6 +34,8 @@
     };
   };
 
+  systemd.user.startServices = "sd-switch";
+
   # TODO: Set your username
   home = {
     username = "sinh";
@@ -162,11 +164,10 @@
   };
 
   # Enable home-manager and git
-  programs.home-manager.enable = true;
-  programs.git.enable = true;
-
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
+  programs = {
+    home-manager.enable = true;
+    git.enable = true;
+  };
 
   services.syncthing = {
     enable = true;
@@ -189,18 +190,6 @@
 
   programs.alacritty = {
     enable = true;
-  };
-
-  programs.kitty = {
-    enable = true;
-    font = {
-      name = "IosevkaTerm Nerd Font";
-      size = 11;
-    };
-    theme = "Gruvbox Material Dark Hard";
-    extraConfig = ''
-      confirm_os_window_close 0
-    '';
   };
 
   # programs.zellij = {

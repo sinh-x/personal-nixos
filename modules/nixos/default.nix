@@ -8,6 +8,7 @@
     ./virtualbox.nix
     ./fcitx5.nix
     ./bspwm.nix
+    ./hyprland.nix
     ./ip_updater.nix
   ];
 }

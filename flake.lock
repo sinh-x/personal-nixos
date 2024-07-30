@@ -7,17 +7,16 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1722125539,
-        "narHash": "sha256-THWNgsqym6C9q7GapR/e8QLOq+hYhZJM81qWvL42dT4=",
-        "owner": "sinh-x",
-        "repo": "Neve",
-        "rev": "17ddab2ae56ee953990ad0c806d6dac854117fec",
-        "type": "github"
+        "dirtyRev": "d9961eb40c0ae7a416b930a42131f9f319634c15-dirty",
+        "dirtyShortRev": "d9961eb-dirty",
+        "lastModified": 1722359643,
+        "narHash": "sha256-EBqpalThQ2LBH9+Vkec0QFtGTFo18+Kdg/iADsR9Xbk=",
+        "type": "git",
+        "url": "file:///home/sinh/git-repos/sinh_x/Neve"
       },
       "original": {
-        "owner": "sinh-x",
-        "repo": "Neve",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/sinh/git-repos/sinh_x/Neve"
       }
     },
     "base16-schemes": {
@@ -78,6 +77,29 @@
         "owner": "numtide",
         "repo": "devshell",
         "type": "github"
+      }
+    },
+    "firefox-addons": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "pkgs/firefox-addons",
+        "lastModified": 1722321366,
+        "narHash": "sha256-9wJm7CJvL7El3SHZ1CPeLKv+7I+UdXN/oFhXCmEn+5o=",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "rev": "3ef6393661a32c8fd5e63d636411960cd28b2e4b",
+        "type": "gitlab"
+      },
+      "original": {
+        "dir": "pkgs/firefox-addons",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "type": "gitlab"
       }
     },
     "flake-compat": {
@@ -169,6 +191,21 @@
       }
     },
     "flake-utils_3": {
+      "locked": {
+        "lastModified": 1629284811,
+        "narHash": "sha256-JHgasjPR0/J1J3DRm4KxM4zTyAj4IOJY8vIl75v/kPI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c5d161cc0af116a2e17f54316f0bf43f0819785c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_4": {
       "inputs": {
         "systems": "systems_3"
       },
@@ -186,7 +223,7 @@
         "type": "github"
       }
     },
-    "flake-utils_4": {
+    "flake-utils_5": {
       "inputs": {
         "systems": "systems_5"
       },
@@ -506,6 +543,7 @@
     "root": {
       "inputs": {
         "Neve": "Neve",
+        "firefox-addons": "firefox-addons",
         "hardware": "hardware",
         "home-manager": "home-manager_2",
         "impermanence": "impermanence",
@@ -540,7 +578,7 @@
     },
     "rust_cli_pomodoro": {
       "inputs": {
-        "flake-utils": "flake-utils_3",
+        "flake-utils": "flake-utils_4",
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
@@ -658,7 +696,7 @@
     "zjstatus": {
       "inputs": {
         "crane": "crane",
-        "flake-utils": "flake-utils_4",
+        "flake-utils": "flake-utils_5",
         "nixpkgs": "nixpkgs_5",
         "rust-overlay": "rust-overlay"
       },

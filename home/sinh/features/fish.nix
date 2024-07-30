@@ -110,15 +110,15 @@
           sha256 = "IYWufjnAPWCd/A5o4zCt4fxVHIAqrdeY+4Y/cCK6Ioc=";
         };
       }
-      {  name = "ggl";  
-         src = pkgs.fetchFromGitHub {
-           owner = "sinh-x";
-           repo = "ggl.fish";
-           rev = "c7bbaa33a68ed2033a543598f22dd9b9443805d6";
-           sha256 = "YnkX18J/1KDW5C0JpWIDmAQD3dfxJ68OmVttgI0v0iE=";  
-         };
+      {
+        name = "ggl";
+        src = pkgs.fetchFromGitHub {
+          owner = "sinh-x";
+          repo = "ggl.fish";
+          rev = "c7bbaa33a68ed2033a543598f22dd9b9443805d6";
+          sha256 = "YnkX18J/1KDW5C0JpWIDmAQD3dfxJ68OmVttgI0v0iE=";
+        };
       }
-      
     ];
   };
 }

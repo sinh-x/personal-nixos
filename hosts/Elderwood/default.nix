@@ -13,17 +13,10 @@
     ../common/users/sinh
 
     ../common/optional/pipewire.nix
+    ../common/optional/sddm.nix
   ];
 
   networking.hostName = "Elderwood";
-
-  modules = {
-    r_setup.enable = true;
-    nix_ld.enable = true;
-    virtualbox.enable = true;
-    fcitx5.enable = true;
-    bspwm.enable = true;
-  };
 
   services = {
     ip_updater = {
@@ -31,6 +24,15 @@
       package = pkgs.ip_update;
       wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-local/wasabi-access-key.env";
     };
+  };
+
+  modules = {
+    r_setup.enable = true;
+    nix_ld.enable = true;
+    virtualbox.enable = true;
+    fcitx5.enable = true;
+    bspwm.enable = true;
+    hyprland.enable = true;
   };
 
   nix = let
