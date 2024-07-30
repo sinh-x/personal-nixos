@@ -74,7 +74,6 @@
     mercurial
     nodejs_22
     prettierd
-    rstudio
 
     rustc
     cargo

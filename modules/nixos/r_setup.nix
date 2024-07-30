@@ -12,6 +12,7 @@ in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       unstable.R
+      unstable.rstudio
       (pkgs.rWrapper.override {
         packages = with pkgs.unstable.rPackages; [
           DT
