@@ -5,11 +5,11 @@
   pkgs,
   ...
 }: {
-  imports =
-    [
-      inputs.home-manager.nixosModules.home-manager
-      outputs.nixosModules
-    ];
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+    outputs.nixosModules
+    # outputs.overlays.unstable-packages
+  ];
 
   home-manager.useGlobalPkgs = true;
   home-manager.extraSpecialArgs = {
@@ -46,11 +46,11 @@
     }
   ];
 
-  networking.nameservers = [ "1.1.1.1" "8.8.8.8" "8.8.4.4" ];
+  networking.nameservers = ["1.1.1.1" "8.8.8.8" "8.8.4.4"];
 
   virtualisation.virtualbox.host.enable = true;
   virtualisation.virtualbox.guest.enable = true;
-  
+
   # Set your time zone.
   time.timeZone = "Asia/Ho_Chi_Minh";
 
@@ -76,14 +76,18 @@
     powerline-fonts
     (nerdfonts.override {
       fonts = [
-        "FiraCode" "Hack" "Iosevka" "IosevkaTerm" "JetBrainsMono"
+        "FiraCode"
+        "Hack"
+        "Iosevka"
+        "IosevkaTerm"
+        "JetBrainsMono"
       ];
     })
     wps-missing-fonts
     archcraft-icons-fonts
   ];
 
-   # list packages installed in system profile. to search, run:
+  # list packages installed in system profile. to search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
@@ -98,7 +102,6 @@
     fishPlugins.tide
     fishPlugins.puffer
     fishPlugins.done
-
   ];
 
   programs = {
