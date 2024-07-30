@@ -75,6 +75,13 @@
           ./hosts/Drgnfly
         ];
       };
-    };
+      littleBee = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+
+        modules = [
+          ./hosts/littleBee
+        ];
+      };
+     };
   };
 }
