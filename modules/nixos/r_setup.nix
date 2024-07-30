@@ -13,7 +13,7 @@ in {
     environment.systemPackages = with pkgs; [
       unstable.R
       unstable.rstudio
-      (pkgs.rWrapper.override {
+      (pkgs.unstable.rWrapper.override {
         packages = with pkgs.unstable.rPackages; [
           DT
           RColorBrewer
