@@ -20,6 +20,20 @@
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
+  wallpaper = pkgs.wallpapers.mountain-nebula-purple-pink;
+
+  nix = {
+    package = lib.mkDefault pkgs.nix;
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "ca-derivations"
+      ];
+      warn-dirty = false;
+    };
+  };
+
   # TODO: Set your username
   home = {
     username = "sinh";

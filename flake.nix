@@ -4,6 +4,12 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    systems.url = "github:nix-systems/default-linux";
+
+    hardware.url = "github:nixos/nixos-hardware";
+
+    nix-colors.url = "github:misterio77/nix-colors";
+    impermanence.url = "github:misterio77/impermanence";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -28,55 +34,67 @@
     nixpkgs,
     nixpkgs-unstable,
     home-manager,
+    systems,
     ...
   } @ inputs: let
     inherit (self) outputs;
-    systems = [
-      "aarch64-linux"
-      "i686-linux"
-      "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-    ];
-
-    forAllSystems = nixpkgs.lib.genAttrs systems;
+    lib = nixpkgs.lib // home-manager.lib;
+    forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
+    pkgsFor = lib.genAttrs (import systems) (
+      system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        }
+    );
   in {
-    # Accessible through 'nix build', 'nix shell', etc
-    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
-    # Formatter for your nix files, available through 'nix fmt'
-    # Other options beside 'alejandra' include 'nixpkgs-fmt'
-    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
-
-    # Your custom packages and modifications, exported as overlays
-    overlays = import ./overlays {inherit inputs outputs;};
-    # Reusable nixos modules you might want to export
-    # These are usually stuff you would upstream into nixpkgs
+    inherit lib;
     nixosModules = import ./modules/nixos;
-    # Reusable home-manager modules you might want to export
-    # These are usually stuff you would upstream into home-manager
     homeManagerModules = import ./modules/home-manager;
+
+    overlays = import ./overlays {inherit inputs outputs;};
+    hydraJobs = import ./hydra.nix {inherit inputs outputs;};
+
+    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
+    devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
+    formatter = forEachSystem (pkgs: pkgs.alejandra);
 
     nixosConfigurations = {
       Elderwood = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-
         modules = [
           ./hosts/Elderwood
         ];
+        specialArgs = {inherit inputs outputs;};
       };
       Drgnfly = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-
         modules = [
           ./hosts/Drgnfly
         ];
+        specialArgs = {inherit inputs outputs;};
       };
       littleBee = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-
         modules = [
           ./hosts/littleBee
         ];
+        specialArgs = {inherit inputs outputs;};
+      };
+    };
+
+    homeConfigurations = {
+      # Work laptop
+      "sinh@Drgnfly" = lib.homeManagerConfiguration {
+        modules = [./home/sinh/Drgnfly.nix ./home/sinh/nixpkgs.nix];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+      };
+      "sinh@Elderwood" = lib.homeManagerConfiguration {
+        modules = [./home/sinh/Elderwood.nix ./home/sinh/nixpkgs.nix];
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
       };
     };
   };
