@@ -7,16 +7,17 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "dirtyRev": "d9961eb40c0ae7a416b930a42131f9f319634c15-dirty",
-        "dirtyShortRev": "d9961eb-dirty",
-        "lastModified": 1722359643,
+        "lastModified": 1722406709,
         "narHash": "sha256-EBqpalThQ2LBH9+Vkec0QFtGTFo18+Kdg/iADsR9Xbk=",
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh_x/Neve"
+        "owner": "sinh-x",
+        "repo": "Neve",
+        "rev": "928371af8c33ade967c1590eface06db57dec0fe",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh_x/Neve"
+        "owner": "sinh-x",
+        "repo": "Neve",
+        "type": "github"
       }
     },
     "base16-schemes": {
