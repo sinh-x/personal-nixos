@@ -26,12 +26,7 @@
     virtualbox.enable = true;
     fcitx5.enable = true;
     bspwm.enable = true;
-  };
-
-  services.ip_updater = {
-    enable = true;
-    package = pkgs.ip_update;
-    wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-local/wasabi-access-key.env";
+    hyprland.enable = true;
   };
 
   nix = let
@@ -72,14 +67,20 @@
 
   # Enable the X11 windowing system.
   services = {
+    ip_updater = {
+      enable = true;
+      package = pkgs.ip_update;
+      wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-local/wasabi-access-key.env";
+    };
+
     xserver = {
       videoDrivers = ["displaylink" "modesetting"];
     };
-  };
 
-  services.picom = {
-    enable = true;
-    shadow = true;
+    picom = {
+      enable = true;
+      shadow = true;
+    };
   };
 
   # Configure keymap in X11

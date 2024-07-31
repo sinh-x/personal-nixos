@@ -5,9 +5,7 @@
 }: {
   imports = [
     ./global
-    ./features/bspwm.nix
     ./features/mpd.nix
-    ./features/desktop/hyprland/default.nix
   ];
 
   wallpaper = pkgs.wallpapers.mountain-nebula-purple-pink;

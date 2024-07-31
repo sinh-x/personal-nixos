@@ -12,6 +12,9 @@
       "VINA_NHA MINH 1" = {
         psk = "@nhaminh@";
       };
+      "VINA_NHA MINH" = {
+        psk = "@nhaminh@";
+      };
       "La Preso 5.0Ghz" = {
         psk = "@lapreso@";
       };
@@ -35,6 +38,9 @@
       };
       "Tra Sua L'Latino 5 5Ghz" = {
         psk = "@llatino@";
+      };
+      "5 SENSES_vina" = {
+        psk = "@5senses@";
       };
       "Home Coffee 01" = {
         psk = "@homecoffee@";

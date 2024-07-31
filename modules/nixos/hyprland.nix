@@ -37,6 +37,7 @@ in {
       yad
       hyprpicker
       hyprshot
+      hyprprop
       mako
       waybar
       wofi
@@ -47,6 +48,7 @@ in {
       hyprlandPlugins.hycov
       wl-clipboard-rs
       wlroots
+      wlr-randr
     ];
   };
 }
