@@ -32,6 +32,16 @@
     rust_cli_pomodoro = {
       url = "github:sinh-x/rust-cli-pomodoro/nix-implementation";
     };
+
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+    hyprhook = {
+      url = "github:hyprhook/hyprhook";
+    };
   };
 
   outputs = {

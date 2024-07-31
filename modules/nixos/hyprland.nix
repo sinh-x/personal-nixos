@@ -21,6 +21,7 @@ in {
       WLR_NO_HARDWARE_CURSORS = "1";
       NIXOS_OZONE_WL = "1";
     };
+
     hardware = {
       opengl.enable = true;
     };
@@ -30,25 +31,25 @@ in {
       pkgs.xdg-desktop-portal-wlr
     ];
 
-    environment.systemPackages = with pkgs.unstable; [
-      pyprland
-      gojq
-      tofi
-      yad
-      hyprpicker
-      hyprshot
-      hyprprop
-      mako
-      waybar
-      wofi
-      foot
-      eww
-      libnotify
-      swww
-      hyprlandPlugins.hycov
-      wl-clipboard-rs
-      wlroots
-      wlr-randr
+    environment.systemPackages = with pkgs; [
+      unstable.pyprland
+      unstable.gojq
+      unstable.tofi
+      unstable.yad
+      unstable.hyprpicker
+      unstable.hyprshot
+      unstable.hyprprop
+      unstable.mako
+      unstable.waybar
+      unstable.wofi
+      unstable.foot
+      unstable.eww
+      unstable.libnotify
+      unstable.swww
+      unstable.hyprlandPlugins.hycov
+      unstable.wl-clipboard-rs
+      unstable.wlroots
+      unstable.wlr-randr
     ];
   };
 }

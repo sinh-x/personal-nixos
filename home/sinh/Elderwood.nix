@@ -7,6 +7,7 @@
     ./global
     ./features/mpd.nix
     ./features/kitty.nix
+    ./features/hyprland.nix
   ];
 
   programs.neve-nvim.enable = true;
