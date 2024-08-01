@@ -6,45 +6,11 @@
 }: {
   programs.fish = {
     enable = true;
-    shellInitLast = ''
-      # Commands to run in interactive sessions can go here
-      # ----- general alias -----
-      # alias tmux "tmux -f ~/.config/tmux/tmux.conf"
-      alias vim nvim
-      alias ssha ssh-add
-      alias sshconfig "nvim ~/.ssh/config"
-      alias cat bat
-
-      # ----- ls abbr -----
-      abbr lsg "ls | grep"
-      abbr llg "ls -l | grep"
-      abbr lag "ls -la | grep"
-
-      # ----- git abbr -----
-      abbr g git
-      abbr gs "git status"
-      abbr ga "git add"
-      abbr gc "git commit"
-      abbr gcm "git commit -m"
-      abbr gp "git push"
-      abbr gpl "git pull"
-      abbr gco "git checkout"
-      abbr gb "git branch"
-      abbr gba "git branch -a"
-      abbr gbd "git branch -d"
-      abbr gbm "git branch -m"
-      abbr gl "git log"
-      abbr gll "git log --oneline"
-      abbr gd "git diff"
-      abbr gds "git diff --staged"
-      abbr gdc "git diff --cached"
-      abbr gcl "git clone"
-      abbr gcf "git config --list"
-      abbr gsw "git switch"
-      abbr lg lazygit
-
-      alias sshref="rm ~/.ssh/known_hosts"
-
+    loginShellInit = ''
+      # ----- global sessions vars -----
+      source ~/.config/sinh-x-local/global_sessions_vars.fish
+    '';
+    interactiveShellInit = ''
       # ----- FZF -----
       fzf --fish | source
 
@@ -74,12 +40,8 @@
       # ----- Bat (better cat) -----
       set -x BAT_THEME tokyonight_night
 
-      # ---- Eza (better ls) -----
-      # alias ls "eza --icons=always"
-
       # ----- Zoxide (better cd) ------
       zoxide init fish | source
-      alias cd z
 
       # ----- tmux.fish  ------
       set -Ux fish_tmux_autostart_once true
@@ -97,9 +59,48 @@
       # ----- sinh-x plugin -----
       set sinh_git_folders (/usr/bin/env cat ~/.config/sinh-x-local/sinh_git_folders.txt | read -z)
 
-      # ----- global sessions vars -----
-      source ~/.config/sinh-x-local/global_sessions_vars.fish
+      bind yy fish_clipboard_copy
+      bind p fish_clipboard_paste
+
     '';
+    shellAbbrs = {
+      # ----- git abbr -----
+      gs = "git status";
+      ga = "git add";
+      gc = "git commit";
+      gcm = "git commit -m";
+      gp = "git push";
+      gpl = "git pull";
+      gco = "git checkout";
+      gb = "git branch";
+      gba = "git branch -a";
+      gbd = "git branch -d";
+      gbm = "git branch -m";
+      gl = "git log";
+      gll = "git log --oneline";
+      gd = "git diff";
+      gds = "git diff --staged";
+      gdc = "git diff --cached";
+      gcl = "git clone";
+      gcf = "git config --list";
+      gsw = "git switch";
+      lg = "lazygit";
+
+      # ----- ls abbr -----
+      lsg = "ls | grep";
+      llg = "ls -l | grep";
+      lag = "ls -la | grep";
+
+      sshref = "rm ~/.ssh/known_hosts";
+    };
+    shellAliases = {
+      # ----- general alias -----
+      vim = "nvim";
+      ssha = "ssh-add";
+      sshconfig = "nvim ~/.ssh/config";
+      cat = "bat";
+      cd = "z";
+    };
     plugins = [
       {
         name = "sinh-x.fish";
