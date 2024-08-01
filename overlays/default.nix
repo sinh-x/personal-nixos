@@ -24,8 +24,14 @@ in {
       inputs;
   };
   # Adds pkgs.stable == inputs.nixpkgs-stable.legacyPackages.${pkgs.system}
+  # unstable = final: _: {
+  #   unstable = import inputs.nixpkgs-unstable (inherit final) system);
+  # };
   unstable = final: _: {
-    unstable = inputs.nixpkgs-unstable.legacyPackages.${final.system};
+    unstable = import inputs.nixpkgs-unstable {
+      system = final.system;
+      config.allowUnfree = true;
+    };
   };
 
   # Adds my custom packages

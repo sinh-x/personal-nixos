@@ -20,8 +20,6 @@
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
-  wallpaper = pkgs.wallpapers.mountain-nebula-purple-pink;
-
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings = {
@@ -134,7 +132,7 @@
     # utility
     p7zip
     alsa-oss
-    bitwarden
+    unstable.bitwarden
     bluez
     bc
     nh

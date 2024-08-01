@@ -106,7 +106,7 @@
         };
       };
       "sinh@Elderwood" = lib.homeManagerConfiguration {
-        modules = [./home/sinh/Elderwood.nix ./home/sinh/nixpkgs.nix];
+        modules = [./home/sinh/nixpkgs.nix ./home/sinh/Elderwood.nix];
         pkgs = pkgsFor.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs outputs;

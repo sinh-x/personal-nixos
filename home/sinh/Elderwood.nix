@@ -14,7 +14,7 @@
   programs.social-apps = {
     discord = true;
     messenger = true;
-    slack = false;
+    slack = true;
     viber = true;
     zoom = true;
   };

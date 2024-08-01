@@ -33,25 +33,25 @@ in {
     ];
 
     environment.systemPackages = [
-      (with pkgs.unstable; [
-        pyprland
-        gojq
-        tofi
-        yad
-        hyprpicker
-        hyprshot
-        mako
-        waybar
-        wofi
-        wofi-pass
-        foot
-        eww
-        libnotify
-        swww
-        wl-clipboard-rs
-        wlroots
-        wlr-randr
-      ])
+      pkgs.unstable.pyprland
+      pkgs.unstable.gojq
+      pkgs.unstable.tofi
+      pkgs.unstable.yad
+      pkgs.unstable.hyprpicker
+      pkgs.unstable.hyprshot
+      pkgs.unstable.mako
+      pkgs.unstable.waybar
+      pkgs.unstable.wofi
+      pkgs.unstable.wofi-pass
+      pkgs.unstable.foot
+      pkgs.unstable.eww
+      pkgs.unstable.libnotify
+      pkgs.unstable.swww
+      pkgs.unstable.wl-clipboard-rs
+      pkgs.unstable.wlroots
+      pkgs.unstable.wlr-randr
+
+      pkgs.qt5.qtwayland
 
       inputs.hyprhook.packages.x86_64-linux.hyprhook
       pkgs.unstable.hyprlandPlugins.hycov
