@@ -10,5 +10,6 @@
     ./bspwm.nix
     ./hyprland.nix
     ./ip_updater.nix
+    ./fish.nix
   ];
 }

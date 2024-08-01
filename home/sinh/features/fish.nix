@@ -8,7 +8,6 @@
     enable = true;
     loginShellInit = ''
       # ----- global sessions vars -----
-      source ~/.config/sinh-x-local/global_sessions_vars.fish
       set -x QT_QPA_PLATFORM=xcb
     '';
     interactiveShellInit = ''
@@ -30,10 +29,10 @@
       set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
       set -x FZF_ALT_C_COMMAND "fd --type=d --hidden --strip-cwd-prefix --exclude .git"
 
-      set show_file_or_dir_preview "if [ -d {} ]; ls --depth=2 --tree --color=always {} | head -200; else; bat -n --color=always --line-range :500 {}; end"
+      set show_file_or_dir_preview "if [ -d {} ]; lsd --tree --depth=2 --color=always {} | head -200; else; bat -n --color=always --line-range :500 {}; end"
 
       set -x FZF_CTRL_T_OPTS "--preview '$show_file_or_dir_preview'"
-      set -x FZF_ALT_C_OPTS "--preview 'ls --depth=2 --tree --color=always {} | head -200'"
+      set -x FZF_ALT_C_OPTS "--preview 'lsd --tree --depth=2 --color=always {} | head -200'"
 
       # ----- Atuin -----
       atuin init fish --disable-up-arrow | source
@@ -41,16 +40,7 @@
       # ----- Bat (better cat) -----
       set -x BAT_THEME tokyonight_night
 
-      # ----- tmux.fish  ------
-      set -Ux fish_tmux_autostart_once true
-      set -Ux fish_tmux_autostart false
-      set -Ux fish_tmux_autostarted false
-      set -Ux fish_tmux_autoconnect true
-      set -Ux fish_tmux_autoquit false
-      set -Ux fish_tmux_config /home/sinh/.config/tmux.conf
-
-      # ----- Tmux session wizard -----
-      fish_add_path $HOME/.config/tmux/plugins/tmux-session-wizard/bin
+      # ----- sinh path -----
       fish_add_path $HOME/.config/sinh-scripts
       fish_add_path $HOME/.config/sinh-x-local
 
@@ -58,15 +48,19 @@
       set sinh_git_folders (/usr/bin/env cat ~/.config/sinh-x-local/sinh_git_folders.txt | read -z)
 
       bind yy fish_clipboard_copy
-      bind p fish_clipboard_paste
+      bind \cp fish_clipboard_paste
 
       alias cat "bat"
       alias cd "z"
 
-    '';
-    shellInitLast = ''
       # ----- Zoxide (better cd) ------
       zoxide init fish | source
+
+      fish_vi_key_bindings
+
+    '';
+    shellInitLast = ''
+      source ~/.config/sinh-x-local/global_sessions_vars.fish
     '';
     shellAbbrs = {
       # ----- git abbr -----

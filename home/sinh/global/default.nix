@@ -140,7 +140,6 @@
     # utility
     p7zip
     alsa-oss
-    bitwarden-cli
     bluez
     bc
     nh

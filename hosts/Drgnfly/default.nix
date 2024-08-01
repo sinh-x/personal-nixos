@@ -27,6 +27,7 @@
     fcitx5.enable = true;
     bspwm.enable = true;
     hyprland.enable = true;
+    fish.enable = true;
   };
 
   nix = let
@@ -92,6 +93,8 @@
 
   environment.systemPackages = with pkgs; [
     displaylink
+    bitwarden
+    bitwarden-cli
   ];
 
   # Open ports in the firewall.

@@ -105,6 +105,7 @@
           inherit inputs outputs;
         };
       };
+
       # Work laptop
       "sinh@Drgnfly" = lib.homeManagerConfiguration {
         modules = [./home/sinh/nixpkgs.nix ./home/sinh/Drgnfly.nix];

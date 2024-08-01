@@ -95,20 +95,7 @@
     curl
     openssl
     ocamlPackages.ssl
-
-    # fish plugins
-    fishPlugins.z
-    fishPlugins.fzf-fish
-    fishPlugins.tide
-    fishPlugins.puffer
-    fishPlugins.done
   ];
-
-  programs = {
-    fish = {
-      enable = true;
-    };
-  };
 
   environment.variables = {
     EDITOR = "nvim";
