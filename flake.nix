@@ -41,6 +41,7 @@
     };
     hyprhook = {
       url = "github:hyprhook/hyprhook";
+      inputs.hyprland.follows = "hyprland";
     };
   };
 

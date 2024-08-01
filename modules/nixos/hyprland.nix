@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   lib,
@@ -31,25 +32,29 @@ in {
       pkgs.xdg-desktop-portal-wlr
     ];
 
-    environment.systemPackages = with pkgs; [
-      unstable.pyprland
-      unstable.gojq
-      unstable.tofi
-      unstable.yad
-      unstable.hyprpicker
-      unstable.hyprshot
-      unstable.hyprprop
-      unstable.mako
-      unstable.waybar
-      unstable.wofi
-      unstable.foot
-      unstable.eww
-      unstable.libnotify
-      unstable.swww
-      unstable.hyprlandPlugins.hycov
-      unstable.wl-clipboard-rs
-      unstable.wlroots
-      unstable.wlr-randr
+    environment.systemPackages = [
+      (with pkgs.unstable; [
+        pyprland
+        gojq
+        tofi
+        yad
+        hyprpicker
+        hyprshot
+        mako
+        waybar
+        wofi
+        wofi-pass
+        foot
+        eww
+        libnotify
+        swww
+        wl-clipboard-rs
+        wlroots
+        wlr-randr
+      ])
+
+      inputs.hyprhook.packages.x86_64-linux.hyprhook
+      pkgs.unstable.hyprlandPlugins.hycov
     ];
   };
 }
