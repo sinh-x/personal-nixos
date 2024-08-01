@@ -9,6 +9,7 @@
     loginShellInit = ''
       # ----- global sessions vars -----
       source ~/.config/sinh-x-local/global_sessions_vars.fish
+      set -x QT_QPA_PLATFORM=xcb
     '';
     interactiveShellInit = ''
       # ----- FZF -----
@@ -40,9 +41,6 @@
       # ----- Bat (better cat) -----
       set -x BAT_THEME tokyonight_night
 
-      # ----- Zoxide (better cd) ------
-      zoxide init fish | source
-
       # ----- tmux.fish  ------
       set -Ux fish_tmux_autostart_once true
       set -Ux fish_tmux_autostart false
@@ -62,6 +60,13 @@
       bind yy fish_clipboard_copy
       bind p fish_clipboard_paste
 
+      alias cat "bat"
+      alias cd "z"
+
+    '';
+    shellInitLast = ''
+      # ----- Zoxide (better cd) ------
+      zoxide init fish | source
     '';
     shellAbbrs = {
       # ----- git abbr -----
@@ -98,8 +103,6 @@
       vim = "nvim";
       ssha = "ssh-add";
       sshconfig = "nvim ~/.ssh/config";
-      cat = "bat";
-      cd = "z";
     };
     plugins = [
       {
