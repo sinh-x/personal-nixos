@@ -30,10 +30,10 @@
       set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
       set -x FZF_ALT_C_COMMAND "fd --type=d --hidden --strip-cwd-prefix --exclude .git"
 
-      set show_file_or_dir_preview "if [ -d {} ]; eza --tree --color=always {} | head -200; else; bat -n --color=always --line-range :500 {}; end"
+      set show_file_or_dir_preview "if [ -d {} ]; ls --depth=2 --tree --color=always {} | head -200; else; bat -n --color=always --line-range :500 {}; end"
 
       set -x FZF_CTRL_T_OPTS "--preview '$show_file_or_dir_preview'"
-      set -x FZF_ALT_C_OPTS "--preview 'eza --tree --color=always {} | head -200'"
+      set -x FZF_ALT_C_OPTS "--preview 'ls --depth=2 --tree --color=always {} | head -200'"
 
       # ----- Atuin -----
       atuin init fish --disable-up-arrow | source

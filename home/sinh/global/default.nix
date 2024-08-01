@@ -133,13 +133,14 @@
     ripgrep
     zoxide
     zellij
+    zjstatus
 
     cargo-wasi
 
     # utility
     p7zip
     alsa-oss
-    unstable.bitwarden
+    bitwarden-cli
     bluez
     bc
     nh

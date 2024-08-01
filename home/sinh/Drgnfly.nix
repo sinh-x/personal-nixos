@@ -25,4 +25,5 @@
 
     aegisub
   ];
+  home.sessionVariables.EDITOR = "nvim";
 }
