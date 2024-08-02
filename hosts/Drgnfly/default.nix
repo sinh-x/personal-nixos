@@ -107,7 +107,7 @@
   networking = {
     hostName = "Drgnfly";
     networkmanager.enable = false;
-    networking.firewall.allowedTCPPorts = [22];
+    firewall.allowedTCPPorts = [22];
     nameservers = ["8.8.8.8" "8.8.4.4"];
   };
   # networking.firewall.allowedUDPPorts = [ ... ];

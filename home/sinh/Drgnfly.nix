@@ -9,8 +9,6 @@
     ./features/kitty.nix
   ];
 
-  wallpaper = pkgs.wallpapers.mountain-nebula-purple-pink;
-
   programs.neve-nvim.enable = true;
 
   programs.social-apps = {
