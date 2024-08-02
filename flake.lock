@@ -754,11 +754,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1722221733,
-        "narHash": "sha256-sga9SrrPb+pQJxG1ttJfMPheZvDOxApFfwXCFO0H9xw=",
+        "lastModified": 1722372011,
+        "narHash": "sha256-B2xRiC3NEJy/82ugtareBkRqEkPGpMyjaLxaR8LBxNs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "12bf09802d77264e441f48e25459c10c93eada2e",
+        "rev": "cf05eeada35e122770c5c14add958790fcfcbef5",
         "type": "github"
       },
       "original": {
@@ -907,10 +907,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "dirtyRev": "62f47ae000a19afacc6699e9dd4ca0ff3cbcb08b-dirty",
-        "dirtyShortRev": "62f47ae-dirty",
-        "lastModified": 1722577122,
-        "narHash": "sha256-FVLHiK43EI+2jqPM0HaESFyYptKpbE/AvCryZvK3ww8=",
+        "lastModified": 1722597577,
+        "narHash": "sha256-LuYSANK8wHEErah53UeHXqM1FkiLpyK1o702KWW72hY=",
+        "ref": "refs/heads/main",
+        "rev": "a836deddb9fbf1fc46344efb54242fb3dfe1fdc2",
+        "revCount": 3,
         "type": "git",
         "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-wallpaper"
       },
