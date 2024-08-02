@@ -907,11 +907,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1722605234,
-        "narHash": "sha256-SK78X24IBzzheu4klzWzjfnkzM1D3IStAH8AbAOQ1bg=",
+        "lastModified": 1722611994,
+        "narHash": "sha256-X5Os1W9vGliTa4cHsgLvMGsTqszBo7KLM1fkePaQQY0=",
         "owner": "sinh-x",
         "repo": "sinh-x-wallpaper",
-        "rev": "a381fe8aca64ed061ca75f04692991905c246c78",
+        "rev": "2ff9b91c89aef6b598d55846e1a6bb04059b092c",
         "type": "github"
       },
       "original": {

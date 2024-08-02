@@ -77,7 +77,6 @@
     google-chrome
     vscode
 
-    inputs.home-manager.packages.${pkgs.system}.default
     inputs.rust_cli_pomodoro.defaultPackage.x86_64-linux
     sinh-x-wallpaper
 

@@ -16,8 +16,6 @@
     ../common/optional/sddm.nix
   ];
 
-  networking.hostName = "Elderwood";
-
   services = {
     ip_updater = {
       enable = true;
@@ -100,6 +98,7 @@
   };
 
   networking = {
+    hostName = "Elderwood";
     networkmanager.enable = false;
     firewall.allowedTCPPorts = [24800 22];
     nameservers = ["8.8.8.8" "8.8.4.4"];
