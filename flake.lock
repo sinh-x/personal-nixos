@@ -259,7 +259,25 @@
     },
     "flake-utils_5": {
       "inputs": {
-        "systems": "systems_6"
+        "systems": "systems_5"
+      },
+      "locked": {
+        "lastModified": 1710146030,
+        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_6": {
+      "inputs": {
+        "systems": "systems_7"
       },
       "locked": {
         "lastModified": 1710146030,
@@ -768,6 +786,22 @@
     },
     "nixpkgs_6": {
       "locked": {
+        "lastModified": 1722421184,
+        "narHash": "sha256-/DJBI6trCeVnasdjUo9pbnodCLZcFqnVZiLUfqLH4jA=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "9f918d616c5321ad374ae6cb5ea89c9e04bf3e58",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_7": {
+      "locked": {
         "lastModified": 1720955038,
         "narHash": "sha256-GaliJqfFwyYxReFywxAa8orCO+EnDq2NK2F+5aSc8vo=",
         "owner": "NixOS",
@@ -821,7 +855,8 @@
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "rust_cli_pomodoro": "rust_cli_pomodoro",
-        "systems": "systems_5",
+        "sinh-x-wallpaper": "sinh-x-wallpaper",
+        "systems": "systems_6",
         "zjstatus": "zjstatus"
       }
     },
@@ -864,6 +899,24 @@
         "ref": "nix-implementation",
         "repo": "rust-cli-pomodoro",
         "type": "github"
+      }
+    },
+    "sinh-x-wallpaper": {
+      "inputs": {
+        "flake-utils": "flake-utils_5",
+        "nixpkgs": "nixpkgs_6"
+      },
+      "locked": {
+        "dirtyRev": "62f47ae000a19afacc6699e9dd4ca0ff3cbcb08b-dirty",
+        "dirtyShortRev": "62f47ae-dirty",
+        "lastModified": 1722577122,
+        "narHash": "sha256-FVLHiK43EI+2jqPM0HaESFyYptKpbE/AvCryZvK3ww8=",
+        "type": "git",
+        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-wallpaper"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-wallpaper"
       }
     },
     "systems": {
@@ -928,6 +981,21 @@
     },
     "systems_5": {
       "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_6": {
+      "locked": {
         "lastModified": 1689347949,
         "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
         "owner": "nix-systems",
@@ -941,7 +1009,7 @@
         "type": "github"
       }
     },
-    "systems_6": {
+    "systems_7": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
@@ -1011,8 +1079,8 @@
     "zjstatus": {
       "inputs": {
         "crane": "crane",
-        "flake-utils": "flake-utils_5",
-        "nixpkgs": "nixpkgs_6",
+        "flake-utils": "flake-utils_6",
+        "nixpkgs": "nixpkgs_7",
         "rust-overlay": "rust-overlay"
       },
       "locked": {

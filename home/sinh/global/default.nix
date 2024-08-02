@@ -27,6 +27,7 @@
         "nix-command"
         "flakes"
         "ca-derivations"
+        "repl-flake"
       ];
       warn-dirty = false;
     };
@@ -77,6 +78,7 @@
     vscode
 
     inputs.home-manager.packages.${pkgs.system}.default
+    sinh-x-wallpaper
 
     # office
     wpsoffice

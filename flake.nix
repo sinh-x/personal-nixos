@@ -43,6 +43,10 @@
       url = "github:hyprhook/hyprhook";
       inputs.hyprland.follows = "hyprland";
     };
+
+    sinh-x-wallpaper = {
+      url = "/home/sinh/git-repos/sinh-x/sinh-x-wallpaper";
+    };
   };
 
   outputs = {
@@ -51,6 +55,7 @@
     nixpkgs-unstable,
     home-manager,
     systems,
+    sinh-x-wallpaper,
     ...
   } @ inputs: let
     inherit (self) outputs;
