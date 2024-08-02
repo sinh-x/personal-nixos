@@ -13,24 +13,21 @@
     ../common/users/sinh
 
     ../common/optional/pipewire.nix
+    ../common/optional/sddm.nix
 
     ./wifi-networks.nix
   ];
-
-  networking.hostName = "Drgnfly";
 
   modules = {
     r_setup.enable = true;
     nix_ld.enable = true;
     virtualbox.enable = true;
     fcitx5.enable = true;
-    bspwm.enable = true;
-  };
+    fish.enable = true;
 
-  services.ip_updater = {
-    enable = true;
-    package = pkgs.ip_update;
-    wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-local/wasabi-access-key.env";
+    # windows manager
+    bspwm.enable = true;
+    hyprland.enable = false;
   };
 
   nix = let
@@ -38,12 +35,17 @@
   in {
     settings = {
       # Enable flakes and new 'nix' command
-      experimental-features = "nix-command flakes repl-flake";
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "ca-derivations"
+        "repl-flake"
+      ];
       # Opinionated: disable global registry
       flake-registry = "";
       # Workaround for https://github.com/NixOS/nix/issues/9574
       nix-path = config.nix.nixPath;
-      trusted-users = [ "root" "sinh" ];
+      trusted-users = ["root" "sinh"];
       auto-optimise-store = true;
     };
     # Opinionated: disable channels
@@ -71,16 +73,22 @@
 
   # Enable the X11 windowing system.
   services = {
+    ip_updater = {
+      enable = true;
+      package = pkgs.ip_update;
+      wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-local/wasabi-access-key.env";
+    };
+
     xserver = {
-      videoDrivers = [ "displaylink" "modesetting" ];
+      videoDrivers = ["displaylink" "modesetting"];
+    };
+
+    picom = {
+      enable = true;
+      shadow = true;
     };
   };
-  
-  services.picom = {
-    enable = true;
-    shadow = true;
-  };
-  
+
   # Configure keymap in X11
   services.xserver.xkb.layout = "us";
   services.libinput.enable = true;
@@ -90,11 +98,18 @@
 
   environment.systemPackages = with pkgs; [
     displaylink
+    bitwarden
+    bitwarden-cli
   ];
 
-
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
+
+  networking = {
+    hostName = "Drgnfly";
+    networkmanager.enable = false;
+    networking.firewall.allowedTCPPorts = [22];
+    nameservers = ["8.8.8.8" "8.8.4.4"];
+  };
   # networking.firewall.allowedUDPPorts = [ ... ];
 
   # Some programs need SUID wrappers, can be configured further or are

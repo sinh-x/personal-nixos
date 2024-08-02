@@ -20,6 +20,21 @@
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
+  nix = {
+    package = lib.mkDefault pkgs.nix;
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "ca-derivations"
+        "repl-flake"
+      ];
+      warn-dirty = false;
+    };
+  };
+
+  systemd.user.startServices = "sd-switch";
+
   # TODO: Set your username
   home = {
     username = "sinh";
@@ -40,7 +55,14 @@
   home.packages = with pkgs; [
     anydesk
 
-    libsForQt5.kdenlive
+    (unstable.libsForQt5.kdenlive.overrideAttrs (prevAttrs: {
+      nativeBuildInputs = (prevAttrs.nativeBuildInputs or []) ++ [makeBinaryWrapper];
+      postInstall =
+        (prevAttrs.postInstall or "")
+        + ''
+          wrapProgram $out/bin/kdenlive --prefix LADSPA_PATH : ${rnnoise-plugin}/lib/ladspa
+        '';
+    }))
     ffmpeg_7-full
     mpv
 
@@ -55,7 +77,8 @@
     google-chrome
     vscode
 
-    inputs.home-manager.packages.${pkgs.system}.default
+    inputs.rust_cli_pomodoro.defaultPackage.x86_64-linux
+    sinh-x-wallpaper
 
     # office
     wpsoffice
@@ -63,13 +86,6 @@
 
     activitywatch
     qmk
-
-    # # Chat
-    caprine-bin
-    zoom-us
-    viber
-    slack
-    discord
 
     # programming
     clang
@@ -81,19 +97,12 @@
     mercurial
     nodejs_22
     prettierd
-    rstudio
 
     rustc
     cargo
 
     tree-sitter
     zig
-
-    # editor
-    lldb
-    icu
-    lua-language-server
-    stylua
 
     # sync
     rclone
@@ -126,13 +135,13 @@
     ripgrep
     zoxide
     zellij
+    zjstatus
 
     cargo-wasi
 
     # utility
     p7zip
     alsa-oss
-    bitwarden
     bluez
     bc
     nh
@@ -160,11 +169,10 @@
   };
 
   # Enable home-manager and git
-  programs.home-manager.enable = true;
-  programs.git.enable = true;
-
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
+  programs = {
+    home-manager.enable = true;
+    git.enable = true;
+  };
 
   services.syncthing = {
     enable = true;
@@ -175,6 +183,11 @@
     };
   };
 
+  services.rust-cli-pomodoro = {
+    enable = true;
+    package = inputs.rust_cli_pomodoro.defaultPackage.x86_64-linux;
+  };
+
   programs.lsd = {
     enable = true;
     enableAliases = true;
@@ -182,18 +195,6 @@
 
   programs.alacritty = {
     enable = true;
-  };
-
-  programs.kitty = {
-    enable = true;
-    font = {
-      name = "IosevkaTerm Nerd Font";
-      size = 11;
-    };
-    theme = "Gruvbox Material Dark Hard";
-    extraConfig = ''
-      confirm_os_window_close 0
-    '';
   };
 
   # programs.zellij = {

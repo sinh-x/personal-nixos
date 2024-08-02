@@ -1,5 +1,4 @@
 {
-  networking.hostName = "Drgnfly"; # Define your hostname.
   # Pick only one of the below networking options.
   networking.wireless = {
     environmentFile = "/home/sinh/wireless.env";
@@ -10,6 +9,9 @@
         psk = "@vuonnha@";
       };
       "VINA_NHA MINH 1" = {
+        psk = "@nhaminh@";
+      };
+      "VINA_NHA MINH" = {
         psk = "@nhaminh@";
       };
       "La Preso 5.0Ghz" = {
@@ -35,6 +37,12 @@
       };
       "Tra Sua L'Latino 5 5Ghz" = {
         psk = "@llatino@";
+      };
+      "5 SENSES_vina" = {
+        psk = "@5senses@";
+      };
+      "Home Coffee 01" = {
+        psk = "@homecoffee@";
       };
     };
   };

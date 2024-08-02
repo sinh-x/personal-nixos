@@ -23,10 +23,15 @@ in {
       )
       inputs;
   };
-
   # Adds pkgs.stable == inputs.nixpkgs-stable.legacyPackages.${pkgs.system}
-  stable = final: _: {
-    stable = inputs.nixpkgs-stable.legacyPackages.${final.system};
+  # unstable = final: _: {
+  #   unstable = import inputs.nixpkgs-unstable (inherit final) system);
+  # };
+  unstable = final: _: {
+    unstable = import inputs.nixpkgs-unstable {
+      system = final.system;
+      config.allowUnfree = true;
+    };
   };
 
   # Adds my custom packages
@@ -35,6 +40,14 @@ in {
 
   # Modifies existing packages
   modifications = final: prev: {
-     zjstatus = inputs.zjstatus.packages.${prev.system}.default;
+    zjstatus = inputs.zjstatus.packages.${prev.system}.default;
+    sinh-x-wallpaper = inputs.sinh-x-wallpaper.defaultPackage.${prev.system};
+
+    viber = final.pkgs.unstable.viber.overrideAttrs (oldAttrs: {
+      src = final.fetchurl {
+        url = "https://web.archive.org/web/20240115205140/https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb";
+        sha256 = "sha256-9WHiI2WlsgEhCPkrQoAunmF6lSb2n5RgQJ2+sdnSShM=";
+      };
+    });
   };
 }

@@ -5,17 +5,26 @@
 }: {
   imports = [
     ./global
-    ./features/bspwm.nix
     ./features/mpd.nix
+    ./features/kitty.nix
   ];
+
+  wallpaper = pkgs.wallpapers.mountain-nebula-purple-pink;
+
+  programs.neve-nvim.enable = true;
+
+  programs.social-apps = {
+    discord = true;
+    messenger = true;
+    slack = false;
+    viber = true;
+    zoom = true;
+  };
 
   home.packages = with pkgs; [
     light
 
-    inputs.Neve.packages.x86_64-linux.default
-    statix
-    selene
-    alejandra
-    rustfmt
+    aegisub
   ];
+  home.sessionVariables.EDITOR = "nvim";
 }

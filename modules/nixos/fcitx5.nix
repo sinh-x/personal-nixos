@@ -1,10 +1,13 @@
-{ config, pkgs, lib, ... }:
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   cfg = config.modules.fcitx5;
 in {
   options = {
-    modules.fcitx5.enable = lib.mkEnableOption "nix_ld";
+    modules.fcitx5.enable = lib.mkEnableOption "fcitx5 inputMethod";
   };
   config = lib.mkIf cfg.enable {
     i18n.inputMethod = {

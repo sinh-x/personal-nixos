@@ -13,23 +13,27 @@
     ../common/users/sinh
 
     ../common/optional/pipewire.nix
-    
+    ../common/optional/sddm.nix
   ];
 
-  networking.hostName = "Elderwood";
+  services = {
+    ip_updater = {
+      enable = true;
+      package = pkgs.ip_update;
+      wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-local/wasabi-access-key.env";
+    };
+  };
 
   modules = {
     r_setup.enable = true;
     nix_ld.enable = true;
     virtualbox.enable = true;
     fcitx5.enable = true;
-    bspwm.enable = true;
-  };
+    fish.enable = true;
 
-  services.ip_updater = {
-    enable = true;
-    package = pkgs.ip_update;
-    wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-local/wasabi-access-key.env";
+    # windows manager
+    bspwm.enable = true;
+    hyprland.enable = false;
   };
 
   nix = let
@@ -42,7 +46,7 @@
       flake-registry = "";
       # Workaround for https://github.com/NixOS/nix/issues/9574
       nix-path = config.nix.nixPath;
-      trusted-users = [ "root" "sinh" ];
+      trusted-users = ["root" "sinh"];
     };
     # Opinionated: disable channels
     channel.enable = false;
@@ -56,56 +60,60 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # networking.hostName = "nixos"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
   services.picom = {
     enable = true;
     shadow = true;
   };
-  
+
   # Configure keymap in X11
-   services.xserver.xkb.layout = "us";
+  services.xserver.xkb.layout = "us";
 
   hardware.bluetooth.enable = true;
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-label/Home";
-    fsType = "ext4";  
-  };
-  fileSystems."/home/sinh/external-hdd" = {
-    device = "/dev/disk/by-label/hdd_1";
-    fsType = "ext4";  
-  };
-  fileSystems."/home/sinh/external-ssd-1" = {
-    device = "/dev/disk/by-label/ssd_1";
-    fsType = "ext4";  
-  };
-  fileSystems."/home/sinh/external-ssd-2" = {
-    device = "/dev/disk/by-label/ssd_2";
-    fsType = "ext4";  
+  fileSystems = {
+    "/home" = {
+      device = "/dev/disk/by-label/Home";
+      fsType = "ext4";
+    };
+
+    "/home/sinh/external-hdd" = {
+      device = "/dev/disk/by-label/hdd_1";
+      fsType = "ext4";
+    };
+
+    "/home/sinh/external-ssd-1" = {
+      device = "/dev/disk/by-label/ssd_1";
+      fsType = "ext4";
+    };
+
+    "/home/sinh/external-ssd-2" = {
+      device = "/dev/disk/by-label/ssd_2";
+      fsType = "ext4";
+    };
   };
 
-  # TODO: Set your hostname
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 24800 22 ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.ena eble = false;
-  networking.defaultGateway = "192.168.1.1";
-  networking.interfaces.wlo1.ipv4.addresses = [{
-    address = "192.168.1.4";
-    prefixLength = 24;
-  }];
-  networking.wireless = {
-    environmentFile = "/home/sinh/.config/wireless.env";
-    enable = true;
-    userControlled.enable = true;
-    networks = {
-      "5G_Vuon Nha" = {
-        psk = "@vuonnha@";
+  networking = {
+    hostName = "Elderwood";
+    networkmanager.enable = false;
+    firewall.allowedTCPPorts = [24800 22];
+    nameservers = ["8.8.8.8" "8.8.4.4"];
+    defaultGateway = "192.168.1.1";
+
+    interfaces.wlo1.ipv4.addresses = [
+      {
+        address = "192.168.1.4";
+        prefixLength = 24;
+      }
+    ];
+
+    wireless = {
+      environmentFile = "/home/sinh/.config/wireless.env";
+      enable = true;
+      userControlled.enable = true;
+      networks = {
+        "5G_Vuon Nha" = {
+          psk = "@vuonnha@";
+        };
       };
     };
   };
@@ -126,7 +134,7 @@
   # Feel free to remove if you don't need it.
   services.openssh = {
     enable = true;
-     settings = {
+    settings = {
       # opinionated: forbid root login through ssh.
       PermitRootLogin = "no";
       # opinionated: use keys only.
