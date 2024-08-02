@@ -45,7 +45,7 @@
     };
 
     sinh-x-wallpaper = {
-      url = "/home/sinh/git-repos/sinh-x/sinh-x-wallpaper";
+      url = "github:sinh-x/sinh-x-wallpaper";
     };
   };
 

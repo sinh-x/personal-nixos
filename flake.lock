@@ -907,17 +907,17 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1722597577,
-        "narHash": "sha256-LuYSANK8wHEErah53UeHXqM1FkiLpyK1o702KWW72hY=",
-        "ref": "refs/heads/main",
-        "rev": "a836deddb9fbf1fc46344efb54242fb3dfe1fdc2",
-        "revCount": 3,
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-wallpaper"
+        "lastModified": 1722605234,
+        "narHash": "sha256-SK78X24IBzzheu4klzWzjfnkzM1D3IStAH8AbAOQ1bg=",
+        "owner": "sinh-x",
+        "repo": "sinh-x-wallpaper",
+        "rev": "a381fe8aca64ed061ca75f04692991905c246c78",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-wallpaper"
+        "owner": "sinh-x",
+        "repo": "sinh-x-wallpaper",
+        "type": "github"
       }
     },
     "systems": {
