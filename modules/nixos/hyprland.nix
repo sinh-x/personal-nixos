@@ -8,7 +8,7 @@
   cfg = config.modules.hyprland;
 in {
   options = {
-    modules.hyprland.enable = lib.mkEnableOption "bspwm";
+    modules.hyprland.enable = lib.mkEnableOption "hyprland";
   };
   config = lib.mkIf cfg.enable {
     programs.hyprland = {

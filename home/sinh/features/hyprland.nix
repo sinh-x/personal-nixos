@@ -1,13 +1,21 @@
 {
   inputs,
   pkgs,
+  config,
+  lib,
   ...
-}: {
-  wayland.windowManager.hyprland = {
-    enable = true;
-
-    plugins = [
-      inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprhook
-    ];
+}: let
+  cfg = config.modules.hyprland;
+in {
+  options = {
+    modules.hyprland.enable = lib.mkEnableOption "bspwm";
+  };
+  config = lib.mkIf cfg.enable {
+    programs.tofi = {
+      enable = true;
+      settings = {
+        font = "FiraCode Nerd Font Mono";
+      };
+    };
   };
 }

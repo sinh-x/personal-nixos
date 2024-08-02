@@ -40,6 +40,9 @@
       # ----- Bat (better cat) -----
       set -x BAT_THEME tokyonight_night
 
+      # ----- Zoxide (better cd) ------
+      zoxide init fish | source
+
       # ----- sinh path -----
       fish_add_path $HOME/.config/sinh-scripts
       fish_add_path $HOME/.config/sinh-x-local
@@ -51,10 +54,6 @@
       bind \cp fish_clipboard_paste
 
       alias cat "bat"
-      alias cd "z"
-
-      # ----- Zoxide (better cd) ------
-      zoxide init fish | source
 
       fish_vi_key_bindings
 

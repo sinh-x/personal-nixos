@@ -6,6 +6,7 @@
   imports = [
     ./global
     ./features/mpd.nix
+    ./features/hyprland.nix
   ];
 
   wallpaper = pkgs.wallpapers.mountain-nebula-purple-pink;
