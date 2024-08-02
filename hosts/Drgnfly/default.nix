@@ -18,8 +18,6 @@
     ./wifi-networks.nix
   ];
 
-  networking.hostName = "Drgnfly";
-
   modules = {
     r_setup.enable = true;
     nix_ld.enable = true;
@@ -105,7 +103,13 @@
   ];
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [22];
+
+  networking = {
+    hostName = "Drgnfly";
+    networkmanager.enable = false;
+    networking.firewall.allowedTCPPorts = [22];
+    nameservers = ["8.8.8.8" "8.8.4.4"];
+  };
   # networking.firewall.allowedUDPPorts = [ ... ];
 
   # Some programs need SUID wrappers, can be configured further or are

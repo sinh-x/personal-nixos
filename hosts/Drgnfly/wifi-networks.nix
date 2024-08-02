@@ -1,5 +1,4 @@
 {
-  networking.hostName = "Drgnfly"; # Define your hostname.
   # Pick only one of the below networking options.
   networking.wireless = {
     environmentFile = "/home/sinh/wireless.env";
