@@ -19,22 +19,5 @@
     zoom = true;
   };
 
-  monitors = [
-    {
-      name = "DP-1";
-      width = 3840;
-      height = 2160;
-      x = 2560;
-      workspace = "1";
-      primary = true;
-    }
-    {
-      name = "HDMI-1";
-      width = 2560;
-      height = 1440;
-      x = 0;
-      workspace = "2";
-    }
-  ];
   home.sessionVariables.EDITOR = "nvim";
 }

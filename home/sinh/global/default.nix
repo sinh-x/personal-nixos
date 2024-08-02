@@ -78,6 +78,7 @@
     vscode
 
     inputs.home-manager.packages.${pkgs.system}.default
+    inputs.rust_cli_pomodoro.defaultPackage.x86_64-linux
     sinh-x-wallpaper
 
     # office
@@ -162,8 +163,6 @@
     zip
 
     zjstatus
-
-    inputs.rust_cli_pomodoro.defaultPackage.x86_64-linux
   ];
 
   fonts.fontconfig = {

@@ -25,9 +25,11 @@
     nix_ld.enable = true;
     virtualbox.enable = true;
     fcitx5.enable = true;
-    bspwm.enable = true;
-    hyprland.enable = true;
     fish.enable = true;
+
+    # windows manager
+    bspwm.enable = true;
+    hyprland.enable = false;
   };
 
   nix = let

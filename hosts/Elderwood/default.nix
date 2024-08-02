@@ -31,8 +31,11 @@
     nix_ld.enable = true;
     virtualbox.enable = true;
     fcitx5.enable = true;
+    fish.enable = true;
+
+    # windows manager
     bspwm.enable = true;
-    hyprland.enable = true;
+    hyprland.enable = false;
   };
 
   nix = let
@@ -74,43 +77,49 @@
 
   hardware.bluetooth.enable = true;
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-label/Home";
-    fsType = "ext4";
-  };
-  fileSystems."/home/sinh/external-hdd" = {
-    device = "/dev/disk/by-label/hdd_1";
-    fsType = "ext4";
-  };
-  fileSystems."/home/sinh/external-ssd-1" = {
-    device = "/dev/disk/by-label/ssd_1";
-    fsType = "ext4";
-  };
-  fileSystems."/home/sinh/external-ssd-2" = {
-    device = "/dev/disk/by-label/ssd_2";
-    fsType = "ext4";
+  fileSystems = {
+    "/home" = {
+      device = "/dev/disk/by-label/Home";
+      fsType = "ext4";
+    };
+
+    "/home/sinh/external-hdd" = {
+      device = "/dev/disk/by-label/hdd_1";
+      fsType = "ext4";
+    };
+
+    "/home/sinh/external-ssd-1" = {
+      device = "/dev/disk/by-label/ssd_1";
+      fsType = "ext4";
+    };
+
+    "/home/sinh/external-ssd-2" = {
+      device = "/dev/disk/by-label/ssd_2";
+      fsType = "ext4";
+    };
   };
 
-  # TODO: Set your hostname
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [24800 22];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.ena eble = false;
-  networking.defaultGateway = "192.168.1.1";
-  networking.interfaces.wlo1.ipv4.addresses = [
-    {
-      address = "192.168.1.4";
-      prefixLength = 24;
-    }
-  ];
-  networking.wireless = {
-    environmentFile = "/home/sinh/.config/wireless.env";
-    enable = true;
-    userControlled.enable = true;
-    networks = {
-      "5G_Vuon Nha" = {
-        psk = "@vuonnha@";
+  networking = {
+    networkmanager.enable = false;
+    firewall.allowedTCPPorts = [24800 22];
+    nameservers = ["8.8.8.8" "8.8.4.4"];
+    defaultGateway = "192.168.1.1";
+
+    interfaces.wlo1.ipv4.addresses = [
+      {
+        address = "192.168.1.4";
+        prefixLength = 24;
+      }
+    ];
+
+    wireless = {
+      environmentFile = "/home/sinh/.config/wireless.env";
+      enable = true;
+      userControlled.enable = true;
+      networks = {
+        "5G_Vuon Nha" = {
+          psk = "@vuonnha@";
+        };
       };
     };
   };
