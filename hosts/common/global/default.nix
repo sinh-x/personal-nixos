@@ -80,6 +80,7 @@
         "JetBrainsMono"
       ];
     })
+    dancing-script
     wps-missing-fonts
     archcraft-icons-fonts
   ];

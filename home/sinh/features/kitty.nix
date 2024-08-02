@@ -33,6 +33,8 @@ in {
     };
     extraConfig = ''
       confirm_os_window_close 0
+      background_opacity 0.8
+      dynamic_background_opacity yes
     '';
     keybindings = {
       "ctrl+enter" = "send_text normal clone-in-kitty --type os-window\\r";
