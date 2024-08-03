@@ -24,5 +24,9 @@
 
     aegisub
   ];
-  home.sessionVariables.EDITOR = "nvim";
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    LEFT_MONITOR = "eDP-1";
+  };
 }

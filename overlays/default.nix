@@ -42,6 +42,7 @@ in {
   modifications = final: prev: {
     zjstatus = inputs.zjstatus.packages.${prev.system}.default;
     sinh-x-wallpaper = inputs.sinh-x-wallpaper.defaultPackage.${prev.system};
+    rust_cli_pomodoro = inputs.rust_cli_pomodoro.defaultPackage.${prev.system};
 
     viber = final.pkgs.unstable.viber.overrideAttrs (oldAttrs: {
       src = final.fetchurl {

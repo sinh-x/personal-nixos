@@ -162,7 +162,7 @@ in {
               pane size=1 borderless=true {
                   plugin location="file://${pkgs.zjstatus}/bin/zjstatus.wasm" {
                       format_left   "{mode}#[bg=#181926] {tabs}"
-                      format_center "{datetime}"
+                      format_center "#[bg=#181926,fg=#89b4fa]{datetime}"
                       format_right  "#[bg=#181926,fg=#89b4fa]#[bg=#89b4fa,fg=#1e2030,bold] #[bg=#363a4f,fg=#89b4fa,bold] {session}{command_hostname} #[bg=#181926,fg=#363a4f,bold]"
                       format_space  ""
                       format_hide_on_overlength "true"
@@ -212,7 +212,7 @@ in {
                       command_hostname_rendermode  "static"
 
 
-                      datetime        "#[fg=#6C7086,bold] {format} "
+                      datetime        "#[fg=#89b4fa,bold] {format} "
                       datetime_format "%A, %d %b %Y %H:%M"
                       datetime_timezone "Asia/Ho_Chi_Minh"
                   }

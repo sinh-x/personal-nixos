@@ -19,5 +19,8 @@
     zoom = true;
   };
 
-  home.sessionVariables.EDITOR = "nvim";
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    LEFT_MONITOR = "HDMI-1";
+  };
 }

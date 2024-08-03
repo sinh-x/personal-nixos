@@ -82,7 +82,7 @@
     google-chrome
     vscode
 
-    inputs.rust_cli_pomodoro.defaultPackage.x86_64-linux
+    rust_cli_pomodoro
     sinh-x-wallpaper
 
     # office
