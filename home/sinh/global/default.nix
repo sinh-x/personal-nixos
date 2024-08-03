@@ -17,6 +17,7 @@
       # You can also split up your configuration and import pieces of it here:
       # ./nvim.nix
       ../features/fish.nix
+      ../features/zellij/zellij.nix
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
@@ -47,6 +48,10 @@
       "GLFW_IM_MODULE" = "ibus";
       XMODIFIERS = "fcitx5";
     };
+  };
+
+  cli.multiplexers = {
+    zellij.enable = true;
   };
 
   # Add stuff for your user as you see fit:
@@ -134,7 +139,6 @@
     poppler
     ripgrep
     zoxide
-    zellij
     zjstatus
 
     cargo-wasi
@@ -196,16 +200,6 @@
   programs.alacritty = {
     enable = true;
   };
-
-  # programs.zellij = {
-  #   enable = true;
-  #   enableFishIntegration = false;
-  #   settings = {
-  #     defaultShell = "fish";
-  #     scrollback_editor = "nvim";
-  #     theme = "Tokyo Night";
-  #   };
-  # };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "24.05";
