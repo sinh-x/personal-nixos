@@ -84,6 +84,7 @@
 
     rust_cli_pomodoro
     sinh-x-wallpaper
+    sinh-x-gitstatus
 
     # office
     wpsoffice
