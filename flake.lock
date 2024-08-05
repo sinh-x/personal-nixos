@@ -772,11 +772,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1722372011,
-        "narHash": "sha256-B2xRiC3NEJy/82ugtareBkRqEkPGpMyjaLxaR8LBxNs=",
+        "lastModified": 1722651103,
+        "narHash": "sha256-IRiJA0NVAoyaZeKZluwfb2DoTpBAj+FLI0KfybBeDU0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "cf05eeada35e122770c5c14add958790fcfcbef5",
+        "rev": "a633d89c6dc9a2a8aae11813a62d7c58b2c0cc51",
         "type": "github"
       },
       "original": {
@@ -942,16 +942,17 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "dirtyRev": "83565e89052b7986b06c3ee05caae6f59a4a6db7-dirty",
-        "dirtyShortRev": "83565e8-dirty",
-        "lastModified": 1722770538,
-        "narHash": "sha256-JXbHML7ICE+zdm3TTw5HBV7I/P4wROR6xGxCYwM5cNY=",
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-gitstatus"
+        "lastModified": 1722810335,
+        "narHash": "sha256-tuRkq88vSbF7ew+Hf3mpTvGuYIDjzjwTQN+MGiLyKqs=",
+        "owner": "sinh-x",
+        "repo": "sinh-x-gitstatus",
+        "rev": "303457df6cb690b0ef4842db5bd1b34e4b562fbd",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-gitstatus"
+        "owner": "sinh-x",
+        "repo": "sinh-x-gitstatus",
+        "type": "github"
       }
     },
     "sinh-x-wallpaper": {

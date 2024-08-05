@@ -8,7 +8,6 @@
     enable = true;
     loginShellInit = ''
       # ----- global sessions vars -----
-      set -x QT_QPA_PLATFORM xcb
     '';
     interactiveShellInit = ''
       # ----- FZF -----

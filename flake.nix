@@ -49,7 +49,7 @@
     };
 
     sinh-x-gitstatus = {
-      url = "/home/sinh/git-repos/sinh-x/sinh-x-gitstatus";
+      url = "github:/sinh-x/sinh-x-gitstatus";
     };
   };
 

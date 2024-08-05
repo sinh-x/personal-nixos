@@ -48,8 +48,8 @@ in {
 
     viber = final.pkgs.unstable.viber.overrideAttrs (oldAttrs: {
       src = final.fetchurl {
-        url = "https://web.archive.org/web/20240115205140/https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb";
-        sha256 = "sha256-9WHiI2WlsgEhCPkrQoAunmF6lSb2n5RgQJ2+sdnSShM=";
+        url = "https://web.archive.org/web/20240114085219/https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb";
+        sha256 = "sha256-RrObmN21QOm5nk0R2avgCH0ulrfiUIo2PnyYWvQaGVw";
       };
     });
   };
