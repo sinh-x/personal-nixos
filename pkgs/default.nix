@@ -19,7 +19,6 @@
   # example = pkgs.callPackage ./example { };
   wps-missing-fonts = pkgs.callPackage ./wps-missing-fonts {};
   archcraft-icons-fonts = pkgs.callPackage ./archcraft-icons-fonts {};
-  ip_update = pkgs.callPackage ./ip_update {};
 
   wallpapers = import ./wallpapers {inherit pkgs;};
   allWallpapers = pkgs.linkFarmFromDrvs "wallpapers" (pkgs.lib.attrValues wallpapers);

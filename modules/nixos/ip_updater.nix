@@ -1,11 +1,12 @@
-{ config, pkgs, lib, ... }:
-
-with lib;
-
-let
-  cfg = config.services.ip_updater;
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.services.ip_updater;
+in {
   options.services.ip_updater = {
     enable = mkEnableOption "ip_updater service";
 
@@ -26,12 +27,12 @@ in
     systemd.services.ip_updater = {
       description = "Run ip_update";
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/ip_update";
+        ExecStart = "${cfg.package}/bin/sinh-x-ip_updater";
         EnvironmentFile = cfg.wasabiAccessKeyFile;
         StandardOutput = "journal";
         StandardError = "journal";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     systemd.timers.ip_updater = {
@@ -39,7 +40,7 @@ in
       timerConfig = {
         OnBootSec = "5min";
       };
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
     };
   };
 }

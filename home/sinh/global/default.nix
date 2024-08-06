@@ -71,7 +71,7 @@
     ffmpeg_7-full
     mpv
 
-    ip_update
+    sinh-x-ip_updater
 
     yt-dlp
 

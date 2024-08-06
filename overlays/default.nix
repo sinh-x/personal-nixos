@@ -44,6 +44,7 @@ in {
 
     sinh-x-wallpaper = inputs.sinh-x-wallpaper.defaultPackage.${prev.system};
     sinh-x-gitstatus = inputs.sinh-x-gitstatus.defaultPackage.${prev.system};
+    sinh-x-ip_updater = inputs.sinh-x-ip_updater.defaultPackage.${prev.system};
     rust_cli_pomodoro = inputs.rust_cli_pomodoro.defaultPackage.${prev.system};
 
     viber = final.pkgs.unstable.viber.overrideAttrs (oldAttrs: {

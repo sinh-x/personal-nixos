@@ -19,7 +19,7 @@
   services = {
     ip_updater = {
       enable = true;
-      package = pkgs.ip_update;
+      package = pkgs.sinh-x-ip_updater;
       wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-local/wasabi-access-key.env";
     };
   };

@@ -37,6 +37,9 @@
     sinh-x-gitstatus = {
       url = "github:/sinh-x/sinh-x-gitstatus";
     };
+    sinh-x-ip_updater = {
+      url = "github:/sinh-x/ip_update";
+    };
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
