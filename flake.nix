@@ -6,35 +6,16 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     systems.url = "github:nix-systems/default-linux";
 
-    hardware.url = "github:nixos/nixos-hardware";
-
-    nix-colors.url = "github:misterio77/nix-colors";
-    impermanence.url = "github:misterio77/impermanence";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    zjstatus = {
-      url = "github:dj95/zjstatus";
-    };
-
-    Neve = {
-      url = "github:sinh-x/Neve";
-    };
-
-    rust_cli_pomodoro = {
-      url = "github:sinh-x/rust-cli-pomodoro/nix-implementation";
-    };
+    hardware.url = "github:nixos/nixos-hardware";
+    nix-colors.url = "github:misterio77/nix-colors";
+    impermanence.url = "github:misterio77/impermanence";
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
@@ -44,12 +25,26 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    rust_cli_pomodoro = {
+      url = "github:sinh-x/rust-cli-pomodoro/1.5.1-sled";
+    };
+    Neve = {
+      url = "github:sinh-x/Neve";
+    };
     sinh-x-wallpaper = {
       url = "github:sinh-x/sinh-x-wallpaper";
     };
-
     sinh-x-gitstatus = {
       url = "github:/sinh-x/sinh-x-gitstatus";
+    };
+
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zjstatus = {
+      url = "github:dj95/zjstatus";
     };
   };
 

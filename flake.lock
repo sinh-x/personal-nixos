@@ -922,16 +922,16 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1722002357,
-        "narHash": "sha256-Kg2kSwiAAtmVlXMnOMqTvLcmv6MBxp0LOAYlxCAgm4s=",
+        "lastModified": 1722940872,
+        "narHash": "sha256-efJSCda1pnJRdt7GMn3XLHDT7eVM+pqZUqLfB8mWVZ4=",
         "owner": "sinh-x",
         "repo": "rust-cli-pomodoro",
-        "rev": "07dbdc58bcb5606766bd40a12c4cb8554c43989a",
+        "rev": "98b5778efe077ced506be0f471c2f3d0b7c779ff",
         "type": "github"
       },
       "original": {
         "owner": "sinh-x",
-        "ref": "nix-implementation",
+        "ref": "1.5.1-sled",
         "repo": "rust-cli-pomodoro",
         "type": "github"
       }
