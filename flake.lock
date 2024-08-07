@@ -790,11 +790,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1722651103,
-        "narHash": "sha256-IRiJA0NVAoyaZeKZluwfb2DoTpBAj+FLI0KfybBeDU0=",
+        "lastModified": 1722869614,
+        "narHash": "sha256-7ojM1KSk3mzutD7SkrdSflHXEujPvW1u7QuqWoTLXQU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a633d89c6dc9a2a8aae11813a62d7c58b2c0cc51",
+        "rev": "883180e6550c1723395a3a342f830bfc5c371f6b",
         "type": "github"
       },
       "original": {
@@ -957,11 +957,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1722940872,
-        "narHash": "sha256-efJSCda1pnJRdt7GMn3XLHDT7eVM+pqZUqLfB8mWVZ4=",
+        "lastModified": 1722978137,
+        "narHash": "sha256-uCJzMaP107x1njdGmemlaTLBwNmtXyj1Zk3ENjnCrVg=",
         "owner": "sinh-x",
         "repo": "rust-cli-pomodoro",
-        "rev": "98b5778efe077ced506be0f471c2f3d0b7c779ff",
+        "rev": "22b14484806784d4409c2eac20c20a75993fcd10",
         "type": "github"
       },
       "original": {
@@ -977,11 +977,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1722810335,
-        "narHash": "sha256-tuRkq88vSbF7ew+Hf3mpTvGuYIDjzjwTQN+MGiLyKqs=",
+        "lastModified": 1722991824,
+        "narHash": "sha256-hZPBwP/6knBuiuXsUKfaSJJWuVg5ySMsvNm2cRIRY2s=",
         "owner": "sinh-x",
         "repo": "sinh-x-gitstatus",
-        "rev": "303457df6cb690b0ef4842db5bd1b34e4b562fbd",
+        "rev": "1516bf85e2b925bce4a51dc8d299f55449b93967",
         "type": "github"
       },
       "original": {
