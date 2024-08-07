@@ -26,6 +26,7 @@ in {
       selene
       statix
       stylua
+      floorp
     ];
   };
 }
