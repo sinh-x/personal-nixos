@@ -44,6 +44,9 @@
       "Home Coffee 01" = {
         psk = "@homecoffee@";
       };
+      "YAMA_5G" = {
+        psk = "@yama@";
+      };
     };
   };
 }
