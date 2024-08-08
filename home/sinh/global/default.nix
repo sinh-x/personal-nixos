@@ -18,6 +18,7 @@
       # ./nvim.nix
       ../features/fish.nix
       ../features/zellij
+      # ../features/gtk_themes.nix
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
@@ -54,10 +55,16 @@
     zellij.enable = true;
   };
 
+  gtk.iconTheme.name = "tokyonight-gtk-theme_icons-dark";
+
+  gtk.theme.package = pkgs.tokyonight-gtk-theme;
+  gtk.theme.name = "tokyonight-gtk-theme_full";
+
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
   home.packages = with pkgs; [
+    tokyonight-gtk-theme
     anydesk
 
     (unstable.libsForQt5.kdenlive.overrideAttrs (prevAttrs: {

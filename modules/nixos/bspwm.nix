@@ -46,6 +46,8 @@ in {
       xdo
       xdotool
       xfce.thunar
+      gvfs
+      lxappearance
       xorg.xev
       xorg.xinit
     ];
