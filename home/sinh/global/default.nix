@@ -17,7 +17,7 @@
       # You can also split up your configuration and import pieces of it here:
       # ./nvim.nix
       ../features/fish.nix
-      ../features/zellij/zellij.nix
+      ../features/zellij
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
