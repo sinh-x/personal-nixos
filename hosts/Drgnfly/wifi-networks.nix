@@ -47,6 +47,9 @@
       "YAMA_5G" = {
         psk = "@yama@";
       };
+      "Ngot.Cafe_5G" = {
+        psk = "@ngotcafe@";
+      };
     };
   };
 }
