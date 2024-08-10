@@ -2,8 +2,7 @@
   description = "Sinh's NixOS configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     systems.url = "github:nix-systems/default-linux";
 
     home-manager = {
@@ -27,6 +26,10 @@
 
     rust_cli_pomodoro = {
       url = "github:sinh-x/rust-cli-pomodoro/1.5.1-sled";
+    };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     Neve = {
       url = "github:sinh-x/Neve";
@@ -55,7 +58,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-unstable,
     home-manager,
     systems,
     sinh-x-wallpaper,
@@ -77,7 +79,6 @@
     homeManagerModules = import ./modules/home-manager;
 
     overlays = import ./overlays {inherit inputs outputs;};
-    hydraJobs = import ./hydra.nix {inherit inputs outputs;};
 
     packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
     devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});

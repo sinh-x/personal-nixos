@@ -11,10 +11,10 @@ in {
   };
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      unstable.R
-      unstable.rstudio
-      (pkgs.unstable.rWrapper.override {
-        packages = with pkgs.unstable.rPackages; [
+      R
+      rstudio
+      (pkgs.rWrapper.override {
+        packages = with pkgs.rPackages; [
           DT
           RColorBrewer
           RJSONIO

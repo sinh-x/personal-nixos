@@ -1,7 +1,6 @@
 {
   boot.kernelParams = ["snd-intel-dspcfg.dsp_driver=1"];
 
-  sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

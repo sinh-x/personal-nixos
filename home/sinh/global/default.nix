@@ -67,7 +67,7 @@
     tokyonight-gtk-theme
     anydesk
 
-    (unstable.libsForQt5.kdenlive.overrideAttrs (prevAttrs: {
+    (libsForQt5.kdenlive.overrideAttrs (prevAttrs: {
       nativeBuildInputs = (prevAttrs.nativeBuildInputs or []) ++ [makeBinaryWrapper];
       postInstall =
         (prevAttrs.postInstall or "")

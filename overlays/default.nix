@@ -23,16 +23,6 @@ in {
       )
       inputs;
   };
-  # Adds pkgs.stable == inputs.nixpkgs-stable.legacyPackages.${pkgs.system}
-  # unstable = final: _: {
-  #   unstable = import inputs.nixpkgs-unstable (inherit final) system);
-  # };
-  unstable = final: _: {
-    unstable = import inputs.nixpkgs-unstable {
-      system = final.system;
-      config.allowUnfree = true;
-    };
-  };
 
   # Adds my custom packages
   additions = final: prev:
@@ -47,7 +37,7 @@ in {
     sinh-x-ip_updater = inputs.sinh-x-ip_updater.defaultPackage.${prev.system};
     rust_cli_pomodoro = inputs.rust_cli_pomodoro.defaultPackage.${prev.system};
 
-    viber = final.pkgs.unstable.viber.overrideAttrs (oldAttrs: {
+    viber = final.pkgs.viber.overrideAttrs (oldAttrs: {
       src = final.fetchurl {
         url = "https://web.archive.org/web/20240114085219/https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb";
         sha256 = "sha256-RrObmN21QOm5nk0R2avgCH0ulrfiUIo2PnyYWvQaGVw";

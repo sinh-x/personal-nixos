@@ -7,9 +7,10 @@
     ./global
     ./features/mpd.nix
     ./features/kitty.nix
+    ./features/neovim
   ];
 
-  programs.neve-nvim.enable = true;
+  programs.neve-nvim.enable = false;
 
   programs.social-apps = {
     discord = true;

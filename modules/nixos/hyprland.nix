@@ -14,7 +14,7 @@ in {
     programs.hyprland = {
       enable = true;
       xwayland.enable = true;
-      package = pkgs.unstable.hyprland;
+      package = pkgs.hyprland;
     };
     programs.hyprlock.enable = true;
 
@@ -33,28 +33,28 @@ in {
     ];
 
     environment.systemPackages = [
-      pkgs.unstable.pyprland
-      pkgs.unstable.gojq
-      pkgs.unstable.tofi
-      pkgs.unstable.yad
-      pkgs.unstable.hyprpicker
-      pkgs.unstable.hyprshot
-      pkgs.unstable.mako
-      pkgs.unstable.waybar
-      pkgs.unstable.wofi
-      pkgs.unstable.wofi-pass
-      pkgs.unstable.foot
-      pkgs.unstable.eww
-      pkgs.unstable.libnotify
-      pkgs.unstable.swww
-      pkgs.unstable.wl-clipboard-rs
-      pkgs.unstable.wlroots
-      pkgs.unstable.wlr-randr
+      pkgs.pyprland
+      pkgs.gojq
+      pkgs.tofi
+      pkgs.yad
+      pkgs.hyprpicker
+      pkgs.hyprshot
+      pkgs.mako
+      pkgs.waybar
+      pkgs.wofi
+      pkgs.wofi-pass
+      pkgs.foot
+      pkgs.eww
+      pkgs.libnotify
+      pkgs.swww
+      pkgs.wl-clipboard-rs
+      pkgs.wlroots
+      pkgs.wlr-randr
 
       pkgs.qt5.qtwayland
 
       inputs.hyprhook.packages.x86_64-linux.hyprhook
-      pkgs.unstable.hyprlandPlugins.hycov
+      pkgs.hyprlandPlugins.hycov
     ];
   };
 }
