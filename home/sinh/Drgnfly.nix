@@ -17,6 +17,7 @@
     slack = false;
     viber = true;
     zoom = true;
+    element = true;
   };
 
   home.packages = with pkgs; [

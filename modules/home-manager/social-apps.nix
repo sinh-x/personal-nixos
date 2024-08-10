@@ -15,6 +15,7 @@ in {
       slack = mkEnableOption "Slack";
       viber = mkEnableOption "Viber";
       zoom = mkEnableOption "Zoom";
+      element = mkEnableOption "Element";
     };
   };
 
@@ -25,6 +26,7 @@ in {
       (mkIf cfg.slack [pkgs.slack])
       (mkIf cfg.viber [pkgs.viber])
       (mkIf cfg.zoom [pkgs.zoom-us])
+      (mkIf cfg.element [pkgs.element-desktop])
     ];
   };
 }
