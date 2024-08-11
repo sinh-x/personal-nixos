@@ -79,11 +79,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1723262595,
-        "narHash": "sha256-IPMyBC2oLn4ZnpKpfm4QAZhUM1/84CU4ukWNNKFP1is=",
+        "lastModified": 1723349009,
+        "narHash": "sha256-nzdTzcDyD8JyQDy30g2rcsrpsN5Qp8CEhtJamKq9Tq8=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "e281296c5bb98af6c67bfdc873acfd5bd4a5a07d",
+        "rev": "ef2d6f05865029005b1e9821ba142935e86dc3fe",
         "type": "gitlab"
       },
       "original": {
@@ -255,11 +255,11 @@
     },
     "hardware": {
       "locked": {
-        "lastModified": 1723149858,
-        "narHash": "sha256-3u51s7jdhavmEL1ggtd8wqrTH2clTy5yaZmhLvAXTqc=",
+        "lastModified": 1723310128,
+        "narHash": "sha256-IiH8jG6PpR4h9TxSGMYh+2/gQiJW9MwehFvheSb5rPc=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "107bb46eef1f05e86fc485ee8af9b637e5157988",
+        "rev": "c54cf53e022b0b3c1d3b8207aa0f9b194c24f0cf",
         "type": "github"
       },
       "original": {
@@ -371,11 +371,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1723241066,
-        "narHash": "sha256-et+BwLETF5e/9jBHK2GnVh6WGjRztRBThtllMezCvcM=",
+        "lastModified": 1723322565,
+        "narHash": "sha256-iwTi2QEc1H6s65Uv7V/Tro/vkvg8WCnpdjzX01mDp7g=",
         "ref": "refs/heads/main",
-        "rev": "4fdc0d55e4b44bb5300679025d2378fb6de0cae4",
-        "revCount": 5074,
+        "rev": "01ff5fdf6a00a9231bd3b56400d8bcab378c4257",
+        "revCount": 5076,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -689,11 +689,11 @@
         "rnvim": "rnvim"
       },
       "locked": {
-        "lastModified": 1723360489,
-        "narHash": "sha256-eAhmNt1FCRQQPFrfTAjfM5TOkkoSKrVpzvp68hbFbls=",
+        "lastModified": 1723378545,
+        "narHash": "sha256-K88BKyTNcPPkKWjO3QQbYJiXXCwW3f6na2c8X3oGr5g=",
         "ref": "refs/heads/main",
-        "rev": "28bb4caf0d9c4443ab15dbc004b71ccdf8b41d0d",
-        "revCount": 27,
+        "rev": "8f497e563882ececc1483ec49c011f74310f8150",
+        "revCount": 29,
         "type": "git",
         "url": "file:///home/sinh/git-repos/sinh-x/personal-nixos-nvim"
       },
@@ -799,10 +799,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "dirtyRev": "c63afd3fafc3b1ff27a2cec956f8901c1d5a8716-dirty",
-        "dirtyShortRev": "c63afd3-dirty",
-        "lastModified": 1723193318,
+        "lastModified": 1723291663,
         "narHash": "sha256-dmus1iWd0vIcc2Qt2DcnYtlnIoBrC0RQuDnygVNuQIM=",
+        "ref": "refs/heads/main",
+        "rev": "256bdfb9a9be4df8a2e99918aad19520fd6a11f3",
+        "revCount": 14,
         "type": "git",
         "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-gitstatus"
       },

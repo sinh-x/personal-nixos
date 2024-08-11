@@ -18,7 +18,9 @@
     statix
     stylua
     floorp
-
+    nodePackages.svelte-language-server
+    nodePackages.typescript-language-server
+    vscode-langservers-extracted
     cargo
     rustc
     rust-analyzer
