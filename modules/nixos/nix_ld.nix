@@ -41,7 +41,7 @@ in {
         mesa
         nspr
         nss
-        openssl
+       openssl
         ocamlPackages.ssl
         pango
         pipewire
@@ -64,6 +64,8 @@ in {
         xorg.libxshmfence
         zlib
       
+        gcc
+        libgcc
         clang
 
         kotlin

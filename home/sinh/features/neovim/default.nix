@@ -1,28 +1,26 @@
-{inputs, ...}: {
-  imports = [
-    inputs.nixvim.homeManagerModules.nixvim
+{
+  inputs,
+  pkgs,
+  config,
+  lib,
+  ...
+}: {
+  home.packages = with pkgs; [
+    alejandra
+    eslint_d
+    icu
+    python312Packages.demjson3
+    python312Packages.black
+    lldb
+    lua-language-server
+    rustfmt
+    selene
+    statix
+    stylua
+    floorp
+
+    cargo
+    rustc
+    rust-analyzer
   ];
-
-  home.shellAliases.v = "nvim";
-
-  programs.nixvim = {
-    enable = true;
-    defaultEditor = true;
-
-    performance = {
-      combinePlugins = {
-        enable = true;
-        standalonePlugins = [
-          "hmts.nvim"
-          "nvim-treesitter"
-        ];
-      };
-      byteCompileLua.enable = true;
-    };
-
-    viAlias = true;
-    vimAlias = true;
-
-    luaLoader.enable = true;
-  };
 }

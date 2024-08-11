@@ -14,6 +14,8 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
+      gcc
+      libgcc
       inputs.Neve.packages.x86_64-linux.default
       alejandra
       eslint_d

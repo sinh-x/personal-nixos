@@ -96,6 +96,7 @@
     ocamlPackages.ssl
   ];
 
+
   environment.variables = {
     EDITOR = "nvim";
     VISUAL = "nvim";

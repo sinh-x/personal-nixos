@@ -6,44 +6,44 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./hardware-configuration.nix
+imports = [
+./hardware-configuration.nix
 
-    ../common/global
-    ../common/users/sinh
+  ../common/global
+  ../common/users/sinh
 
-    ../common/optional/pipewire.nix
-    ../common/optional/sddm.nix
+  ../common/optional/pipewire.nix
+  ../common/optional/sddm.nix
 
-    ./wifi-networks.nix
-  ];
+  ./wifi-networks.nix
+];
 
-  modules = {
-    r_setup.enable = true;
-    nix_ld.enable = true;
-    virtualbox.enable = true;
-    fcitx5.enable = true;
-    fish.enable = true;
+modules = {
+  r_setup.enable = true;
+  nix_ld.enable = true;
+  virtualbox.enable = true;
+  fcitx5.enable = true;
+  fish.enable = true;
 
-    # windows manager
-    bspwm.enable = true;
-    hyprland.enable = false;
-  };
+  # windows manager
+  bspwm.enable = true;
+  hyprland.enable = false;
+};
 
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 16 * 1024;
-    }
-  ];
+swapDevices = [
+  {
+    device = "/swapfile";
+    size = 16 * 1024;
+  }
+];
 
-  nix = let
-    flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-  in {
-    settings = {
-      # Enable flakes and new 'nix' command
-      experimental-features = [
-        "nix-command"
+nix = let
+  flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+in {
+  settings = {
+    # Enable flakes and new 'nix' command
+    experimental-features = [
+      "nix-command"
         "flakes"
         "ca-derivations"
         "repl-flake"
@@ -105,8 +105,6 @@
 
   environment.systemPackages = with pkgs; [
     displaylink
-    bitwarden
-    bitwarden-cli
   ];
 
   # Open ports in the firewall.

@@ -10,25 +10,23 @@
     ./features/neovim
   ];
 
-  programs.neve-nvim.enable = false;
-
   programs.social-apps = {
     discord = true;
     messenger = true;
     slack = false;
-    viber = true;
+    viber = false;
     zoom = true;
     element = true;
   };
 
   home.packages = with pkgs; [
     light
-
     aegisub
+
+    nvim-pkg
   ];
 
   home.sessionVariables = {
-    EDITOR = "nvim";
     LEFT_MONITOR = "eDP-1";
   };
 }

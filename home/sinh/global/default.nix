@@ -189,7 +189,7 @@
   services.syncthing = {
     enable = true;
     tray = {
-      enable = true;
+      enable = false;
       command = "syncthing-tray";
       package = pkgs.syncthing-tray;
     };

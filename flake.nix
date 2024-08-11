@@ -2,17 +2,15 @@
   description = "Sinh's NixOS configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     systems.url = "github:nix-systems/default-linux";
+    hardware.url = "github:nixos/nixos-hardware";
+
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    hardware.url = "github:nixos/nixos-hardware";
-    nix-colors.url = "github:misterio77/nix-colors";
-    impermanence.url = "github:misterio77/impermanence";
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprland-plugins = {
@@ -27,13 +25,6 @@
     rust_cli_pomodoro = {
       url = "github:sinh-x/rust-cli-pomodoro/1.5.1-sled";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    Neve = {
-      url = "github:sinh-x/Neve";
-    };
     sinh-x-wallpaper = {
       url = "github:sinh-x/sinh-x-wallpaper";
     };
@@ -43,6 +34,9 @@
     };
     sinh-x-ip_updater = {
       url = "github:/sinh-x/ip_update";
+    };
+    nvim = {
+      url = "/home/sinh/git-repos/sinh-x/personal-nixos-nvim";
     };
 
     firefox-addons = {
