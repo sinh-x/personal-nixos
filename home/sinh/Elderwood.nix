@@ -7,9 +7,8 @@
     ./global
     ./features/mpd.nix
     ./features/kitty.nix
+    ./features/neovim
   ];
-
-  programs.neve-nvim.enable = true;
 
   programs.social-apps = {
     discord = true;
@@ -18,6 +17,10 @@
     viber = true;
     zoom = true;
   };
+
+  home.packages = with pkgs; [
+    nvim-pkg
+  ];
 
   home.sessionVariables = {
     EDITOR = "nvim";
