@@ -35,8 +35,11 @@
     sinh-x-ip_updater = {
       url = "github:/sinh-x/ip_update";
     };
-    nvim = {
+    nvim-kickstart = {
       url = "/home/sinh/git-repos/sinh-x/personal-nixos-nvim";
+    };
+    neve = {
+      url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
     };
 
     firefox-addons = {

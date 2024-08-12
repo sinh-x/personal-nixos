@@ -36,7 +36,8 @@ in {
     sinh-x-gitstatus = inputs.sinh-x-gitstatus.defaultPackage.${prev.system};
     sinh-x-ip_updater = inputs.sinh-x-ip_updater.defaultPackage.${prev.system};
     rust_cli_pomodoro = inputs.rust_cli_pomodoro.defaultPackage.${prev.system};
-    nvim-pkg = inputs.nvim.packages.${prev.system}.default;
+    nvim-kickstart = inputs.nvim-kickstart.packages.${prev.system}.default;
+    neve = inputs.neve.packages.${prev.system}.default;
 
     # viber = final.pkgs.viber.overrideAttrs (oldAttrs: {
     #   src = final.fetchurl {

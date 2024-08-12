@@ -22,8 +22,6 @@
   home.packages = with pkgs; [
     light
     aegisub
-
-    nvim-pkg
   ];
 
   home.sessionVariables = {

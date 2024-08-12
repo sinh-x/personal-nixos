@@ -19,7 +19,6 @@
   };
 
   home.packages = with pkgs; [
-    nvim-pkg
   ];
 
   home.sessionVariables = {

@@ -6,6 +6,8 @@
   ...
 }: {
   home.packages = with pkgs; [
+    neve
+
     alejandra
     eslint_d
     icu
