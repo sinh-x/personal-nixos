@@ -73,7 +73,7 @@
     "devshell": {
       "inputs": {
         "nixpkgs": [
-          "neve",
+          "nixvim",
           "nixvim",
           "nixpkgs"
         ]
@@ -197,7 +197,7 @@
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
-          "neve",
+          "nixvim",
           "nixvim",
           "nixpkgs"
         ]
@@ -468,18 +468,18 @@
     "git-hooks": {
       "inputs": {
         "flake-compat": [
-          "neve",
+          "nixvim",
           "nixvim",
           "flake-compat"
         ],
         "gitignore": "gitignore",
         "nixpkgs": [
-          "neve",
+          "nixvim",
           "nixvim",
           "nixpkgs"
         ],
         "nixpkgs-stable": [
-          "neve",
+          "nixvim",
           "nixvim",
           "nixpkgs"
         ]
@@ -501,7 +501,7 @@
     "gitignore": {
       "inputs": {
         "nixpkgs": [
-          "neve",
+          "nixvim",
           "nixvim",
           "git-hooks",
           "nixpkgs"
@@ -524,7 +524,7 @@
     "gitignore_2": {
       "inputs": {
         "nixpkgs": [
-          "neve",
+          "nixvim",
           "pre-commit-hooks-nix",
           "nixpkgs"
         ]
@@ -598,7 +598,7 @@
     "home-manager_2": {
       "inputs": {
         "nixpkgs": [
-          "neve",
+          "nixvim",
           "nixvim",
           "nixpkgs"
         ]
@@ -834,32 +834,10 @@
         "type": "github"
       }
     },
-    "neve": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2",
-        "nixvim": "nixvim",
-        "pre-commit-hooks-nix": "pre-commit-hooks-nix",
-        "snowfall-flake": "snowfall-flake",
-        "snowfall-lib": "snowfall-lib_2"
-      },
-      "locked": {
-        "lastModified": 1723439243,
-        "narHash": "sha256-Dzrh2u3ls0R/PEUYukB+fvjUHJhFSuQB/D1410SyOSM=",
-        "ref": "refs/heads/main",
-        "rev": "9a2b97fba443d3abd9686cbe2b32c83f558b9bf0",
-        "revCount": 441,
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-Neve"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-Neve"
-      }
-    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
-          "neve",
+          "nixvim",
           "nixvim",
           "nixpkgs"
         ]
@@ -972,22 +950,6 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1719082008,
-        "narHash": "sha256-jHJSUH619zBQ6WdC21fFAlDxHErKVDJ5fpN0Hgx4sjs=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "9693852a2070b398ee123a329e68f0dab5526681",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_4": {
-      "locked": {
         "lastModified": 1723175592,
         "narHash": "sha256-M0xJ3FbDUc4fRZ84dPGx5VvgFsOzds77KiBMW/mMTnI=",
         "owner": "nixos",
@@ -998,6 +960,22 @@
       "original": {
         "owner": "nixos",
         "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1719082008,
+        "narHash": "sha256-jHJSUH619zBQ6WdC21fFAlDxHErKVDJ5fpN0Hgx4sjs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9693852a2070b398ee123a329e68f0dab5526681",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -1084,6 +1062,28 @@
     },
     "nixvim": {
       "inputs": {
+        "nixpkgs": "nixpkgs_3",
+        "nixvim": "nixvim_2",
+        "pre-commit-hooks-nix": "pre-commit-hooks-nix",
+        "snowfall-flake": "snowfall-flake",
+        "snowfall-lib": "snowfall-lib_2"
+      },
+      "locked": {
+        "lastModified": 1723467506,
+        "narHash": "sha256-8g8I63EeoiOrVH0MMaa9vMEPdpGzS1E8EfnUFXMmt3A=",
+        "ref": "refs/heads/main",
+        "rev": "2ba0bc816e337d40008274f77a23e5949c2d541f",
+        "revCount": 451,
+        "type": "git",
+        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-Neve"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-Neve"
+      }
+    },
+    "nixvim_2": {
+      "inputs": {
         "devshell": "devshell",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
@@ -1091,7 +1091,7 @@
         "home-manager": "home-manager_2",
         "nix-darwin": "nix-darwin",
         "nixpkgs": [
-          "neve",
+          "nixvim",
           "nixpkgs"
         ],
         "nuschtosSearch": "nuschtosSearch",
@@ -1115,7 +1115,7 @@
       "inputs": {
         "flake-utils": "flake-utils_2",
         "nixpkgs": [
-          "neve",
+          "nixvim",
           "nixvim",
           "nixpkgs"
         ]
@@ -1177,7 +1177,7 @@
       "inputs": {
         "flake-compat": "flake-compat_2",
         "gitignore": "gitignore_2",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
@@ -1218,8 +1218,8 @@
         "hyprhook": "hyprhook",
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
-        "neve": "neve",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_2",
+        "nixvim": "nixvim",
         "nvim-kickstart": "nvim-kickstart",
         "rust_cli_pomodoro": "rust_cli_pomodoro",
         "sinh-x-gitstatus": "sinh-x-gitstatus",
@@ -1330,7 +1330,7 @@
       "inputs": {
         "flake-compat": "flake-compat_3",
         "nixpkgs": [
-          "neve",
+          "nixvim",
           "nixpkgs"
         ],
         "snowfall-lib": "snowfall-lib"
@@ -1354,7 +1354,7 @@
         "flake-compat": "flake-compat_4",
         "flake-utils-plus": "flake-utils-plus",
         "nixpkgs": [
-          "neve",
+          "nixvim",
           "snowfall-flake",
           "nixpkgs"
         ]
@@ -1379,7 +1379,7 @@
         "flake-compat": "flake-compat_5",
         "flake-utils-plus": "flake-utils-plus_2",
         "nixpkgs": [
-          "neve",
+          "nixvim",
           "nixpkgs"
         ]
       },
@@ -1550,7 +1550,7 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
-          "neve",
+          "nixvim",
           "nixvim",
           "nixpkgs"
         ]

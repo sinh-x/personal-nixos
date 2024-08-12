@@ -6,9 +6,8 @@
   ...
 }: {
   home.packages = with pkgs; [
-    neve
+    nixvim
 
-    alejandra
     eslint_d
     icu
     python312Packages.demjson3
@@ -19,7 +18,6 @@
     selene
     statix
     stylua
-    floorp
     nodePackages.svelte-language-server
     nodePackages.typescript-language-server
     vscode-langservers-extracted

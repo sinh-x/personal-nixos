@@ -38,7 +38,7 @@
     nvim-kickstart = {
       url = "/home/sinh/git-repos/sinh-x/personal-nixos-nvim";
     };
-    neve = {
+    nixvim = {
       url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
     };
 
