@@ -35,9 +35,6 @@
     sinh-x-ip_updater = {
       url = "github:/sinh-x/ip_update";
     };
-    nvim-kickstart = {
-      url = "/home/sinh/git-repos/sinh-x/personal-nixos-nvim";
-    };
     nixvim = {
       url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
     };
@@ -52,74 +49,83 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    systems,
-    sinh-x-wallpaper,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    lib = nixpkgs.lib // home-manager.lib;
-    forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
-    pkgsFor = lib.genAttrs (import systems) (
-      system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      systems,
+      sinh-x-wallpaper,
+      ...
+    }@inputs:
+    let
+      inherit (self) outputs;
+      lib = nixpkgs.lib // home-manager.lib;
+      forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
+      pkgsFor = lib.genAttrs (import systems) (
+        system:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         }
-    );
-  in {
-    inherit lib;
-    nixosModules = import ./modules/nixos;
-    homeManagerModules = import ./modules/home-manager;
+      );
+    in
+    {
+      inherit lib;
+      nixosModules = import ./modules/nixos;
+      homeManagerModules = import ./modules/home-manager;
 
-    overlays = import ./overlays {inherit inputs outputs;};
+      overlays = import ./overlays { inherit inputs outputs; };
 
-    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
-    devShells = forEachSystem (pkgs: import ./shell.nix {inherit pkgs;});
-    formatter = forEachSystem (pkgs: pkgs.alejandra);
+      packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
+      devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
+      formatter = forEachSystem (pkgs: pkgs.alejandra);
 
-    nixosConfigurations = {
-      Elderwood = nixpkgs.lib.nixosSystem {
-        modules = [
-          ./hosts/Elderwood
-        ];
-        specialArgs = {inherit inputs outputs;};
-      };
-      Drgnfly = nixpkgs.lib.nixosSystem {
-        modules = [
-          ./hosts/Drgnfly
-        ];
-        specialArgs = {inherit inputs outputs;};
-      };
-      littleBee = nixpkgs.lib.nixosSystem {
-        modules = [
-          ./hosts/littleBee
-        ];
-        specialArgs = {inherit inputs outputs;};
-      };
-    };
-
-    homeConfigurations = {
-      # Desktop
-      "sinh@Elderwood" = lib.homeManagerConfiguration {
-        modules = [./home/sinh/nixpkgs.nix ./home/sinh/Elderwood.nix];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
+      nixosConfigurations = {
+        Elderwood = nixpkgs.lib.nixosSystem {
+          modules = [ ./hosts/Elderwood ];
+          specialArgs = {
+            inherit inputs outputs;
+          };
+        };
+        Drgnfly = nixpkgs.lib.nixosSystem {
+          modules = [ ./hosts/Drgnfly ];
+          specialArgs = {
+            inherit inputs outputs;
+          };
+        };
+        littleBee = nixpkgs.lib.nixosSystem {
+          modules = [ ./hosts/littleBee ];
+          specialArgs = {
+            inherit inputs outputs;
+          };
         };
       };
 
-      # Work laptop
-      "sinh@Drgnfly" = lib.homeManagerConfiguration {
-        modules = [./home/sinh/nixpkgs.nix ./home/sinh/Drgnfly.nix];
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
+      homeConfigurations = {
+        # Desktop
+        "sinh@Elderwood" = lib.homeManagerConfiguration {
+          modules = [
+            ./home/sinh/nixpkgs.nix
+            ./home/sinh/Elderwood.nix
+          ];
+          pkgs = pkgsFor.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs;
+          };
+        };
+
+        # Work laptop
+        "sinh@Drgnfly" = lib.homeManagerConfiguration {
+          modules = [
+            ./home/sinh/nixpkgs.nix
+            ./home/sinh/Drgnfly.nix
+          ];
+          pkgs = pkgsFor.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs;
+          };
         };
       };
     };
-  };
 }
