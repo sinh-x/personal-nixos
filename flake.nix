@@ -33,10 +33,10 @@
       url = "/home/sinh/git-repos/sinh-x/sinh-x-gitstatus";
     };
     sinh-x-ip_updater = {
-      url = "github:/sinh-x/ip_update";
+      url = "github:sinh-x/ip_update";
     };
     nixvim = {
-      url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
+      url = "github:sinh-x/Neve";
     };
 
     firefox-addons = {

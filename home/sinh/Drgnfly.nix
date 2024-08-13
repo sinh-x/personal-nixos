@@ -1,8 +1,5 @@
+{ inputs, pkgs, ... }:
 {
-  inputs,
-  pkgs,
-  ...
-}: {
   imports = [
     ./global
     ./features/mpd.nix
@@ -14,7 +11,7 @@
     discord = true;
     messenger = true;
     slack = false;
-    viber = false;
+    viber = true;
     zoom = true;
     element = true;
   };
