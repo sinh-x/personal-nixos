@@ -50,6 +50,9 @@
       "Ngot.Cafe_5G" = {
         psk = "@ngotcafe@";
       };
+      "LyLy Coffee" = {
+        psk = "@lyly@";
+      };
     };
   };
 }
