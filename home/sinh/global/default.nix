@@ -7,20 +7,19 @@
   pkgs,
   outputs,
   ...
-}: {
+}:
+{
   # You can import other home-manager modules here
-  imports =
-    [
-      # If you want to use home-manager modules from other flakes (such as nix-colors):
-      # inputs.nix-colors.homeManagerModule
+  imports = [
+    # If you want to use home-manager modules from other flakes (such as nix-colors):
+    # inputs.nix-colors.homeManagerModule
 
-      # You can also split up your configuration and import pieces of it here:
-      # ./nvim.nix
-      ../features/fish.nix
-      ../features/zellij
-      # ../features/gtk_themes.nix
-    ]
-    ++ (builtins.attrValues outputs.homeManagerModules);
+    # You can also split up your configuration and import pieces of it here:
+    # ./nvim.nix
+    ../features/fish.nix
+    ../features/zellij
+    # ../features/gtk_themes.nix
+  ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   nix = {
     package = lib.mkDefault pkgs.nix;
@@ -65,10 +64,11 @@
   # home.packages = with pkgs; [ steam ];
   home.packages = with pkgs; [
     tokyonight-gtk-theme
+    paper-icon-theme
     anydesk
 
     (libsForQt5.kdenlive.overrideAttrs (prevAttrs: {
-      nativeBuildInputs = (prevAttrs.nativeBuildInputs or []) ++ [makeBinaryWrapper];
+      nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [ makeBinaryWrapper ];
       postInstall =
         (prevAttrs.postInstall or "")
         + ''

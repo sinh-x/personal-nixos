@@ -5,7 +5,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
 
@@ -36,30 +37,35 @@
     hyprland.enable = false;
   };
 
-  nix = let
-    flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-  in {
-    settings = {
-      # Enable flakes and new 'nix' command
-      experimental-features = [
-        "nix-command"
-        "flakes"
-        "ca-derivations"
-        "repl-flake"
-      ];
-      # Opinionated: disable global registry
-      flake-registry = "";
-      # Workaround for https://github.com/NixOS/nix/issues/9574
-      nix-path = config.nix.nixPath;
-      trusted-users = ["root" "sinh"];
-    };
-    # Opinionated: disable channels
-    channel.enable = false;
+  nix =
+    let
+      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+    in
+    {
+      settings = {
+        # Enable flakes and new 'nix' command
+        experimental-features = [
+          "nix-command"
+          "flakes"
+          "ca-derivations"
+          "repl-flake"
+        ];
+        # Opinionated: disable global registry
+        flake-registry = "";
+        # Workaround for https://github.com/NixOS/nix/issues/9574
+        nix-path = config.nix.nixPath;
+        trusted-users = [
+          "root"
+          "sinh"
+        ];
+      };
+      # Opinionated: disable channels
+      channel.enable = false;
 
-    # Opinionated: make flake registry and nix path match flake inputs
-    registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
-    nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
-  };
+      # Opinionated: make flake registry and nix path match flake inputs
+      registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+      nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+    };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -100,8 +106,14 @@
   networking = {
     hostName = "Elderwood";
     networkmanager.enable = false;
-    firewall.allowedTCPPorts = [24800 22];
-    nameservers = ["8.8.8.8" "8.8.4.4"];
+    firewall.allowedTCPPorts = [
+      24800
+      22
+    ];
+    nameservers = [
+      "8.8.8.8"
+      "8.8.4.4"
+    ];
     defaultGateway = "192.168.1.1";
 
     interfaces.wlo1.ipv4.addresses = [
@@ -123,10 +135,7 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    noip
-    cups-pdf-to-pdf
-  ];
+  environment.systemPackages = with pkgs; [ cups-pdf-to-pdf ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

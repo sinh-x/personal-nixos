@@ -1,32 +1,35 @@
-{
-  outputs,
-  inputs,
-}: let
-  addPatches = pkg: patches:
+{ outputs, inputs }:
+let
+  addPatches =
+    pkg: patches:
     pkg.overrideAttrs (oldAttrs: {
-      patches = (oldAttrs.patches or []) ++ patches;
+      patches = (oldAttrs.patches or [ ]) ++ patches;
     });
-in {
+in
+{
   # For every flake input, aliases 'pkgs.inputs.${flake}' to
   # 'inputs.${flake}.packages.${pkgs.system}' or
   # 'inputs.${flake}.legacyPackages.${pkgs.system}'
   flake-inputs = final: _: {
-    inputs =
-      builtins.mapAttrs (
-        _: flake: let
-          legacyPackages = (flake.legacyPackages or {}).${final.system} or {};
-          packages = (flake.packages or {}).${final.system} or {};
-        in
-          if legacyPackages != {}
-          then legacyPackages
-          else packages
-      )
-      inputs;
+    inputs = builtins.mapAttrs (
+      _: flake:
+      let
+        legacyPackages = (flake.legacyPackages or { }).${final.system} or { };
+        packages = (flake.packages or { }).${final.system} or { };
+      in
+      if legacyPackages != { } then legacyPackages else packages
+    ) inputs;
+  };
+
+  unstable = final: _: {
+    unstable = import inputs.nixpkgs {
+      system = final.system;
+      config.allowUnfree = true;
+    };
   };
 
   # Adds my custom packages
-  additions = final: prev:
-    import ../pkgs {pkgs = final;};
+  additions = final: prev: import ../pkgs { pkgs = final; };
 
   # Modifies existing packages
   modifications = final: prev: {
@@ -39,11 +42,11 @@ in {
     # nvim-kickstart = inputs.nvim-kickstart.packages.${prev.system}.default;
     nixvim = inputs.nixvim.packages.${prev.system}.default;
 
-    # viber = final.pkgs.viber.overrideAttrs (oldAttrs: {
-    #   src = final.fetchurl {
-    #     url = "https://web.archive.org/web/20240114085219/https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb";
-    #     sha256 = "sha256-RrObmN21QOm5nk0R2avgCH0ulrfiUIo2PnyYWvQaGVw";
-    #   };
-    # });
+    viber = final.pkgs.unstable.viber.overrideAttrs (oldAttrs: {
+      src = final.fetchurl {
+        url = "https://web.archive.org/web/20240801032209/https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb";
+        sha256 = "sha256-9WHiI2WlsgEhCPkrQoAunmF6lSb2n5RgQJ2+sdnSShM=";
+      };
+    });
   };
 }
