@@ -40,10 +40,10 @@ in
     sinh-x-ip_updater = inputs.sinh-x-ip_updater.defaultPackage.${prev.system};
     rust_cli_pomodoro = inputs.rust_cli_pomodoro.defaultPackage.${prev.system};
     # nvim-kickstart = inputs.nvim-kickstart.packages.${prev.system}.default;
-    nixvim = inputs.nixvim.packages.${prev.system}.default;
+    nixvim = inputs.nixvim.packages.${prev.system}.nvim;
 
-    viber = final.pkgs.unstable.viber.overrideAttrs (oldAttrs: {
-      src = final.fetchurl {
+    viber = prev.viber.overrideAttrs (oldAttrs: {
+      src = prev.fetchurl {
         url = "https://web.archive.org/web/20240801032209/https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb";
         sha256 = "sha256-9WHiI2WlsgEhCPkrQoAunmF6lSb2n5RgQJ2+sdnSShM=";
       };
