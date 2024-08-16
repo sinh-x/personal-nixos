@@ -4,11 +4,27 @@
   inputs = {
     systems.url = "github:nix-systems/default-linux";
     hardware.url = "github:nixos/nixos-hardware";
-
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # optional, not necessary for the module
+
+    pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
+
+    # Snowfall Flake
+    snowfall-lib = {
+      url = "github:snowfallorg/lib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    snowfall-flake = {
+      url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -29,8 +45,8 @@
       url = "github:sinh-x/sinh-x-wallpaper";
     };
     sinh-x-gitstatus = {
-      # url = "github:/sinh-x/sinh-x-gitstatus";
-      url = "/home/sinh/git-repos/sinh-x/sinh-x-gitstatus";
+      url = "github:/sinh-x/sinh-x-gitstatus";
+      # url = "/home/sinh/git-repos/sinh-x/sinh-x-gitstatus";
     };
     sinh-x-ip_updater = {
       url = "github:sinh-x/ip_update";
@@ -49,84 +65,38 @@
       url = "github:dj95/zjstatus";
     };
   };
-
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      systems,
-      sinh-x-wallpaper,
-      ...
-    }@inputs:
+    inputs:
     let
-      inherit (self) outputs;
-      lib = nixpkgs.lib // home-manager.lib;
-      forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
-      pkgsFor = lib.genAttrs (import systems) (
-        system:
-        import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        }
-      );
+      lib = inputs.snowfall-lib.mkLib {
+        inherit inputs;
+        src = ./.;
+
+        snowfall = {
+          meta = {
+            name = "sinh-x";
+            title = "Sinh's NixOS configurations";
+          };
+          namespace = "sinh-x";
+        };
+      };
     in
-    {
-      inherit lib;
-      nixosModules = import ./modules/nixos;
-      homeManagerModules = import ./modules/home-manager;
+    lib.mkFlake {
+      # You must provide our flake inputs to Snowfall Lib.
+      inherit inputs;
+      src = ./.;
 
-      overlays = import ./overlays { inherit inputs outputs; };
+      channels-config = {
+        allowUnfree = true;
+        permittedInsercuerPackages = [ ];
 
-      packages = forEachSystem (pkgs: import ./pkgs { inherit pkgs; });
-      devShells = forEachSystem (pkgs: import ./shell.nix { inherit pkgs; });
-      formatter = forEachSystem (pkgs: pkgs.alejandra);
-
-      nixosConfigurations = {
-        Elderwood = nixpkgs.lib.nixosSystem {
-          modules = [ ./hosts/Elderwood ];
-          specialArgs = {
-            inherit inputs outputs;
-          };
-        };
-        Drgnfly = nixpkgs.lib.nixosSystem {
-          modules = [ ./hosts/Drgnfly ];
-          specialArgs = {
-            inherit inputs outputs;
-          };
-        };
-        littleBee = nixpkgs.lib.nixosSystem {
-          modules = [ ./hosts/littleBee ];
-          specialArgs = {
-            inherit inputs outputs;
-          };
-        };
+        experimental-features = [
+          "nix-command"
+          "flakes"
+          "ca-derivations"
+          "repl-flake"
+        ];
       };
 
-      homeConfigurations = {
-        # Desktop
-        "sinh@Elderwood" = lib.homeManagerConfiguration {
-          modules = [
-            ./home/sinh/nixpkgs.nix
-            ./home/sinh/Elderwood.nix
-          ];
-          pkgs = pkgsFor.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-        };
-
-        # Work laptop
-        "sinh@Drgnfly" = lib.homeManagerConfiguration {
-          modules = [
-            ./home/sinh/nixpkgs.nix
-            ./home/sinh/Drgnfly.nix
-          ];
-          pkgs = pkgsFor.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-        };
-      };
     };
 }

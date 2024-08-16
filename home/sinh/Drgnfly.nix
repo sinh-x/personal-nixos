@@ -1,25 +1,16 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
-  imports = [
-    ./global
-    ./features/mpd.nix
-    ./features/kitty.nix
-    ./features/neovim
-  ];
-
-  programs.social-apps = {
-    discord = true;
-    messenger = true;
-    slack = false;
-    viber = true;
-    zoom = true;
-    element = true;
-  };
+  imports = [ ./global ];
 
   home.packages = with pkgs; [
     light
     aegisub
+    viber
   ];
+
+  sinh-x.social-apps = {
+    viber = true;
+  };
 
   home.sessionVariables = {
     LEFT_MONITOR = "eDP-1";

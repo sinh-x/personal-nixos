@@ -5,32 +5,19 @@
   lib,
   config,
   pkgs,
-  outputs,
   ...
 }:
 {
   # You can import other home-manager modules here
-  imports = [
-    # If you want to use home-manager modules from other flakes (such as nix-colors):
-    # inputs.nix-colors.homeManagerModule
-
-    # You can also split up your configuration and import pieces of it here:
-    # ./nvim.nix
-    ../features/fish.nix
-    ../features/zellij
-    # ../features/gtk_themes.nix
-  ] ++ (builtins.attrValues outputs.homeManagerModules);
+  imports = [ inputs.sops-nix.homeManagerModules.sops ];
 
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-        "ca-derivations"
-        "repl-flake"
-      ];
       warn-dirty = false;
+      access-tokens = lib.mkForce "github.com=${
+        builtins.readFile config.sops.secrets."nix/github_access_token".path
+      }";
     };
   };
 
@@ -50,15 +37,13 @@
     };
   };
 
-  cli.multiplexers = {
-    zellij.enable = true;
+  gtk = {
+    iconTheme.name = "tokyonight-gtk-theme_icons-dark";
+
+    theme.package = pkgs.tokyonight-gtk-theme;
+    theme.name = "tokyonight-gtk-theme_full";
+
   };
-
-  gtk.iconTheme.name = "tokyonight-gtk-theme_icons-dark";
-
-  gtk.theme.package = pkgs.tokyonight-gtk-theme;
-  gtk.theme.name = "tokyonight-gtk-theme_full";
-
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
@@ -193,11 +178,6 @@
       command = "syncthing-tray";
       package = pkgs.syncthing-tray;
     };
-  };
-
-  services.rust-cli-pomodoro = {
-    enable = true;
-    package = inputs.rust_cli_pomodoro.defaultPackage.x86_64-linux;
   };
 
   programs.lsd = {
