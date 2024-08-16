@@ -52,8 +52,8 @@
       url = "github:sinh-x/ip_update";
     };
     nixvim = {
-      url = "github:sinh-x/Neve";
-      # url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
+      # url = "github:sinh-x/Neve";
+      url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
     };
 
     firefox-addons = {

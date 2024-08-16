@@ -1142,17 +1142,17 @@
         "snowfall-lib": "snowfall-lib_2"
       },
       "locked": {
-        "lastModified": 1723784701,
-        "narHash": "sha256-3RSWctk40y5EhpEoRBWfoD8J8psSzK2Ud/J2w/WqZUE=",
-        "owner": "sinh-x",
-        "repo": "Neve",
-        "rev": "de546670368e78108f51a05d9ecb3ee37ddc7d4a",
-        "type": "github"
+        "lastModified": 1723799292,
+        "narHash": "sha256-nr59tGtaa1iOSk251XN59zlR3tZfN+I1Q6FgaTfONJs=",
+        "ref": "refs/heads/main",
+        "rev": "e298f5bb65db13d12dc0b986d84334ab968476df",
+        "revCount": 463,
+        "type": "git",
+        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-Neve"
       },
       "original": {
-        "owner": "sinh-x",
-        "repo": "Neve",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-Neve"
       }
     },
     "nixvim_2": {

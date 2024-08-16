@@ -44,6 +44,10 @@
       viber = true;
       zoom = true;
     };
+
+    security = {
+      bitwarden.enable = true;
+    };
   };
 
   home.sessionVariables = {
