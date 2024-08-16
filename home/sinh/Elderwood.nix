@@ -1,6 +1,11 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [ ./global ];
+
+  home.packages = with pkgs; [
+    anydesk
+    sct # for setting color temperature
+  ];
 
   sinh-x = {
     apps = {

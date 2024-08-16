@@ -47,6 +47,7 @@
   };
 
   home.sessionVariables = {
+    EDITOR = "nvim";
     LEFT_MONITOR = "eDP-1";
   };
 }
