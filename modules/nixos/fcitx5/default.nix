@@ -20,6 +20,8 @@ in
         fcitx5-gtk
         libsForQt5.fcitx5-unikey
       ];
+
     };
+
   };
 }

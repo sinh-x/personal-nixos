@@ -3,16 +3,30 @@
   imports = [ ./global ];
 
   sinh-x = {
+    apps = {
+      sinh-x.enable = true;
+      web.browser.enable = true;
+      utilities.enable = true;
+      themes.enable = true;
+      input-cfg.enable = true;
+    };
 
     multimedia = {
       mpd.enable = true;
+      utilities.enable = true;
+      tools = {
+        kdenlive.enable = true;
+      };
     };
 
     cli-apps = {
+      utilities.enable = true;
       terminal.kitty.enable = true;
       shell.fish.enable = true;
       multiplexers.zellij.enable = true;
       editor.neovim.enable = true;
+      backup.enable = true;
+      nix.enable = true;
     };
 
     social-apps = {

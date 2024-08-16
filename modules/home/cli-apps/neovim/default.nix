@@ -23,22 +23,34 @@ in
     home.packages = with pkgs; [
       nixvim
 
+      # programming
+      cargo
+      clang
       eslint_d
+      go
       icu
-      python312Packages.demjson3
-      python312Packages.black
+      jre_minimal
+      julia-lts
+      kotlin
       lldb
       lua-language-server
+      luajit
+      mercurial
+      nodePackages.svelte-language-server
+      nodePackages.typescript-language-server
+      nodejs_22
+      prettierd
+      python312Packages.black
+      python312Packages.demjson3
+      rust-analyzer
+      rustc
       rustfmt
       selene
       statix
       stylua
-      nodePackages.svelte-language-server
-      nodePackages.typescript-language-server
+      tree-sitter
       vscode-langservers-extracted
-      cargo
-      rustc
-      rust-analyzer
+      zig
     ];
   };
 }
