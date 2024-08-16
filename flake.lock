@@ -2534,11 +2534,11 @@
         "snowfall-lib": "snowfall-lib_2"
       },
       "locked": {
-        "lastModified": 1723811519,
-        "narHash": "sha256-yan6sn1tadBaKCT7Z8vLd53r/Zu/mbMNMakPkjBSsyc=",
+        "lastModified": 1723825571,
+        "narHash": "sha256-w7OkH2AWzcpHyqQdqm9mYIbb7k3VKtUlnvWxKEifrLc=",
         "ref": "refs/heads/main",
-        "rev": "7f78307b9df43fb0d3761470213a1405d43e32e6",
-        "revCount": 464,
+        "rev": "934193ad42d057f5b722b1e82d44bbb53ce596ed",
+        "revCount": 465,
         "type": "git",
         "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-Neve"
       },
