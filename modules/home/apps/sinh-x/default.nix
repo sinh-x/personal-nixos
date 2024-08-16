@@ -21,7 +21,7 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      rust_cli_pomodoro
+      sinh-x-pomodoro
       sinh-x-wallpaper
       sinh-x-gitstatus
       sinh-x-ip_updater
