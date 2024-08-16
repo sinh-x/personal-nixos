@@ -1,0 +1,11 @@
+#!/usr/bin/env fish
+
+# Import Current Theme
+set DIR "$HOME/.config/bspwm"
+set STYLE (hostname)
+set RASI "$DIR/themes/$STYLE/rofi/windows.rasi"
+
+# Run
+rofi \
+    -show window \
+    -theme $RASI

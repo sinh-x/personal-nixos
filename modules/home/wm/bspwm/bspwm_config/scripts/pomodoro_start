@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+~/.config/bspwm/scripts/bspwm-toggle-visibility.sh pomodoro 'alacritty --config-file /home/sinh/.config/bspwm/alacritty/alacritty.toml --class pomodoro,pomodoro --command pomodoro'

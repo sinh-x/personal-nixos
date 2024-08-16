@@ -1,0 +1,18 @@
+#!/usr/bin/env fish
+
+set work_timer (pomodoro list | awk -F '│' '{print $3}' | grep -v '^$' | grep -v 'work_remaining (min)' | sort -n)
+set break_timer (pomodoro list | awk -F '│' '{print $4}' | grep -v '^$' | grep -v 'break_remaining (min)' | sort -n)
+
+set timer $work_timer $break_timer
+set timer (string match -rv '00:00' $timer)
+
+for i in (seq (count $timer))
+    set timer[$i] (string trim -- $timer[$i])
+end
+set first_timer $timer[1]
+set total_count (count $work_timer)
+
+set bell_icon (printf "\uf0f3")
+set circle_icon (printf "\ueb8a")
+
+notify-send "Pomodoro Time: $bell_icon" "$circle_icon First Timer: $first_timer\n$circle_icon Total Count: $total_count"

@@ -1,0 +1,39 @@
+#!/usr/bin/env fish
+
+set DIR "$HOME/.config/bspwm"
+set STYLE (hostname)
+set RASI "$DIR/themes/$STYLE/rofi/windows.rasi"
+
+# Get the list of windows
+set windows (bspc query -N -n .window)
+
+# Prepare the menu items
+set menu_items ""
+for window in $windows
+    # Get the window title and class
+    set title (xprop -id $window | awk -F\" '/_NET_WM_NAME/ {print $2}')
+    set class (xprop -id $window | awk -F\" '/WM_CLASS/ {print $4}')
+    set icon (xprop -id $window | awk -F\" '/WM_ICON/ {print $1}')
+
+    echo $icon
+
+    # Add the window to the menu items
+    set menu_items "$menu_items($class) $title\n"
+end
+
+# Show the menu and get the selected item
+set selected (echo -e $menu_items | rofi -dmenu -i -p "Switch to:" -theme $RASI)
+
+# Focus the selected window
+for window in $windows
+    set title (xprop -id $window | awk -F\" '/_NET_WM_NAME/ {print $2}')
+    set class (xprop -id $window | awk -F\" '/WM_CLASS/ {print $4}')
+
+    if test "$selected" = "($class) $title"
+        set current_workspace (bspc query -D -d)
+        bspc node $window -d $current_workspace
+        bspc node $window -f
+        break
+    end
+end
+
