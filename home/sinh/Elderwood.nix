@@ -45,6 +45,10 @@
     security = {
       bitwarden.enable = true;
     };
+
+    wm = {
+      bspwm.enable = true;
+    };
   };
 
   home.sessionVariables = {

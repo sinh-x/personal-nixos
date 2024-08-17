@@ -2534,17 +2534,17 @@
         "snowfall-lib": "snowfall-lib_2"
       },
       "locked": {
-        "lastModified": 1723825571,
-        "narHash": "sha256-w7OkH2AWzcpHyqQdqm9mYIbb7k3VKtUlnvWxKEifrLc=",
-        "ref": "refs/heads/main",
-        "rev": "934193ad42d057f5b722b1e82d44bbb53ce596ed",
-        "revCount": 465,
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-Neve"
+        "lastModified": 1723893731,
+        "narHash": "sha256-nbE3NVEbxNaZNsocX01laP0l1Bevmy+Cjem6UcuFZmE=",
+        "owner": "sinh-x",
+        "repo": "Neve",
+        "rev": "b60fda73690032b9c0a3c947b8c0b86b45687dae",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-Neve"
+        "owner": "sinh-x",
+        "repo": "Neve",
+        "type": "github"
       }
     },
     "nixvim_2": {
@@ -2985,17 +2985,17 @@
         "snowfall-lib": "snowfall-lib_4"
       },
       "locked": {
-        "lastModified": 1723816950,
-        "narHash": "sha256-cZO5bp7wh5rKupDZEq8klTEuq6N0wQeqemlGbu7eqFY=",
-        "ref": "refs/heads/main",
-        "rev": "b58aea87a821fe71e510e2dbea658322320ff5c8",
-        "revCount": 15,
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-gitstatus"
+        "lastModified": 1723822728,
+        "narHash": "sha256-DfNetaxKmaT048aEBAce8J6tigLOFFuoSDcQZhQ9T4g=",
+        "owner": "sinh-x",
+        "repo": "sinh-x-gitstatus",
+        "rev": "3b1e2e6bfa8f774f55f86ad096128b3994a8bb33",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-gitstatus"
+        "owner": "sinh-x",
+        "repo": "sinh-x-gitstatus",
+        "type": "github"
       }
     },
     "sinh-x-ip_updater": {
@@ -3009,15 +3009,15 @@
       "locked": {
         "lastModified": 1723823561,
         "narHash": "sha256-Zy6mHgWZEZfC2OWvb6N2a5oLQEb0exOM36Ik7W3uoMw=",
-        "ref": "refs/heads/main",
+        "owner": "sinh-x",
+        "repo": "ip_update",
         "rev": "2977f0634a5519b7a6471f881c68cc8efcabd375",
-        "revCount": 12,
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/ip_update"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/ip_update"
+        "owner": "sinh-x",
+        "repo": "ip_update",
+        "type": "github"
       }
     },
     "sinh-x-pomodoro": {
@@ -3029,17 +3029,17 @@
         "snowfall-lib": "snowfall-lib_8"
       },
       "locked": {
-        "lastModified": 1723821234,
-        "narHash": "sha256-ARaEMHo2uu060kpkBc/uPnTvq28OuuMz2Id12NoOnF4=",
-        "ref": "refs/heads/1.5.1-sled",
-        "rev": "6abc09a2ead4548690a026835b832ef16d198895",
-        "revCount": 193,
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/rust-cli-pomodoro"
+        "lastModified": 1723898036,
+        "narHash": "sha256-Q2D7LezPSKi5h/BB2BaYNDP01xuvO6agAreFITSfsPw=",
+        "owner": "sinh-x",
+        "repo": "rust-cli-pomodoro",
+        "rev": "a17d137c082011f8a874594e02d0a8906a52e077",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/rust-cli-pomodoro"
+        "owner": "sinh-x",
+        "repo": "rust-cli-pomodoro",
+        "type": "github"
       }
     },
     "sinh-x-wallpaper": {
@@ -3053,15 +3053,15 @@
       "locked": {
         "lastModified": 1723822298,
         "narHash": "sha256-Wqq2pMHqpacFHWK5kjDjXjeViVPLNFqCj8z8kwsujNM=",
-        "ref": "refs/heads/main",
+        "owner": "sinh-x",
+        "repo": "sinh-x-wallpaper",
         "rev": "2546f0966b2f3a8c33e79ea7d808084c46acedc7",
-        "revCount": 9,
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-wallpaper"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-wallpaper"
+        "owner": "sinh-x",
+        "repo": "sinh-x-wallpaper",
+        "type": "github"
       }
     },
     "snowfall-flake": {

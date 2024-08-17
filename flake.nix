@@ -39,24 +39,24 @@
     };
 
     sinh-x-pomodoro = {
-      # url = "github:sinh-x/rust-cli-pomodoro/1.5.1-sled";
-      url = "/home/sinh/git-repos/sinh-x/rust-cli-pomodoro";
+      url = "github:sinh-x/rust-cli-pomodoro";
+      # url = "/home/sinh/git-repos/sinh-x/rust-cli-pomodoro";
     };
     sinh-x-wallpaper = {
-      # url = "github:sinh-x/sinh-x-wallpaper";
-      url = "/home/sinh/git-repos/sinh-x/sinh-x-wallpaper";
+      url = "github:sinh-x/sinh-x-wallpaper";
+      # url = "/home/sinh/git-repos/sinh-x/sinh-x-wallpaper";
     };
     sinh-x-gitstatus = {
-      # url = "github:/sinh-x/sinh-x-gitstatus";
-      url = "/home/sinh/git-repos/sinh-x/sinh-x-gitstatus";
+      url = "github:/sinh-x/sinh-x-gitstatus";
+      # url = "/home/sinh/git-repos/sinh-x/sinh-x-gitstatus";
     };
     sinh-x-ip_updater = {
-      # url = "github:sinh-x/ip_update";
-      url = "/home/sinh/git-repos/sinh-x/ip_update";
+      url = "github:sinh-x/ip_update";
+      # url = "/home/sinh/git-repos/sinh-x/ip_update";
     };
     nixvim = {
-      # url = "github:sinh-x/Neve";
-      url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
+      url = "github:sinh-x/Neve";
+      # url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
     };
 
     firefox-addons = {
