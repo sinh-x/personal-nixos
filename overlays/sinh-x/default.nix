@@ -19,7 +19,7 @@ _final: prev: {
   inherit (inputs.sinh-x-pomodoro.packages.${prev.system}) sinh-x-pomodoro;
   inherit (inputs.sinh-x-gitstatus.packages.${prev.system}) sinh-x-gitstatus;
 
-  nixvim = inputs.nixvim.packages.${prev.system}.nvim;
+  nixvim = inputs.sinh-x-nixvim.packages.${prev.system}.nvim;
   zjstatus = inputs.zjstatus.packages.${prev.system}.default;
 
 }
