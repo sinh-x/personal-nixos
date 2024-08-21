@@ -2780,15 +2780,15 @@
       "locked": {
         "lastModified": 1724105230,
         "narHash": "sha256-AWmDMzrz0+Rf8qHensuX0IhU9MmBpuSXwGl2r/E2gBY=",
-        "ref": "refs/heads/main",
+        "owner": "sinh-x",
+        "repo": "Neve",
         "rev": "252babc99862e02d93015b7a1af289529d8dc447",
-        "revCount": 471,
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-Neve"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/sinh-x-Neve"
+        "owner": "sinh-x",
+        "repo": "Neve",
+        "type": "github"
       }
     },
     "sinh-x-pomodoro": {
