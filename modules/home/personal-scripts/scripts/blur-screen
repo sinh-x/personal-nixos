@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Take a screenshot
+import -window root /tmp/screenshot.png
+
+# Apply blur effect
+convert /tmp/screenshot.png -blur 0x8 /tmp/screenshot_blur.png
+
+# Set the blurred image as the background
+feh --bg-scale /tmp/screenshot_blur.png

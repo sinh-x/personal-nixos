@@ -84,7 +84,7 @@
     ip_updater = {
       enable = true;
       package = pkgs.sinh-x-ip_updater;
-      wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-local/wasabi-access-key.env";
+      wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-scripts/wasabi-access-key.env";
     };
 
     xserver = {

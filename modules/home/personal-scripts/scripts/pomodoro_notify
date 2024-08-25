@@ -1,0 +1,28 @@
+#!/usr/bin/env fish
+
+## Check if betterlockscreen is running
+#if pgrep i3lock-color >/dev/null
+#    echo "betterlockscreen is running. Killing the process..."
+#    # Kill the betterlockscreen process
+#    killall -q i3lock-color
+#    # Verify if the process was killed
+#    if pgrep i3lock-color >/dev/null
+#        echo "Failed to kill betterlockscreen."
+#    else
+#        echo "betterlockscreen has been killed."
+#        pulsemixer --unmute
+#    end
+#
+#else
+#    pulsemixer --mute
+#    betterlockscreen --lock
+#end
+
+
+set current_state (pulsemixer --get-mute)
+
+if test "$current_state" -eq 0
+    pulsemixer --mute
+else
+    pulsemixer --unmute
+end

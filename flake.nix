@@ -39,7 +39,7 @@
     };
 
     sinh-x-pomodoro = {
-      url = "github:sinh-x/rust-cli-pomodoro";
+      url = "github:sinh-x/rust-cli-pomodoro/1.7";
       # url = "/home/sinh/git-repos/sinh-x/rust-cli-pomodoro";
     };
     sinh-x-wallpaper = {

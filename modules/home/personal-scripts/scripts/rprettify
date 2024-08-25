@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+R --quiet --no-echo -e "styler::style_file(\"$1\")" 1>/dev/null 2>&1
+# R --quiet --no-echo -e "formatR::tidy_file(file = \"$1\", \
+#     comment = TRUE, blank = TRUE, indent = 2, args.newline = FALSE,
+#     pipe = TRUE, \
+#     width.cutoff = I(120))" 1>/dev/null 2>&1

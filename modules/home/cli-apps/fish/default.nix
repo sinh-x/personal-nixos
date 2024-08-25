@@ -59,11 +59,10 @@ in
         zoxide init fish | source
 
         # ----- sinh path -----
-        fish_add_path $HOME/.config/sinh-scripts
-        fish_add_path $HOME/.config/sinh-x-local
+        fish_add_path $HOME/.config/sinh-x-scripts
 
         # ----- sinh-x plugin -----
-        set sinh_git_folders (/usr/bin/env cat ~/.config/sinh-x-local/sinh_git_folders.txt | read -z)
+        set sinh_git_folders (/usr/bin/env cat ~/.config/sinh-x-scripts/sinh_git_folders.txt | read -z)
 
         bind yy fish_clipboard_copy
         bind \cp fish_clipboard_paste
@@ -74,7 +73,7 @@ in
 
       '';
       shellInitLast = ''
-        source ~/.config/sinh-x-local/global_sessions_vars.fish
+        source ~/.config/sinh-x-scripts/global_sessions_vars.fish
       '';
       shellAbbrs = {
         # ----- git abbr -----
