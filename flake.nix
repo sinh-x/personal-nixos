@@ -47,7 +47,7 @@
       # url = "/home/sinh/git-repos/sinh-x/sinh-x-wallpaper";
     };
     sinh-x-gitstatus = {
-      url = "github:/sinh-x/sinh-x-gitstatus";
+      url = "github:/sinh-x/sinh-x-gitstatus/0.6.1";
       # url = "/home/sinh/git-repos/sinh-x/sinh-x-gitstatus";
     };
     sinh-x-ip_updater = {

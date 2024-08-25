@@ -2734,15 +2734,16 @@
         "snowfall-lib": "snowfall-lib_2"
       },
       "locked": {
-        "lastModified": 1723982588,
-        "narHash": "sha256-nTeekCVOPKmG5Wf5qNABWssz/b5GLrSJuKZJeibhheQ=",
+        "lastModified": 1724562985,
+        "narHash": "sha256-SzoPTvAWOdN9oCWVax4ntV/lO8bgNaw1MsJB9d0vlY0=",
         "owner": "sinh-x",
         "repo": "sinh-x-gitstatus",
-        "rev": "eb8a07d7d92c634a82b36a0a92c88f0bdb113407",
+        "rev": "004328f02bff6b3f200af5351385035aea9dbf4e",
         "type": "github"
       },
       "original": {
         "owner": "sinh-x",
+        "ref": "0.6.1",
         "repo": "sinh-x-gitstatus",
         "type": "github"
       }
