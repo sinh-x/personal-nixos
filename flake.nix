@@ -57,7 +57,7 @@
     sinh-x-nixvim = {
       url = "github:sinh-x/Neve";
       # url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
-      nputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     firefox-addons = {
