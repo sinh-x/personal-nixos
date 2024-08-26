@@ -2787,11 +2787,11 @@
         "snowfall-lib": "snowfall-lib_8"
       },
       "locked": {
-        "lastModified": 1724591817,
-        "narHash": "sha256-WGVkITFPvPhvvE0P07meAqHPRqe1b8sHN5u3j8E9hSU=",
+        "lastModified": 1724630468,
+        "narHash": "sha256-xV3NmdFoPt84/NgW/X2uOy5Nz+bVS9DL4lNP7OA30Q0=",
         "owner": "sinh-x",
         "repo": "rust-cli-pomodoro",
-        "rev": "7836a8c3a479b41a82786f461c1196a7e737512e",
+        "rev": "1dcdbc05f03448c42798f95a86808220eddf18a8",
         "type": "github"
       },
       "original": {
