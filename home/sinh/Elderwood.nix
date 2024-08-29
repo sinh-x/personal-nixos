@@ -49,6 +49,8 @@
     wm = {
       bspwm.enable = true;
     };
+
+    personal-scripts.enable = true;
   };
 
   home.sessionVariables = {
