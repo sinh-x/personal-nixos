@@ -18,13 +18,17 @@
   modules = {
     r_setup.enable = true;
     nix_ld.enable = true;
-    virtualbox.enable = true;
     fcitx5.enable = true;
     fish.enable = true;
 
     # windows manager
     bspwm.enable = true;
     hyprland.enable = false;
+
+    virtualbox.enable = true;
+
+    # network
+    stubby.enable = true;
   };
 
   swapDevices = [
@@ -116,9 +120,11 @@
     networkmanager.enable = false;
     firewall.allowedTCPPorts = [ 22 ];
     nameservers = [
-      "8.8.8.8"
-      "8.8.4.4"
+      "127.0.0.1"
+      "::1"
     ];
+    # If using dhcpcd:
+    dhcpcd.extraConfig = "nohook resolv.conf";
   };
   # networking.firewall.allowedUDPPorts = [ ... ];
 
