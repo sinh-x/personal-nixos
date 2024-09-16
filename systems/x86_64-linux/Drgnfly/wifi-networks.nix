@@ -56,6 +56,12 @@
       "LyLy Coffee" = {
         psk = "@lyly@";
       };
+      "Sales Bua" = {
+        psk = "@salesbua@";
+      };
+      "Le Montage Bar & Bistro" = {
+        psk = "@lemontage@";
+      };
     };
   };
 }

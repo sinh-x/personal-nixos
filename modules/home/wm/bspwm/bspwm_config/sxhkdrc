@@ -121,6 +121,10 @@ ctrl + Print
 # Brighness control
 XF86MonBrightness{Up,Down}
 	bspbrightness{ --inc, --dec}
+XF86Launch5
+	bspbrightness --dec
+XF86Launch6
+	bspbrightness --inc
 
 # Speaker Volume control
 XF86Audio{RaiseVolume,LowerVolume}
