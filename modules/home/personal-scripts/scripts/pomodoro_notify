@@ -19,10 +19,8 @@
 #end
 
 
-set current_state (pulsemixer --get-mute)
+set bell_sound_path "/home/sinh/.config/sinh-x-scripts/bell_sound.mp3"
 
-if test "$current_state" -eq 0
-    pulsemixer --mute
-else
-    pulsemixer --unmute
-end
+ffplay -nodisp -autoexit $bell_sound_path &
+
+exit
