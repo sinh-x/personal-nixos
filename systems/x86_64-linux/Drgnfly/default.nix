@@ -26,9 +26,11 @@
     hyprland.enable = false;
 
     virtualbox.enable = true;
+    waydroid.enable = true;
 
     # network
     stubby.enable = true;
+
   };
 
   swapDevices = [
@@ -119,12 +121,7 @@
     hostName = "Drgnfly";
     networkmanager.enable = false;
     firewall.allowedTCPPorts = [ 22 ];
-    nameservers = [
-      "127.0.0.1"
-      "::1"
-    ];
     # If using dhcpcd:
-    dhcpcd.extraConfig = "nohook resolv.conf";
   };
   # networking.firewall.allowedUDPPorts = [ ... ];
 
