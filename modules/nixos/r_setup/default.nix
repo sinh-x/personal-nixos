@@ -48,6 +48,7 @@ in
           ggpubr
           glue
           golem
+          googleVis
           haven
           hms
           htmltools
