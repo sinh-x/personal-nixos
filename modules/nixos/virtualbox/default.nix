@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   cfg = config.modules.virtualbox;
@@ -10,5 +15,7 @@ in
   config = lib.mkIf cfg.enable {
     virtualisation.virtualbox.host.enable = true;
     virtualisation.virtualbox.guest.enable = true;
+
+    environment.systemPackages = with pkgs; [ weston ];
   };
 }

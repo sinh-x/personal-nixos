@@ -26,7 +26,7 @@
     hyprland.enable = false;
 
     virtualbox.enable = true;
-    waydroid.enable = true;
+    genymotion.enable = true;
 
     # network
     stubby.enable = true;
