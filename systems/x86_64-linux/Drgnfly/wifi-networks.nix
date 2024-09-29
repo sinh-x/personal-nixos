@@ -62,6 +62,9 @@
       "Le Montage Bar & Bistro" = {
         psk = "@lemontage@";
       };
+      "TomatoBookKafe New" = {
+        psk = "@tomato@";
+      };
     };
   };
 }
