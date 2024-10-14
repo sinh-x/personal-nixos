@@ -11,6 +11,7 @@ set title (xprop -id $wid '\t$0' _NET_WM_NAME | cut -f 2)
 
 set left_monitor $LEFT_MONITOR
 
+#TODO: adjust this rules for one monitor only
 function pick_desktop -a w_class -a class_set -a desktop_set -a desire_desktop_left -a desire_desktop_central
     if contains $$w_class $$class_set
         if not contains $current_desktop $$desktop_set
