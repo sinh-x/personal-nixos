@@ -34,6 +34,7 @@
     hyprland.enable = false;
 
     virtualbox.enable = true;
+    genymotion.enable = true;
 
     # network
     stubby.enable = true;
