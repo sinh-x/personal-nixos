@@ -123,12 +123,12 @@
     ];
 
     wireless = {
-      environmentFile = "/home/sinh/.config/wireless.env";
+      secretsFile = "/home/sinh/.config/wireless.env";
       enable = true;
       userControlled.enable = true;
       networks = {
         "5G_Vuon Nha" = {
-          psk = "@vuonnha@";
+          pskRaw = "ext:vuonnha";
         };
       };
     };
