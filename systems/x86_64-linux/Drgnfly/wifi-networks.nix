@@ -1,75 +1,75 @@
 {
   # Pick only one of the below networking options.
   networking.wireless = {
-    environmentFile = "/home/sinh/wireless.env";
+    secretsFile = "/home/sinh/wireless.env";
     enable = true; # Enables wireless support via wpa_supplicant.
     userControlled.enable = true;
     networks = {
       "5G_Vuon Nha" = {
-        psk = "@vuonnha@";
+        psk = "ext:vuonnha";
       };
       "VINA_NHA MINH 1" = {
-        psk = "@nhaminh@";
+        psk = "ext:nhaminh";
       };
       "VINA_NHA MINH" = {
-        psk = "@nhaminh@";
+        psk = "ext:nhaminh";
       };
       "La Preso 5.0Ghz" = {
-        psk = "@lapreso@";
+        psk = "ext:lapreso";
       };
       "MSTT_5G" = {
-        psk = "@mstt@";
+        psk = "ext:mstt";
       };
       "MSTT_5G_Plus_5G" = {
-        psk = "@mstt@";
+        psk = "ext:mstt";
       };
       "Mai Trang" = {
-        psk = "@maitrang@";
+        psk = "ext:maitrang";
       };
       "Kashew Deli" = {
-        psk = "@kashew@";
+        psk = "ext:kashew";
       };
       "DoveZi Coffee" = {
-        psk = "@dovezi@";
+        psk = "ext:dovezi";
       };
       "CAFE_KOHI_5Ghz" = {
-        psk = "@kohitayninh@";
+        psk = "ext:kohitayninh";
       };
       "Tra Sua L'Latino 5 5Ghz" = {
-        psk = "@llatino@";
+        psk = "ext:llatino";
       };
       "5 SENSES_vina" = {
-        psk = "@5senses@";
+        psk = "ext:5senses";
       };
       "Home Coffee 01" = {
-        psk = "@homecoffee@";
+        psk = "ext:homecoffee";
       };
       "YAMA_5G" = {
-        psk = "@yama@";
+        psk = "ext:yama";
       };
       "Yama1" = {
-        psk = "@yama@";
+        psk = "ext:yama";
       };
       "Ngot.Cafe_5G" = {
-        psk = "@ngotcafe@";
+        psk = "ext:ngotcafe";
       };
       "LyLy Coffee" = {
-        psk = "@lyly@";
+        psk = "ext:lyly";
       };
       "Sales Bua" = {
-        psk = "@salesbua@";
+        psk = "ext:salesbua";
       };
       "Le Montage Bar & Bistro" = {
-        psk = "@lemontage@";
+        psk = "ext:lemontage";
       };
       "TomatoBookKafe New" = {
-        psk = "@tomato@";
+        psk = "ext:tomato";
       };
       "1273" = {
-        psk = "@nhalan@";
+        psk = "ext:nhalan";
       };
       "ROOM NHA NOI" = {
-        psk = "@cafenhanoi@";
+        psk = "ext:cafenhanoi";
       };
     };
   };
