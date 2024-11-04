@@ -65,6 +65,12 @@
       "TomatoBookKafe New" = {
         psk = "@tomato@";
       };
+      "1273" = {
+        psk = "@nhalan@";
+      };
+      "ROOM NHA NOI" = {
+        psk = "@cafenhanoi@";
+      };
     };
   };
 }
