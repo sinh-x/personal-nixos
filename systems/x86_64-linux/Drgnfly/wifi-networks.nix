@@ -6,70 +6,70 @@
     userControlled.enable = true;
     networks = {
       "5G_Vuon Nha" = {
-        psk = "ext:vuonnha";
+        pskRaw = "ext:vuonnha";
       };
       "VINA_NHA MINH 1" = {
-        psk = "ext:nhaminh";
+        pskRaw = "ext:nhaminh";
       };
       "VINA_NHA MINH" = {
-        psk = "ext:nhaminh";
+        pskRaw = "ext:nhaminh";
       };
       "La Preso 5.0Ghz" = {
-        psk = "ext:lapreso";
+        pskRaw = "ext:lapreso";
       };
       "MSTT_5G" = {
-        psk = "ext:mstt";
+        pskRaw = "ext:mstt";
       };
       "MSTT_5G_Plus_5G" = {
-        psk = "ext:mstt";
+        pskRaw = "ext:mstt";
       };
       "Mai Trang" = {
-        psk = "ext:maitrang";
+        pskRaw = "ext:maitrang";
       };
       "Kashew Deli" = {
-        psk = "ext:kashew";
+        pskRaw = "ext:kashew";
       };
       "DoveZi Coffee" = {
-        psk = "ext:dovezi";
+        pskRaw = "ext:dovezi";
       };
       "CAFE_KOHI_5Ghz" = {
-        psk = "ext:kohitayninh";
+        pskRaw = "ext:kohitayninh";
       };
       "Tra Sua L'Latino 5 5Ghz" = {
-        psk = "ext:llatino";
+        pskRaw = "ext:llatino";
       };
       "5 SENSES_vina" = {
-        psk = "ext:5senses";
+        pskRaw = "ext:5senses";
       };
       "Home Coffee 01" = {
-        psk = "ext:homecoffee";
+        pskRaw = "ext:homecoffee";
       };
       "YAMA_5G" = {
-        psk = "ext:yama";
+        pskRaw = "ext:yama";
       };
       "Yama1" = {
-        psk = "ext:yama";
+        pskRaw = "ext:yama";
       };
       "Ngot.Cafe_5G" = {
-        psk = "ext:ngotcafe";
+        pskRaw = "ext:ngotcafe";
       };
       "LyLy Coffee" = {
-        psk = "ext:lyly";
+        pskRaw = "ext:lyly";
       };
       "Sales Bua" = {
-        psk = "ext:salesbua";
+        pskRaw = "ext:salesbua";
       };
       "Le Montage Bar & Bistro" = {
-        psk = "ext:lemontage";
+        pskRaw = "ext:lemontage";
       };
       "TomatoBookKafe New" = {
-        psk = "ext:tomato";
+        pskRaw = "ext:tomato";
       };
       "1273" = {
-        psk = "ext:nhalan";
+        pskRaw = "ext:nhalan";
       };
       "ROOM NHA NOI" = {
-        psk = "ext:cafenhanoi";
+        pskRaw = "ext:cafenhanoi";
       };
     };
   };
