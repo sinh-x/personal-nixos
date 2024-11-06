@@ -69,7 +69,7 @@
         pskRaw = "ext:nhalan";
       };
       "ROOM NHA NOI" = {
-        pskRaw = "ext:cafenhanoi";
+        psk = "183chauvanliem";
       };
     };
   };

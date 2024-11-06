@@ -113,7 +113,9 @@
   hardware.acpilight.enable = true;
   hardware.bluetooth.enable = true;
 
-  environment.systemPackages = with pkgs; [ displaylink ];
+  environment.systemPackages = with pkgs; [
+    displaylink
+  ];
 
   # Open ports in the firewall.
 
