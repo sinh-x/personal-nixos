@@ -47,6 +47,7 @@
 
     security = {
       bitwarden.enable = true;
+      sops.enable = true;
     };
 
     wm = {

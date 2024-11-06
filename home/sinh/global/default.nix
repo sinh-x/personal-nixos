@@ -3,10 +3,13 @@
 {
   inputs,
   lib,
-  config,
   pkgs,
   ...
 }:
+let
+  # Reference the sops secrets from the system configuration
+  githubAccessToken = "/run/secrets/nix/github_access_token";
+in
 {
   # You can import other home-manager modules here
   imports = [ inputs.sops-nix.homeManagerModules.sops ];
@@ -14,16 +17,13 @@
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings = {
-      warn-dirty = false;
-      access-tokens = lib.mkForce "github.com=${
-        builtins.readFile config.sops.secrets."nix/github_access_token".path
-      }";
+      warn-dirty = true;
+      access-tokens = lib.mkForce "github.com=${builtins.readFile githubAccessToken}";
     };
   };
 
   systemd.user.startServices = "sd-switch";
 
-  # TODO: Set your username
   home = {
     username = "sinh";
     homeDirectory = "/home/sinh";
@@ -32,14 +32,14 @@
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
-  home.packages = with pkgs; [
-    # libcpr
-    # ocamlPackages.ocurl
-    # ocamlPackages.ssl
-    # gnumake
-    # pkg-config
-
-  ];
+  # home.packages = with pkgs; [
+  #   # libcpr
+  #   # ocamlPackages.ocurl
+  #   # ocamlPackages.ssl
+  #   # gnumake
+  #   # pkg-config
+  #
+  # ];
 
   fonts.fontconfig = {
     enable = true;
