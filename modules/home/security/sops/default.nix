@@ -6,11 +6,20 @@
   # You also have access to your flake's inputs.
   # All other arguments come from the module system.
   config,
+  namespace,
   ...
 }:
 with lib;
+let
+  cfg = config.${namespace}.security.sops;
+in
 {
-  config = {
+
+  options.${namespace}.security.sops = {
+    enable = mkEnableOption "SOPs config";
+  };
+
+  config = mkIf cfg.enable {
     sops = {
       defaultSopsFile = ../../../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";
@@ -19,5 +28,6 @@ with lib;
 
       secrets."nix/github_access_token" = { };
     };
+
   };
 }

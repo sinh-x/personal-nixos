@@ -31,6 +31,8 @@
     # network
     stubby.enable = true;
 
+    sops.enable = true;
+
   };
 
   swapDevices = [
@@ -115,6 +117,7 @@
 
   environment.systemPackages = with pkgs; [
     displaylink
+    yq
   ];
 
   # Open ports in the firewall.
