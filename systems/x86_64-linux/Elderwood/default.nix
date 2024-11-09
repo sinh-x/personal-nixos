@@ -38,6 +38,8 @@
 
     # network
     stubby.enable = true;
+
+    sops.enable = true;
   };
 
   nix =

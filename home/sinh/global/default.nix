@@ -6,20 +6,12 @@
   pkgs,
   ...
 }:
-let
-  # Reference the sops secrets from the system configuration
-  githubAccessToken = "/run/secrets/nix/github_access_token";
-in
 {
   # You can import other home-manager modules here
   imports = [ inputs.sops-nix.homeManagerModules.sops ];
 
   nix = {
     package = lib.mkDefault pkgs.nix;
-    settings = {
-      warn-dirty = true;
-      access-tokens = lib.mkForce "github.com=${builtins.readFile githubAccessToken}";
-    };
   };
 
   systemd.user.startServices = "sd-switch";
