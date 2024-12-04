@@ -71,6 +71,9 @@
       "ROOM NHA NOI" = {
         psk = "183chauvanliem";
       };
+      "Homestay in Tay Ninh" = {
+        psk = "02112011";
+      };
     };
   };
 }
