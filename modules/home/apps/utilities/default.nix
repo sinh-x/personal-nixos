@@ -25,6 +25,7 @@ in
       qmk
       obsidian
       wpsoffice
+      inkscape
       libtiff
       imagemagick
     ];
