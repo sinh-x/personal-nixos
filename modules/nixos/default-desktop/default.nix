@@ -77,15 +77,20 @@ in
       hackgen-nf-font
       powerline-fonts
       ubuntu_font_family
-      (nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "Hack"
-          "Iosevka"
-          "IosevkaTerm"
-          "JetBrainsMono"
-        ];
-      })
+      # (nerdfonts.override {
+      #   fonts = [
+      #     "FiraCode"
+      #     "Hack"
+      #     "Iosevka"
+      #     "IosevkaTerm"
+      #     "JetBrainsMono"
+      #   ];
+      # })
+      nerd-fonts.fira-code
+      nerd-fonts.hack
+      nerd-fonts.iosevka
+      nerd-fonts.iosevka-term
+      nerd-fonts.jetbrains-mono
       dancing-script
       sinh-x.wps-missing-fonts
       sinh-x.archcraft-icons-fonts
