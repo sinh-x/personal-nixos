@@ -117,6 +117,7 @@
 
   environment.systemPackages = with pkgs; [
     displaylink
+    nix-tree
     yq
   ];
 
