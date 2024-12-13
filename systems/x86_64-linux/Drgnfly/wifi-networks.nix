@@ -74,6 +74,15 @@
       "Homestay in Tay Ninh" = {
         psk = "02112011";
       };
+      "Hem ca phe 5g" = {
+        pskRaw = "ext:cafehem";
+      };
+      "The Coffee Bean & Tea Leaf" = {
+        pskRaw = "ext:coffeebean";
+      };
+      "Giong Cafe" = {
+        pskRaw = "ext:giongcafe";
+      };
     };
   };
 }
