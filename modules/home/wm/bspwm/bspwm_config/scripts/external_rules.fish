@@ -11,14 +11,31 @@ set title (xprop -id $wid '\t$0' _NET_WM_NAME | cut -f 2)
 
 set left_monitor $LEFT_MONITOR
 
+
+function is_single_monitor
+    set monitor_count (xrandr --listmonitors | grep -c " connected ")
+    if [ $monitor_count -eq 1 ]
+        return 0
+    else
+        return 1
+    end
+end
+
 #TODO: adjust this rules for one monitor only
 function pick_desktop -a w_class -a class_set -a desktop_set -a desire_desktop_left -a desire_desktop_central
-    if contains $$w_class $$class_set
+    if is_single_monitor
         if not contains $current_desktop $$desktop_set
-            if [ $current_monitor = $left_monitor ]
-                echo 'desktop=' $desire_desktop_central ' follow=on'
-            else
-                echo 'desktop=' $desire_desktop_left ' follow=on'
+            set min_desktop (math min $desktop_set)
+            echo 'desktop=' $min_desktop ' follow=on'
+        end
+    else
+        if contains $$w_class $$class_set
+            if not contains $current_desktop $$desktop_set
+                if [ $current_monitor = $left_monitor ]
+                    echo 'desktop=' $desire_desktop_central ' follow=on'
+                else
+                    echo 'desktop=' $desire_desktop_left ' follow=on'
+                end
             end
         end
     end
