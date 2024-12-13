@@ -36,11 +36,11 @@ super + ctrl + w
 
 # Launch Apps
 super + shift + {f,w}
-	{thunar, floorp -P "sinh"}
+	{thunar, google-chrome-stable --profile-directory="Default" --new-window}
 
 # LaunchHchrome with Andafin profile
 ctrl + super + shift + w
-	floorp -P "andafin"
+	google-chrome-stable --profile-directory="Profile 1" --new-window
 
 # Terminal Apps
 # ctrl + alt + {v,r,h}

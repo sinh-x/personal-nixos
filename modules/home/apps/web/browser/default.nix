@@ -20,11 +20,13 @@ in
   };
 
   config = mkIf cfg.enable {
+
     home.packages = with pkgs; [
       floorp
       firefox
       google-chrome
       microsoft-edge
     ];
+
   };
 }
