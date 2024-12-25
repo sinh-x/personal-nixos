@@ -83,6 +83,15 @@
       "Giong Cafe" = {
         pskRaw = "ext:giongcafe";
       };
+      "Green Cafe" = {
+        pskRaw = "ext:greencafe";
+      };
+      "KAI Coffee" = {
+        pskRaw = "ext:kaicoffee";
+      };
+      "G1910 SSR" = {
+        pskRaw = "ext:g1910";
+      };
     };
   };
 }
