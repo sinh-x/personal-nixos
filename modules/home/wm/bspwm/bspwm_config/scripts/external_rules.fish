@@ -13,7 +13,7 @@ set left_monitor $LEFT_MONITOR
 
 
 function is_single_monitor
-    set monitor_count (xrandr --listmonitors | grep -c " connected ")
+    set monitor_count (xrandr | grep -c " connected ")
     if [ $monitor_count -eq 1 ]
         return 0
     else
@@ -24,9 +24,11 @@ end
 #TODO: adjust this rules for one monitor only
 function pick_desktop -a w_class -a class_set -a desktop_set -a desire_desktop_left -a desire_desktop_central
     if is_single_monitor
-        if not contains $current_desktop $$desktop_set
-            set min_desktop (math min $desktop_set)
-            echo 'desktop=' $min_desktop ' follow=on'
+        if contains $$w_class $$class_set
+            if not contains $current_desktop $$desktop_set
+                set min_desktop (math min $desktop_set)
+                echo 'desktop=' $min_desktop ' follow=on'
+            end
         end
     else
         if contains $$w_class $$class_set
@@ -48,12 +50,10 @@ end
 
 set -x web_class Google-chrome Mircrosoft-edge-dev firefox floorp
 set -x web_desktop 1 2 16 17
-
 pick_desktop class web_class web_desktop 1 16
 
 set -x term_class Alacritty Xfce4-terminal kitty
 set -x term_desktop 11 12 6 7
-
 pick_desktop class term_class term_desktop 12 7
 
 if [ $class = Gsimplecal ]
