@@ -10,10 +10,15 @@
 
 # Set the internal monitor name
 set INTERNAL_MONITOR $argv[1]
-if set -q MAIN_MONITOR_POST
-    set main_monitor_post $MAIN_MONITOR_POST
+
+if test (count $argv) -ge 2
+    set main_monitor_post $argv[2]
 else
-    set main_monitor_post "left"
+    if set -q MAIN_MONITOR_POST
+        set main_monitor_post $MAIN_MONITOR_POST
+    else
+        set main_monitor_post right
+    end
 end
 
 function set_display
@@ -66,7 +71,7 @@ function set_display
         # Configure the monitor with xrandr
         xrandr --output $connected_monitors[$i] --mode $resolutions[$i] --pos "$cur_x"x"$y"
         # Calculate the x-coordinate for the next monitor
-        if test "$main_monitor_post" = "left"
+        if test "$main_monitor_post" = left
             set x_add (math (echo $resolutions[$i] | awk -F x '{print $1}'))
             set cur_x (math $cur_x+$x_add)
         else
