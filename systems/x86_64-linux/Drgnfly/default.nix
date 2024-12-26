@@ -111,6 +111,11 @@
       enable = true;
       shadow = true;
     };
+
+    printing = {
+      enable = true;
+      drivers = [ pkgs.brlaser ];
+    };
   };
 
   # Configure keymap in X11

@@ -92,6 +92,9 @@
       "G1910 SSR" = {
         pskRaw = "ext:g1910";
       };
+      "Sinh-x" = {
+        pskRaw = "ext:sinhiphone";
+      };
     };
   };
 }
