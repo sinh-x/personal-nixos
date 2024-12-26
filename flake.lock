@@ -2882,11 +2882,11 @@
         "snowfall-lib": "snowfall-lib_6"
       },
       "locked": {
-        "lastModified": 1733433907,
-        "narHash": "sha256-HdXq72QggNFNEMtnQs0YL8M0q2tZarzqv88MRhudUI0=",
+        "lastModified": 1734093412,
+        "narHash": "sha256-E90hDiHkJYElo3dCoZDqm9brc2qp+2PjlSLgCx0/1io=",
         "owner": "sinh-x",
         "repo": "Neve",
-        "rev": "fe484e3f6061d492a87e5732040293e3f320dc20",
+        "rev": "6eabd5d35ed982198bce5458111a29865ea6bcf8",
         "type": "github"
       },
       "original": {
