@@ -23,6 +23,7 @@ in
       viber = mkEnableOption "Viber";
       zoom = mkEnableOption "Zoom";
       element = mkEnableOption "Element";
+      pidgin = mkEnableOption "Pidgin";
     };
   };
 
@@ -34,6 +35,15 @@ in
       (mkIf cfg.viber [ pkgs.viber ])
       (mkIf cfg.zoom [ pkgs.zoom-us ])
       (mkIf cfg.element [ pkgs.element-desktop ])
+      (mkIf cfg.pidgin [
+        (pkgs.pidgin.override {
+          plugins = [
+            pkgs.purple-hangouts
+            pkgs.purple-facebook
+            pkgs.purple-matrix
+          ];
+        })
+      ])
     ];
   };
 }

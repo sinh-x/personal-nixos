@@ -36,10 +36,12 @@
 
     social-apps = {
       discord = true;
-      messenger = true;
+      messenger = false;
       slack = true;
       viber = true;
       zoom = true;
+      pidgin = false;
+      element = true;
     };
 
     security = {

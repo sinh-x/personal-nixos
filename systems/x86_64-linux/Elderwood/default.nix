@@ -136,7 +136,9 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ cups-pdf-to-pdf ];
+  environment.systemPackages = with pkgs; [
+    cups-pdf-to-pdf
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
