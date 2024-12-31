@@ -15,7 +15,7 @@ let
   cfg = config.${namespace}.coding.editor.vscode;
 in
 {
-  options.${namespace}.coding.editor.neovim = {
+  options.${namespace}.coding.editor.vscode = {
     enable = mkEnableOption "Visual Studio Code";
   };
 
