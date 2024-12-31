@@ -32,7 +32,7 @@
       terminal.kitty.enable = true;
       shell.fish.enable = true;
       multiplexers.zellij.enable = true;
-      editor.neovim.enable = false;
+      editor.neovim.enable = true;
       backup.enable = true;
       nix.enable = true;
     };
