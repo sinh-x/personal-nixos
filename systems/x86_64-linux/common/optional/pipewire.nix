@@ -1,6 +1,4 @@
 {
-  boot.kernelParams = [ "snd-intel-dspcfg.dsp_driver=1" ];
-
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

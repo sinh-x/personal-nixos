@@ -32,14 +32,14 @@
       terminal.kitty.enable = true;
       shell.fish.enable = true;
       multiplexers.zellij.enable = true;
-      editor.neovim.enable = true;
+      editor.neovim.enable = false;
       backup.enable = true;
       nix.enable = true;
     };
 
     social-apps = {
       discord = true;
-      messenger = true;
+      messenger = false;
       slack = true;
       viber = true;
       zoom = true;

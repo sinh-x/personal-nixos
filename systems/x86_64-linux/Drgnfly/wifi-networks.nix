@@ -47,7 +47,7 @@
       "YAMA_5G" = {
         pskRaw = "ext:yama";
       };
-      "Yama1" = {
+      "YAMA 1" = {
         pskRaw = "ext:yama";
       };
       "Ngot.Cafe_5G" = {
@@ -94,6 +94,9 @@
       };
       "Sinh-x" = {
         pskRaw = "ext:sinhiphone";
+      };
+      "The Coffee House" = {
+        pskRaw = "ext:coffeehouseTN";
       };
     };
   };

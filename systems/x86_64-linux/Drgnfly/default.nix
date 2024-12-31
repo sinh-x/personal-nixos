@@ -16,7 +16,7 @@
   sinh-x.default-desktop.enable = true;
 
   modules = {
-    r_setup.enable = true;
+    r_setup.enable = false;
     nix_ld.enable = true;
     fcitx5.enable = true;
     fish.enable = true;
