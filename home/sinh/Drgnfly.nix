@@ -37,8 +37,13 @@
       nix.enable = true;
     };
 
+    coding = {
+      editor.vscode.enable = true;
+    };
+
     social-apps = {
       discord = true;
+      element = true;
       messenger = false;
       slack = true;
       viber = true;
