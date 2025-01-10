@@ -98,6 +98,8 @@
       "The Coffee House" = {
         pskRaw = "ext:coffeehouseTN";
       };
+      "JollyTea" = {
+      };
     };
   };
 }

@@ -121,9 +121,9 @@ for i in "${office[@]}"; do
 done
 
 ## 6 > communication (always open communication apps on workspace-6)
-declare -a comm=(Thunderbird TelegramDesktop Hexchat Caprine ViberPC)
+declare -a comm=(Thunderbird TelegramDesktop Hexchat Caprine "Viber PC")
 for i in "${comm[@]}"; do
-  bspc rule -a "$i" desktop='13' follow=ofss focus=on
+  bspc rule -a "$i" desktop='8' follow=off focus=on
 done
 
 ## 7 > media (always open media apps on workspace-7)
