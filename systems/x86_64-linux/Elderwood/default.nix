@@ -109,12 +109,12 @@
       24800
       22
     ];
-    nameservers = [
-      "127.0.0.1"
-      "::1"
-    ];
-    # If using dhcpcd:
-    dhcpcd.extraConfig = "nohook resolv.conf";
+    # nameservers = [
+    #   "127.0.0.1"
+    #   "::1"
+    # ];
+    # # If using dhcpcd:
+    # dhcpcd.extraConfig = "nohook resolv.conf";
     defaultGateway = "192.168.1.1";
 
     interfaces.wlo1.ipv4.addresses = [
