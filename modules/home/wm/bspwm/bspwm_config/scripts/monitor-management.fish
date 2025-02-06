@@ -55,6 +55,12 @@ function set_display
         set resolution_idx (math $idx+1)
         # Extract the resolution and add it to the list
         set res (echo $output[$resolution_idx] | awk '{print $1}')
+        set width (echo $res | awk -F x '{print $1}')
+        if test $width -gt 3800
+            # Switch to the second resolution if the width is more than 3800
+            set resolution_idx (math $resolution_idx+1)
+            set res (echo $output[$resolution_idx] | awk '{print $1}')
+        end
         set connected_monitors $connected_monitors $monitor_name
         set resolutions $resolutions $res
     end

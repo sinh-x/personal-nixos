@@ -26,7 +26,8 @@ function pick_desktop -a w_class -a class_set -a desktop_set -a desire_desktop_l
     if is_single_monitor
         if contains $$w_class $$class_set
             if not contains $current_desktop $$desktop_set
-                set min_desktop (math min $desktop_set)
+                notify-send "switch desktop"
+                set min_desktop (printf "%s\n" $$desktop_set | sort -n | head -n 1)
                 echo 'desktop=' $min_desktop ' follow=on'
             end
         end
@@ -54,7 +55,7 @@ pick_desktop class web_class web_desktop 1 16
 
 set -x term_class Alacritty Xfce4-terminal kitty
 set -x term_desktop 11 12 6 7
-pick_desktop class term_class term_desktop 12 7
+pick_desktop class term_class term_desktop 11 6
 
 if [ $class = Gsimplecal ]
     echo "state=floating sticky=on"
