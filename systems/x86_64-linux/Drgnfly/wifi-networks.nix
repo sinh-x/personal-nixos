@@ -95,8 +95,31 @@
       "Sinh-x" = {
         pskRaw = "ext:sinhiphone";
       };
+      "KIM SON" = {
+        pskRaw = "ext:kimson";
+      };
+      "A MERCI" = {
+        pskRaw = "ext:amercy";
+      };
+      "The Risu_5G" = {
+        pskRaw = "ext:risu";
+      };
       "The Coffee House" = {
         pskRaw = "ext:coffeehouseTN";
+      };
+      "CAFE TAM 3" = {
+        pskRaw = "ext:cafetam";
+      };
+      "THE MOON" = {
+        pskRaw = "ext:themoon";
+      };
+      "Adiuvat Coffee Roasters" = {
+        psk = "57nguyenhue";
+      };
+      "ADIUVAT Coffee Roasters" = {
+        pskRaw = "ext:adiuvat";
+      };
+      "TOCEPO" = {
       };
       "JollyTea" = {
       };
