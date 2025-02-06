@@ -17,7 +17,7 @@ in
       gnumake
       gcc
       libgcc
-      rstudio
+      positron-bin
       (pkgs.rWrapper.override {
         packages = with pkgs.rPackages; [
           DT
