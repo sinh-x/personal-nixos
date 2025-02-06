@@ -23,6 +23,7 @@ in
     home.packages = with pkgs; [
       activitywatch
       qmk
+      evince
       obsidian
       wpsoffice
       inkscape
