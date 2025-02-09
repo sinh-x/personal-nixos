@@ -114,7 +114,8 @@
         pskRaw = "ext:themoon";
       };
       "Adiuvat Coffee Roasters" = {
-        psk = "57nguyenhue";
+        pskRaw = "ext:nhadiu";
+        # psk = "57nguyenhue";
       };
       "ADIUVAT Coffee Roasters" = {
         pskRaw = "ext:adiuvat";
