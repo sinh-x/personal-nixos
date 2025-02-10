@@ -18,7 +18,7 @@
   modules = {
     r_setup.enable = true;
     python.enable = true;
-    nix_ld.enable = true;
+    nix_ld.enable = false;
     fcitx5.enable = true;
     fish.enable = true;
 

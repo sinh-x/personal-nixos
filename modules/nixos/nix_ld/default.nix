@@ -86,11 +86,8 @@ in
         python3Full
         python311Packages.pip
 
-        R
-
         xml2
         libxml2
-        lldb
 
         xclip
       ];

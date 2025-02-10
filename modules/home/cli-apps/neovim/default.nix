@@ -32,7 +32,7 @@ in
       jre_minimal
       julia-lts
       kotlin
-      lldb
+      # lldb
       lua-language-server
       luajit
       mercurial

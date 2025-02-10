@@ -13,7 +13,6 @@ in
   };
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      python39
       conda
     ];
   };
