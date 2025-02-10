@@ -83,9 +83,6 @@ in
         lua51Packages.tiktoken_core
         lua51Packages.luarocks-nix
 
-        python3Full
-        python311Packages.pip
-
         xml2
         libxml2
 
