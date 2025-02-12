@@ -17,7 +17,7 @@ in
       gnumake
       gcc
       libgcc
-      positron-bin
+      sinh-x.positron-sinh
       # (pkgs.rWrapper.override {
       #   packages = with pkgs.rPackages; [
       #     DT

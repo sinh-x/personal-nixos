@@ -14,6 +14,7 @@
   mesa,
   musl,
   nss,
+  openssl,
   patchelf,
   stdenv,
   xorg,
@@ -25,17 +26,10 @@ in
 stdenv.mkDerivation {
   inherit version pname;
 
-  src =
-    if stdenv.isDarwin then
-      fetchurl {
-        url = "https://github.com/posit-dev/positron/releases/download/${version}/Positron-${version}.dmg";
-        hash = "sha256-5Ym42InDgFLGdZk0LYV1H0eC5WzmsYToG1KLdiGgTto=";
-      }
-    else
-      fetchurl {
-        url = "https://github.com/posit-dev/positron/releases/download/${version}/Positron-${version}.deb";
-        hash = "sha256-TjQc/Y4Sa2MlLslbygYVFbIk3raArMvYstSiSEYzfo0=";
-      };
+  src = fetchurl {
+    url = "https://github.com/posit-dev/positron/releases/download/2025.02.0-171/Positron-2025.02.0-171-x64.deb";
+    hash = "sha256-TjQc/Y4Sa2MlLslbygYVFbIk3raArMvYstSiSEYzfo0=";
+  };
 
   buildInputs =
     [ makeShellWrapper ]
@@ -48,6 +42,7 @@ stdenv.mkDerivation {
       mesa
       musl
       nss
+      openssl
       stdenv.cc.cc
       xorg.libX11
       xorg.libXcomposite
@@ -98,9 +93,6 @@ stdenv.mkDerivation {
         mkdir -p "$out/share/applications"
         install -m 444 -D usr/share/applications/positron.desktop "$out/share/applications/positron.desktop"
         substituteInPlace "$out/share/applications/positron.desktop" \
-          --replace-fail \
-          "Icon=com.visualstudio.code.oss" \
-          "Icon=$out/share/pixmaps/com.visualstudio.code.oss.png" \
           --replace-fail \
           "Exec=/usr/share/positron/positron %F" \
           "Exec=$out/share/positron/.positron-wrapped %F" \
