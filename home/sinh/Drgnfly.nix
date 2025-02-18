@@ -30,6 +30,7 @@
     cli-apps = {
       utilities.enable = true;
       terminal.kitty.enable = true;
+      terminal.warp.enable = true;
       shell.fish.enable = true;
       multiplexers.zellij.enable = true;
       editor.neovim.enable = true;

@@ -124,6 +124,10 @@
       };
       "JollyTea" = {
       };
+      "Holo Fairy House" = {
+        pskRaw = "ext:holoHanoi";
+      };
+      "Hotel du Parc Hanoi" = { };
     };
   };
 }

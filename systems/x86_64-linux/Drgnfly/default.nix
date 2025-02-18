@@ -130,6 +130,7 @@
   hardware.bluetooth.enable = true;
 
   environment.systemPackages = with pkgs; [
+    devenv
     displaylink
     nix-tree
     yq
