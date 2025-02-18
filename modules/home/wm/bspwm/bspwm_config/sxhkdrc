@@ -36,7 +36,7 @@ super + ctrl + w
 
 # Launch Apps
 super + shift + {f,w}
-	{thunar, floorp -P "sinh"}
+	{thunar, opera}
 
 # LaunchHchrome with Andafin profile
 ctrl + super + shift + w
