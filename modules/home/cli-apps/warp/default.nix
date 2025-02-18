@@ -16,12 +16,12 @@ let
 in
 {
   options.${namespace}.cli-apps.terminal.warp = {
-    enable = mkEnableOption "Zellij";
+    enable = mkEnableOption "warp";
   };
 
   config = mkIf cfg.enable {
     home.packages = [
-      pkgs.warp
+      pkgs.warp-terminal
     ];
   };
 }
