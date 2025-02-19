@@ -128,6 +128,7 @@
         pskRaw = "ext:holoHanoi";
       };
       "Hotel du Parc Hanoi" = { };
+      "Hust_C1_213" = { };
     };
   };
 }

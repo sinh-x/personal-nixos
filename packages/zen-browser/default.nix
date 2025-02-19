@@ -1,8 +1,9 @@
 {
+  pkgs,
   wrapFirefox,
-  zen-browser-unwrapped,
+  namespace,
 }:
-wrapFirefox zen-browser-unwrapped {
+wrapFirefox pkgs.${namespace}.zen-browser-unwrapped {
   pname = "zen-browser";
   libName = "zen";
 }
