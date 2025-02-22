@@ -3,7 +3,7 @@ theme "tokyo-night"
 defaultShell "fish"
 simplified_ui true
 scrollback_editor "nvim"
-
+pane_frames false
 mouse_mode true
 pane_viewport_serialization false
 
@@ -134,9 +134,6 @@ keybinds clear-defaults=true {
         bind "Alt m" { SwitchToMode "Move" ; }
     }
 }
-
-simplified_ui true
-pane_frames false
 
 themes {
     default {
