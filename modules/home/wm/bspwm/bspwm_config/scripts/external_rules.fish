@@ -49,7 +49,7 @@ if string match '*_crx_*' "$title"
     exit 0
 end
 
-set -x web_class Google-chrome Mircrosoft-edge-dev firefox floorp
+set -x web_class Google-chrome Mircrosoft-edge-dev firefox floorp Opera
 set -x web_desktop 1 2 16 17
 pick_desktop class web_class web_desktop 1 16
 
