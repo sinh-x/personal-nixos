@@ -23,6 +23,10 @@
     };
   };
 
+  virtualisation = {
+    docker.enable = true;
+  };
+
   modules = {
     r_setup.enable = true;
     python.enable = true;

@@ -12,6 +12,7 @@
       "tty"
       "dialout"
       "vboxusers"
+      "docker"
     ];
 
     shell = pkgs.fish;
