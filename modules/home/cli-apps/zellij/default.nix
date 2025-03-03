@@ -184,6 +184,7 @@ in
 
     programs.zellij = {
       enable = true;
+      enableFishIntegration = false;
       # package = zellij-wrapped;
       # settings = {
       #   default_mode = "normal";
