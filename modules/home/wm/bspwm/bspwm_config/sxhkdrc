@@ -36,11 +36,11 @@ super + ctrl + w
 
 # Launch Apps
 super + shift + {f,w}
-	{thunar, opera}
+	{thunar, zen}
 
 # LaunchHchrome with Andafin profile
 ctrl + super + shift + w
-	floorp -P "andafin"
+	zen -P "andafin"
 
 # Terminal Apps
 # ctrl + alt + {v,r,h}
