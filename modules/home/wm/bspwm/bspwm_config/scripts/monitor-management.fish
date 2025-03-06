@@ -47,16 +47,14 @@ function set_display
     # their name & resolution
     for idx in $connected_indices
         # Print the line
-        echo $output[$idx]
         # Extract the monitor name and add it to the list
         set monitor_name (echo $output[$idx] | awk '{print $1}')
-        echo $monitor_name
         # Calculate the index of the resolution
         set resolution_idx (math $idx+1)
         # Extract the resolution and add it to the list
         set res (echo $output[$resolution_idx] | awk '{print $1}')
         set width (echo $res | awk -F x '{print $1}')
-        if test $width -gt 4000
+        if test "$monitor_name" != "$INTERNAL_MONITOR" -a $width -gt 3000
             # Switch to the second resolution if the width is more than 3800
             set resolution_idx (math $resolution_idx+1)
             set res (echo $output[$resolution_idx] | awk '{print $1}')
