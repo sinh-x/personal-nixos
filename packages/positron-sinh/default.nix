@@ -27,8 +27,8 @@ stdenv.mkDerivation {
   inherit version pname;
 
   src = fetchurl {
-    url = "https://github.com/posit-dev/positron/releases/download/2025.02.0-171/Positron-2025.02.0-171-x64.deb";
-    hash = "sha256-TjQc/Y4Sa2MlLslbygYVFbIk3raArMvYstSiSEYzfo0=";
+    url = "https://cdn.posit.co/positron/prereleases/deb/x86_64/Positron-2025.03.0-116-x64.deb";
+    hash = "sha256-ay4coAhTUCht77FR26JQ4bAGsZmDbMHejy3BDkrPhSQ=";
   };
 
   buildInputs =
