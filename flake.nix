@@ -69,6 +69,11 @@
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
+    claude-desktop = {
+      url = "github:k3d3/claude-desktop-linux-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zjstatus = {
       url = "github:dj95/zjstatus";
     };

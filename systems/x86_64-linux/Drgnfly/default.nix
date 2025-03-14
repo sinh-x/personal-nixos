@@ -5,6 +5,11 @@
   pkgs,
   ...
 }:
+let
+  claude-desktop = inputs.claude-desktop.packages.x86_64-linux.default.overrideAttrs (old: {
+    nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.autoPatchelfHook ];
+  });
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -140,6 +145,8 @@
     inputs.zen-browser.packages."${system}".beta
     inputs.zen-browser.packages."${system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
     inputs.zen-browser.packages."${system}".twilight-official # artifacts are downloaded from the official Zen repository
+
+    claude-desktop
   ];
 
   # Open ports in the firewall.

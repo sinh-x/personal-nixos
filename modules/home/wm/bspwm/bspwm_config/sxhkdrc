@@ -64,8 +64,8 @@ super + control p
 super + ctrl + F5
   gsimplecal
 
-super + ctrl + F12
-  displaykey.fish
+super + ctrl + 12
+  isplayke
 
 ctrl + alt + w
 	sinh-x-wallpaper refresh
