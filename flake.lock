@@ -2820,11 +2820,11 @@
         "snowfall-lib": "snowfall-lib_6"
       },
       "locked": {
-        "lastModified": 1741960408,
-        "narHash": "sha256-1XS/TlN4o8KrqTWPhOYJv3rLdRCPaaPiyWBgOkS0RIU=",
+        "lastModified": 1742535255,
+        "narHash": "sha256-o+kOBVmrVzuWzWIzE+5LX0yFMuK46iSjMJ9adRmUJlk=",
         "owner": "sinh-x",
         "repo": "Neve",
-        "rev": "00570681da66258c1c68085939e5c15752ae9aae",
+        "rev": "e655b958e032fe475a46a6dad44f8457e41b6007",
         "type": "github"
       },
       "original": {

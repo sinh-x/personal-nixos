@@ -11,14 +11,15 @@
 # Set the internal monitor name
 set INTERNAL_MONITOR $argv[1]
 
-if test (count $argv) -ge 2
+# Check if a main monitor position is provided as the second argument.
+if count $argv >1 # Clearer condition: More than 1 argument
     set main_monitor_post $argv[2]
+else if set -q MAIN_MONITOR_POST
+    # Use the environment variable if it exists.
+    set main_monitor_post $MAIN_MONITOR_POST
 else
-    if set -q MAIN_MONITOR_POST
-        set main_monitor_post $MAIN_MONITOR_POST
-    else
-        set main_monitor_post right
-    end
+    # Default to "right" if no argument or environment variable is set.
+    set main_monitor_post right
 end
 
 function set_display

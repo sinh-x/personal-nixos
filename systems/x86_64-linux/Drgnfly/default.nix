@@ -139,6 +139,7 @@ in
     displaylink
     nix-tree
     yq
+    ntfs3g
 
     # Only 'x86_64-linux' and 'aarch64-linux' are supported
     inputs.zen-browser.packages."${system}".default # beta

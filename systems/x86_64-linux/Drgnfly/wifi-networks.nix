@@ -50,7 +50,7 @@
       "YAMA 1" = {
         pskRaw = "ext:yama";
       };
-      "Ngot.Cafe_5G" = {
+      "Ngot.Cafe" = {
         pskRaw = "ext:ngotcafe";
       };
       "LyLy Coffee" = {
