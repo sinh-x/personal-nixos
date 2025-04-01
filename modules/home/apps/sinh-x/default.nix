@@ -23,7 +23,7 @@ in
     home.packages = with pkgs; [
       sinh-x-pomodoro
       sinh-x-wallpaper
-      sinh-x-gitstatus
+      #sinh-x-gitstatus
       sinh-x-ip_updater
     ];
   };

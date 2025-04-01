@@ -5,11 +5,6 @@
   pkgs,
   ...
 }:
-let
-  claude-desktop = inputs.claude-desktop.packages.x86_64-linux.default.overrideAttrs (old: {
-    nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.autoPatchelfHook ];
-  });
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -40,13 +35,6 @@ in
     sops.enable = true;
 
   };
-
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 16 * 1024;
-    }
-  ];
 
   nix =
     let
@@ -86,8 +74,11 @@ in
 
   # Use the systemd-boot EFI boot loader.
   boot = {
-    loader.systemd-boot.enable = true;
-    loader.efi.canTouchEfiVariables = true;
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      efi.efiSysMountPoint = "/boot/efi";
+    };
     extraModprobeConfig = ''
       options snd-hda-intel dmic_detect=0
     '';
@@ -146,14 +137,12 @@ in
     inputs.zen-browser.packages."${system}".beta
     inputs.zen-browser.packages."${system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
     inputs.zen-browser.packages."${system}".twilight-official # artifacts are downloaded from the official Zen repository
-
-    claude-desktop
   ];
 
   # Open ports in the firewall.
 
   networking = {
-    hostName = "Drgnfly";
+    hostName = "Emberroot";
     networkmanager.enable = false;
     firewall.allowedTCPPorts = [ 22 ];
     # If using dhcpcd:
@@ -181,5 +170,5 @@ in
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 }
