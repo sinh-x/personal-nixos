@@ -124,6 +124,15 @@
       };
       "JollyTea" = {
       };
+      "TheLaiKafe" = {
+        pskRaw = "ext:laikafe";
+      };
+      "Grandma Lu's" = {
+        pskRaw = "ext:grandmalu";
+      };
+      "LOTUS 18 NPK  L3" = {
+        pskRaw = "ext:lotusnpk";
+      };
       "Holo Fairy House" = {
         pskRaw = "ext:holoHanoi";
       };

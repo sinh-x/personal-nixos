@@ -29,8 +29,11 @@ in
       opengl.enable = true;
     };
 
-    xdg.portal.enable = true;
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+      config.common.default = "*";
+    };
 
     environment.systemPackages = [
       pkgs.pyprland

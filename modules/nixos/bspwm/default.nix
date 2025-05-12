@@ -22,6 +22,12 @@ in
       };
     };
 
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      config.common.default = "*";
+    };
+
     environment.systemPackages = with pkgs; [
       betterlockscreen
       copyq
@@ -52,6 +58,8 @@ in
       lxappearance
       xorg.xev
       xorg.xinit
+      xdg-desktop-portal
+      xdg-desktop-portal-gtk
     ];
   };
 }

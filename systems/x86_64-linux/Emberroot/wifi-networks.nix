@@ -124,9 +124,28 @@
       };
       "JollyTea" = {
       };
+      "TheLaiKafe" = {
+        pskRaw = "ext:laikafe";
+      };
+      "Grandma Lu's" = {
+        pskRaw = "ext:grandmalu";
+      };
+      "LAZANIA" = {
+        pskRaw = "ext:lazania";
+      };
+      "80+ COFFEE ROASTERY" = {
+        pskRaw = "ext:hcm80plus";
+      };
+      "BHouse 2" = {
+        pskRaw = "ext:bhouse";
+      };
+      "LOTUS 18 NPK L4" = {
+        pskRaw = "ext:lotusnpk";
+      };
       "Holo Fairy House" = {
         pskRaw = "ext:holoHanoi";
       };
+      "WORKFLOW CAFE" = { };
       "Hotel du Parc Hanoi" = { };
       "Hust_C1_213" = { };
       "@ TASECO FREE WIFI" = { };

@@ -9,7 +9,7 @@
   imports = [
     ./hardware-configuration.nix
     ./wifi-networks.nix
-    ../common/optional/pipewire.nix
+    ../common/optional/pulseaudio.nix
     ../common/optional/sddm.nix
   ];
 
@@ -82,6 +82,7 @@
     extraModprobeConfig = ''
       options snd-hda-intel dmic_detect=0
     '';
+    blacklistedKernelModules = [ "nouveau" ];
   };
 
   # networking.hostName = "nixos"; # Define your hostname.
@@ -99,14 +100,19 @@
 
     xserver = {
       videoDrivers = [
+        "nvidia"
         "displaylink"
-        "modesetting"
       ];
     };
 
     picom = {
       enable = true;
-      shadow = true;
+      backend = "glx";
+      vSync = true;
+      settings = {
+        glx-no-stencil = true;
+        glx-no-rebind-pixmap = true;
+      };
     };
 
     printing = {
@@ -122,8 +128,40 @@
   services.xserver.xkb.layout = "us";
   services.libinput.enable = true;
 
-  hardware.acpilight.enable = true;
-  hardware.bluetooth.enable = true;
+  hardware = {
+    acpilight.enable = true;
+    bluetooth.enable = true;
+    nvidia = {
+      # Use the proprietary driver
+      modesetting.enable = true;
+
+      # Enable the NVIDIA settings menu
+      nvidiaSettings = true;
+      open = false;
+
+      # Enable the PRIME offloading (if you have a laptop with hybrid graphics)
+      prime = {
+        offload.enable = true;
+        # Intel is usually the integrated GPU
+        intelBusId = "PCI:0:2:0";
+        # The NVIDIA GPU
+        nvidiaBusId = "PCI:1:0:0";
+      };
+
+      # Optionally, enable Vulkan support if needed
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+      powerManagement.enable = true;
+      forceFullCompositionPipeline = true;
+
+    };
+
+    # Optional: Enable OpenGL
+    graphics = {
+      enable = true;
+    };
+
+  };
 
   environment.systemPackages = with pkgs; [
     devenv
@@ -131,6 +169,12 @@
     nix-tree
     yq
     ntfs3g
+
+    pciutils
+    vaapiVdpau
+    libvdpau-va-gl
+    nvidia-system-monitor-qt
+    nvtopPackages.full
 
     # Only 'x86_64-linux' and 'aarch64-linux' are supported
     inputs.zen-browser.packages."${system}".default # beta

@@ -48,7 +48,6 @@ let
     inactive_tab_foreground = "#787c99";
     inactive_tab_background = "#16161e";
     inactive_tab_font_style = "bold";
-    macos_titlebar_color = "#16161e";
   };
 in
 {
@@ -127,7 +126,6 @@ in
         inactive_tab_foreground = "${colors.inactive_tab_foreground}";
         inactive_tab_background = "${colors.inactive_tab_background}";
         inactive_tab_font_style = "${colors.inactive_tab_font_style}";
-        macos_titlebar_color = "${colors.macos_titlebar_color}";
       };
     };
   };
