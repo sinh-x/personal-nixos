@@ -142,6 +142,9 @@
       "LOTUS 18 NPK L4" = {
         pskRaw = "ext:lotusnpk";
       };
+      "GRIN_cafenstay" = {
+        pskRaw = "ext:quinhon_grin";
+      };
       "Holo Fairy House" = {
         pskRaw = "ext:holoHanoi";
       };

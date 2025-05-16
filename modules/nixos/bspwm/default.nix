@@ -39,7 +39,7 @@ in
       gsimplecal
       gtk3
       pastel
-      input-leap
+      # input-leap
       killall
       libnotify
       polybarFull
