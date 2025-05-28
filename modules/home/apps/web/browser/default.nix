@@ -25,7 +25,7 @@ in
       floorp
       firefox
       google-chrome
-      microsoft-edge
+      # microsoft-edge
       opera
 
     ];
