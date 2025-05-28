@@ -22,6 +22,12 @@ else
     set main_monitor_post right
 end
 
+if set -q EXT_MAX_RES
+    set ext_max_res $EXT_MAX_RES
+else
+    set ext_max_res 4000
+end
+
 function set_display
     # Get the output of xrandr and split it into lines
     set output (xrandr | string split '\n')
@@ -55,7 +61,7 @@ function set_display
         # Extract the resolution and add it to the list
         set res (echo $output[$resolution_idx] | awk '{print $1}')
         set width (echo $res | awk -F x '{print $1}')
-        if test "$monitor_name" != "$INTERNAL_MONITOR" -a $width -gt 3000
+        if test "$monitor_name" != "$INTERNAL_MONITOR" -a $width -gt $ext_max_res
             # Switch to the second resolution if the width is more than 3800
             set resolution_idx (math $resolution_idx+1)
             set res (echo $output[$resolution_idx] | awk '{print $1}')

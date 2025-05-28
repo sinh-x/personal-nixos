@@ -142,6 +142,9 @@
       "LOTUS 18 NPK L4" = {
         pskRaw = "ext:lotusnpk";
       };
+      "Happy House" = {
+        pskRaw = "ext:sg_vin_hh";
+      };
       "GRIN_cafenstay" = {
         pskRaw = "ext:quinhon_grin";
       };
