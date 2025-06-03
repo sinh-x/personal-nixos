@@ -21,6 +21,7 @@
     nix_ld.enable = true;
     fcitx5.enable = true;
     fish.enable = true;
+    gcloud.enable = true;
 
     # windows manager
     bspwm.enable = true;

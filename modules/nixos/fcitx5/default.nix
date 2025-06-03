@@ -19,6 +19,7 @@ in
         fcitx5-mozc
         fcitx5-gtk
         libsForQt5.fcitx5-unikey
+        fcitx5-bamboo
       ];
 
     };

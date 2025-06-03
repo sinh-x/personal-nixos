@@ -26,7 +26,7 @@ in
       firefox
       google-chrome
       # microsoft-edge
-      opera
+      # opera
 
     ];
 
