@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   security.rtkit.enable = true;
   services.pipewire = {
@@ -7,4 +8,11 @@
     pulse.enable = true;
     jack.enable = true;
   };
+
+  hardware.pulseaudio.enable = false;
+
+  environment.systemPackages = with pkgs; [
+    pavucontrol
+    alsa-utils
+  ];
 }

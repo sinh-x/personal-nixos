@@ -33,6 +33,7 @@ in
       fzf
       gh
       git
+      gitflow
       htop
       jq
       lazygit

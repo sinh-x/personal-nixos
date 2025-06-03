@@ -9,7 +9,7 @@
   imports = [
     ./hardware-configuration.nix
     ./wifi-networks.nix
-    ../common/optional/pulseaudio.nix
+    ../common/optional/pipewire.nix
     ../common/optional/sddm.nix
   ];
 
@@ -81,7 +81,7 @@
       efi.efiSysMountPoint = "/boot/efi";
     };
     extraModprobeConfig = ''
-      options snd-hda-intel dmic_detect=0
+      options snd-hda-intel
     '';
     blacklistedKernelModules = [ "nouveau" ];
   };
