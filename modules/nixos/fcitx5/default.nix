@@ -18,8 +18,13 @@ in
       fcitx5.addons = with pkgs; [
         fcitx5-mozc
         fcitx5-gtk
+        fcitx5-rime
+        libsForQt5.fcitx5-qt # qt5
+        kdePackages.fcitx5-qt # qt6
         libsForQt5.fcitx5-unikey
         fcitx5-bamboo
+        fcitx5-configtool
+        fcitx5-chinese-addons
       ];
 
     };

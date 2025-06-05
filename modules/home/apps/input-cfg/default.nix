@@ -21,12 +21,12 @@ in
   config = mkIf cfg.enable {
     home = {
       sessionVariables = {
-        IMSETTINGS_MODULE = "fcitx5";
-        INPUT_METHOD = "fcitx5";
-        GTK_IM_MODULE = "fcitx5";
-        QT_IM_MODULE = "fcitx5";
-        "GLFW_IM_MODULE" = "ibus";
-        XMODIFIERS = "fcitx5";
+        IMSETTINGS_MODULE = "fcitx";
+        INPUT_METHOD = "fcitx";
+        GTK_IM_MODULE = "fcitx";
+        QT_IM_MODULE = "fcitx";
+        GLFW_IM_MODULE = "fcitx";
+        XMODIFIERS = "@im=fcitx";
       };
     };
   };

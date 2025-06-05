@@ -30,11 +30,15 @@ in
 
     ];
 
+    xdg.mimeApps.enable = true;
     xdg.mimeApps.defaultApplications = {
-      "text/html" = [ "zen.desktop" ];
-      "text/xml" = [ "zen.desktop" ];
-      "x-scheme-handler/http" = [ "zen.desktop" ];
-      "x-scheme-handler/https" = [ "zen.desktop" ];
+      "text/html" = [ "floorp.desktop" ];
+      "x-scheme-handler/http" = [ "floorp.desktop" ];
+      "x-scheme-handler/https" = [ "floorp.desktop" ];
+    };
+
+    home.sessionVariables = {
+      BROWSER = "${pkgs.floorp}/bin/floorp";
     };
 
   };

@@ -54,6 +54,8 @@ bspc config normal_border_color "$BSPWM_NBC"
 bspc config active_border_color "$BSPWM_ABC"
 bspc config presel_feedback_color "$BSPWM_PFC"
 
+bspc config remove_disabled_monitors false
+bspc config remove_unplugged_monitors false
 bspc config borderless_monocle true
 bspc config gapless_monocle true
 bspc config paddingless_monocle true
