@@ -10,7 +10,8 @@
     ./hardware-configuration.nix
     ./wifi-networks.nix
     ../common/optional/pipewire.nix
-    ../common/optional/sddm.nix
+    ../common/optional/greetd.nix
+    # ../common/optional/sddm.nix
   ];
 
   sinh-x.default-desktop.enable = true;
@@ -25,7 +26,7 @@
 
     # windows manager
     bspwm.enable = true;
-    hyprland.enable = false;
+    hyprland.enable = true;
 
     virtualbox.enable = true;
     genymotion.enable = true;
@@ -102,7 +103,7 @@
     xserver = {
       videoDrivers = [
         "nvidia"
-        "displaylink"
+        "virtualbox"
       ];
     };
 
@@ -123,6 +124,8 @@
       };
       drivers = [ pkgs.brlaser ];
     };
+
+    udev.packages = [ pkgs.qmk-udev-rules ];
   };
 
   # Configure keymap in X11
@@ -142,6 +145,7 @@
 
       # Enable the PRIME offloading (if you have a laptop with hybrid graphics)
       prime = {
+        sync.enable = false;
         offload.enable = true;
         # Intel is usually the integrated GPU
         intelBusId = "PCI:0:2:0";
@@ -166,7 +170,7 @@
 
   environment.systemPackages = with pkgs; [
     devenv
-    displaylink
+    # displaylink
     nix-tree
     yq
     ntfs3g
@@ -177,11 +181,16 @@
     nvidia-system-monitor-qt
     nvtopPackages.full
 
-    # Only 'x86_64-linux' and 'aarch64-linux' are supported
-    inputs.zen-browser.packages."${system}".default # beta
-    inputs.zen-browser.packages."${system}".beta
-    inputs.zen-browser.packages."${system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
-    inputs.zen-browser.packages."${system}".twilight-official # artifacts are downloaded from the official Zen repository
+    qmk
+    qmk-udev-rules
+
+    linuxPackages.virtualboxGuestAdditions
+
+    # # Only 'x86_64-linux' and 'aarch64-linux' are supported
+    # inputs.zen-browser.packages."${system}".default # beta
+    # inputs.zen-browser.packages."${system}".beta
+    # inputs.zen-browser.packages."${system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
+    # inputs.zen-browser.packages."${system}".twilight-official # artifacts are downloaded from the official Zen repository
   ];
 
   # Open ports in the firewall.

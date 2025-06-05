@@ -10,9 +10,10 @@
       "video"
       "audio"
       "tty"
-      "dialout"
       "vboxusers"
       "docker"
+      "dialout"
+      "plugdev"
     ];
 
     shell = pkgs.fish;
