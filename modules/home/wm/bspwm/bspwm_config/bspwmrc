@@ -36,7 +36,7 @@ BSPWM_SRATIO='0.50'
 ## Configurations --------------------------------------------#
 
 ## thermal zone
-echo "hwmon-path = $(awk -F 'Package id 0 |$' '{print $2}' <<<"$(for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<"$(dirname "$i")"/name): $(cat "${i%_*}"_label 2>/dev/null || cmd basename "${i%_*}") $(readlink -f "$i")"; done | grep 'Package')")" >~/.config/bspwm/thermal-zone
+echo "hwmon-path = $(awk -F 'Package id 0 |$' '{print $2}' <<<"$(for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<"$(dirname "$i")"/name): $(cat "${i%_*}"_label 2>/dev/null || cmd basename "${i%_*}") $(readlink -f "$i")"; done | grep 'Package')")" >~/.config/sinh-x-scripts/thermal-zone
 
 ## Manage Monitors and Workspaces
 ##
