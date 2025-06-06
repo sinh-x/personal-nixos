@@ -22,6 +22,8 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       activitywatch
+      aw-watcher-window-wayland
+      clipman
       qmk
       evince
       obsidian

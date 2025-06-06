@@ -25,10 +25,12 @@
     gcloud.enable = true;
 
     # windows manager
-    bspwm.enable = false;
-    hyprland.enable = true;
+    wm = {
+      bspwm.enable = false;
+      hyprland.enable = true;
+    };
 
-    virtualbox.enable = true;
+    virtualbox.enable = false;
     genymotion.enable = true;
 
     # network
