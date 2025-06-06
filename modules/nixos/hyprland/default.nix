@@ -14,10 +14,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.hyprland = {
-      enable = true;
-      xwayland.enable = true;
-      package = pkgs.hyprland;
+    programs = {
+      hyprland = {
+        enable = true;
+        xwayland.enable = true;
+        package = pkgs.hyprland;
+        portalPackage = pkgs.xdg-desktop-portal-hyprland;
+      };
       hyprlock.enable = true;
     };
 
@@ -48,13 +51,14 @@ in
 
     # Add audio support
     security.rtkit.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
-
+    services = {
+      pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        jack.enable = true;
+      };
       # Enable services for file manager
       gvfs.enable = true; # For thunar
       tumbler.enable = true; # Thumbnails
@@ -110,6 +114,7 @@ in
       brightnessctl # Brightness control (better than light for Wayland)
       playerctl # Media player control
       pamixer # PulseAudio mixer
+      pulsemixer
       pavucontrol # Volume control GUI
 
       # File management

@@ -25,7 +25,7 @@
     gcloud.enable = true;
 
     # windows manager
-    bspwm.enable = true;
+    bspwm.enable = false;
     hyprland.enable = true;
 
     virtualbox.enable = true;
@@ -141,12 +141,12 @@
 
       # Enable the NVIDIA settings menu
       nvidiaSettings = true;
-      open = false;
+      open = true;
 
       # Enable the PRIME offloading (if you have a laptop with hybrid graphics)
       prime = {
-        sync.enable = false;
-        offload.enable = true;
+        sync.enable = true;
+        offload.enable = false;
         # Intel is usually the integrated GPU
         intelBusId = "PCI:0:2:0";
         # The NVIDIA GPU
