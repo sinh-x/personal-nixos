@@ -113,9 +113,8 @@
       "THE MOON" = {
         pskRaw = "ext:themoon";
       };
-      "Adiuvat Coffee Roasters" = {
+      "Adiuvat Home" = {
         pskRaw = "ext:nhadiu";
-        # psk = "57nguyenhue";
       };
       "ADIUVAT Coffee Roasters" = {
         pskRaw = "ext:adiuvat";

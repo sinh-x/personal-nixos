@@ -6,11 +6,11 @@
   ...
 }:
 let
-  cfg = config.modules.hyprland;
+  cfg = config.modules.wm.hyprland;
 in
 {
   options = {
-    modules.hyprland.enable = lib.mkEnableOption "hyprland";
+    modules.wm.hyprland.enable = lib.mkEnableOption "hyprland";
   };
 
   config = lib.mkIf cfg.enable {
@@ -85,6 +85,8 @@ in
     environment.systemPackages = with pkgs; [
       # Your existing packages
       pyprland
+      pastel
+      pywal
       swaybg
       gojq
       tofi
@@ -99,7 +101,9 @@ in
       eww
       libnotify
       swww
-      wl-clipboard-rs
+      wl-clipboard
+      wl-clip-persist
+      cliphist
       wlroots
       wlr-randr
       qt5.qtwayland
@@ -116,6 +120,7 @@ in
       pamixer # PulseAudio mixer
       pulsemixer
       pavucontrol # Volume control GUI
+      socat
 
       # File management
       xfce.thunar # File manager

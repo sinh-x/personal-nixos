@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.fcitx5;
+  cfg = config.modules.gcloud;
 in
 {
   options = {

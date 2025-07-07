@@ -148,6 +148,9 @@
       "GRIN_cafenstay" = {
         pskRaw = "ext:quinhon_grin";
       };
+      "Nhoan L1" = {
+        pskRaw = "ext:hcm_nhoan";
+      };
       "Holo Fairy House" = {
         pskRaw = "ext:holoHanoi";
       };

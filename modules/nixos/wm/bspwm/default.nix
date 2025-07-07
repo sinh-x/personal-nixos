@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.bspwm;
+  cfg = config.modules.wm.bspwm;
 in
 {
   options = {
-    modules.bspwm.enable = lib.mkEnableOption "bspwm";
+    modules.wm.bspwm.enable = lib.mkEnableOption "bspwm";
   };
   config = lib.mkIf cfg.enable {
     services = {
