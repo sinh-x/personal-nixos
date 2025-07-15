@@ -21,16 +21,13 @@ in
   config = mkIf cfg.enable {
     home = {
       sessionVariables = {
-        # IMSETTINGS_MODULE = "fcitx";
-        # INPUT_METHOD = "fcitx";
-        # GTK_IM_MODULE = "fcitx";
-        # QT_IM_MODULE = "fcitx";
-        # GLFW_IM_MODULE = "fcitx";
-        # XMODIFIERS = "@im=fcitx";
-        # GTK_IM_MODULE = "wayland";
-        # QT_IM_MODULE = "wayland";
-        # XMODIFIERS = "@im=fcitx";
-        # SDL_IM_MODULE = "fcitx";
+        IMSETTINGS_MODULE = "fcitx";
+        INPUT_METHOD = "fcitx";
+        GTK_IM_MODULE = "fcitx";
+        QT_IM_MODULE = "fcitx";
+        GLFW_IM_MODULE = "fcitx";
+        XMODIFIERS = "@im=fcitx";
+        SDL_IM_MODULE = "fcitx";
       };
     };
   };
