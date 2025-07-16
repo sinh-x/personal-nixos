@@ -32,13 +32,13 @@ in
 
     xdg.mimeApps.enable = true;
     xdg.mimeApps.defaultApplications = {
-      "text/html" = [ "floorp.desktop" ];
-      "x-scheme-handler/http" = [ "zen.desktop" ];
-      "x-scheme-handler/https" = [ "zen.desktop" ];
+      "text/html" = [ "zen-beta.desktop" ];
+      "x-scheme-handler/http" = [ "zen-beta.desktop" ];
+      "x-scheme-handler/https" = [ "zen-beta.desktop" ];
     };
 
     home.sessionVariables = {
-      BROWSER = "${pkgs.floorp}/bin/floorp";
+      BROWSER = "/run/current-system/sw/bin/zen";
     };
 
   };

@@ -106,6 +106,7 @@ in
       ocamlPackages.ssl
 
       sinh-x.sys
+      kdePackages.okular
     ];
 
     environment.variables = {

@@ -28,7 +28,6 @@ in
       obsidian
       wpsoffice
       inkscape
-      libsForQt5.okular
       libtiff
       imagemagick
     ];
