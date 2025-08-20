@@ -32,9 +32,16 @@ in
 
     xdg.mimeApps.enable = true;
     xdg.mimeApps.defaultApplications = {
-      "text/html" = [ "zen-beta.desktop" ];
-      "x-scheme-handler/http" = [ "zen-beta.desktop" ];
-      "x-scheme-handler/https" = [ "zen-beta.desktop" ];
+      "x-scheme-handler/http" = [ "userapp-Zen-XKRIA3.desktop" ];
+      "x-scheme-handler/https" = [ "userapp-Zen-XKRIA3.desktop" ];
+      "x-scheme-handler/chrome" = [ "userapp-Zen-XKRIA3.desktop" ];
+      "text/html" = [ "userapp-Zen-XKRIA3.desktop" ];
+      "application/x-extension-htm" = [ "userapp-Zen-XKRIA3.desktop" ];
+      "application/x-extension-html" = [ "userapp-Zen-XKRIA3.desktop" ];
+      "application/x-extension-shtml" = [ "userapp-Zen-XKRIA3.desktop" ];
+      "application/xhtml+xml" = [ "userapp-Zen-XKRIA3.desktop" ];
+      "application/x-extension-xhtml" = [ "userapp-Zen-XKRIA3.desktop" ];
+      "application/x-extension-xht" = [ "userapp-Zen-XKRIA3.desktop" ];
     };
 
     home.sessionVariables = {

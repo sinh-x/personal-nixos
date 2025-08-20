@@ -47,7 +47,7 @@
       element = true;
       messenger = false;
       slack = true;
-      viber = true;
+      # viber = true;
       zoom = true;
     };
 

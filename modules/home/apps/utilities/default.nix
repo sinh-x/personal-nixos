@@ -30,6 +30,7 @@ in
       inkscape
       libtiff
       imagemagick
+      swayimg
     ];
   };
 }
