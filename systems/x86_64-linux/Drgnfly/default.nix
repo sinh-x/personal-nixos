@@ -75,7 +75,7 @@
       gc = {
         automatic = true;
         dates = "weekly";
-        options = "--delete-older-than 4w";
+        options = "--delete-older-than 28d";
       };
     };
 
