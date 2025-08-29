@@ -154,6 +154,9 @@
       "Holo Fairy House" = {
         pskRaw = "ext:holoHanoi";
       };
+      "CatAnhCoffee5G" = {
+        pskRaw = "ext:sg_2_catanh";
+      };
       "WORKFLOW CAFE" = { };
       "Hotel du Parc Hanoi" = { };
       "Hust_C1_213" = { };
