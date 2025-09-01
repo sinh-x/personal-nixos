@@ -171,6 +171,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    direnv
     devenv
     # displaylink
     nix-tree
