@@ -18,6 +18,7 @@
 
   modules = {
     r_setup.enable = true;
+    flatpak.enable = true;
     python.enable = true;
     nix_ld.enable = true;
     fcitx5.enable = true;
