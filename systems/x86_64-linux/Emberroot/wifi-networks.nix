@@ -154,6 +154,9 @@
       "Holo Fairy House" = {
         pskRaw = "ext:holoHanoi";
       };
+      "K&T_Coffee" = {
+        pskRaw = "ext:ktcoffee";
+      };
       "CatAnhCoffee5G" = {
         pskRaw = "ext:sg_2_catanh";
       };
