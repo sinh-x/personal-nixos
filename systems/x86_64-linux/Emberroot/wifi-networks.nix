@@ -160,6 +160,9 @@
       "CatAnhCoffee5G" = {
         pskRaw = "ext:sg_2_catanh";
       };
+      "Hestia cafe" = {
+        pskRaw = "ext:qn_hestia";
+      };
       "WORKFLOW CAFE" = { };
       "Hotel du Parc Hanoi" = { };
       "Hust_C1_213" = { };
