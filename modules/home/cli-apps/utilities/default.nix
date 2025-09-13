@@ -21,11 +21,10 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      ssh-agents
       atuin
       awscli2
-      bc
       bat
+      bc
       btop
       dua
       fd
@@ -38,10 +37,12 @@ in
       jq
       lazygit
       libxml2
+      ncdu
       neofetch
       p7zip
       poppler
       ripgrep
+      ssh-agents
       tldr
       tree
       unar
@@ -60,6 +61,13 @@ in
 
     programs.alacritty = {
       enable = true;
+    };
+
+    xdg.mimeApps = {
+      defaultApplications = {
+        "image/jpeg" = "swayimg.desktop";
+        "application/pdf" = "userapp-Zen-DPJF42.desktop";
+      };
     };
   };
 }
