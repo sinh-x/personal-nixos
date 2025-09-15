@@ -163,6 +163,9 @@
       "Hestia cafe" = {
         pskRaw = "ext:qn_hestia";
       };
+      "tree hugger" = {
+        pskRaw = "ext:qn_treehugger";
+      };
       "WORKFLOW CAFE" = { };
       "Hotel du Parc Hanoi" = { };
       "Hust_C1_213" = { };
