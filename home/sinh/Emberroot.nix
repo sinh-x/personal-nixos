@@ -19,6 +19,8 @@
       input-cfg.enable = true;
     };
 
+    office.enable = true;
+
     multimedia = {
       mpd.enable = true;
       utilities.enable = true;
