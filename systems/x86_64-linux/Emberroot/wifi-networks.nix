@@ -160,6 +160,9 @@
       "CatAnhCoffee5G" = {
         pskRaw = "ext:sg_2_catanh";
       };
+      "HWS_Member" = {
+        pskRaw = "ext:sg_helloword";
+      };
       "Hestia cafe" = {
         pskRaw = "ext:qn_hestia";
       };
