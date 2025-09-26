@@ -22,7 +22,7 @@ in
   config = mkIf cfg.enable {
 
     home.packages = with pkgs; [
-      floorp
+      # floorp
       firefox
       google-chrome
       # microsoft-edge
