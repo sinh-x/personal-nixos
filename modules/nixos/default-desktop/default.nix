@@ -105,6 +105,7 @@ in
       openssl
       ocamlPackages.ssl
 
+      thunderbird
       sinh-x.sys
       kdePackages.okular
     ];
