@@ -169,6 +169,9 @@
       "tree hugger" = {
         pskRaw = "ext:qn_treehugger";
       };
+      "vuon chan 16" = {
+        pskRaw = "ext:qn_chantea";
+      };
       "Starbucks" = { };
       "WORKFLOW CAFE" = { };
       "Hotel du Parc Hanoi" = { };
