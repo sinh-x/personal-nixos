@@ -1,21 +1,25 @@
 {
   inputs,
-  config,
-  pkgs,
+  # Snowfall Lib provides a customized `lib` instance with access to your flake's library
+  # as well as the libraries available from your flake's inputs.
   lib,
+  # An instance of `pkgs` with your overlays and packages applied is also available.
+  # You also have access to your flake's inputs.
+  # All other arguments come from the module system.
+  config,
+  namespace,
   ...
 }:
 let
-  cfg = config.modules.zen-browser;
+  cfg = config.${namespace}.apps.web.zen-browser;
 in
 {
   options = {
-    modules.zen-browser.enable = lib.mkEnableOption "zen-browser";
+    options.${namespace}.apps.web.zen-browser = lib.mkEnableOption "zen-browser";
   };
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      # Only 'x86_64-linux' and 'aarch64-linux' are supported
-      inputs.zen-browser.packages."${system}".default
+    environment.systemPackages = [
+      inputs.zen-browser.homeModules.beta
     ];
 
     programs.zen-browser.policies = {

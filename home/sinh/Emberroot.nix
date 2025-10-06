@@ -14,6 +14,7 @@
     apps = {
       sinh-x.enable = true;
       web.browser.enable = true;
+      web.zen-browser.enable = true;
       utilities.enable = true;
       themes.enable = true;
       input-cfg.enable = true;
