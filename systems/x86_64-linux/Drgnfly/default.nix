@@ -135,14 +135,26 @@
     nix-tree
     yq
     ntfs3g
-
-    # Only 'x86_64-linux' and 'aarch64-linux' are supported
-    inputs.zen-browser.packages."${system}".default # beta
-    inputs.zen-browser.packages."${system}".beta
-    inputs.zen-browser.packages."${system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
-    inputs.zen-browser.packages."${system}".twilight-official # artifacts are downloaded from the official Zen repository
-
   ];
+
+  programs.zen-browser.policies = {
+    AutofillAddressEnabled = true;
+    AutofillCreditCardEnabled = false;
+    DisableAppUpdate = true;
+    DisableFeedbackCommands = true;
+    DisableFirefoxStudies = true;
+    DisablePocket = true;
+    DisableTelemetry = true;
+    DontCheckDefaultBrowser = true;
+    NoDefaultBookmarks = true;
+    OfferToSaveLogins = false;
+    EnableTrackingProtection = {
+      Value = true;
+      Locked = true;
+      Cryptomining = true;
+      Fingerprinting = true;
+    };
+  };
 
   # Open ports in the firewall.
 
