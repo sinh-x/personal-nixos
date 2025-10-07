@@ -135,17 +135,9 @@
     nix-tree
     yq
     ntfs3g
-
-    # Only 'x86_64-linux' and 'aarch64-linux' are supported
-    inputs.zen-browser.packages."${system}".default # beta
-    inputs.zen-browser.packages."${system}".beta
-    inputs.zen-browser.packages."${system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
-    inputs.zen-browser.packages."${system}".twilight-official # artifacts are downloaded from the official Zen repository
-
   ];
 
   # Open ports in the firewall.
-
   networking = {
     hostName = "Drgnfly";
     networkmanager.enable = false;

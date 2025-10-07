@@ -12,22 +12,19 @@
 }:
 with lib;
 let
-  cfg = config.${namespace}.apps.utilities;
+  cfg = config.${namespace}.office;
 in
 {
-  options.${namespace}.apps.utilities = {
-    enable = mkEnableOption "Utilities apps";
+  options.${namespace}.office = {
+    enable = mkEnableOption "Office apps";
   };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      activitywatch
-      aw-watcher-window-wayland
-      qmk
-      libtiff
-      imagemagick
-      swayimg
-      upower
+      evince # GNOME document viewer
+      obsidian # Document management
+      wpsoffice
+      inkscape # Vector graphics editor
     ];
   };
 }

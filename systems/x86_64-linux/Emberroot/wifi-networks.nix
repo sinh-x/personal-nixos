@@ -154,9 +154,28 @@
       "Holo Fairy House" = {
         pskRaw = "ext:holoHanoi";
       };
+      "K&T_Coffee" = {
+        pskRaw = "ext:ktcoffee";
+      };
       "CatAnhCoffee5G" = {
         pskRaw = "ext:sg_2_catanh";
       };
+      "HWS_Member" = {
+        pskRaw = "ext:sg_helloword";
+      };
+      "Hestia cafe" = {
+        pskRaw = "ext:qn_hestia";
+      };
+      "tree hugger" = {
+        pskRaw = "ext:qn_treehugger";
+      };
+      "vuon chan 16" = {
+        pskRaw = "ext:qn_chantea";
+      };
+      "Mango Tree" = {
+        pskRaw = "ext:qn_mangotree";
+      };
+      "Starbucks" = { };
       "WORKFLOW CAFE" = { };
       "Hotel du Parc Hanoi" = { };
       "Hust_C1_213" = { };

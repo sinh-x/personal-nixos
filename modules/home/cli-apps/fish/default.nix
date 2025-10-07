@@ -27,6 +27,7 @@ in
       '';
       interactiveShellInit = ''
         eval "/home/sinh/.conda/bin/conda" "shell.fish" "hook" $argv | source
+        auto_conda
         # ----- FZF -----
         fzf --fish | source
 
@@ -111,6 +112,40 @@ in
         vim = "nvim";
         ssha = "ssh-add";
         sshconfig = "nvim ~/.ssh/config";
+      };
+      functions = {
+        check_conda = {
+          body = ''
+            if test -e .condaenv
+                set env_name (cat .condaenv | string trim)
+
+                if test -n "$env_name"
+                    set current_env "$CONDA_DEFAULT_ENV"
+                    if test -z "$current_env"
+                        set current_env base
+                    end
+
+                    if not string match -q -- "$env_name" "$current_env"
+                        echo "Activating Conda environment: $env_name"
+                        conda activate "$env_name"
+                    end
+                end
+            else
+                if set -q CONDA_DEFAULT_ENV; and not string match -q -- "base" "$CONDA_DEFAULT_ENV"
+                    echo "Deactivating Conda environment: $CONDA_DEFAULT_ENV"
+                    conda deactivate
+                end
+            end
+          '';
+        };
+        auto_conda = {
+          # This tells fish to run this function when $PWD changes
+          onVariable = "PWD";
+          body = ''
+            # Call the logic function
+            check_conda
+          '';
+        };
       };
       plugins = [
         {

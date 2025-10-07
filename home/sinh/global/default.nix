@@ -8,7 +8,10 @@
 }:
 {
   # You can import other home-manager modules here
-  imports = [ inputs.sops-nix.homeManagerModules.sops ];
+  imports = [
+    inputs.sops-nix.homeManagerModules.sops
+    inputs.zen-browser.homeModules.beta
+  ];
 
   nix = {
     package = lib.mkDefault pkgs.nix;

@@ -70,7 +70,7 @@
       nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
 
       gc = {
-        automatic = true;
+        automatic = false;
         dates = "weekly";
         options = "--delete-older-than 28d";
       };
@@ -190,7 +190,7 @@
     linuxPackages.virtualboxGuestAdditions
 
     # # Only 'x86_64-linux' and 'aarch64-linux' are supported
-    inputs.zen-browser.packages."${system}".default # beta
+    inputs.zen-browser.packages."${system}".default
     # inputs.zen-browser.packages."${system}".beta
     # inputs.zen-browser.packages."${system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
     # inputs.zen-browser.packages."${system}".twilight-official # artifacts are downloaded from the official Zen repository

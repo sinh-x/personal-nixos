@@ -131,7 +131,7 @@ in
       cliphist # Clipboard history
 
       # Launchers & menus (alternatives/additions to wofi)
-      rofi-wayland # Rofi for Wayland
+      rofi # Rofi for Wayland
       fuzzel # Fast application launcher
 
       # System info & monitoring
