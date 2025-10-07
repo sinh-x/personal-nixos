@@ -172,6 +172,9 @@
       "vuon chan 16" = {
         pskRaw = "ext:qn_chantea";
       };
+      "Mango Tree" = {
+        pskRaw = "ext:qn_mangotree";
+      };
       "Starbucks" = { };
       "WORKFLOW CAFE" = { };
       "Hotel du Parc Hanoi" = { };

@@ -37,7 +37,6 @@
     stubby.enable = true;
 
     sops.enable = true;
-    zen-browser.enable = true;
 
   };
 
@@ -71,7 +70,7 @@
       nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
 
       gc = {
-        automatic = true;
+        automatic = false;
         dates = "weekly";
         options = "--delete-older-than 28d";
       };
