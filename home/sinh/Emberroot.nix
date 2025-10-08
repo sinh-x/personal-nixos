@@ -51,6 +51,7 @@
       slack = true;
       viber = true;
       zoom = true;
+      telegram = true;
     };
 
     security = {
