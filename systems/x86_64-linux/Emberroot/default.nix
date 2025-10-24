@@ -171,9 +171,9 @@
   };
 
   environment.systemPackages = with pkgs; [
+    lm_sensors
     direnv
     devenv
-    # displaylink
     nix-tree
     yq
     ntfs3g

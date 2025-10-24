@@ -14,6 +14,10 @@
     apps = {
       sinh-x.enable = true;
       web.zen-browser.enable = true;
+      web.browser = {
+        chrome = true;
+        brave = true;
+      };
       utilities.enable = true;
       themes.enable = true;
       input-cfg.enable = true;

@@ -172,9 +172,16 @@
       "vuon chan 16" = {
         pskRaw = "ext:qn_chantea";
       };
+      "BINH MINH homestay_5G" = {
+        pskRaw = "ext:nh_binhminh";
+      };
+      "JOY HomeL2-5G" = {
+        pskRaw = "ext:sg_joyhome";
+      };
       "Mango Tree" = {
         pskRaw = "ext:qn_mangotree";
       };
+      "Pax Ana Resort" = { };
       "Starbucks" = { };
       "WORKFLOW CAFE" = { };
       "Hotel du Parc Hanoi" = { };
