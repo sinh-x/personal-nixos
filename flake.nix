@@ -11,10 +11,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    impermanence.url = "github:nix-community/impermanence";
     # optional, not necessary for the module
 
     pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
