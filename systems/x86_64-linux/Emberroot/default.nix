@@ -23,6 +23,7 @@
     fcitx5.enable = true;
     fish.enable = true;
     gcloud.enable = true;
+    antigravity.enable = true;
 
     # windows manager
     wm = {
