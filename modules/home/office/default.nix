@@ -23,6 +23,7 @@ in
     home.packages = with pkgs; [
       evince # GNOME document viewer
       obsidian # Document management
+      anytype
       # wpsoffice
       onlyoffice-desktopeditors
       inkscape # Vector graphics editor
