@@ -27,32 +27,33 @@ stdenv.mkDerivation {
   inherit version pname;
 
   src = fetchurl {
-    url = "https://cdn.posit.co/positron/prereleases/deb/x86_64/Positron-2025.03.0-116-x64.deb";
-    hash = "sha256-ay4coAhTUCht77FR26JQ4bAGsZmDbMHejy3BDkrPhSQ=";
+    url = "https://cdn.posit.co/positron/releases/deb/x86_64/Positron-2025.11.0-234-x64.deb";
+    hash = "sha256-rIs0LnwK6QcUMI8CbkBwf+uuqAJXpNHRBNpWpBgd3Po=";
   };
 
-  buildInputs =
-    [ makeShellWrapper ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      alsa-lib
-      dpkg
-      gtk3
-      libglvnd
-      libxkbcommon
-      mesa
-      musl
-      nss
-      openssl
-      stdenv.cc.cc
-      xorg.libX11
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libxkbfile
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      blas
-      patchelf
-    ];
+  buildInputs = [
+    makeShellWrapper
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    alsa-lib
+    dpkg
+    gtk3
+    libglvnd
+    libxkbcommon
+    mesa
+    musl
+    nss
+    openssl
+    stdenv.cc.cc
+    xorg.libX11
+    xorg.libXcomposite
+    xorg.libXdamage
+    xorg.libxkbfile
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    blas
+    patchelf
+  ];
 
   nativeBuildInputs =
     lib.optionals stdenv.hostPlatform.isLinux [
