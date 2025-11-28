@@ -214,8 +214,14 @@
       "Larose Coffee" = {
         pskRaw = "ext:qn_larose";
       };
+      "Tiem Banh Doan Gia" = {
+        pskRaw = "ext:kh_doangia";
+      };
       "CENTRE HOTEL" = {
         pskRaw = "ext:dn_centre";
+      };
+      "NHIEN cafe PL" = {
+        pskRaw = "ext:kh_nhiencafe";
       };
       "Pax Ana Resort" = { };
       "Starbucks" = { };

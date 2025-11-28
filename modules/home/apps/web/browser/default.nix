@@ -18,6 +18,7 @@ in
   options.${namespace}.apps.web.browser = {
     chrome = mkEnableOption "Google Chrome";
     brave = mkEnableOption "Brave";
+    edge = mkEnableOption "Edge";
   };
 
   config = {
@@ -25,6 +26,7 @@ in
     home.packages = mkMerge [
       (mkIf cfg.chrome [ pkgs.google-chrome ])
       (mkIf cfg.brave [ pkgs.brave ])
+      (mkIf cfg.brave [ pkgs.microsoft-edge ])
     ];
   };
 }

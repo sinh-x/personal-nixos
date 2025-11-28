@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   lib,
@@ -14,8 +15,7 @@ in
   config = lib.mkIf cfg.enable {
 
     environment.systemPackages = with pkgs; [
-      antigravity-nix.packages."${system}".default
+      inputs.antigravity-nix.packages."${system}".default
     ];
-
   };
 }
