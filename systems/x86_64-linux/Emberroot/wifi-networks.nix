@@ -220,6 +220,9 @@
       "CENTRE HOTEL" = {
         pskRaw = "ext:dn_centre";
       };
+      "KIEU GIANG" = {
+        pskRaw = "ext:kh_nhaan";
+      };
       "NHIEN cafe PL" = {
         pskRaw = "ext:kh_nhiencafe";
       };
