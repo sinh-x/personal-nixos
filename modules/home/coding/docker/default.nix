@@ -12,23 +12,17 @@
 }:
 with lib;
 let
-  cfg = config.${namespace}.multimedia.mpd;
+  cfg = config.${namespace}.coding.docker;
 in
 {
-  options.${namespace}.multimedia.mpd = {
-    enable = mkEnableOption "mpd and mpc";
+  options.${namespace}.coding.docker = {
+    enable = mkEnableOption "Docker tools";
   };
 
   config = mkIf cfg.enable {
-    services.mpd = {
-      enable = true;
-      musicDirectory = "~/Music";
-    };
-
-    programs.ncmpcpp = {
-      enable = true;
-    };
-
-    home.packages = with pkgs; [ mpc ];
+    home.packages = with pkgs; [
+      docker
+      docker-compose
+    ];
   };
 }

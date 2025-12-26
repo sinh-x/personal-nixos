@@ -180,7 +180,7 @@
     ntfs3g
 
     pciutils
-    vaapiVdpau
+    libva-vdpau-driver
     libvdpau-va-gl
     nvidia-system-monitor-qt
     nvtopPackages.full
