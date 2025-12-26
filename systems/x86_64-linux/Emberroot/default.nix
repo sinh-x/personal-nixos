@@ -33,6 +33,7 @@
 
     virtualbox.enable = false;
     genymotion.enable = true;
+    docker.enable = true;
 
     # network
     stubby.enable = true;

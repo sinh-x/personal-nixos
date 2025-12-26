@@ -40,6 +40,7 @@
 
     coding = {
       editor.vscode.enable = true;
+      docker.enable = true;
     };
 
     social-apps = {
