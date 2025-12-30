@@ -22,6 +22,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       docker
+      docker-buildx
       docker-compose
     ];
   };
