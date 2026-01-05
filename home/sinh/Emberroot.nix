@@ -42,11 +42,15 @@
       editor.neovim.enable = true;
       backup.enable = true;
       nix.enable = true;
+      tools = {
+        below.enable = true;
+      };
     };
 
     coding = {
       editor.vscode.enable = true;
       docker.enable = true;
+      claudecode.enable = true;
     };
 
     social-apps = {
