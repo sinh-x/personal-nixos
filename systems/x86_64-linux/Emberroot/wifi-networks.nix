@@ -172,9 +172,61 @@
       "vuon chan 16" = {
         pskRaw = "ext:qn_chantea";
       };
+      "BINH MINH homestay_5G" = {
+        pskRaw = "ext:nh_binhminh";
+      };
+      "JOY HomeL2-5G" = {
+        pskRaw = "ext:sg_joyhome";
+      };
       "Mango Tree" = {
         pskRaw = "ext:qn_mangotree";
       };
+      "BaiDinhHotel-R125" = {
+        pskRaw = "ext:hn_baidinh_hotel";
+      };
+      "Bar Coffee" = {
+        pskRaw = "ext:hn_baidinh_hotel";
+      };
+      "LPH House 5G" = {
+        pskRaw = "ext:hn_lphhouse";
+      };
+      "TENEMENT ZONE 1 5G" = {
+        pskRaw = "ext:hn_tenement";
+      };
+      "Hoianese Old Town f4b" = {
+        pskRaw = "ext:dn_hoianese";
+      };
+      "IKIGAI" = {
+        pskRaw = "ext:dn_ikigai";
+      };
+      "TRA Coffee & Tea House 5GHz" = {
+        pskRaw = "ext:dn_trateahouse";
+      };
+      "Seahorse Han Market by Haviland" = {
+        pskRaw = "ext:dn_joycafe";
+      };
+      "The Interlude" = {
+        pskRaw = "ext:dn_interlude";
+      };
+      "LAROSE COFFEE" = {
+        pskRaw = "ext:qn_larose_1";
+      };
+      "Larose Coffee" = {
+        pskRaw = "ext:qn_larose";
+      };
+      "Tiem Banh Doan Gia" = {
+        pskRaw = "ext:kh_doangia";
+      };
+      "CENTRE HOTEL" = {
+        pskRaw = "ext:dn_centre";
+      };
+      "KIEU GIANG" = {
+        pskRaw = "ext:kh_nhaan";
+      };
+      "NHIEN cafe PL" = {
+        pskRaw = "ext:kh_nhiencafe";
+      };
+      "Pax Ana Resort" = { };
       "Starbucks" = { };
       "WORKFLOW CAFE" = { };
       "Hotel du Parc Hanoi" = { };

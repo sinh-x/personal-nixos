@@ -29,6 +29,6 @@ in
       enable = true;
     };
 
-    home.packages = with pkgs; [ mpc-cli ];
+    home.packages = with pkgs; [ mpc ];
   };
 }

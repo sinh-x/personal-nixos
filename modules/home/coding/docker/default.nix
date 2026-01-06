@@ -12,21 +12,18 @@
 }:
 with lib;
 let
-  cfg = config.${namespace}.office;
+  cfg = config.${namespace}.coding.docker;
 in
 {
-  options.${namespace}.office = {
-    enable = mkEnableOption "Office apps";
+  options.${namespace}.coding.docker = {
+    enable = mkEnableOption "Docker tools";
   };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      evince # GNOME document viewer
-      obsidian # Document management
-      anytype
-      # wpsoffice
-      onlyoffice-desktopeditors
-      inkscape # Vector graphics editor
+      docker
+      docker-buildx
+      docker-compose
     ];
   };
 }

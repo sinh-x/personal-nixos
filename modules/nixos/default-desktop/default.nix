@@ -76,7 +76,7 @@ in
       meslo-lgs-nf
       hackgen-nf-font
       powerline-fonts
-      ubuntu_font_family
+      ubuntu-classic
       # (nerdfonts.override {
       #   fonts = [
       #     "FiraCode"

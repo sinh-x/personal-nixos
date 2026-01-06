@@ -12,21 +12,16 @@
 }:
 with lib;
 let
-  cfg = config.${namespace}.office;
+  cfg = config.${namespace}.coding.claudecode;
 in
 {
-  options.${namespace}.office = {
-    enable = mkEnableOption "Office apps";
+  options.${namespace}.coding.claudecode = {
+    enable = mkEnableOption "Claude code";
   };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      evince # GNOME document viewer
-      obsidian # Document management
-      anytype
-      # wpsoffice
-      onlyoffice-desktopeditors
-      inkscape # Vector graphics editor
+      claude-code
     ];
   };
 }

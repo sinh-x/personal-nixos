@@ -26,8 +26,8 @@ in
         # ----- global sessions vars -----
       '';
       interactiveShellInit = ''
-        eval "/home/sinh/.conda/bin/conda" "shell.fish" "hook" $argv | source
-        auto_conda
+        # eval "/home/sinh/.conda/bin/conda" "shell.fish" "hook" $argv | source
+        # auto_conda
         # ----- FZF -----
         fzf --fish | source
 

@@ -22,7 +22,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       rclone
-      rustic-rs
+      rustic
     ];
 
     services.syncthing = {

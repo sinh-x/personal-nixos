@@ -14,12 +14,12 @@ _final: prev: {
   # For example, to pull a package from unstable NixPkgs make sure you have the
   # input `unstable = "github:nixos/nixpkgs/nixos-unstable"` in your flake.
 
-  inherit (inputs.sinh-x-ip_updater.packages.${prev.system}) sinh-x-ip_updater;
-  inherit (inputs.sinh-x-wallpaper.packages.${prev.system}) sinh-x-wallpaper;
-  inherit (inputs.sinh-x-pomodoro.packages.${prev.system}) sinh-x-pomodoro;
-  inherit (inputs.sinh-x-gitstatus.packages.${prev.system}) sinh-x-gitstatus;
+  inherit (inputs.sinh-x-ip_updater.packages.${prev.stdenv.hostPlatform.system}) sinh-x-ip_updater;
+  inherit (inputs.sinh-x-wallpaper.packages.${prev.stdenv.hostPlatform.system}) sinh-x-wallpaper;
+  inherit (inputs.sinh-x-pomodoro.packages.${prev.stdenv.hostPlatform.system}) sinh-x-pomodoro;
+  inherit (inputs.sinh-x-gitstatus.packages.${prev.stdenv.hostPlatform.system}) sinh-x-gitstatus;
 
-  nixvim = inputs.sinh-x-nixvim.packages.${prev.system}.nvim;
-  zjstatus = inputs.zjstatus.packages.${prev.system}.default;
+  nixvim = inputs.sinh-x-nixvim.packages.${prev.stdenv.hostPlatform.system}.nvim;
+  zjstatus = inputs.zjstatus.packages.${prev.stdenv.hostPlatform.system}.default;
 
 }

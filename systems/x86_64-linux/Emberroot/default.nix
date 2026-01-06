@@ -23,6 +23,7 @@
     fcitx5.enable = true;
     fish.enable = true;
     gcloud.enable = true;
+    antigravity.enable = true;
 
     # windows manager
     wm = {
@@ -32,6 +33,7 @@
 
     virtualbox.enable = false;
     genymotion.enable = true;
+    docker.enable = true;
 
     # network
     stubby.enable = true;
@@ -171,15 +173,15 @@
   };
 
   environment.systemPackages = with pkgs; [
+    lm_sensors
     direnv
     devenv
-    # displaylink
     nix-tree
     yq
     ntfs3g
 
     pciutils
-    vaapiVdpau
+    libva-vdpau-driver
     libvdpau-va-gl
     nvidia-system-monitor-qt
     nvtopPackages.full
@@ -208,6 +210,9 @@
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
+  programs.steam = {
+    enable = true;
+  };
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
   #   enable = true;

@@ -16,14 +16,17 @@ let
 in
 {
   options.${namespace}.apps.web.browser = {
-    enable = mkEnableOption "Web browser apps";
+    chrome = mkEnableOption "Google Chrome";
+    brave = mkEnableOption "Brave";
+    edge = mkEnableOption "Edge";
   };
 
-  config = mkIf cfg.enable {
+  config = {
 
-    home.packages = with pkgs; [
-
+    home.packages = mkMerge [
+      (mkIf cfg.chrome [ pkgs.google-chrome ])
+      (mkIf cfg.brave [ pkgs.brave ])
+      (mkIf cfg.brave [ pkgs.microsoft-edge ])
     ];
-
   };
 }

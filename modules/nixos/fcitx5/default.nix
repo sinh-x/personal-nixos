@@ -22,8 +22,8 @@ in
         kdePackages.fcitx5-qt # qt6
         kdePackages.fcitx5-unikey
         fcitx5-bamboo
-        fcitx5-configtool
-        fcitx5-chinese-addons
+        qt6Packages.fcitx5-configtool
+        qt6Packages.fcitx5-chinese-addons
       ];
 
     };
