@@ -139,6 +139,15 @@
   hardware = {
     acpilight.enable = true;
     bluetooth.enable = true;
+
+    # TrackPoint configuration to prevent cursor drift
+    trackpoint = {
+      enable = true;
+      device = "TPPS/2 IBM TrackPoint";
+      drift_time = 25; # Default 5, increased to fix spontaneous cursor movement
+      sensitivity = 250; # Default 128, range 0-255
+      speed = 120; # Default 97, range 0-255
+    };
     nvidia = {
       # Use the proprietary driver
       modesetting.enable = true;
