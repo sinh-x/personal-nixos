@@ -1,9 +1,10 @@
+{ config, ... }:
 {
   # Pick only one of the below networking options.
   networking.wireless = {
-    secretsFile = "/home/sinh/wireless.env";
+    secretsFile = config.sops.secrets."wifi/credentials".path;
     enable = true; # Enables wireless support via wpa_supplicant.
-    userControlled.enable = true;
+    userControlled = true;
     networks = {
       "5G_Vuon Nha" = {
         pskRaw = "ext:vuonnha";

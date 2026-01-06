@@ -123,8 +123,8 @@ in
       socat
 
       # File management
-      xfce.thunar # File manager
-      xfce.tumbler # Thumbnails for thunar
+      thunar # File manager
+      tumbler # Thumbnails for thunar
 
       # Clipboard & utilities
       wl-clipboard # Standard Wayland clipboard

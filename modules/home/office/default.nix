@@ -23,7 +23,7 @@ in
     home.packages = with pkgs; [
       evince # GNOME document viewer
       obsidian # Document management
-      anytype
+      # anytype # Broken on current nixpkgs - use flatpak: flatpak install flathub io.anytype.Anytype
       # wpsoffice
       onlyoffice-desktopeditors
       inkscape # Vector graphics editor

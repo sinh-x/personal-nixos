@@ -27,6 +27,12 @@ in
       secrets."nix/github_access_token" = {
         owner = "sinh";
       };
+
+      # Wifi passwords for wpa_supplicant
+      secrets."wifi/credentials" = {
+        owner = "wpa_supplicant";
+        mode = "0600";
+      };
     };
 
     environment.systemPackages = with pkgs; [

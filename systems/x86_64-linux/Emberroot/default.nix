@@ -17,7 +17,7 @@
   sinh-x.default-desktop.enable = true;
 
   modules = {
-    r_setup.enable = true;
+    r_setup.enable = false;
     python.enable = true;
     nix_ld.enable = true;
     fcitx5.enable = true;
@@ -192,10 +192,10 @@
     linuxPackages.virtualboxGuestAdditions
 
     # # Only 'x86_64-linux' and 'aarch64-linux' are supported
-    inputs.zen-browser.packages."${system}".default
-    # inputs.zen-browser.packages."${system}".beta
-    # inputs.zen-browser.packages."${system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
-    # inputs.zen-browser.packages."${system}".twilight-official # artifacts are downloaded from the official Zen repository
+    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
+    # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".beta
+    # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
+    # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight-official # artifacts are downloaded from the official Zen repository
   ];
 
   # Open ports in the firewall.
@@ -221,6 +221,7 @@
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
   services = {
+    flatpak.enable = true;
     upower.enable = true;
     openssh = {
       enable = true;
