@@ -77,6 +77,7 @@
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    BROWSER = "zen-twilight";
     LEFT_MONITOR = "eDP-1";
   };
 }

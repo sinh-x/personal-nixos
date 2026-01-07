@@ -64,9 +64,31 @@ in
     };
 
     xdg.mimeApps = {
+      enable = true;
       defaultApplications = {
+        # Images
         "image/jpeg" = "swayimg.desktop";
-        "application/pdf" = "userapp-Zen-DPJF42.desktop";
+
+        # Browser - zen-twilight
+        "x-scheme-handler/http" = "zen-twilight.desktop";
+        "x-scheme-handler/https" = "zen-twilight.desktop";
+        "x-scheme-handler/chrome" = "zen-twilight.desktop";
+        "text/html" = "zen-twilight.desktop";
+        "application/xhtml+xml" = "zen-twilight.desktop";
+        "application/x-extension-htm" = "zen-twilight.desktop";
+        "application/x-extension-html" = "zen-twilight.desktop";
+        "application/x-extension-shtml" = "zen-twilight.desktop";
+        "application/x-extension-xhtml" = "zen-twilight.desktop";
+        "application/x-extension-xht" = "zen-twilight.desktop";
+
+        # Apps
+        "x-scheme-handler/viber" = "viber.desktop";
+        "x-scheme-handler/tg" = "org.telegram.desktop.desktop";
+        "x-scheme-handler/tonsite" = "org.telegram.desktop.desktop";
+        "x-scheme-handler/anytype" = "anytype.desktop";
+
+        # PDF
+        "application/pdf" = "org.gnome.Evince.desktop";
       };
     };
   };
