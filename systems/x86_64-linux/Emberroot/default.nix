@@ -201,9 +201,9 @@
     linuxPackages.virtualboxGuestAdditions
 
     # # Only 'x86_64-linux' and 'aarch64-linux' are supported
-    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
+    # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
     # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".beta
-    # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
+    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
     # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight-official # artifacts are downloaded from the official Zen repository
   ];
 
