@@ -33,5 +33,41 @@ in
         package = pkgs.syncthing-tray;
       };
     };
+
+    # Rustic backup timer - runs once per night between 19:00-23:59
+    systemd.user.services.rustic-backup = {
+      Unit = {
+        Description = "Rustic backup for personal files";
+        After = [ "network-online.target" ];
+      };
+
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.rustic}/bin/rustic -P sinh-personal_file backup /home/sinh";
+        # Use nice to reduce system impact during backup
+        Nice = 10;
+        # Kill the backup if it runs for more than 2 hours
+        TimeoutStartSec = "2h";
+      };
+    };
+
+    systemd.user.timers.rustic-backup = {
+      Unit = {
+        Description = "Rustic backup timer";
+      };
+
+      Timer = {
+        # Run once per night between 19:00-23:59
+        # RandomizedDelaySec spreads the start time randomly within the 5-hour window
+        OnCalendar = "19:00";
+        RandomizedDelaySec = "4h 59m";
+        # If the computer was off when the timer should have run, run it on next boot
+        Persistent = true;
+      };
+
+      Install = {
+        WantedBy = [ "timers.target" ];
+      };
+    };
   };
 }

@@ -143,11 +143,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1767585814,
-        "narHash": "sha256-7iodv57Ppq05AHVKnS9/IdhhgBYTVpTDZmz2u2enr/E=",
+        "lastModified": 1767672212,
+        "narHash": "sha256-CGQgo92QKzCnRUF2wjEPsaIoKajVU5EyK1aDaMwo1xg=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "66bfeb87deb83ca2f9fa2045704b72de52c6433a",
+        "rev": "461ec70d76363e9f76588afe59e02fbbc69da80e",
         "type": "gitlab"
       },
       "original": {
@@ -1552,11 +1552,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767619743,
-        "narHash": "sha256-N0kK1JqxIjFl7hPAfhkW6C9AO7feYJUWLPyqJO2VuQQ=",
+        "lastModified": 1767688629,
+        "narHash": "sha256-kX1BVq5zoowePHssEjmpc6FNT3vVZNZaCXd7mfvCsxg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a65c04965c841eb01ba401f5162f12bc8d52014f",
+        "rev": "bfaba198af72338b8dbda59887859d7a30c6643c",
         "type": "github"
       },
       "original": {
@@ -1757,11 +1757,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1767614260,
-        "narHash": "sha256-6TgULCnoy+wiQfLzQNyBoOcpx4C+Bx3PhvwkncU5AwY=",
+        "lastModified": 1767654014,
+        "narHash": "sha256-1RG4xtr1FOX7mtSGBR9BcCsTrlRkXbygPaCSFNdT3bs=",
         "ref": "refs/heads/main",
-        "rev": "a3c8533d74da9faef313059a283cfeff49555046",
-        "revCount": 6775,
+        "rev": "9817553c664b0b7f6776671383a6368c74ee8dee",
+        "revCount": 6789,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -1835,11 +1835,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767473668,
-        "narHash": "sha256-KLybElvKmWkCJBVgEesy7OueJsmDhksfbDFJ3UltPlk=",
+        "lastModified": 1767640250,
+        "narHash": "sha256-502sjmbTK/W8x6DUbJAyiBOABwV1q5Wb5caCMwd6BuI=",
         "owner": "hyprwm",
         "repo": "hyprland-plugins",
-        "rev": "a084d66d7d1334b89a07d0022fa12049141cb119",
+        "rev": "0b356053fa4e6a6f5e857529654ff45eba2859d8",
         "type": "github"
       },
       "original": {
