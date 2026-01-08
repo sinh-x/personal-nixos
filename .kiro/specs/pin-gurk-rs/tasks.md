@@ -78,6 +78,16 @@ This document tracks the implementation tasks for getting gurk-rs working on Emb
 2. **cargo-binstall** is a reliable fallback for broken Rust packages in nixpkgs
 3. **Infrastructure prepared** for when nixpkgs fixes the upstream issue
 
+## Git Tracking
+
+**Branch**: `feature/202601`
+
+**Related Commits**:
+- `4261ecf` - Added gurk module
+- `a1d88c9` - Add gurk-rs via cargo-binstall and Kiro workflow system
+
+**Pull Request**: N/A
+
 ---
 
 **Task Status**: Completed

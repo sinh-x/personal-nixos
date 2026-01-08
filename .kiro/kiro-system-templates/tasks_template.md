@@ -222,6 +222,15 @@ A task is considered "Done" when:
 - [Domain knowledge needed]
 - [Collaboration requirements]
 
+## Git Tracking
+
+**Branch**: [feature branch name]
+
+**Related Commits**:
+- `[commit-hash]` - [commit message summary]
+
+**Pull Request**: [PR link if applicable]
+
 ---
 
 **Task Status**: [Not Started/In Progress/Completed]
