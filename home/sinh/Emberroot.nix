@@ -2,13 +2,25 @@
 {
   imports = [ ./global ];
 
-  home.packages = with pkgs; [
-    anydesk
-    light
-    aegisub
-    acpilight
-    sct # for setting color temperature
-  ];
+  home = {
+    packages = with pkgs; [
+      anydesk
+      light
+      aegisub
+      acpilight
+      sct # for setting color temperature
+    ];
+
+    sessionVariables = {
+      EDITOR = "nvim";
+      BROWSER = "zen-twilight";
+      LEFT_MONITOR = "eDP-1";
+    };
+
+    sessionPath = [
+      "$HOME/.cargo/bin"
+    ];
+  };
 
   sinh-x = {
     apps = {
@@ -44,6 +56,7 @@
       nix.enable = true;
       tools = {
         below.enable = true;
+        gurk.enable = false; # Using NixOS module instead (modules.gurk)
       };
     };
 
@@ -73,11 +86,5 @@
     };
 
     personal-scripts.enable = true;
-  };
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    BROWSER = "zen-twilight";
-    LEFT_MONITOR = "eDP-1";
   };
 }

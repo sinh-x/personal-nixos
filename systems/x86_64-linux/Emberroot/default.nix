@@ -24,6 +24,7 @@
     fish.enable = true;
     gcloud.enable = true;
     antigravity.enable = true;
+    gurk.enable = false;
 
     # windows manager
     wm = {
@@ -188,6 +189,7 @@
     nix-tree
     yq
     ntfs3g
+    cargo-binstall # Install pre-built Rust binaries from GitHub (e.g., cargo binstall gurk-rs)
 
     pciutils
     libva-vdpau-driver
