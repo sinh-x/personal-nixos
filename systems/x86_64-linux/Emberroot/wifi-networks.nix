@@ -227,12 +227,16 @@
       "NHIEN cafe PL" = {
         pskRaw = "ext:kh_nhiencafe";
       };
+      "S&D Suites 5F" = {
+        pskRaw = "ext:sg_120_dongvancong";
+      };
       "Pax Ana Resort" = { };
       "Starbucks" = { };
       "WORKFLOW CAFE" = { };
       "Hotel du Parc Hanoi" = { };
       "Hust_C1_213" = { };
       "@ TASECO FREE WIFI" = { };
+      "Highlands Coffee" = { };
     };
   };
 }
