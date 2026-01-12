@@ -82,7 +82,8 @@
     };
 
     wm = {
-      bspwm.enable = true;
+      bspwm.enable = false;
+      hyprland.enable = true;
     };
 
     personal-scripts.enable = true;

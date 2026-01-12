@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# ~/.config/hypr/scripts/monitor_watcher.sh
+
+~/.config/hypr/scripts/generate_workspace_config eDP-1 right
+
+handle() {
+  case $1 in
+  monitoradded* | monitorremoved*)
+    echo "Monitor change detected: $1"
+    sleep 1 # Wait for system to settle
+    ~/.config/hypr/scripts/generate_workspace_config eDP-1 right
+    ;;
+  esac
+}
+
+socat -U - UNIX-CONNECT:"$XDG_RUNTIME_DIR"/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock | while read -r line; do handle "$line"; done
