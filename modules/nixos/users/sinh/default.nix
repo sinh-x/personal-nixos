@@ -14,6 +14,7 @@
       "docker"
       "dialout"
       "plugdev"
+      "wpa_supplicant"
     ];
 
     shell = pkgs.fish;
