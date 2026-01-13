@@ -184,10 +184,12 @@ This project uses an adaptation of Amazon's **Kiro System** for structured featu
 
 ### Directory Structure
 - `.kiro/specs/{feature-name}/` - Individual feature specifications
+- `.kiro/bugs/{bug-name}/` - Bug fix documentation
 - `.kiro/kiro-system-templates/` - Templates and documentation
   - `requirements_template.md` - Template for requirements
   - `design_template.md` - Template for technical design
   - `tasks_template.md` - Template for implementation tasks
+  - `bug_report_template.md` - Template for bug reports
   - `how_kiro_works.md` - Detailed Kiro documentation
 
 ### How to Work with Kiro
@@ -214,3 +216,18 @@ This project uses an adaptation of Amazon's **Kiro System** for structured featu
 - **Guide through templates** if user is unfamiliar with the process
 - **Enforce the approval process** - don't skip phases
 - **Maintain traceability** from requirements to code
+
+### When to Use Each Workflow
+
+| Change Type | Workflow | Documentation |
+|-------------|----------|---------------|
+| **Quick fix** (1-2 files, obvious solution) | Skip specs | Good commit message |
+| **Bug fix** (needs investigation) | Bug workflow | `.kiro/bugs/` |
+| **Small feature** (< 3 tasks) | Judgment call | Consider skipping specs |
+| **Medium/Large feature** | Full Kiro | `.kiro/specs/` |
+
+#### Bug Fix Workflow (Report → Analyze → Fix → Verify)
+For bugs requiring investigation:
+1. Create `.kiro/bugs/<bug-name>/report.md` using `bug_report_template.md`
+2. Document the problem, root cause, solution, and verification
+3. Lighter weight than full specs - no requirements/design phases needed

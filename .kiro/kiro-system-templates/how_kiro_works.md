@@ -57,6 +57,91 @@ Once your spec is complete, you can execute tasks by:
 - Clicking "Start task" next to individual task items
 - I'll implement one task at a time, stopping for your review between tasks
 
+## When to Use Kiro (and When Not To)
+
+The full Kiro spec-driven process is designed for **new features and complex changes**. Using it for small fixes is "like using a sledgehammer to crack a nut" - the overhead isn't worth it.
+
+### Decision Guide
+
+| Change Type | Approach | Documentation |
+|-------------|----------|---------------|
+| **Quick fix** (1-2 files, obvious solution) | Skip specs | Good commit message |
+| **Bug fix** (needs investigation) | Bug fix workflow | `.kiro/bugs/` |
+| **Small feature** (< 3 tasks) | Judgment call | Consider skipping specs |
+| **Medium/Large feature** | Full Kiro process | `.kiro/specs/` |
+
+### Signs You Should Use Full Specs
+- Multiple files need changes
+- Architectural decisions required
+- Multiple valid approaches exist
+- Requirements are unclear
+- Changes affect existing behavior
+
+### Signs You Should Skip Specs
+- Single file change
+- Obvious solution
+- Pure config tweak
+- Typo or formatting fix
+
+## Bug Fix Workflow
+
+For bugs that need investigation but don't warrant full specs, use the lightweight **Report → Analyze → Fix → Verify** workflow.
+
+### Bug Documentation Structure
+
+```
+.kiro/bugs/<bug-name>/
+├── report.md       # What's broken, how to reproduce
+├── analysis.md     # Root cause investigation (optional)
+└── resolution.md   # Solution and verification
+```
+
+### Bug Report Template
+
+Create `.kiro/bugs/<bug-name>/report.md`:
+
+```markdown
+# Bug: <title>
+
+## Status
+investigating | fixed | wontfix
+
+## Reported
+<date>
+
+## Problem
+<description of what's broken>
+
+## Steps to Reproduce
+1. <step>
+2. <step>
+
+## Expected Behavior
+<what should happen>
+
+## Actual Behavior
+<what actually happens>
+
+## Root Cause
+<why it's broken - fill after analysis>
+
+## Solution
+<what was changed to fix it>
+
+## Files Changed
+- path/to/file
+
+## Verification
+<how the fix was tested>
+```
+
+### When to Use Bug Workflow vs Git Only
+
+- **Git only**: Quick fixes with obvious solutions (typos, simple config errors)
+- **Bug workflow**: Issues requiring investigation, debugging, or multiple attempts
+
 ## Getting Started
 
 To begin a new feature spec, simply describe your idea and I'll guide you through the three-phase process. For existing specs, I can help review, update any phase, or execute implementation tasks as needed.
+
+For bug fixes, create a report in `.kiro/bugs/` and work through the Report → Analyze → Fix → Verify process.
