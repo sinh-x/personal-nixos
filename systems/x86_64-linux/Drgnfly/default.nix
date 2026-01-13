@@ -8,7 +8,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./wifi-networks.nix
     ../common/optional/pipewire.nix
     ../common/optional/sddm.nix
   ];
@@ -31,9 +30,9 @@
 
     # network
     stubby.enable = true;
+    wifi.enable = true;
 
     sops.enable = true;
-
   };
 
   swapDevices = [
