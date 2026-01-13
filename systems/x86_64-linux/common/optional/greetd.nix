@@ -5,14 +5,10 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --cmd Hyprland";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions /run/current-system/sw/share/wayland-sessions";
         user = "greeter";
       };
     };
   };
 
-  # Make Hyprland available as session
-  environment.etc."greetd/environments".text = ''
-    Hyprland
-  '';
 }
