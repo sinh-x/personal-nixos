@@ -237,6 +237,9 @@ let
     "Adiuvat Home" = {
       pskRaw = "ext:nhadiu";
     };
+    "Coffee Ngoc Nhi" = {
+      pskRaw = "ext:sg_cafeemc";
+    };
 
     # Open networks (no password)
     "TOCEPO" = { };
