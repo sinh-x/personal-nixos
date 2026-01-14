@@ -50,6 +50,24 @@ let
         if [ -f "$VARS_FILE" ]; then
           source "$VARS_FILE"
           log "INFO: Loaded user config from $VARS_FILE"
+
+          # Apply user overrides for non-monitor variables
+          if [ -n "''${VAR_EXTERNAL_POSITION:-}" ]; then
+            EXTERNAL_POSITION="$VAR_EXTERNAL_POSITION"
+            log "INFO: Using user config external position: $EXTERNAL_POSITION"
+          fi
+          if [ -n "''${VAR_REFRESH_RATE:-}" ]; then
+            REFRESH_RATE="$VAR_REFRESH_RATE"
+            log "INFO: Using user config refresh rate: $REFRESH_RATE"
+          fi
+          if [ -n "''${VAR_DISTRIBUTION:-}" ]; then
+            DISTRIBUTION="$VAR_DISTRIBUTION"
+            log "INFO: Using user config distribution: $DISTRIBUTION"
+          fi
+          if [ -n "''${VAR_GENERATE_FKEYS:-}" ]; then
+            GENERATE_FKEYS="$VAR_GENERATE_FKEYS"
+            log "INFO: Using user config F-keys: $GENERATE_FKEYS"
+          fi
         fi
 
         # Runtime monitor detection

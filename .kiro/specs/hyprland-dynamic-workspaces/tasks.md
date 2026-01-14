@@ -4,7 +4,7 @@
 
 This document breaks down the implementation of dynamic Hyprland workspace configuration into actionable coding tasks. Each task is designed to be completed incrementally, with clear deliverables and requirements traceability.
 
-**Total Tasks**: 10 tasks organized into 4 phases
+**Total Tasks**: 13 tasks organized into 5 phases
 
 **Requirements Reference**: `requirements.md`
 
@@ -135,6 +135,61 @@ This document breaks down the implementation of dynamic Hyprland workspace confi
     - [ ] Unplugging monitor triggers regeneration
     - [ ] Workspaces migrate correctly
 
+### Phase 5: Documentation & User Guide
+
+- [x] **5.1** Create user guide for Nix configuration options
+  - **Description**: Document all available Nix module options with examples for common setups.
+  - **Deliverables**:
+    - Documentation file: `modules/home/wm/hyprland/README.md`
+  - **Requirements**: User Documentation (requirements.md)
+  - **Dependencies**: 4.1
+  - **Details**:
+    - Document `monitors.primary`, `monitors.primaryResolution`, `monitors.externalResolution`
+    - Document `monitors.externalPosition` (left/right/above/below)
+    - Document `monitors.refreshRate` options
+    - Document `workspaces.distribution` strategies (split vs primary-all)
+    - Document `keybindings.generateFKeys` option
+    - Provide example configurations for common setups:
+      - Single monitor (laptop)
+      - Dual monitor (laptop + external on right)
+      - Dual monitor (desktop with external on left)
+
+- [x] **5.2** Document runtime user configuration (monitor-vars.conf)
+  - **Description**: Create guide for users who want to override settings at runtime without rebuilding.
+  - **Deliverables**:
+    - Section in README.md for runtime configuration
+  - **Requirements**: User Documentation
+  - **Dependencies**: 5.1
+  - **Details**:
+    - Explain the priority system: user config > Nix config > auto-detect
+    - Document all `VAR_*` variables:
+      - `VAR_PRIMARY_MONITOR` - Primary monitor name
+      - `VAR_PRIMARY_RESOLUTION` - Primary resolution (WIDTHxHEIGHT)
+      - `VAR_EXTERNAL_RESOLUTION` - External monitor resolution
+      - `VAR_EXTERNAL_POSITION` - Position: left, right, above, below
+      - `VAR_REFRESH_RATE` - Refresh rate mode
+      - `VAR_DISTRIBUTION` - Workspace distribution strategy
+      - `VAR_GENERATE_FKEYS` - Enable/disable F-key bindings
+    - Provide example monitor-vars.conf templates
+    - Explain when to use runtime config vs Nix config
+
+- [x] **5.3** Document troubleshooting and debugging
+  - **Description**: Create troubleshooting guide with common issues and solutions.
+  - **Deliverables**:
+    - Troubleshooting section in README.md
+  - **Requirements**: User Documentation
+  - **Dependencies**: 5.1, 5.2
+  - **Details**:
+    - How to check workspace-gen.log for issues
+    - How to manually regenerate workspaces.conf
+    - How to verify monitor detection (`hyprctl monitors`)
+    - Common issues:
+      - Monitor not detected
+      - Workspaces not switching correctly
+      - F-keys not working
+      - Hotplug not triggering regeneration
+    - How to reset to defaults
+
 ## Task Completion Criteria
 
 Each task is considered complete when:
@@ -150,6 +205,7 @@ Each task is considered complete when:
 - **Milestone 2**: Phase 2 Complete - Scripts generate correctly
 - **Milestone 3**: Phase 3 Complete - Full module integration
 - **Milestone 4**: Phase 4 Complete - Tested and validated
+- **Milestone 5**: Phase 5 Complete - Documentation ready
 
 ### Definition of Done
 A task is considered "Done" when:
@@ -177,11 +233,11 @@ A task is considered "Done" when:
 ## Known Issues
 
 ### Issue #1: monitor-vars.conf not affecting workspace generation
-- **Status**: Open
-- **Description**: The user config file (`~/.config/hypr/monitor-vars.conf`) is not being read or applied during workspace generation. The priority system (user config > Nix config > auto-detect) is not working as expected for user-provided variables.
-- **Affected Tasks**: 2.1, 4.2
-- **Root Cause**: TBD - needs investigation of `source "$VARS_FILE"` logic in generate_workspace_config script
-- **Workaround**: Use Nix config options directly in `home/<user>/<host>.nix`
+- **Status**: Resolved ✓
+- **Description**: The user config file (`~/.config/hypr/monitor-vars.conf`) was not being fully applied during workspace generation.
+- **Root Cause**: The script only checked for `VAR_PRIMARY_MONITOR`, `VAR_PRIMARY_RESOLUTION`, and `VAR_EXTERNAL_RESOLUTION` but did not apply overrides for `VAR_EXTERNAL_POSITION`, `VAR_REFRESH_RATE`, `VAR_DISTRIBUTION`, and `VAR_GENERATE_FKEYS`.
+- **Resolution**: Added override logic for all VAR_ variables after sourcing the user config file.
+- **Fixed in**: 2026-01-14
 
 ## Git Tracking
 
@@ -194,8 +250,8 @@ A task is considered "Done" when:
 
 **Task Status**: In Progress
 
-**Current Phase**: Phase 4 (Testing & Validation)
+**Current Phase**: Phase 4 (Testing & Validation) - Task 4.2 pending
 
-**Overall Progress**: 9/10 tasks completed (90%)
+**Overall Progress**: 12/13 tasks completed (92%)
 
 **Last Updated**: 2026-01-14
