@@ -240,6 +240,9 @@ let
     "Coffee Ngoc Nhi" = {
       pskRaw = "ext:sg_cafeemc";
     };
+    "Ca Re CaFe 5G" = {
+      pskRaw = "ext:sg_carecafe";
+    };
 
     # Open networks (no password)
     "TOCEPO" = { };
