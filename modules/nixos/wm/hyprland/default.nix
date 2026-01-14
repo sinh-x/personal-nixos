@@ -9,8 +9,22 @@ let
   cfg = config.modules.wm.hyprland;
 in
 {
-  options = {
-    modules.wm.hyprland.enable = lib.mkEnableOption "hyprland";
+  options.modules.wm.hyprland = {
+    enable = lib.mkEnableOption "hyprland";
+
+    greetd = {
+      enable = lib.mkEnableOption "greetd display manager with hyprland";
+
+      autoLogin = {
+        enable = lib.mkEnableOption "auto-login without greeter";
+
+        user = lib.mkOption {
+          type = lib.types.str;
+          default = "sinh";
+          description = "User to auto-login as";
+        };
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -173,6 +187,24 @@ in
     # Enable location service for automatic dark/light theme switching
     location.provider = "geoclue2";
     services.geoclue2.enable = true;
+
+    # greetd display manager
+    services.greetd = lib.mkIf cfg.greetd.enable {
+      enable = true;
+      settings = {
+        default_session =
+          if cfg.greetd.autoLogin.enable then
+            {
+              command = "${pkgs.hyprland}/bin/start-hyprland";
+              inherit (cfg.greetd.autoLogin) user;
+            }
+          else
+            {
+              command = "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${pkgs.hyprland}/share/wayland-sessions";
+              user = "greeter";
+            };
+      };
+    };
   };
 }
 

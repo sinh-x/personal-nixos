@@ -9,7 +9,6 @@
   imports = [
     ./hardware-configuration.nix
     ../common/optional/pipewire.nix
-    ../common/optional/greetd.nix
     # ../common/optional/sddm.nix
   ];
 
@@ -28,7 +27,16 @@
     # windows manager
     wm = {
       bspwm.enable = false;
-      hyprland.enable = true;
+      hyprland = {
+        enable = true;
+        greetd = {
+          enable = true;
+          autoLogin = {
+            enable = true;
+            user = "sinh";
+          };
+        };
+      };
     };
 
     virtualbox.enable = false;
