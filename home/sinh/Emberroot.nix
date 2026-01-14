@@ -83,7 +83,15 @@
 
     wm = {
       bspwm.enable = false;
-      hyprland.enable = true;
+      hyprland = {
+        enable = true;
+        monitors = {
+          primary = "eDP-1";
+          primaryResolution = "3840x2400";
+          externalPosition = "left";
+        };
+        workspaces.distribution = "split";
+      };
     };
 
     personal-scripts.enable = true;
