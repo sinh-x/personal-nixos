@@ -278,7 +278,7 @@ in
     networking.wireless = {
       enable = true;
       secretsFile = config.sops.secrets."wifi/credentials".path;
-      userControlled.enable = cfg.userControlled;
+      inherit (cfg) userControlled;
       networks = sharedNetworks // cfg.extraNetworks;
     };
   };
