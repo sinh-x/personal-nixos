@@ -4,7 +4,7 @@
 
 This document breaks down the implementation of dynamic Hyprland workspace configuration into actionable coding tasks. Each task is designed to be completed incrementally, with clear deliverables and requirements traceability.
 
-**Total Tasks**: 13 tasks organized into 5 phases
+**Total Tasks**: 14 tasks organized into 6 phases (including Phase 4B: Bug Fixes)
 
 **Requirements Reference**: `requirements.md`
 
@@ -122,7 +122,7 @@ This document breaks down the implementation of dynamic Hyprland workspace confi
     - [x] Number keys 1-0 switch to workspaces 1-10
     - [x] No errors in Hyprland log
 
-- [ ] **4.2** Test multi-monitor and hotplug
+- [x] **4.2** Test multi-monitor and hotplug
   - **Description**: Test with external monitor connected, and verify hotplug regeneration works correctly.
   - **Deliverables**:
     - Working dual-monitor workspace distribution
@@ -130,10 +130,26 @@ This document breaks down the implementation of dynamic Hyprland workspace confi
   - **Requirements**: Monitor Detection Requirements, Success Criteria
   - **Dependencies**: 4.1
   - **Validation**:
-    - [ ] External monitor detected and assigned workspaces
-    - [ ] F1-F10 keys work for workspaces 11-20
-    - [ ] Unplugging monitor triggers regeneration
-    - [ ] Workspaces migrate correctly
+    - [x] External monitor detected and assigned workspaces
+    - [x] F1-F10 keys work for workspaces 11-20
+    - [x] Unplugging monitor triggers regeneration
+    - [x] Workspaces migrate correctly
+  - **Tested**: 2026-01-15
+
+### Phase 4B: Bug Fixes
+
+- [x] **4.3** Fix VAR_EXTERNAL_RESOLUTION not being applied to monitor line
+  - **Description**: Modify the `generate_workspace_config` script to use explicit resolution in the monitor line when `VAR_EXTERNAL_RESOLUTION` is set to a specific value (not "auto").
+  - **Deliverables**:
+    - Update monitor line generation logic in `modules/home/wm/hyprland/default.nix`
+  - **Requirements**: Monitor Configuration (design.md)
+  - **Dependencies**: 4.1
+  - **Details**:
+    - Check if `EXTERNAL_RESOLUTION` is "auto" or a specific value (WIDTHxHEIGHT format)
+    - If specific: `monitor = $EXTERNAL_MONITOR,$EXTERNAL_RESOLUTION,$EXT_POS,1`
+    - If auto: `monitor = $EXTERNAL_MONITOR,$REFRESH_RATE,$EXT_POS,1` (current behavior)
+    - Same logic should apply to primary monitor resolution
+  - **Related Issue**: Issue #2
 
 ### Phase 5: Documentation & User Guide
 
@@ -239,6 +255,17 @@ A task is considered "Done" when:
 - **Resolution**: Added override logic for all VAR_ variables after sourcing the user config file.
 - **Fixed in**: 2026-01-14
 
+### Issue #2: VAR_EXTERNAL_RESOLUTION not applied to monitor line
+- **Status**: Resolved ✓
+- **Description**: When `VAR_EXTERNAL_RESOLUTION` is set to a specific resolution (e.g., "2560x1440"), it is only used for position calculation but not in the actual Hyprland monitor configuration line.
+- **Root Cause**: Line 188 in `generate_workspace_config` uses `$REFRESH_RATE` (which is a mode like "preferred"/"highrr"/"highres") instead of the actual resolution:
+  ```bash
+  monitor = $EXTERNAL_MONITOR,$REFRESH_RATE,$EXT_POS,1
+  ```
+  When a specific resolution is set, this should be used instead of the refresh rate mode.
+- **Resolution**: Added `get_primary_resolution_string()` and `get_external_resolution_string()` helper functions that check if resolution is in WIDTHxHEIGHT format and use it directly, otherwise fall back to refresh rate mode.
+- **Fixed in**: 2026-01-15
+
 ## Git Tracking
 
 **Branch**: `feature/202601` (current branch)
@@ -248,10 +275,10 @@ A task is considered "Done" when:
 
 ---
 
-**Task Status**: In Progress
+**Task Status**: Complete ✓
 
-**Current Phase**: Phase 4 (Testing & Validation) - Task 4.2 pending
+**Current Phase**: All phases complete
 
-**Overall Progress**: 12/13 tasks completed (92%)
+**Overall Progress**: 14/14 tasks completed (100%)
 
-**Last Updated**: 2026-01-14
+**Last Updated**: 2026-01-15

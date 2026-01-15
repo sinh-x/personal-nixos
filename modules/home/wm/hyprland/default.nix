@@ -149,6 +149,25 @@ let
           esac
         }
 
+        # Get resolution string for Hyprland monitor config
+        # If explicit resolution is set (WIDTHxHEIGHT format), use it
+        # Otherwise use the refresh rate mode (preferred/highrr/highres)
+        get_primary_resolution_string() {
+          if [ "$PRIMARY_RESOLUTION" != "auto" ] && [[ "$PRIMARY_RESOLUTION" =~ ^[0-9]+x[0-9]+$ ]]; then
+            echo "$PRIMARY_RESOLUTION"
+          else
+            echo "preferred"
+          fi
+        }
+
+        get_external_resolution_string() {
+          if [ "$EXTERNAL_RESOLUTION" != "auto" ] && [[ "$EXTERNAL_RESOLUTION" =~ ^[0-9]+x[0-9]+$ ]]; then
+            echo "$EXTERNAL_RESOLUTION"
+          else
+            echo "$REFRESH_RATE"
+          fi
+        }
+
         # Determine LEFT and RIGHT monitors based on external position
         # Left monitor gets: 1-5, 11-15
         # Right monitor gets: 6-10, 16-20
@@ -172,6 +191,7 @@ let
         fi
 
         # Generate workspace configuration
+        PRIMARY_RES_STRING=$(get_primary_resolution_string)
         cat >"$CONFIG_FILE" <<EOF
     # Auto-generated workspace configuration
     # Generated on: $(date)
@@ -179,13 +199,14 @@ let
     # Distribution: $DISTRIBUTION, Position: $EXTERNAL_POSITION
 
     # Monitor setup
-    monitor = $PRIMARY_MONITOR,preferred,0x0,1
+    monitor = $PRIMARY_MONITOR,$PRIMARY_RES_STRING,0x0,1
     EOF
 
         if [ -n "$EXTERNAL_MONITOR" ]; then
           EXT_POS=$(get_external_position)
+          EXT_RES_STRING=$(get_external_resolution_string)
           cat >>"$CONFIG_FILE" <<EOF
-    monitor = $EXTERNAL_MONITOR,$REFRESH_RATE,$EXT_POS,1
+    monitor = $EXTERNAL_MONITOR,$EXT_RES_STRING,$EXT_POS,1
     EOF
 
           # Dual monitor workspace assignment based on distribution strategy
