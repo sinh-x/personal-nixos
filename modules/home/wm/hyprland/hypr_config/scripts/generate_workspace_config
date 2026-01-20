@@ -2,10 +2,69 @@
 # ~/.config/hypr/scripts/generate_workspace_config.sh
 
 CONFIG_FILE="$HOME/.config/hypr/workspaces.conf"
+LOG_FILE="$HOME/.config/hypr/workspace-gen.log"
 LAPTOP_MONITOR="eDP-1" # Change to your laptop monitor
 
+# Logging function
+log_msg() {
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$LOG_FILE"
+}
+
+# Wait for Hyprland socket to be available
+wait_for_hyprland() {
+  local max_attempts=20
+  local attempt=0
+  local socket_path="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket.sock"
+
+  log_msg "Waiting for Hyprland socket (HYPRLAND_INSTANCE_SIGNATURE=$HYPRLAND_INSTANCE_SIGNATURE)"
+
+  while [ $attempt -lt $max_attempts ]; do
+    if [ -S "$socket_path" ]; then
+      # Socket exists, now check if hyprctl responds with valid monitor data
+      if hyprctl monitors -j 2>/dev/null | jq -e '.[0].name' &>/dev/null; then
+        log_msg "Hyprland socket ready after $attempt attempts"
+        return 0
+      fi
+    fi
+    attempt=$((attempt + 1))
+    sleep 0.5
+  done
+
+  log_msg "ERROR: Hyprland socket not ready after $max_attempts attempts (10s timeout)"
+  return 1
+}
+
+# Validate monitor data
+get_monitors() {
+  local monitors
+  monitors=$(hyprctl monitors -j 2>/dev/null | jq -r '.[].name' 2>/dev/null)
+
+  if [ -z "$monitors" ]; then
+    # Fallback to text parsing
+    monitors=$(hyprctl monitors 2>/dev/null | grep -oP 'Monitor \K\S+')
+  fi
+
+  echo "$monitors"
+}
+
+# Wait for Hyprland to be ready
+if ! wait_for_hyprland; then
+  log_msg "WARNING: Proceeding without confirmed socket - may fail"
+  # If existing config exists, keep it and exit
+  if [ -f "$CONFIG_FILE" ]; then
+    log_msg "Using existing workspaces.conf as fallback"
+    exit 0
+  fi
+fi
+
 # Get connected monitors
-MONITORS=$(hyprctl monitors -j 2>/dev/null | jq -r '.[].name' 2>/dev/null || hyprctl monitors | grep -oP 'Monitor \K\S+')
+MONITORS=$(get_monitors)
+if [ -z "$MONITORS" ]; then
+  log_msg "ERROR: No monitors detected, using fallback single-monitor config"
+  MONITORS="$LAPTOP_MONITOR"
+fi
+
+log_msg "Detected monitors: $(echo $MONITORS | tr '\n' ' ')"
 EXTERNAL_MONITOR=$(echo "$MONITORS" | grep -v "$LAPTOP_MONITOR" | head -1)
 
 # Generate workspace configuration
@@ -85,9 +144,11 @@ workspace = 10, monitor:$LAPTOP_MONITOR, persistent:true
 EOF
 fi
 
+log_msg "Workspace configuration generated: $CONFIG_FILE (external=$EXTERNAL_MONITOR)"
 echo "Workspace configuration generated: $CONFIG_FILE"
 
 # Reload Hyprland config if running
 if pgrep -x "Hyprland" >/dev/null; then
   hyprctl reload
+  log_msg "Hyprland config reloaded"
 fi
