@@ -23,7 +23,6 @@ in
     home.packages = with pkgs; [
       atuin
       awscli2
-      bat
       bc
       btop
       dua
@@ -55,12 +54,26 @@ in
       zoxide
     ];
 
-    programs.lsd = {
-      enable = true;
-    };
-
-    programs.alacritty = {
-      enable = true;
+    programs = {
+      lsd.enable = true;
+      alacritty.enable = true;
+      bat = {
+        enable = true;
+        config = {
+          theme = "tokyonight_night";
+        };
+        themes = {
+          tokyonight_night = {
+            src = pkgs.fetchFromGitHub {
+              owner = "folke";
+              repo = "tokyonight.nvim";
+              rev = "v4.8.0";
+              hash = "sha256-5QeY3EevOQzz5PHDW2CUVJ7N42TRQdh7QOF9PH1YxkU=";
+            };
+            file = "extras/sublime/tokyonight_night.tmTheme";
+          };
+        };
+      };
     };
 
     xdg.mimeApps = {
