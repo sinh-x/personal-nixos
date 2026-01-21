@@ -74,6 +74,7 @@
       viber = true;
       zoom = true;
       telegram = true;
+      signal = true;
     };
 
     security = {
