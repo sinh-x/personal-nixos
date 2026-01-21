@@ -29,14 +29,9 @@
 
     pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
 
-    # Snowfall
+    # Snowfall (forked for full control)
     snowfall-lib = {
-      url = "github:snowfallorg/lib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # Snowfall Flake
-    snowfall-flake = {
-      url = "github:snowfallorg/flake";
+      url = "github:sinh-x/snowfall-lib/develop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
