@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### System Management
 - **Rebuild system**: `sudo sys rebuild` (wrapper for `nixos-rebuild switch --flake .#`)
-- **Test configuration** (ephemeral, faster): `sudo sys test` (uses `nixos-rebuild test --fast --flake .#`)
+- **Test configuration** (ephemeral, faster): `sudo sys test` (uses `nixos-rebuild test --no-reexec --flake .#`)
 - **Update flake inputs**: `nix flake update`
 - **Clean Nix store**: `sys clean`
 
