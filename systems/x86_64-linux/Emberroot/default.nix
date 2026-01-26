@@ -93,6 +93,7 @@
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot/efi";
     };
+    kernelParams = [ "mem_sleep_default=deep" ];
     extraModprobeConfig = ''
       options snd-hda-intel
     '';
@@ -162,7 +163,7 @@
 
       # Enable the NVIDIA settings menu
       nvidiaSettings = true;
-      open = true;
+      open = false;
 
       # Enable the PRIME offloading (if you have a laptop with hybrid graphics)
       prime = {
