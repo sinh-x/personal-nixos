@@ -64,6 +64,7 @@
       editor.vscode.enable = true;
       docker.enable = true;
       claudecode.enable = true;
+      super-productivity.enable = true;
     };
 
     social-apps = {
