@@ -40,7 +40,7 @@
     };
 
     virtualbox.enable = false;
-    genymotion.enable = true;
+    genymotion.enable = false;
     docker.enable = true;
 
     # network
