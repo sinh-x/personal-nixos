@@ -93,7 +93,8 @@
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot/efi";
     };
-    kernelParams = [ "mem_sleep_default=deep" ];
+    # Note: deep sleep (S3) not supported on this hardware, only s2idle available
+    kernelParams = [ ];
     extraModprobeConfig = ''
       options snd-hda-intel
     '';
@@ -167,8 +168,9 @@
 
       # Enable the PRIME offloading (if you have a laptop with hybrid graphics)
       prime = {
-        sync.enable = true;
-        offload.enable = false;
+        sync.enable = false;
+        offload.enable = true;
+        offload.enableOffloadCmd = true; # Provides `nvidia-offload` command
         # Intel is usually the integrated GPU
         intelBusId = "PCI:0:2:0";
         # The NVIDIA GPU
@@ -179,7 +181,8 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
 
       powerManagement.enable = true;
-      forceFullCompositionPipeline = true;
+      powerManagement.finegrained = true; # Required for s2idle on Turing+ GPUs
+      forceFullCompositionPipeline = false; # Can cause suspend issues
 
     };
 
@@ -191,6 +194,8 @@
   };
 
   environment.systemPackages = with pkgs; [
+    parted
+    gptfdisk
     lm_sensors
     direnv
     devenv
