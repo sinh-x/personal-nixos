@@ -49,7 +49,10 @@
     sops.enable = true;
 
     # Impermanence - tmpfs root with persistent storage
-    impermanence.enable = true;
+    impermanence = {
+      enable = true;
+      users = [ "sinh" ]; # Persist entire home directory
+    };
   };
 
   nix =

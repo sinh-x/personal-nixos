@@ -100,7 +100,8 @@
 
     personal-scripts.enable = true;
 
-    # Impermanence - enable home directory persistence
-    impermanence.enable = true;
+    # Note: Full home persistence is handled by NixOS module (modules.impermanence.users)
+    # To switch to selective persistence later, enable this and configure specific paths:
+    # impermanence.enable = true;
   };
 }

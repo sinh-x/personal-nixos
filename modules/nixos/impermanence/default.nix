@@ -20,6 +20,12 @@ in
       default = "/persist";
       description = "Base path for persistent storage";
     };
+
+    users = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "Users whose entire home directories should be persisted";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -73,6 +79,19 @@ in
       "d ${cfg.persistPath}/system/etc/ssh 0755 root root -"
       "d ${cfg.persistPath}/home 0755 root root -"
     ];
+
+    # Bind mount entire home directories for specified users
+    fileSystems = builtins.listToAttrs (
+      map (user: {
+        name = "/home/${user}";
+        value = {
+          device = "${cfg.persistPath}/home/${user}";
+          fsType = "none";
+          options = [ "bind" ];
+          depends = [ cfg.persistPath ];
+        };
+      }) cfg.users
+    );
 
     # Use tmpfs for /tmp
     boot.tmp.useTmpfs = true;
