@@ -25,6 +25,7 @@
         "nvme"
         "usbhid"
         "usb_storage"
+        "uas" # USB Attached SCSI - needed for external NVMe enclosures
         "sd_mod"
         "rtsx_pci_sdmmc"
       ];
