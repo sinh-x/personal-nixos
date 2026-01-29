@@ -29,14 +29,21 @@ in
         else
           "/home/sinh/.config/sops/age/keys.txt";
 
-      secrets."nix/github_access_token" = {
-        owner = "sinh";
-      };
+      secrets = {
+        "nix/github_access_token" = {
+          owner = "sinh";
+        };
 
-      # Wifi passwords for wpa_supplicant
-      secrets."wifi/credentials" = {
-        owner = "wpa_supplicant";
-        mode = "0600";
+        # Wifi passwords for wpa_supplicant
+        "wifi/credentials" = {
+          owner = "wpa_supplicant";
+          mode = "0600";
+        };
+
+        # User password hash
+        "users/sinh/hashedPassword" = {
+          neededForUsers = true;
+        };
       };
     };
 
