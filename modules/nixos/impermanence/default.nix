@@ -90,6 +90,7 @@ in
       "d ${cfg.persistPath}/system/var/log 0755 root root -"
       "d ${cfg.persistPath}/system/var/lib 0755 root root -"
       "d ${cfg.persistPath}/system/etc/ssh 0755 root root -"
+      "d ${cfg.persistPath}/system/sops/age 0700 root root -"
       "d ${cfg.persistPath}/home 0755 root root -"
     ];
 

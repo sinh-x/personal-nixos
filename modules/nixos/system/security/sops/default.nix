@@ -22,7 +22,12 @@ in
       defaultSopsFile = ../../../../../secrets/secrets.yaml;
       defaultSopsFormat = "yaml";
 
-      age.keyFile = "/home/sinh/.config/sops/age/keys.txt";
+      # Use system-level path for impermanence compatibility (available during early boot)
+      age.keyFile =
+        if config.modules.impermanence.enable or false then
+          "/persist/system/sops/age/keys.txt"
+        else
+          "/home/sinh/.config/sops/age/keys.txt";
 
       secrets."nix/github_access_token" = {
         owner = "sinh";
