@@ -17,8 +17,8 @@ in
 
     persistPath = mkOption {
       type = types.str;
-      default = "/persist/home";
-      description = "Base path for home persistence";
+      default = "/persist";
+      description = "Base path for home persistence (module adds /home/<username> automatically)";
     };
   };
 
