@@ -23,9 +23,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.persistence."${cfg.persistPath}/${config.home.username}" = {
-      allowOther = true;
-
+    # Note: username is automatically appended to persistPath by the module
+    home.persistence."${cfg.persistPath}" = {
       directories = [
         # === CRITICAL - Security & Auth ===
         ".ssh"
