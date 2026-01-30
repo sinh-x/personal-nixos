@@ -2802,6 +2802,7 @@
         "sinh-x-ip_updater": "sinh-x-ip_updater",
         "sinh-x-nixvim": "sinh-x-nixvim",
         "sinh-x-pomodoro": "sinh-x-pomodoro",
+        "sinh-x-super-productivity": "sinh-x-super-productivity",
         "sinh-x-wallpaper": "sinh-x-wallpaper",
         "snowfall-flake": "snowfall-flake_6",
         "snowfall-lib": "snowfall-lib_12",
@@ -2920,6 +2921,27 @@
         "owner": "sinh-x",
         "ref": "1.7",
         "repo": "rust-cli-pomodoro",
+        "type": "github"
+      }
+    },
+    "sinh-x-super-productivity": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769793830,
+        "narHash": "sha256-Txtlj0y1CWOY5YJfPqLORnl4yYC/jao+bvCCBFntU4s=",
+        "owner": "sinh-x",
+        "repo": "super-productivity",
+        "rev": "0b39b03f4633ad9927e5d45b5b86fbe830d6a74b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sinh-x",
+        "ref": "feat/worklog-data-structure",
+        "repo": "super-productivity",
         "type": "github"
       }
     },
