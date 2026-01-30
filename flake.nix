@@ -82,6 +82,11 @@
     zjstatus = {
       url = "github:dj95/zjstatus";
     };
+
+    sinh-x-super-productivity = {
+      url = "github:sinh-x/super-productivity/feat/worklog-data-structure";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs:
