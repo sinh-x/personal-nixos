@@ -2931,11 +2931,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769793830,
-        "narHash": "sha256-Txtlj0y1CWOY5YJfPqLORnl4yYC/jao+bvCCBFntU4s=",
+        "lastModified": 1769851006,
+        "narHash": "sha256-jhB03c9uUAi5VApKxDJW9E4Op1j33pc+Wqk25YSDsaE=",
         "owner": "sinh-x",
         "repo": "super-productivity",
-        "rev": "0b39b03f4633ad9927e5d45b5b86fbe830d6a74b",
+        "rev": "4d1d757dedaf4786a0431639f7e47dcb163cf5d9",
         "type": "github"
       },
       "original": {
