@@ -52,6 +52,7 @@
       terminal.kitty.enable = true;
       terminal.warp.enable = true;
       shell.fish.enable = true;
+      starship.enable = true;
       multiplexers.zellij.enable = true;
       editor.neovim.enable = true;
       backup.enable = true;
