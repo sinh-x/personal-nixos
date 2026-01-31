@@ -440,6 +440,7 @@ in
       packages = with pkgs; [
         jq
         socat
+        hyprshell
       ];
 
       file = {
