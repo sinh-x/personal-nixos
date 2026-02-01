@@ -28,6 +28,7 @@ in
           "$git_status"
           "$nix_shell"
           "$direnv"
+          "$docker_context"
           "$python"
           "$nodejs"
           "$rust"
@@ -111,6 +112,19 @@ in
             ".envrc"
             "devenv.nix"
             ".devenv"
+          ];
+        };
+
+        # Docker Context
+        docker_context = {
+          symbol = " ";
+          style = "bold blue";
+          format = "[$symbol$context]($style) ";
+          only_with_files = true;
+          detect_files = [
+            "docker-compose.yml"
+            "docker-compose.yaml"
+            "Dockerfile"
           ];
         };
 
