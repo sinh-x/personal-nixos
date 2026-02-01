@@ -27,6 +27,7 @@ in
           "$git_branch"
           "$git_status"
           "$nix_shell"
+          "$direnv"
           "$python"
           "$nodejs"
           "$rust"
@@ -98,6 +99,19 @@ in
           pure_msg = "pure";
           unknown_msg = "";
           format = "via [$symbol$state( \\($name\\))]($style) ";
+        };
+
+        # Devenv/Direnv Integration
+        direnv = {
+          disabled = false;
+          symbol = "📦 ";
+          style = "bold green";
+          format = "[$symbol$loaded/$allowed]($style) ";
+          detect_files = [
+            ".envrc"
+            "devenv.nix"
+            ".devenv"
+          ];
         };
 
         cmd_duration = {
