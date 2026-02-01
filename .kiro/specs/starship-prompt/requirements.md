@@ -120,8 +120,7 @@ This document specifies the requirements for the Starship shell prompt configura
 7. **Exit Code Display**: Show actual exit code on command failure
 
 ### Future Features (Planned)
-1. **Transient Prompt**: Collapse previous prompts for cleaner scrollback
-2. **Right Prompt**: Move secondary info (time, hostname) to right side
+1. **Right Prompt**: Move secondary info (time, hostname) to right side
 3. **Custom Color Themes**: Support for different color palettes (Tokyo Night, Catppuccin)
 4. **Kubernetes Context**: Show current k8s context/namespace
 5. **AWS/Cloud Profile**: Show active cloud profile
@@ -160,6 +159,15 @@ This document specifies the requirements for the Starship shell prompt configura
 - Must work across all three hosts (Emberroot, Elderwood, Drgnfly)
 - Must not significantly impact shell startup time
 - Must integrate seamlessly with Fish vi mode
+
+## 9. Design Decisions
+
+### Rejected Features
+
+**Transient Prompt** - Decided against implementing
+- **Reason**: Loses valuable context from previous prompts (directory, git branch, environment)
+- **Trade-off**: Cleaner scrollback vs. historical context
+- **Decision**: Keep full prompts for better command history review
 
 ---
 
