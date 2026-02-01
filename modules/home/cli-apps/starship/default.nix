@@ -166,7 +166,12 @@ in
         rust = {
           symbol = " ";
           style = "bold #f74c00";
-          format = "[$symbol($version)]($style) ";
+          format = "[$symbol($version)( \\($toolchain\\))]($style) ";
+          detect_files = [
+            "Cargo.toml"
+            "rust-toolchain.toml"
+            "rust-toolchain"
+          ];
         };
 
         golang = {
