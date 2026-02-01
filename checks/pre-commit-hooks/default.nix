@@ -44,7 +44,7 @@ pre-commit-hooks-nix.lib.${pkgs.system}.run {
 
       nixfmt = {
         enable = true;
-        package = pkgs.nixfmt-rfc-style;
+        package = pkgs.nixfmt;
       };
 
       pre-commit-hook-ensure-sops.enable = true;

@@ -15,7 +15,6 @@ in
     environment.systemPackages = with pkgs; [
       fishPlugins.z
       fishPlugins.fzf-fish
-      fishPlugins.tide
       fishPlugins.puffer
       fishPlugins.done
     ];

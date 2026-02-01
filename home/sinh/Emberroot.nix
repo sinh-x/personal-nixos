@@ -2,13 +2,25 @@
 {
   imports = [ ./global ];
 
-  home.packages = with pkgs; [
-    anydesk
-    light
-    aegisub
-    acpilight
-    sct # for setting color temperature
-  ];
+  home = {
+    packages = with pkgs; [
+      anydesk
+      light
+      aegisub
+      acpilight
+      sct # for setting color temperature
+    ];
+
+    sessionVariables = {
+      EDITOR = "nvim";
+      BROWSER = "zen-twilight";
+      LEFT_MONITOR = "eDP-1";
+    };
+
+    sessionPath = [
+      "$HOME/.cargo/bin"
+    ];
+  };
 
   sinh-x = {
     apps = {
@@ -38,12 +50,14 @@
       terminal.kitty.enable = true;
       terminal.warp.enable = true;
       shell.fish.enable = true;
+      starship.enable = true;
       multiplexers.zellij.enable = true;
       editor.neovim.enable = true;
       backup.enable = true;
       nix.enable = true;
       tools = {
         below.enable = true;
+        gurk.enable = false; # Using NixOS module instead (modules.gurk)
       };
     };
 
@@ -51,6 +65,7 @@
       editor.vscode.enable = true;
       docker.enable = true;
       claudecode.enable = true;
+      super-productivity.enable = true;
     };
 
     social-apps = {
@@ -61,6 +76,7 @@
       viber = true;
       zoom = true;
       telegram = true;
+      signal = true;
     };
 
     security = {
@@ -69,14 +85,18 @@
     };
 
     wm = {
-      bspwm.enable = true;
+      bspwm.enable = false;
+      hyprland = {
+        enable = true;
+        monitors = {
+          primary = "eDP-1";
+          primaryResolution = "3840x2400";
+          externalPosition = "left";
+        };
+        workspaces.distribution = "split";
+      };
     };
 
     personal-scripts.enable = true;
-  };
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    LEFT_MONITOR = "eDP-1";
   };
 }

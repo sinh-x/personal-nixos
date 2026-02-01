@@ -15,7 +15,7 @@ in
   config = lib.mkIf cfg.enable {
 
     environment.systemPackages = with pkgs; [
-      inputs.antigravity-nix.packages."${system}".default
+      inputs.antigravity-nix.packages."${pkgs.stdenv.hostPlatform.system}".default
     ];
   };
 }

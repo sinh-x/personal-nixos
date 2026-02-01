@@ -1,23 +1,43 @@
+# Drgnfly home config - Emberroot clone with impermanence
+# This will be installed on the new 2TB SSD
 { pkgs, ... }:
 {
   imports = [ ./global ];
 
-  home.packages = with pkgs; [
-    anydesk
-    light
-    aegisub
-    acpilight
-    sct # for setting color temperature
-  ];
+  home = {
+    packages = with pkgs; [
+      anydesk
+      light
+      aegisub
+      acpilight
+      sct # for setting color temperature
+    ];
+
+    sessionVariables = {
+      EDITOR = "nvim";
+      BROWSER = "zen-twilight";
+      LEFT_MONITOR = "eDP-1";
+    };
+
+    sessionPath = [
+      "$HOME/.cargo/bin"
+    ];
+  };
 
   sinh-x = {
     apps = {
       sinh-x.enable = true;
-      web.browser.enable = true;
+      web.zen-browser.enable = true;
+      web.browser = {
+        chrome = true;
+        brave = true;
+      };
       utilities.enable = true;
       themes.enable = true;
       input-cfg.enable = true;
     };
+
+    office.enable = true;
 
     multimedia = {
       mpd.enable = true;
@@ -32,15 +52,22 @@
       terminal.kitty.enable = true;
       terminal.warp.enable = true;
       shell.fish.enable = true;
+      starship.enable = true;
       multiplexers.zellij.enable = true;
       editor.neovim.enable = true;
       backup.enable = true;
       nix.enable = true;
+      tools = {
+        below.enable = true;
+        gurk.enable = false;
+      };
     };
 
     coding = {
       editor.vscode.enable = true;
       docker.enable = true;
+      claudecode.enable = true;
+      super-productivity.enable = true;
     };
 
     social-apps = {
@@ -50,6 +77,8 @@
       slack = true;
       viber = true;
       zoom = true;
+      telegram = true;
+      signal = true;
     };
 
     security = {
@@ -58,14 +87,22 @@
     };
 
     wm = {
-      bspwm.enable = true;
+      bspwm.enable = false;
+      hyprland = {
+        enable = true;
+        monitors = {
+          primary = "eDP-1";
+          primaryResolution = "3840x2400";
+          externalPosition = "left";
+        };
+        workspaces.distribution = "split";
+      };
     };
 
     personal-scripts.enable = true;
-  };
 
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    LEFT_MONITOR = "eDP-1";
+    # Note: Full home persistence is handled by NixOS module (modules.impermanence.users)
+    # To switch to selective persistence later, enable this and configure specific paths:
+    # impermanence.enable = true;
   };
 }

@@ -15,6 +15,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.gurk ];
+    home.packages = [ pkgs.gurk-rs ];
   };
 }

@@ -23,7 +23,6 @@ in
     home.packages = with pkgs; [
       atuin
       awscli2
-      bat
       bc
       btop
       dua
@@ -55,18 +54,54 @@ in
       zoxide
     ];
 
-    programs.lsd = {
-      enable = true;
-    };
-
-    programs.alacritty = {
-      enable = true;
+    programs = {
+      lsd.enable = true;
+      alacritty.enable = true;
+      bat = {
+        enable = true;
+        config = {
+          theme = "tokyonight_night";
+        };
+        themes = {
+          tokyonight_night = {
+            src = pkgs.fetchFromGitHub {
+              owner = "folke";
+              repo = "tokyonight.nvim";
+              rev = "v4.8.0";
+              hash = "sha256-5QeY3EevOQzz5PHDW2CUVJ7N42TRQdh7QOF9PH1YxkU=";
+            };
+            file = "extras/sublime/tokyonight_night.tmTheme";
+          };
+        };
+      };
     };
 
     xdg.mimeApps = {
+      enable = true;
       defaultApplications = {
+        # Images
         "image/jpeg" = "swayimg.desktop";
-        "application/pdf" = "userapp-Zen-DPJF42.desktop";
+
+        # Browser - zen-twilight
+        "x-scheme-handler/http" = "zen-twilight.desktop";
+        "x-scheme-handler/https" = "zen-twilight.desktop";
+        "x-scheme-handler/chrome" = "zen-twilight.desktop";
+        "text/html" = "zen-twilight.desktop";
+        "application/xhtml+xml" = "zen-twilight.desktop";
+        "application/x-extension-htm" = "zen-twilight.desktop";
+        "application/x-extension-html" = "zen-twilight.desktop";
+        "application/x-extension-shtml" = "zen-twilight.desktop";
+        "application/x-extension-xhtml" = "zen-twilight.desktop";
+        "application/x-extension-xht" = "zen-twilight.desktop";
+
+        # Apps
+        "x-scheme-handler/viber" = "viber.desktop";
+        "x-scheme-handler/tg" = "org.telegram.desktop.desktop";
+        "x-scheme-handler/tonsite" = "org.telegram.desktop.desktop";
+        "x-scheme-handler/anytype" = "anytype.desktop";
+
+        # PDF
+        "application/pdf" = "org.gnome.Evince.desktop";
       };
     };
   };

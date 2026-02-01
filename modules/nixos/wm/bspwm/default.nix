@@ -53,7 +53,7 @@ in
       xdg-utils
       xdo
       xdotool
-      xfce.thunar
+      thunar
       gvfs
       lxappearance
       xorg.xev

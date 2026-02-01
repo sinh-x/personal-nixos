@@ -112,6 +112,7 @@ in
         vim = "nvim";
         ssha = "ssh-add";
         sshconfig = "nvim ~/.ssh/config";
+        anytype = "flatpak run io.anytype.anytype";
       };
       functions = {
         check_conda = {

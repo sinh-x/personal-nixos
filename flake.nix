@@ -6,6 +6,9 @@
     hardware.url = "github:nixos/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
+    # Pinned nixpkgs for packages broken in unstable (gurk-rs NIX_LDFLAGS issue)
+    nixpkgs-gurk.url = "github:nixos/nixpkgs/nixos-24.11";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,12 +29,12 @@
 
     pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
 
-    # Snowfall
+    # Snowfall (forked for full control)
     snowfall-lib = {
-      url = "github:snowfallorg/lib";
+      url = "github:sinh-x/snowfall-lib/develop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Snowfall Flake
+
     snowfall-flake = {
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -78,6 +81,11 @@
 
     zjstatus = {
       url = "github:dj95/zjstatus";
+    };
+
+    sinh-x-super-productivity = {
+      url = "github:sinh-x/super-productivity/feat/worklog-data-structure";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   outputs =

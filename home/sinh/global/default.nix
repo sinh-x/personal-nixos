@@ -10,7 +10,7 @@
   # You can import other home-manager modules here
   imports = [
     inputs.sops-nix.homeManagerModules.sops
-    inputs.zen-browser.homeModules.beta
+    inputs.zen-browser.homeModules.twilight
   ];
 
   nix = {

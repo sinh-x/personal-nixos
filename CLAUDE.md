@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### System Management
 - **Rebuild system**: `sudo sys rebuild` (wrapper for `nixos-rebuild switch --flake .#`)
-- **Test configuration** (ephemeral, faster): `sudo sys test` (uses `nixos-rebuild test --fast --flake .#`)
+- **Test configuration** (ephemeral, faster): `sudo sys test` (uses `nixos-rebuild test --no-reexec --flake .#`)
 - **Update flake inputs**: `nix flake update`
 - **Clean Nix store**: `sys clean`
 
@@ -172,3 +172,62 @@ home.file.".config/bspwm" = {
 ```
 
 All scripts/configs in `modules/home/wm/bspwm/bspwm_config/` are copied to `~/.config/bspwm/`.
+
+## Kiro System - Spec-Driven Development
+
+This project uses an adaptation of Amazon's **Kiro System** for structured feature development.
+
+### Kiro Workflow (3-Phase Approach)
+1. **Requirements** (`requirements.md`) - What needs to be built
+2. **Design** (`design.md`) - How it will be built
+3. **Tasks** (`tasks.md`) - Step-by-step implementation plan
+
+### Directory Structure
+- `.kiro/specs/{feature-name}/` - Individual feature specifications
+- `.kiro/bugs/{bug-name}/` - Bug fix documentation
+- `.kiro/kiro-system-templates/` - Templates and documentation
+  - `requirements_template.md` - Template for requirements
+  - `design_template.md` - Template for technical design
+  - `tasks_template.md` - Template for implementation tasks
+  - `bug_report_template.md` - Template for bug reports
+  - `how_kiro_works.md` - Detailed Kiro documentation
+
+### How to Work with Kiro
+
+#### When Creating New Features:
+1. **Check for existing specs first**: Look in `.kiro/specs/` for any existing feature documentation
+2. **Use templates**: Copy templates from `.kiro/kiro-system-templates/` when creating new specs
+3. **Follow the 3-phase process**: Requirements → Design → Tasks → Implementation
+4. **Require approval**: Each phase needs explicit user approval before proceeding
+
+#### Template Usage:
+- **Requirements**: Use `requirements_template.md` to create user stories and EARS acceptance criteria
+- **Design**: Use `design_template.md` for technical architecture and component design
+- **Tasks**: Use `tasks_template.md` to break down implementation into numbered, actionable tasks
+
+#### During Implementation:
+- **Reference requirements**: Always link tasks back to specific requirements
+- **Work incrementally**: Implement tasks one at a time, not all at once
+- **Validate against specs**: Ensure implementations match the design and requirements
+- **Update documentation**: Keep specs updated if changes are needed
+
+#### Key Behaviors:
+- **Always suggest using Kiro** when user wants to build new features
+- **Guide through templates** if user is unfamiliar with the process
+- **Enforce the approval process** - don't skip phases
+- **Maintain traceability** from requirements to code
+
+### When to Use Each Workflow
+
+| Change Type | Workflow | Documentation |
+|-------------|----------|---------------|
+| **Quick fix** (1-2 files, obvious solution) | Skip specs | Good commit message |
+| **Bug fix** (needs investigation) | Bug workflow | `.kiro/bugs/` |
+| **Small feature** (< 3 tasks) | Judgment call | Consider skipping specs |
+| **Medium/Large feature** | Full Kiro | `.kiro/specs/` |
+
+#### Bug Fix Workflow (Report → Analyze → Fix → Verify)
+For bugs requiring investigation:
+1. Create `.kiro/bugs/<bug-name>/report.md` using `bug_report_template.md`
+2. Document the problem, root cause, solution, and verification
+3. Lighter weight than full specs - no requirements/design phases needed

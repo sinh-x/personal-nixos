@@ -8,38 +8,46 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./wifi-networks.nix
     ../common/optional/pipewire.nix
-    ../common/optional/greetd.nix
     # ../common/optional/sddm.nix
   ];
 
   sinh-x.default-desktop.enable = true;
 
   modules = {
-    r_setup.enable = true;
+    r_setup.enable = false;
     python.enable = true;
     nix_ld.enable = true;
     fcitx5.enable = true;
     fish.enable = true;
     gcloud.enable = true;
     antigravity.enable = true;
+    gurk.enable = false;
 
     # windows manager
     wm = {
       bspwm.enable = false;
-      hyprland.enable = true;
+      hyprland = {
+        enable = true;
+        greetd = {
+          enable = true;
+          autoLogin = {
+            enable = true;
+            user = "sinh";
+          };
+        };
+      };
     };
 
     virtualbox.enable = false;
-    genymotion.enable = true;
+    genymotion.enable = false;
     docker.enable = true;
 
     # network
     stubby.enable = true;
+    wifi.enable = true;
 
     sops.enable = true;
-
   };
 
   nix =
@@ -85,6 +93,8 @@
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot/efi";
     };
+    # Note: deep sleep (S3) not supported on this hardware, only s2idle available
+    kernelParams = [ ];
     extraModprobeConfig = ''
       options snd-hda-intel
     '';
@@ -139,18 +149,28 @@
   hardware = {
     acpilight.enable = true;
     bluetooth.enable = true;
+
+    # TrackPoint configuration to prevent cursor drift
+    trackpoint = {
+      enable = true;
+      device = "TPPS/2 IBM TrackPoint";
+      drift_time = 25; # Default 5, increased to fix spontaneous cursor movement
+      sensitivity = 250; # Default 128, range 0-255
+      speed = 120; # Default 97, range 0-255
+    };
     nvidia = {
       # Use the proprietary driver
       modesetting.enable = true;
 
       # Enable the NVIDIA settings menu
       nvidiaSettings = true;
-      open = true;
+      open = false;
 
       # Enable the PRIME offloading (if you have a laptop with hybrid graphics)
       prime = {
-        sync.enable = true;
-        offload.enable = false;
+        sync.enable = false;
+        offload.enable = true;
+        offload.enableOffloadCmd = true; # Provides `nvidia-offload` command
         # Intel is usually the integrated GPU
         intelBusId = "PCI:0:2:0";
         # The NVIDIA GPU
@@ -161,7 +181,8 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
 
       powerManagement.enable = true;
-      forceFullCompositionPipeline = true;
+      powerManagement.finegrained = true; # Required for s2idle on Turing+ GPUs
+      forceFullCompositionPipeline = false; # Can cause suspend issues
 
     };
 
@@ -173,12 +194,15 @@
   };
 
   environment.systemPackages = with pkgs; [
+    parted
+    gptfdisk
     lm_sensors
     direnv
     devenv
     nix-tree
     yq
     ntfs3g
+    cargo-binstall # Install pre-built Rust binaries from GitHub (e.g., cargo binstall gurk-rs)
 
     pciutils
     libva-vdpau-driver
@@ -192,10 +216,10 @@
     linuxPackages.virtualboxGuestAdditions
 
     # # Only 'x86_64-linux' and 'aarch64-linux' are supported
-    inputs.zen-browser.packages."${system}".default
-    # inputs.zen-browser.packages."${system}".beta
-    # inputs.zen-browser.packages."${system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
-    # inputs.zen-browser.packages."${system}".twilight-official # artifacts are downloaded from the official Zen repository
+    # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
+    # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".beta
+    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
+    # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight-official # artifacts are downloaded from the official Zen repository
   ];
 
   # Open ports in the firewall.
@@ -221,6 +245,7 @@
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
   services = {
+    flatpak.enable = true;
     upower.enable = true;
     openssh = {
       enable = true;
