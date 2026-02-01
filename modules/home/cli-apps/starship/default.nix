@@ -37,6 +37,7 @@ in
           "$jobs"
           "$status"
           "$cmd_duration"
+          "$time"
           "$line_break"
           "$character"
         ];
@@ -132,6 +133,13 @@ in
           min_time = 2000;
           style = "bold yellow";
           format = "took [$duration]($style) ";
+        };
+
+        time = {
+          disabled = false;
+          style = "bold dimmed white";
+          format = "[$time]($style) ";
+          time_format = "%H:%M";
         };
 
         # Workflow Enhancements
