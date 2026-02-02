@@ -45,6 +45,10 @@ in
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_TYPE = "wayland";
       XDG_SESSION_DESKTOP = "Hyprland";
+      # Video acceleration for NVIDIA (VA-API)
+      LIBVA_DRIVER_NAME = "nvidia";
+      NVD_BACKEND = "direct"; # nvidia-vaapi-driver backend
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     };
 
     # hardware = {

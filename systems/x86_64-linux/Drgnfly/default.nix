@@ -111,16 +111,6 @@
       videoDrivers = [ "nvidia" ];
     };
 
-    picom = {
-      enable = true;
-      backend = "glx";
-      vSync = true;
-      settings = {
-        glx-no-stencil = true;
-        glx-no-rebind-pixmap = true;
-      };
-    };
-
     printing = {
       enable = true;
       cups-pdf.enable = true;
@@ -168,7 +158,7 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
 
       powerManagement.enable = true;
-      powerManagement.finegrained = true; # Required for s2idle on Turing+ GPUs
+      powerManagement.finegrained = false; # Disabled - was causing suspend hangs (nvkms_unregister_backlight blocking)
       forceFullCompositionPipeline = false; # Can cause suspend issues
     };
 
@@ -190,7 +180,9 @@
     cargo-binstall # Install pre-built Rust binaries from GitHub (e.g., cargo binstall gurk-rs)
 
     pciutils
-    libva-vdpau-driver
+    libva
+    libva-utils # VA-API diagnostics (vainfo)
+    nvidia-vaapi-driver # Native VA-API support for NVIDIA
     libvdpau-va-gl
     nvidia-system-monitor-qt
     nvtopPackages.full
