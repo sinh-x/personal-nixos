@@ -45,7 +45,15 @@ This document specifies the requirements for the Starship shell prompt configura
 ### Core Prompt Requirements
 - **WHEN** the shell starts, **THEN** the system **SHALL** display the Starship prompt
 - **WHEN** in a git repository, **THEN** the system **SHALL** display branch name with icon
+- **WHEN** in a clean git repository, **THEN** the system **SHALL** display branch name in green
+- **WHEN** in a git repository with only tracked file changes, **THEN** the system **SHALL** display branch name in orange
+- **WHEN** in a git repository with untracked files, **THEN** the system **SHALL** display branch name in red
 - **WHEN** in a git repository with changes, **THEN** the system **SHALL** display status indicators (staged, modified, untracked, etc.)
+- **WHEN** displaying git status, **THEN** the system **SHALL** use color-coded indicators:
+  - Green for staged changes (ready to commit)
+  - Orange for modified files
+  - Red for untracked/new files and deletions
+  - Cyan for ahead/behind remote
 - **WHEN** in a Nix shell, **THEN** the system **SHALL** display a Nix indicator with snowflake icon
 
 ### Directory Display Requirements
@@ -60,8 +68,8 @@ This document specifies the requirements for the Starship shell prompt configura
 - **WHEN** logged in as root, **THEN** the system **SHALL** display username in red/warning color
 
 ### Language/Environment Detection Requirements
-- **WHEN** in a Python project, **THEN** the system **SHALL** display Python version with icon
-- **WHEN** in a Python virtualenv/conda, **THEN** the system **SHALL** display environment name
+- **WHEN** in a Python project, **THEN** the system **SHALL** display Python version with icon (using `python --version`)
+- **WHEN** in a Python virtualenv/conda, **THEN** the system **SHALL** display environment name alongside version
 - **WHEN** in a Node.js project, **THEN** the system **SHALL** display Node version with icon
 - **WHEN** in a Rust project, **THEN** the system **SHALL** display Rust toolchain version with icon
 - **WHEN** in a Go project, **THEN** the system **SHALL** display Go version with icon
@@ -173,7 +181,7 @@ This document specifies the requirements for the Starship shell prompt configura
 
 **Document Status**: Approved
 
-**Last Updated**: 2026-02-01
+**Last Updated**: 2026-02-02
 
 **Related Documents**:
 - `design.md` - Technical design

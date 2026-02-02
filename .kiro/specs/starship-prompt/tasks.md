@@ -4,7 +4,7 @@
 
 This document breaks down the implementation of Starship prompt customizations into actionable coding tasks. Each task builds on the existing module to add new features.
 
-**Total Tasks**: 12 tasks organized into 4 phases
+**Total Tasks**: 15 tasks organized into 5 phases
 
 **Requirements Reference**: `requirements.md`
 
@@ -59,14 +59,15 @@ This document breaks down the implementation of Starship prompt customizations i
   - **Description**: Show virtualenv/conda environment name alongside Python version
   - **Deliverables**:
     - Update `python` block with virtualenv format
+    - Use `python --version` instead of pyenv for reliable version detection
   - **Requirements**: Development Environment Awareness user stories
   - **Code Changes**:
     ```nix
     python = {
       symbol = " ";
       style = "bold yellow";
-      pyenv_version_name = true;
-      format = "[\${symbol}(\${version})( \\(\$virtualenv\\))]($style) ";
+      pyenv_version_name = false;  # Use python --version
+      format = "[$symbol($version)( \\($virtualenv\\))]($style) ";
     };
     ```
 
@@ -166,6 +167,52 @@ This document breaks down the implementation of Starship prompt customizations i
     - Added complexity with minimal benefit for this workflow
   - **Status**: Deliberately skipped
 
+### Phase 5: Visual Enhancements
+
+- [x] **5.1** Add color-coded git status indicators
+  - **Description**: Use distinct hex colors for different git status types for quick visual feedback
+  - **Deliverables**:
+    - Green (#50FA7B) for staged changes (ready to commit)
+    - Orange (#FFB86C) for modified/renamed files
+    - Red (#FF5555) for untracked files, deletions, and conflicts
+    - Cyan (#8BE9FD) for ahead/behind remote
+    - Purple (#BD93F9) for stashed changes
+  - **Requirements**: Git Integration user stories
+  - **Code Changes**:
+    ```nix
+    git_status = {
+      format = "($conflicted$stashed$deleted$renamed$modified$untracked$staged$ahead_behind )";
+      conflicted = "[=$count](bold #FF5555)";
+      ahead = "[⇡$count](bold #8BE9FD)";
+      behind = "[⇣$count](bold #8BE9FD)";
+      diverged = "[⇕⇡$ahead_count⇣$behind_count](bold #8BE9FD)";
+      untracked = "[?$count](bold #FF5555)";
+      stashed = "[\\$$count](bold #BD93F9)";
+      modified = "[!$count](bold #FFB86C)";
+      staged = "[+$count](bold #50FA7B)";
+      renamed = "[»$count](bold #FFB86C)";
+      deleted = "[✘$count](bold #FF5555)";
+    };
+    ```
+
+- [x] **5.2** Fix Python version display
+  - **Description**: Use `python --version` instead of pyenv for version detection
+  - **Deliverables**:
+    - Set `pyenv_version_name = false` to use standard version detection
+  - **Requirements**: Development Environment Awareness user stories
+
+- [x] **5.3** Add dynamic git branch coloring
+  - **Description**: Color the git branch name based on repository state (clean/modified/untracked)
+  - **Deliverables**:
+    - Disable default `git_branch` module
+    - Create custom module `git_branch_colored` using shell command
+    - Output ANSI escape codes for dynamic coloring
+    - Green (#50FA7B) for clean repo
+    - Orange (#FFB86C) for tracked file changes only
+    - Red (#FF5555) for untracked files present
+  - **Requirements**: Git Integration user stories
+  - **Notes**: Starship doesn't natively support dynamic branch styling, so a custom module with direct ANSI output is required
+
 ## Quick Implementation Guide
 
 ### Immediate Improvements (Copy-Paste Ready)
@@ -189,12 +236,12 @@ hostname = {
   format = "@[$hostname]($style) ";
 };
 
-# Enhanced Python
+# Enhanced Python (uses python --version, not pyenv)
 python = {
   symbol = " ";
   style = "bold yellow";
-  pyenv_version_name = true;
-  format = "[\${symbol}(\${version})( \\(\$virtualenv\\))]($style) ";
+  pyenv_version_name = false;
+  format = "[$symbol($version)( \\($virtualenv\\))]($style) ";
 };
 
 # R Language
@@ -218,6 +265,29 @@ status = {
   symbol = "✘ ";
   style = "bold red";
   format = "[$symbol$status]($style) ";
+};
+
+# Dynamic Git Branch Coloring (replaces git_branch)
+git_branch.disabled = true;
+
+custom.git_branch_colored = {
+  command = ''
+    branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
+    if [ -n "$branch" ]; then
+      untracked=$(git status --porcelain 2>/dev/null | grep "^??" | head -1)
+      modified=$(git status --porcelain 2>/dev/null | grep -v "^??" | head -1)
+      if [ -n "$untracked" ]; then
+        printf '\033[1;38;2;255;85;85m %s\033[0m' "$branch"    # Red
+      elif [ -n "$modified" ]; then
+        printf '\033[1;38;2;255;184;108m %s\033[0m' "$branch"  # Orange
+      else
+        printf '\033[1;38;2;80;250;123m %s\033[0m' "$branch"   # Green
+      fi
+    fi
+  '';
+  when = "git rev-parse --git-dir 2>/dev/null";
+  format = "$output ";
+  shell = ["bash" "--noprofile" "--norc"];
 };
 ```
 
@@ -264,6 +334,6 @@ Each task is considered complete when:
 
 **Current Phase**: Done
 
-**Overall Progress**: 12/12 tasks completed (100%)
+**Overall Progress**: 15/15 tasks completed (100%)
 
-**Last Updated**: 2026-02-01
+**Last Updated**: 2026-02-02

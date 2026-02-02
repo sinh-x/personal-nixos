@@ -132,26 +132,61 @@ directory = {
 
 ### 4. Git Integration
 
+#### Dynamic Branch Coloring (Custom Module)
+
+The default `git_branch` module doesn't support dynamic styling. A custom module is used to color the branch based on repository state:
+
 ```nix
+# Disable default git_branch
 git_branch = {
-  symbol = " ";
-  style = "bold purple";
-  format = "[$symbol$branch(:$remote_branch)]($style) ";
+  disabled = true;
 };
 
+# Custom module with dynamic colors via ANSI escape codes
+custom.git_branch_colored = {
+  command = ''
+    branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
+    if [ -n "$branch" ]; then
+      untracked=$(git status --porcelain 2>/dev/null | grep "^??" | head -1)
+      modified=$(git status --porcelain 2>/dev/null | grep -v "^??" | head -1)
+      if [ -n "$untracked" ]; then
+        printf '\033[1;38;2;255;85;85m %s\033[0m' "$branch"    # Red
+      elif [ -n "$modified" ]; then
+        printf '\033[1;38;2;255;184;108m %s\033[0m' "$branch"  # Orange
+      else
+        printf '\033[1;38;2;80;250;123m %s\033[0m' "$branch"   # Green
+      fi
+    fi
+  '';
+  when = "git rev-parse --git-dir 2>/dev/null";
+  format = "$output ";
+  shell = ["bash" "--noprofile" "--norc"];
+};
+```
+
+| State | Color | Hex | Meaning |
+|-------|-------|-----|---------|
+| Clean | Green | `#50FA7B` | All changes committed |
+| Modified | Orange | `#FFB86C` | Only tracked files changed |
+| Untracked | Red | `#FF5555` | New untracked files present |
+
+#### Git Status Indicators
+
+```nix
+
 git_status = {
-  style = "bold yellow";
-  format = "([$all_status$ahead_behind]($style) )";
-  conflicted = "=\${count}";
-  ahead = "⇡\${count}";
-  behind = "⇣\${count}";
-  diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
-  untracked = "?\${count}";
-  stashed = "\\$\${count}";
-  modified = "!\${count}";
-  staged = "+\${count}";
-  renamed = "»\${count}";
-  deleted = "✘\${count}";
+  # Color-coded status indicators for quick visual feedback
+  format = "($conflicted$stashed$deleted$renamed$modified$untracked$staged$ahead_behind )";
+  conflicted = "[=$count](bold #FF5555)";   # Conflicts - red
+  ahead = "[⇡$count](bold #8BE9FD)";        # Ahead - cyan
+  behind = "[⇣$count](bold #8BE9FD)";       # Behind - cyan
+  diverged = "[⇕⇡$ahead_count⇣$behind_count](bold #8BE9FD)";
+  untracked = "[?$count](bold #FF5555)";    # New files - red
+  stashed = "[\\$$count](bold #BD93F9)";    # Stashed - purple
+  modified = "[!$count](bold #FFB86C)";     # Modified - orange
+  staged = "[+$count](bold #50FA7B)";       # Ready to commit - green
+  renamed = "[»$count](bold #FFB86C)";      # Renamed - orange
+  deleted = "[✘$count](bold #FF5555)";      # Deleted - red
 };
 ```
 
@@ -186,8 +221,8 @@ env_var.DEVENV_ROOT = {
 python = {
   symbol = " ";
   style = "bold yellow";
-  pyenv_version_name = true;
-  format = "[\${symbol}\${pyenv_prefix}(\${version})( \\(\$virtualenv\\))]($style) ";
+  pyenv_version_name = false;  # Use python --version instead of pyenv
+  format = "[$symbol($version)( \\($virtualenv\\))]($style) ";
 };
 
 rust = {
@@ -265,7 +300,12 @@ Based on terminal theme compatibility (Tokyo Night style):
 |---------|-------|-----|
 | Directory | Cyan | `#7dcfff` |
 | Git Branch | Purple | `#bb9af7` |
-| Git Status | Yellow | `#e0af68` |
+| Git Staged | Green | `#50FA7B` |
+| Git Modified | Orange | `#FFB86C` |
+| Git Untracked | Red | `#FF5555` |
+| Git Deleted | Red | `#FF5555` |
+| Git Stashed | Purple | `#BD93F9` |
+| Git Ahead/Behind | Cyan | `#8BE9FD` |
 | Nix Shell | Blue | `#7aa2f7` |
 | Python | Yellow | `#e0af68` |
 | Rust | Orange | `#f74c00` |
@@ -370,7 +410,7 @@ options.${namespace}.cli-apps.starship = {
 
 **Review Status**: Draft
 
-**Last Updated**: 2026-02-01
+**Last Updated**: 2026-02-02
 
 **Related Files**:
 - `modules/home/cli-apps/starship/default.nix` - Implementation

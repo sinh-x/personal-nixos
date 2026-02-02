@@ -24,7 +24,7 @@ in
           "$username"
           "$hostname"
           "$directory"
-          "$git_branch"
+          "\${custom.git_branch_colored}"
           "$git_status"
           "$nix_shell"
           "$direnv"
@@ -73,25 +73,49 @@ in
           read_only_style = "red";
         };
 
+        # Disable default git_branch - using custom module instead
         git_branch = {
-          symbol = " ";
-          style = "bold purple";
-          format = "[$symbol$branch(:$remote_branch)]($style) ";
+          disabled = true;
+        };
+
+        # Custom git branch with dynamic colors based on repo state
+        # Green = clean, Orange = modified only, Red = untracked files
+        custom.git_branch_colored = {
+          command = ''
+            branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)
+            if [ -n "$branch" ]; then
+              untracked=$(git status --porcelain 2>/dev/null | grep "^??" | head -1)
+              modified=$(git status --porcelain 2>/dev/null | grep -v "^??" | head -1)
+              if [ -n "$untracked" ]; then
+                printf '\033[1;38;2;255;85;85m %s\033[0m' "$branch"
+              elif [ -n "$modified" ]; then
+                printf '\033[1;38;2;255;184;108m %s\033[0m' "$branch"
+              else
+                printf '\033[1;38;2;80;250;123m %s\033[0m' "$branch"
+              fi
+            fi
+          '';
+          when = "git rev-parse --git-dir 2>/dev/null";
+          format = "$output ";
+          shell = [
+            "bash"
+            "--noprofile"
+            "--norc"
+          ];
         };
 
         git_status = {
-          style = "bold yellow";
-          format = "([$all_status$ahead_behind]($style) )";
-          conflicted = "=\${count}";
-          ahead = "⇡\${count}";
-          behind = "⇣\${count}";
-          diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
-          untracked = "?\${count}";
-          stashed = "\\$\${count}";
-          modified = "!\${count}";
-          staged = "+\${count}";
-          renamed = "»\${count}";
-          deleted = "✘\${count}";
+          format = "($conflicted$stashed$deleted$renamed$modified$untracked$staged$ahead_behind )";
+          conflicted = "[=$count](bold #FF5555)";
+          ahead = "[⇡$count](bold #8BE9FD)";
+          behind = "[⇣$count](bold #8BE9FD)";
+          diverged = "[⇕⇡$ahead_count⇣$behind_count](bold #8BE9FD)";
+          untracked = "[?$count](bold #FF5555)";
+          stashed = "[\\$$count](bold #BD93F9)";
+          modified = "[!$count](bold #FFB86C)";
+          staged = "[+$count](bold #50FA7B)";
+          renamed = "[»$count](bold #FFB86C)";
+          deleted = "[✘$count](bold #FF5555)";
         };
 
         nix_shell = {
@@ -161,8 +185,8 @@ in
         python = {
           symbol = " ";
           style = "bold yellow";
-          pyenv_version_name = true;
-          format = "[\${symbol}(\${version})( \\(\$virtualenv\\))]($style) ";
+          pyenv_version_name = false;
+          format = "[$symbol($version)( \\($virtualenv\\))]($style) ";
         };
 
         nodejs = {
