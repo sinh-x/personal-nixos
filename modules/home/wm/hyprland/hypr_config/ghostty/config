@@ -1,0 +1,17 @@
+# Ghostty configuration for Hyprland
+# Theme colors are applied via theme.sh
+config-file = ~/.config/hypr/ghostty/colors
+
+font-family = IosevkaTerm Nerd Font
+font-size = 12
+
+background-opacity = 0.90
+confirm-close-surface = false
+
+window-padding-x = 2
+window-padding-y = 2
+
+scrollback-limit = 100000
+
+# Shell integration
+shell-integration = none

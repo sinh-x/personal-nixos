@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+## launch ghostty with hypr config
+
+# hypr directory
+DIR="$HOME/.config/hypr"
+CONFIG="$DIR/ghostty/config"
+
+if [ "$1" == "-f" ]; then
+	ghostty --class=ghostty-float --config-file="$CONFIG"
+elif [ "$1" == "-F" ]; then
+	ghostty --class=ghostty-fullscreen --config-file="$CONFIG" \
+		  --fullscreen \
+		  --window-padding-x=30 \
+		  --window-padding-y=30 \
+		  --font-size=14 \
+		  --background-opacity=0.95
+else
+	ghostty --config-file="$CONFIG" "$@"
+fi

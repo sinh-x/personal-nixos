@@ -49,8 +49,11 @@
 
     cli-apps = {
       utilities.enable = true;
-      terminal.kitty.enable = true;
-      terminal.warp.enable = true;
+      terminal = {
+        ghostty.enable = true;
+        kitty.enable = true;
+        warp.enable = false;
+      };
       shell.fish.enable = true;
       starship.enable = true;
       multiplexers.zellij.enable = true;
