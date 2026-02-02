@@ -4,9 +4,9 @@
 
 ##---------- Keybindings for bspwm ----------##
 
-# Terminal (alacritty)
+# Terminal (ghostty)
 super + Return
-	kitty
+	ghostty
 
 # Terminal (floating)
 super + shift + return
@@ -36,7 +36,7 @@ super + ctrl + w
 
 # Launch Apps
 super + shift + {f,w}
-	{thunar, floorp}
+	{thunar, zen-twilight}
 
 # Terminal Apps
 # ctrl + alt + {v,r,h}
@@ -60,8 +60,8 @@ super + control p
 super + ctrl + F5
   gsimplecal
 
-super + ctrl + 12
-  isplayke
+super + ctrl + F12
+  displaykey.fish
 
 ctrl + alt + w
 	sinh-x-wallpaper refresh

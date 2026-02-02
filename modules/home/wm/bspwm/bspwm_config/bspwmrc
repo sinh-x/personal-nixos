@@ -17,7 +17,7 @@ export PATH="${PATH}:$BSPDIR/scripts"
 export _JAVA_AWT_WM_NONREPARENTING=1
 #wmname LG3D
 
-export BROWSER=google-chrome-stable
+export BROWSER=zen-twilight
 export EDITOR=nvim
 
 ## Current theme ---------------------------------------------#
@@ -111,7 +111,7 @@ done
 ## 4 > code (always open editors on workspace-4)
 declare -a code=(Geany code-oss)
 for i in "${code[@]}"; do
-  bspc rule -a "$i" desktop='3' follow=on focus=on
+  bspc rule -a "$i" desktop='4' follow=on focus=on
 done
 
 ## 5 > office and docs (always open office/doc apps on workspace-5)
@@ -203,7 +203,7 @@ if [[ ${running_check[*]} -eq 0 ]]; then
 fi
 
 sinh-x-wallpaper refresh &
-dislaykey.fish &
+displaykey.fish &
 
 sleep 3
 running_check="($(pgrep -c 'aw-qt'))"
