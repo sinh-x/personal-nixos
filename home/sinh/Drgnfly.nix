@@ -11,6 +11,7 @@
       aegisub
       acpilight
       sct # for setting color temperature
+      sound-theme-freedesktop # notification sounds
     ];
 
     sessionVariables = {
