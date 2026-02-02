@@ -1,17 +1,27 @@
 # Ghostty configuration for Hyprland
-# Theme colors are applied via theme.sh
+
+# Include colorscheme
 config-file = ~/.config/hypr/ghostty/colors
 
-font-family = IosevkaTerm Nerd Font
-font-size = 12
+# Include fonts
+config-file = ~/.config/hypr/ghostty/fonts
 
+# Cursor
+cursor-style = block
+
+# Scrollback
+scrollback-limit = 2000
+
+# Mouse
+copy-on-select = clipboard
+
+# Window layout
+window-padding-x = 12
+window-padding-y = 12
+
+# Background
 background-opacity = 0.90
+
+# Misc
 confirm-close-surface = false
-
-window-padding-x = 2
-window-padding-y = 2
-
-scrollback-limit = 100000
-
-# Shell integration
 shell-integration = none

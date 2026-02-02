@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   namespace,
   ...
@@ -15,9 +14,14 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [
-      pkgs.ghostty
-    ];
+    programs.ghostty = {
+      enable = true;
+      enableFishIntegration = true;
+      settings = {
+        # Include hypr config for colors and fonts
+        config-file = "~/.config/hypr/ghostty/config";
+      };
+    };
 
     xdg.mimeApps = {
       associations.added = {
@@ -27,18 +31,5 @@ in
         "x-scheme-handler/terminal" = "com.mitchellh.ghostty.desktop";
       };
     };
-
-    xdg.configFile."ghostty/config".text = ''
-      font-family = IosevkaTerm Nerd Font
-      font-size = 12
-
-      background-opacity = 0.90
-      confirm-close-surface = false
-
-      window-padding-x = 2
-      window-padding-y = 2
-
-      scrollback-limit = 100000
-    '';
   };
 }
