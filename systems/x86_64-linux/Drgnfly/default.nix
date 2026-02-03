@@ -109,6 +109,15 @@
 
     xserver = {
       videoDrivers = [ "nvidia" ];
+      # Explicit nvidia configuration for sx/greetd (not auto-generated like with SDDM)
+      config = ''
+        Section "Device"
+          Identifier "nvidia"
+          Driver "nvidia"
+          BusID "PCI:1:0:0"
+          Option "AllowEmptyInitialConfiguration"
+        EndSection
+      '';
     };
 
     printing = {
