@@ -108,7 +108,7 @@ in
       waybar
 
       # Launchers
-      rofi-wayland
+      rofi
       fuzzel
 
       # System utilities
