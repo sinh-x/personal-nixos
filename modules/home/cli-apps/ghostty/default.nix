@@ -59,6 +59,7 @@ in
         # Window layout
         window-padding-x = 12;
         window-padding-y = 12;
+        window-decoration = false; # Remove title bar
 
         # Background
         background-opacity = 0.90;
