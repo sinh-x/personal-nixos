@@ -21,14 +21,12 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      atuin
       awscli2
       bc
       btop
       dua
       fd
       ffmpegthumbnailer
-      fzf
       gh
       git
       gitflow
@@ -51,7 +49,6 @@ in
       zig
       zip
       zjstatus
-      zoxide
     ];
 
     programs = {
@@ -73,6 +70,35 @@ in
             file = "extras/sublime/tokyonight_night.tmTheme";
           };
         };
+      };
+
+      # Shell integrations pre-generated at build time (faster shell startup)
+      fzf = {
+        enable = true;
+        enableFishIntegration = true;
+        defaultCommand = "fd --hidden --strip-cwd-prefix --exclude .git";
+        defaultOptions = [
+          "--color=fg:#CBE0F0,bg:#011628,hl:#B388FF,fg+:#CBE0F0,bg+:#143652,hl+:#B388FF,info:#06BCE4,prompt:#2CF9ED,pointer:#2CF9ED,marker:#2CF9ED,spinner:#2CF9ED,header:#2CF9ED"
+        ];
+        fileWidgetCommand = "fd --hidden --strip-cwd-prefix --exclude .git";
+        fileWidgetOptions = [
+          "--preview 'if [ -d {} ]; then lsd --tree --depth=2 --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi'"
+        ];
+        changeDirWidgetCommand = "fd --type=d --hidden --strip-cwd-prefix --exclude .git";
+        changeDirWidgetOptions = [
+          "--preview 'lsd --tree --depth=2 --color=always {} | head -200'"
+        ];
+      };
+
+      atuin = {
+        enable = true;
+        enableFishIntegration = true;
+        flags = [ "--disable-up-arrow" ];
+      };
+
+      zoxide = {
+        enable = true;
+        enableFishIntegration = true;
       };
     };
 

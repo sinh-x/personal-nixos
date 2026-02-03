@@ -41,8 +41,12 @@ echo "hwmon-path = $(awk -F 'Package id 0 |$' '{print $2}' <<<"$(for i in /sys/c
 ## Manage Monitors and Workspaces
 ##
 ## Uses Nix-generated script with declarative monitor/workspace configuration
+## Initial setup runs synchronously, then watcher runs in background for hot-plug
 
 fish "$HOME/.config/bspwm/scripts/monitor-management.fish"
+
+## Start monitor watcher for auto-detection of plug/unplug events
+fish "$HOME/.config/bspwm/scripts/monitor-watcher.fish" &
 
 ## Apply bspwm configurations
 bspc config border_width "$BSPWM_BORDER"
@@ -159,6 +163,9 @@ bspc config external_rules_command "${HOME}/.config/bspwm/scripts/external_rules
 
 # Kill if already running
 killall -9 aw-qt xsettingsd sxhkd dunst ksuperkey xfce4-power-manager bspc input-leap fcitx5 flameshot copyq blueman-applet
+
+# Kill monitor watcher (it's a fish script, so we need to match the script name)
+pkill -f "monitor-watcher.fish" 2>/dev/null
 
 # Lauch xsettingsd daemon
 xsettingsd --config="$BSPDIR"/xsettingsd &

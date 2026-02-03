@@ -28,37 +28,9 @@ in
       interactiveShellInit = ''
         # eval "/home/sinh/.conda/bin/conda" "shell.fish" "hook" $argv | source
         # auto_conda
-        # ----- FZF -----
-        fzf --fish | source
-
-        # --- setup fzf theme ---
-        set fg "#CBE0F0"
-        set bg "#011628"
-        set bg_highlight "#143652"
-        set purple "#B388FF"
-        set blue "#06BCE4"
-        set cyan "#2CF9ED"
-
-        set -x FZF_DEFAULT_OPTS "--color=fg:$fg,bg:$bg,hl:$purple,fg+:$fg,bg+:$bg_highlight,hl+:$purple,info:$blue,prompt:$cyan,pointer:$cyan,marker:$cyan,spinner:$cyan,header:$cyan"
-
-        # -- Use fd instead of fzf --
-        set -x FZF_DEFAULT_COMMAND "fd --hidden --strip-cwd-prefix --exclude .git"
-        set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-        set -x FZF_ALT_C_COMMAND "fd --type=d --hidden --strip-cwd-prefix --exclude .git"
-
-        set show_file_or_dir_preview "if [ -d {} ]; lsd --tree --depth=2 --color=always {} | head -200; else; bat -n --color=always --line-range :500 {}; end"
-
-        set -x FZF_CTRL_T_OPTS "--preview '$show_file_or_dir_preview'"
-        set -x FZF_ALT_C_OPTS "--preview 'lsd --tree --depth=2 --color=always {} | head -200'"
-
-        # ----- Atuin -----
-        atuin init fish --disable-up-arrow | source
 
         # ----- Bat (better cat) -----
         set -x BAT_THEME tokyonight_night
-
-        # ----- Zoxide (better cd) ------
-        zoxide init fish | source
 
         # ----- sinh path -----
         fish_add_path $HOME/.config/sinh-x-scripts
