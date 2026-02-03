@@ -87,6 +87,9 @@ in
     };
 
     environment.systemPackages = with pkgs; [
+      # XWayland support (required for X11 apps like Zoom)
+      xwayland-satellite
+
       # Wayland utilities
       swaybg
       swww
@@ -125,6 +128,9 @@ in
 
       # System monitor
       btop
+
+      # Key press overlay for screencasts
+      showmethekey
 
       # Network & Bluetooth
       blueman

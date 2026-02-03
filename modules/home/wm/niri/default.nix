@@ -31,8 +31,29 @@ in
       ];
 
       file = {
-        ".config/niri" = {
-          source = ./niri_config;
+        ".config/niri/config.kdl".source = ./niri_config/config.kdl;
+        ".config/niri/scripts" = {
+          source = ./niri_config/scripts;
+          recursive = true;
+        };
+        ".config/niri/mako" = {
+          source = ./niri_config/mako;
+          recursive = true;
+        };
+        ".config/niri/rofi" = {
+          source = ./niri_config/rofi;
+          recursive = true;
+        };
+        ".config/niri/theme" = {
+          source = ./niri_config/theme;
+          recursive = true;
+        };
+        ".config/niri/wallpapers" = {
+          source = ./niri_config/wallpapers;
+          recursive = true;
+        };
+        ".config/niri/waybar" = {
+          source = ./niri_config/waybar;
           recursive = true;
         };
       };

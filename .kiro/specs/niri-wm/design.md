@@ -185,6 +185,121 @@ These components from the Hyprland config can be reused:
 - **mako/**: Notification daemon config
 - **scripts/**: volume, brightness, colorpicker, rofi_* scripts
 
+## Current Implementation
+
+### Monitor Setup
+
+| Monitor | Identifier | Resolution | Position |
+|---------|------------|------------|----------|
+| Laptop (Main) | `LG Display 0x06AA Unknown` | 3840x2400@60Hz | x=0, y=0 |
+| External | `MaxCom Technical Inc 0x1B1A 0x20230808` | 2560x1600@130Hz | x=3840, y=0 |
+
+### Named Workspaces
+
+#### Laptop Monitor (main-)
+| Workspace | Keybind (Focus) | Keybind (Move) |
+|-----------|-----------------|----------------|
+| `main-browser` | `Mod+1` | `Mod+Shift+1` |
+| `main-term` | `Mod+2` | `Mod+Shift+2` |
+| `chat` | `Mod+3` | `Mod+Shift+3` |
+| `email` | `Mod+4` | `Mod+Shift+4` |
+| `main-code` | `Mod+5` | `Mod+Shift+5` |
+
+#### External Monitor (ext-)
+| Workspace | Keybind (Focus) | Keybind (Move) |
+|-----------|-----------------|----------------|
+| `ext-term` | `Mod+6` | `Mod+Shift+6` |
+| `ext-code` | `Mod+7` | `Mod+Shift+7` |
+| `ext-browser` | `Mod+8` | `Mod+Shift+8` |
+
+### Window Rules (Auto-placement)
+
+| App Category | Apps | Target Workspace |
+|--------------|------|------------------|
+| Terminal | ghostty, alacritty, kitty, foot, wezterm, konsole | `main-term` |
+| Browser | zen, firefox, chromium, google-chrome, brave, vivaldi | `main-browser` |
+| Code Editor | code, vscode, zed, jetbrains IDEs, sublime, atom | `main-code` |
+| Email | thunderbird, evolution, geary, mailspring, kmail | `email` |
+| Chat | discord, slack, telegram, signal, element, whatsapp, viber, skype, teams, zoom, wire, mattermost, zulip, etc. | `chat` |
+
+### Keybindings Reference
+
+#### Window Management
+| Keybind | Action |
+|---------|--------|
+| `Mod+Q` | Close window |
+| `Mod+F` | Maximize column |
+| `Mod+Shift+F` | Fullscreen window |
+| `Mod+Space` | Toggle floating |
+| `Mod+O` | Toggle overview |
+
+#### Navigation
+| Keybind | Action |
+|---------|--------|
+| `Mod+H/L` | Focus column left/right |
+| `Mod+J/K` | Focus window down/up |
+| `Mod+,` | Focus monitor left |
+| `Mod+.` | Focus monitor right |
+| `Ctrl+Alt+Up/Down` | Focus workspace up/down |
+
+#### Applications
+| Keybind | Action |
+|---------|--------|
+| `Mod+Return` / `Mod+T` | Terminal (ghostty) |
+| `Alt+F1` | App Launcher (rofi) |
+| `Alt+F2` | Command Runner |
+| `Mod+E` | File Manager (thunar) |
+| `Mod+Shift+W` | Browser (zen-twilight) |
+
+#### Rofi Menus
+| Keybind | Action |
+|---------|--------|
+| `Mod+R` | Run as Root |
+| `Mod+M` | Music Player |
+| `Mod+N` | Network Manager |
+| `Mod+B` | Bluetooth Manager |
+| `Mod+X` | Power Menu |
+| `Mod+A` | Screenshot Menu |
+| `Mod+P` | Color Picker |
+| `Ctrl+`` ` | Clipboard History |
+| `Mod+/` | Show Hotkey Overlay |
+
+#### Media & Hardware
+| Keybind | Action |
+|---------|--------|
+| `XF86AudioRaiseVolume` | Volume Up |
+| `XF86AudioLowerVolume` | Volume Down |
+| `XF86AudioMute` | Mute Audio |
+| `XF86MonBrightnessUp/Down` | Brightness control |
+| `XF86Audio{Next,Prev,Play,Stop}` | Media control |
+
+### Dependencies
+
+#### System Packages (NixOS module)
+- `xwayland-satellite` - X11 app support
+- `showmethekey` - Key press overlay
+- `waybar` - Status bar
+- `rofi` - Application launcher
+- `mako` - Notifications
+- `wl-clipboard`, `cliphist` - Clipboard management
+- `grim`, `slurp` - Screenshots
+- `brightnessctl`, `pamixer` - Hardware control
+
+#### Scripts
+Copied from Hyprland to `~/.config/niri/scripts/` (not symlinked):
+- `rofi_launcher`, `rofi_runner`, `rofi_asroot`
+- `rofi_music`, `rofi_network`, `rofi_bluetooth`
+- `rofi_powermenu`, `rofi_screenshot`
+- `volume`, `brightness`, `colorpicker`
+
+### Configuration Notes
+
+- Config uses `hotkey-overlay-title` for descriptive labels in the hotkey overlay
+- Window rules use case-insensitive regex matching: `r#"(?i)appname"#`
+- XWayland support via `xwayland-satellite` (auto-started by niri)
+- Monitor identifiers use manufacturer/model/serial for stability across ports
+- Scripts reference `.config/niri` instead of `.config/hypr`
+
 ## Testing Strategy
 
 ### Build Test
@@ -198,17 +313,20 @@ sudo sys test  # Verify module evaluates without errors
 3. Reboot and verify greetd starts Niri
 
 ### Functional Test
-- [ ] Terminal launches with SUPER+Return
-- [ ] Rofi launcher opens with SUPER+D
-- [ ] Window closes with SUPER+C
-- [ ] Workspaces switch with SUPER+1-0
-- [ ] Waybar displays correctly
-- [ ] Notifications work via mako
+- [x] Terminal launches with Mod+Return
+- [x] Rofi launcher opens with Mod+D
+- [x] Window closes with Mod+Q
+- [x] Named workspaces switch with Mod+1-8
+- [x] Waybar displays correctly
+- [x] Notifications work via mako
+- [x] XWayland apps work (via xwayland-satellite)
+- [x] Multi-monitor support with named workspaces
+- [x] Window auto-placement rules
 
 ---
 
 **Requirements Traceability**: This design addresses all requirements in requirements.md
 
-**Review Status**: Draft
+**Review Status**: Implemented
 
-**Last Updated**: 2026-02-02
+**Last Updated**: 2026-02-03

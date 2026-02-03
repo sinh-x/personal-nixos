@@ -28,11 +28,46 @@ input {
 }
 
 // Output/monitor configuration
-// Auto-detect monitors by default
-output "eDP-1" {
-    // mode "3840x2400@60"
+// Can use connector name (eDP-1) or "Manufacturer Model Serial"
+output "LG Display 0x06AA Unknown" {
+    mode "3840x2400@60.000"
     scale 1.0
-    // position x=0 y=0
+    position x=0 y=0
+}
+
+output "MaxCom Technical Inc 0x1B1A 0x20230808" {
+    mode "2560x1600@129.995"
+    scale 1.0
+    position x=3840 y=0
+}
+
+// Named workspaces (always exist, even when empty)
+// Laptop monitor (main-)
+workspace "main-term" {
+    open-on-output "LG Display 0x06AA Unknown"
+}
+workspace "main-code" {
+    open-on-output "LG Display 0x06AA Unknown"
+}
+workspace "main-browser" {
+    open-on-output "LG Display 0x06AA Unknown"
+}
+workspace "chat" {
+    open-on-output "LG Display 0x06AA Unknown"
+}
+workspace "email" {
+    open-on-output "LG Display 0x06AA Unknown"
+}
+
+// External monitor (ext-)
+workspace "ext-term" {
+    open-on-output "MaxCom Technical Inc 0x1B1A 0x20230808"
+}
+workspace "ext-code" {
+    open-on-output "MaxCom Technical Inc 0x1B1A 0x20230808"
+}
+workspace "ext-browser" {
+    open-on-output "MaxCom Technical Inc 0x1B1A 0x20230808"
 }
 
 // Layout configuration
@@ -82,8 +117,8 @@ hotkey-overlay {
 
 // Environment variables
 environment {
-    DISPLAY ":0"
-    QT_QPA_PLATFORM "wayland"
+    // DISPLAY is set automatically by niri when xwayland-satellite is available
+    QT_QPA_PLATFORM "wayland;xcb"
     QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
     XDG_CURRENT_DESKTOP "niri"
     XDG_SESSION_TYPE "wayland"
@@ -133,8 +168,271 @@ window-rule {
 }
 
 window-rule {
+    match app-id="zoom"
+    open-floating true
+}
+
+window-rule {
+    match app-id="Zoom"
+    open-floating true
+}
+
+window-rule {
     match title="File Operation Progress"
     open-floating true
+}
+
+window-rule {
+    match app-id="one.alynx.showmethekey"
+    open-floating true
+}
+
+window-rule {
+    match app-id="showmethekey-gtk"
+    open-floating true
+    default-floating-position x=1400 y=2200
+    default-column-width { fixed 1000; }
+    default-window-height { fixed 150; }
+}
+
+// Chat apps -> open on "chat" workspace
+window-rule {
+    match app-id=r#"(?i)discord"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)slack"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)telegram"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id="org.telegram.desktop"
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)signal"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)element"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)whatsapp"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)viber"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)skype"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)teams"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)zoom"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)wire"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)mattermost"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)zulip"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)caprine"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)messenger"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)wechat"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)line"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)rocketchat"#
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"(?i)threema"#
+    open-on-workspace "chat"
+}
+
+// Terminal apps -> open on "main-term" workspace
+window-rule {
+    match app-id=r#"(?i)ghostty"#
+    open-on-workspace "main-term"
+}
+
+window-rule {
+    match app-id=r#"(?i)alacritty"#
+    open-on-workspace "main-term"
+}
+
+window-rule {
+    match app-id=r#"(?i)kitty"#
+    open-on-workspace "main-term"
+}
+
+window-rule {
+    match app-id=r#"(?i)foot"#
+    open-on-workspace "main-term"
+}
+
+window-rule {
+    match app-id=r#"(?i)wezterm"#
+    open-on-workspace "main-term"
+}
+
+window-rule {
+    match app-id=r#"(?i)konsole"#
+    open-on-workspace "main-term"
+}
+
+// Browser apps -> open on "main-browser" workspace
+window-rule {
+    match app-id=r#"(?i)zen"#
+    open-on-workspace "main-browser"
+}
+
+window-rule {
+    match app-id=r#"(?i)firefox"#
+    open-on-workspace "main-browser"
+}
+
+window-rule {
+    match app-id=r#"(?i)chromium"#
+    open-on-workspace "main-browser"
+}
+
+window-rule {
+    match app-id=r#"(?i)google-chrome"#
+    open-on-workspace "main-browser"
+}
+
+window-rule {
+    match app-id=r#"(?i)brave"#
+    open-on-workspace "main-browser"
+}
+
+window-rule {
+    match app-id=r#"(?i)vivaldi"#
+    open-on-workspace "main-browser"
+}
+
+// Code editors -> open on "main-code" workspace
+window-rule {
+    match app-id=r#"(?i)code"#
+    open-on-workspace "main-code"
+}
+
+window-rule {
+    match app-id=r#"(?i)vscode"#
+    open-on-workspace "main-code"
+}
+
+window-rule {
+    match app-id=r#"(?i)zed"#
+    open-on-workspace "main-code"
+}
+
+window-rule {
+    match app-id=r#"(?i)jetbrains"#
+    open-on-workspace "main-code"
+}
+
+window-rule {
+    match app-id=r#"(?i)idea"#
+    open-on-workspace "main-code"
+}
+
+window-rule {
+    match app-id=r#"(?i)webstorm"#
+    open-on-workspace "main-code"
+}
+
+window-rule {
+    match app-id=r#"(?i)pycharm"#
+    open-on-workspace "main-code"
+}
+
+window-rule {
+    match app-id=r#"(?i)goland"#
+    open-on-workspace "main-code"
+}
+
+window-rule {
+    match app-id=r#"(?i)sublime"#
+    open-on-workspace "main-code"
+}
+
+window-rule {
+    match app-id=r#"(?i)atom"#
+    open-on-workspace "main-code"
+}
+
+// Email apps -> open on "email" workspace
+window-rule {
+    match app-id=r#"(?i)thunderbird"#
+    open-on-workspace "email"
+}
+
+window-rule {
+    match app-id=r#"(?i)evolution"#
+    open-on-workspace "email"
+}
+
+window-rule {
+    match app-id=r#"(?i)geary"#
+    open-on-workspace "email"
+}
+
+window-rule {
+    match app-id=r#"(?i)mailspring"#
+    open-on-workspace "email"
+}
+
+window-rule {
+    match app-id=r#"(?i)kmail"#
+    open-on-workspace "email"
 }
 
 // Keybindings
@@ -143,24 +441,34 @@ binds {
     Mod+Return { spawn "ghostty"; }
     Mod+T { spawn "ghostty"; }
 
-    // App launcher (rofi)
-    Mod+D { spawn "bash" "-c" "~/.config/niri/scripts/rofi_launcher"; }
-    Alt+F2 { spawn "bash" "-c" "~/.config/niri/scripts/rofi_runner"; }
+    // Overview (like GNOME Activities)
+    Mod+O { toggle-overview; }
 
-    // Rofi menus
-    Mod+R { spawn "bash" "-c" "~/.config/niri/scripts/rofi_asroot"; }
-    Mod+M { spawn "bash" "-c" "~/.config/niri/scripts/rofi_music"; }
-    Mod+N { spawn "bash" "-c" "~/.config/niri/scripts/rofi_network"; }
-    Mod+B { spawn "bash" "-c" "~/.config/niri/scripts/rofi_bluetooth"; }
-    Mod+X { spawn "bash" "-c" "~/.config/niri/scripts/rofi_powermenu"; }
-    Mod+A { spawn "bash" "-c" "~/.config/niri/scripts/rofi_screenshot"; }
+    // App Launcher - Search and launch applications
+    Alt+F1 hotkey-overlay-title="App Launcher" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_launcher"; }
+    // Command Runner - Run any command
+    Alt+F2 hotkey-overlay-title="Command Runner" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_runner"; }
+
+    // Rofi Menus
+    // Run as Root - Execute commands with elevated privileges
+    Mod+R hotkey-overlay-title="Run as Root" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_asroot"; }
+    // Music Player - Control MPD music playback
+    Mod+M hotkey-overlay-title="Music Player" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_music"; }
+    // Network Manager - Connect to WiFi/Ethernet networks
+    Mod+N hotkey-overlay-title="Network Manager" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_network"; }
+    // Bluetooth Manager - Pair and connect Bluetooth devices
+    Mod+B hotkey-overlay-title="Bluetooth Manager" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_bluetooth"; }
+    // Power Menu - Shutdown, Reboot, Suspend, Logout
+    Mod+X hotkey-overlay-title="Power Menu" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_powermenu"; }
+    // Screenshot Menu - Capture screen, window, or area
+    Mod+A hotkey-overlay-title="Screenshot Menu" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_screenshot"; }
 
     // Apps
-    Mod+Shift+F { spawn "thunar"; }
+    Mod+E { spawn "thunar"; }
     Mod+Shift+W { spawn "zen-twilight"; }
 
     // Window management
-    Mod+C { close-window; }
+    Mod+Q { close-window; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
     Mod+Space { toggle-window-floating; }
@@ -211,40 +519,48 @@ binds {
     Mod+Tab { focus-window-down-or-column-right; }
     Mod+Shift+Tab { focus-window-up-or-column-left; }
 
-    // Workspaces 1-10
-    Mod+1 { focus-workspace 1; }
-    Mod+2 { focus-workspace 2; }
-    Mod+3 { focus-workspace 3; }
-    Mod+4 { focus-workspace 4; }
-    Mod+5 { focus-workspace 5; }
-    Mod+6 { focus-workspace 6; }
-    Mod+7 { focus-workspace 7; }
-    Mod+8 { focus-workspace 8; }
-    Mod+9 { focus-workspace 9; }
-    Mod+0 { focus-workspace 10; }
+    // Named workspaces - Main (Laptop) monitor
+    Mod+1 hotkey-overlay-title="Main: Browser" { focus-workspace "main-browser"; }
+    Mod+2 hotkey-overlay-title="Main: Terminal" { focus-workspace "main-term"; }
+    Mod+3 hotkey-overlay-title="Chat" { focus-workspace "chat"; }
+    Mod+4 hotkey-overlay-title="Email" { focus-workspace "email"; }
+    Mod+5 hotkey-overlay-title="Main: Code" { focus-workspace "main-code"; }
 
-    // Move window to workspace
-    Mod+Shift+1 { move-column-to-workspace 1; }
-    Mod+Shift+2 { move-column-to-workspace 2; }
-    Mod+Shift+3 { move-column-to-workspace 3; }
-    Mod+Shift+4 { move-column-to-workspace 4; }
-    Mod+Shift+5 { move-column-to-workspace 5; }
-    Mod+Shift+6 { move-column-to-workspace 6; }
-    Mod+Shift+7 { move-column-to-workspace 7; }
-    Mod+Shift+8 { move-column-to-workspace 8; }
-    Mod+Shift+9 { move-column-to-workspace 9; }
-    Mod+Shift+0 { move-column-to-workspace 10; }
+    // Named workspaces - External monitor
+    Mod+6 hotkey-overlay-title="Ext: Terminal" { focus-workspace "ext-term"; }
+    Mod+7 hotkey-overlay-title="Ext: Code" { focus-workspace "ext-code"; }
+    Mod+8 hotkey-overlay-title="Ext: Browser" { focus-workspace "ext-browser"; }
+
+    // Move window to workspace - Main (Laptop) monitor
+    Mod+Shift+1 { move-column-to-workspace "main-browser"; }
+    Mod+Shift+2 { move-column-to-workspace "main-term"; }
+    Mod+Shift+3 { move-column-to-workspace "chat"; }
+    Mod+Shift+4 { move-column-to-workspace "email"; }
+    Mod+Shift+5 { move-column-to-workspace "main-code"; }
+
+    // Move window to workspace - External monitor
+    Mod+Shift+6 { move-column-to-workspace "ext-term"; }
+    Mod+Shift+7 { move-column-to-workspace "ext-code"; }
+    Mod+Shift+8 { move-column-to-workspace "ext-browser"; }
 
     // Workspace navigation
-    Ctrl+Alt+Left { focus-workspace-up; }
-    Ctrl+Alt+Right { focus-workspace-down; }
-    Ctrl+Alt+Shift+Left { move-column-to-workspace-up; }
-    Ctrl+Alt+Shift+Right { move-column-to-workspace-down; }
+    Ctrl+Alt+Up { focus-workspace-up; }
+    Ctrl+Alt+Down { focus-workspace-down; }
+    Ctrl+Alt+Shift+Up { move-column-to-workspace-up; }
+    Ctrl+Alt+Shift+Down { move-column-to-workspace-down; }
 
     // Monitor focus
-    Mod+Shift+Equal { move-column-to-monitor-right; }
+    Mod+Comma { focus-monitor-left; }
+    Mod+Period { focus-monitor-right; }
+
+    // Move window to monitor
+    Mod+Shift+Comma { move-column-to-monitor-left; }
+    Mod+Shift+Period { move-column-to-monitor-right; }
     Mod+Ctrl+Shift+Left { move-column-to-monitor-left; }
     Mod+Ctrl+Shift+Right { move-column-to-monitor-right; }
+
+    // Show keybindings help
+    Mod+Slash { show-hotkey-overlay; }
 
     // Screenshots
     Print { screenshot; }
@@ -252,37 +568,35 @@ binds {
     Ctrl+Print { screenshot-window; }
     Shift+Print { screenshot-screen; }
 
-    // Volume control
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "bash" "-c" "~/.config/niri/scripts/volume --inc"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "bash" "-c" "~/.config/niri/scripts/volume --dec"; }
-    XF86AudioMute allow-when-locked=true { spawn "bash" "-c" "~/.config/niri/scripts/volume --toggle"; }
-    XF86AudioMicMute allow-when-locked=true { spawn "bash" "-c" "~/.config/niri/scripts/volume --toggle-mic"; }
+    // Volume Control - Increase/decrease volume, mute speakers/mic
+    XF86AudioRaiseVolume allow-when-locked=true hotkey-overlay-title="Volume Up" { spawn "bash" "-c" "~/.config/niri/scripts/volume --inc"; }
+    XF86AudioLowerVolume allow-when-locked=true hotkey-overlay-title="Volume Down" { spawn "bash" "-c" "~/.config/niri/scripts/volume --dec"; }
+    XF86AudioMute allow-when-locked=true hotkey-overlay-title="Mute Audio" { spawn "bash" "-c" "~/.config/niri/scripts/volume --toggle"; }
+    XF86AudioMicMute allow-when-locked=true hotkey-overlay-title="Mute Microphone" { spawn "bash" "-c" "~/.config/niri/scripts/volume --toggle-mic"; }
 
-    // Brightness control
-    XF86MonBrightnessUp allow-when-locked=true { spawn "bash" "-c" "~/.config/niri/scripts/brightness --inc"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "bash" "-c" "~/.config/niri/scripts/brightness --dec"; }
+    // Brightness Control - Adjust screen brightness
+    XF86MonBrightnessUp allow-when-locked=true hotkey-overlay-title="Brightness Up" { spawn "bash" "-c" "~/.config/niri/scripts/brightness --inc"; }
+    XF86MonBrightnessDown allow-when-locked=true hotkey-overlay-title="Brightness Down" { spawn "bash" "-c" "~/.config/niri/scripts/brightness --dec"; }
 
-    // Media control
-    XF86AudioNext allow-when-locked=true { spawn "mpc" "next"; }
-    XF86AudioPrev allow-when-locked=true { spawn "mpc" "prev"; }
-    XF86AudioPlay allow-when-locked=true { spawn "mpc" "toggle"; }
-    XF86AudioStop allow-when-locked=true { spawn "mpc" "stop"; }
+    // Media Control - Control MPD music player (next/prev/play/stop)
+    XF86AudioNext allow-when-locked=true hotkey-overlay-title="Next Track" { spawn "mpc" "next"; }
+    XF86AudioPrev allow-when-locked=true hotkey-overlay-title="Previous Track" { spawn "mpc" "prev"; }
+    XF86AudioPlay allow-when-locked=true hotkey-overlay-title="Play/Pause" { spawn "mpc" "toggle"; }
+    XF86AudioStop allow-when-locked=true hotkey-overlay-title="Stop Playback" { spawn "mpc" "stop"; }
 
-    // Color picker
-    Mod+P { spawn "bash" "-c" "~/.config/niri/scripts/colorpicker"; }
+    // Color Picker - Pick color from screen and copy to clipboard
+    Mod+P hotkey-overlay-title="Color Picker" { spawn "bash" "-c" "~/.config/niri/scripts/colorpicker"; }
 
-    // Clipboard history
-    Ctrl+Grave { spawn "bash" "-c" "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
+    // Clipboard History - Browse and paste from clipboard history
+    Ctrl+Grave hotkey-overlay-title="Clipboard History" { spawn "bash" "-c" "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
 
-    // Session management
+    // Session Management - Quit niri compositor
     Ctrl+Alt+Delete { quit; }
 
-    // Power button
-    Mod+Shift+P { spawn "bash" "-c" "~/.config/niri/scripts/rofi_powermenu"; }
-}
+    // Power Menu - Shutdown, Reboot, Suspend, Logout options
+    Mod+Shift+P hotkey-overlay-title="Power Menu" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_powermenu"; }
 
-// Mouse bindings for window management
-binds {
+    // Mouse bindings for window management
     Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
     Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
     Mod+Shift+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
