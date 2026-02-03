@@ -92,7 +92,7 @@
 
     wm = {
       bspwm = {
-        enable = true;
+        enable = false;
         monitors = {
           primary = "eDP-1";
           externalPosition = "left"; # External monitor to the left of primary
@@ -101,6 +101,10 @@
         workspaces.distribution = "split"; # 1-5,11-15 left; 6-10,16-20 right
       };
       hyprland.enable = false;
+      niri = {
+        enable = true;
+        monitors.primary = "eDP-1";
+      };
     };
 
     personal-scripts.enable = true;

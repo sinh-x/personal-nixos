@@ -11,6 +11,7 @@
   imports = [
     ./hardware-configuration.nix
     ../common/optional/pipewire.nix
+    # ../common/optional/sddm.nix  # Disabled - using greetd with Niri
   ];
 
   sinh-x.default-desktop.enable = true;
@@ -27,17 +28,13 @@
 
     # windows manager
     wm = {
-      bspwm = {
-        enable = true;
-        greetd = {
-          enable = true;
-          autoLogin = {
-            enable = true;
-            user = "sinh";
-          };
-        };
-      };
+      bspwm.enable = false;
       hyprland.enable = false;
+      niri = {
+        enable = true;
+        greetd.enable = true;
+        greetd.autoLogin.enable = true;
+      };
     };
 
     docker.enable = true;
@@ -107,18 +104,10 @@
       wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-scripts/wasabi-access-key.env";
     };
 
-    xserver = {
-      videoDrivers = [ "nvidia" ];
-      # Explicit nvidia configuration for sx/greetd (not auto-generated like with SDDM)
-      config = ''
-        Section "Device"
-          Identifier "nvidia"
-          Driver "nvidia"
-          BusID "PCI:1:0:0"
-          Option "AllowEmptyInitialConfiguration"
-        EndSection
-      '';
-    };
+    xserver.videoDrivers = [ "nvidia" ];
+
+    # Note: greetd is configured by modules.wm.niri when enabled
+    # displayManager.autoLogin is handled by greetd.autoLogin
 
     printing = {
       enable = true;

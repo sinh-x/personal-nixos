@@ -16,7 +16,7 @@ This document breaks down the implementation of the Niri window manager module i
 
 ### Phase 1: NixOS Module
 
-- [ ] **1.1** Create NixOS Niri Module
+- [x] **1.1** Create NixOS Niri Module
   - **Description**: Create system-level module for Niri window manager
   - **Deliverables**:
     - `modules/nixos/wm/niri/default.nix`
@@ -34,7 +34,7 @@ This document breaks down the implementation of the Niri window manager module i
 
 ### Phase 2: Home Module
 
-- [ ] **2.1** Create Home Manager Module Structure
+- [x] **2.1** Create Home Manager Module Structure
   - **Description**: Create home module with options and file deployment
   - **Deliverables**:
     - `modules/home/wm/niri/default.nix`
@@ -46,7 +46,7 @@ This document breaks down the implementation of the Niri window manager module i
   - **Requirements**: REQ-HOME-*
   - **Dependencies**: 1.1
 
-- [ ] **2.2** Create Main Niri Configuration
+- [x] **2.2** Create Main Niri Configuration
   - **Description**: Create KDL configuration file with all settings
   - **Deliverables**:
     - `modules/home/wm/niri/niri_config/config.kdl`
@@ -62,7 +62,7 @@ This document breaks down the implementation of the Niri window manager module i
 
 ### Phase 3: Shared Configurations
 
-- [ ] **3.1** Set Up Shared Rofi Configuration
+- [x] **3.1** Set Up Shared Rofi Configuration
   - **Description**: Copy or symlink rofi configs from Hyprland
   - **Deliverables**:
     - `modules/home/wm/niri/niri_config/rofi/` (symlink or copy)
@@ -72,7 +72,7 @@ This document breaks down the implementation of the Niri window manager module i
   - **Requirements**: REQ-COMPAT-*
   - **Dependencies**: 2.1
 
-- [ ] **3.2** Set Up Shared Waybar Configuration
+- [x] **3.2** Set Up Shared Waybar Configuration
   - **Description**: Copy or symlink waybar configs from Hyprland
   - **Deliverables**:
     - `modules/home/wm/niri/niri_config/waybar/` (symlink or copy)
@@ -82,7 +82,7 @@ This document breaks down the implementation of the Niri window manager module i
   - **Requirements**: REQ-COMPAT-*
   - **Dependencies**: 2.1
 
-- [ ] **3.3** Set Up Shared Scripts and Mako
+- [x] **3.3** Set Up Shared Scripts and Mako
   - **Description**: Copy or symlink scripts and mako from Hyprland
   - **Deliverables**:
     - `modules/home/wm/niri/niri_config/scripts/`
@@ -96,7 +96,7 @@ This document breaks down the implementation of the Niri window manager module i
 
 ### Phase 4: Testing & Integration
 
-- [ ] **4.1** Enable Module on Drgnfly
+- [x] **4.1** Enable Module on Drgnfly
   - **Description**: Add niri configuration to Drgnfly system
   - **Deliverables**:
     - Updates to `systems/x86_64-linux/Drgnfly/default.nix`
@@ -168,10 +168,12 @@ Each task is considered complete when:
 
 ---
 
-**Task Status**: Not Started
+**Task Status**: In Progress
 
-**Current Phase**: Phase 1
+**Current Phase**: Phase 4 (Testing)
 
-**Overall Progress**: 0/8 tasks completed (0%)
+**Overall Progress**: 7/8 tasks completed (87.5%)
 
-**Last Updated**: 2026-02-02
+**Last Updated**: 2026-02-03
+
+**Notes**: Build testing passed. Module evaluates without errors. Functional testing pending (requires enabling Niri and rebooting).
