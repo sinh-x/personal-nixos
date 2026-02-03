@@ -510,10 +510,13 @@ binds {
     // Column width presets
     Mod+Minus { set-column-width "-10%"; }
     Mod+Equal { set-column-width "+10%"; }
+    Mod+W hotkey-overlay-title="Cycle Column Width Presets" { switch-preset-column-width; }
 
     // Consume/expel windows (like swallowing)
     Mod+BracketLeft { consume-window-into-column; }
     Mod+BracketRight { expel-window-from-column; }
+    Mod+Ctrl+BracketLeft hotkey-overlay-title="Consume/Expel Window Left" { consume-or-expel-window-left; }
+    Mod+Ctrl+BracketRight hotkey-overlay-title="Consume/Expel Window Right" { consume-or-expel-window-right; }
 
     // Switch between windows in column
     Mod+Tab { focus-window-down-or-column-right; }
@@ -558,6 +561,10 @@ binds {
     Mod+Shift+Period { move-column-to-monitor-right; }
     Mod+Ctrl+Shift+Left { move-column-to-monitor-left; }
     Mod+Ctrl+Shift+Right { move-column-to-monitor-right; }
+
+    // Move entire workspace to monitor
+    Mod+Ctrl+Comma hotkey-overlay-title="Move Workspace to Left Monitor" { move-workspace-to-monitor-left; }
+    Mod+Ctrl+Period hotkey-overlay-title="Move Workspace to Right Monitor" { move-workspace-to-monitor-right; }
 
     // Show keybindings help
     Mod+Slash { show-hotkey-overlay; }
