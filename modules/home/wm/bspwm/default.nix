@@ -193,15 +193,14 @@ let
         set y 0
         set cur_x 0
         for i in (seq (count $connected_monitors))
-            set xrandr_cmd "xrandr --output $connected_monitors[$i] --mode $resolutions[$i] --pos {$cur_x}x{$y}"
+            set pos $cur_x"x"$y
 
-            # Add refresh rate if specified
+            # Build and execute xrandr command
             if test -n "$refresh_rates[$i]"
-                set xrandr_cmd "$xrandr_cmd --rate $refresh_rates[$i]"
+                xrandr --output $connected_monitors[$i] --mode $resolutions[$i] --pos $pos --rate $refresh_rates[$i]
+            else
+                xrandr --output $connected_monitors[$i] --mode $resolutions[$i] --pos $pos
             end
-
-            # Execute xrandr command
-            eval $xrandr_cmd
 
             # Calculate x-coordinate for next monitor based on position preference
             if test "$main_monitor_post" = "left"
