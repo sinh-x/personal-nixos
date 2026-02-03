@@ -6,6 +6,16 @@
 }:
 let
   cfg = config.modules.wm.bspwm;
+
+  # Create a wrapper script for starting bspwm session with sx
+  bspwmSession = pkgs.writeShellScript "bspwm-session" ''
+    # Source profile for environment
+    [ -f /etc/profile ] && . /etc/profile
+    [ -f ~/.profile ] && . ~/.profile
+
+    # Start bspwm
+    exec ${pkgs.bspwm}/bin/bspwm
+  '';
 in
 {
   options.modules.wm.bspwm = {
@@ -27,14 +37,14 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services = {
-      xserver = {
+    services.xserver = {
+      enable = true;
+      windowManager.bspwm = {
         enable = true;
-        windowManager.bspwm = {
-          enable = true;
-          package = pkgs.bspwm;
-        };
+        package = pkgs.bspwm;
       };
+      # Use sx for proper X session handling with greetd
+      displayManager.sx.enable = lib.mkIf cfg.greetd.enable true;
     };
 
     xdg.portal = {
@@ -84,12 +94,12 @@ in
         default_session =
           if cfg.greetd.autoLogin.enable then
             {
-              command = "${pkgs.xorg.xinit}/bin/startx ${pkgs.bspwm}/bin/bspwm";
+              command = "${pkgs.sx}/bin/sx ${bspwmSession}";
               inherit (cfg.greetd.autoLogin) user;
             }
           else
             {
-              command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --asterisks --user-menu --cmd '${pkgs.xorg.xinit}/bin/startx ${pkgs.bspwm}/bin/bspwm'";
+              command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --asterisks --user-menu --cmd '${pkgs.sx}/bin/sx ${bspwmSession}'";
               user = "greeter";
             };
       };
