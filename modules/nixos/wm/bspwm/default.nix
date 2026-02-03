@@ -8,9 +8,24 @@ let
   cfg = config.modules.wm.bspwm;
 in
 {
-  options = {
-    modules.wm.bspwm.enable = lib.mkEnableOption "bspwm";
+  options.modules.wm.bspwm = {
+    enable = lib.mkEnableOption "bspwm";
+
+    greetd = {
+      enable = lib.mkEnableOption "greetd display manager with bspwm";
+
+      autoLogin = {
+        enable = lib.mkEnableOption "auto-login without greeter";
+
+        user = lib.mkOption {
+          type = lib.types.str;
+          default = "sinh";
+          description = "User to auto-login as";
+        };
+      };
+    };
   };
+
   config = lib.mkIf cfg.enable {
     services = {
       xserver = {
@@ -61,5 +76,23 @@ in
       xdg-desktop-portal
       xdg-desktop-portal-gtk
     ];
+
+    # greetd display manager
+    services.greetd = lib.mkIf cfg.greetd.enable {
+      enable = true;
+      settings = {
+        default_session =
+          if cfg.greetd.autoLogin.enable then
+            {
+              command = "${pkgs.xorg.xinit}/bin/startx ${pkgs.bspwm}/bin/bspwm";
+              inherit (cfg.greetd.autoLogin) user;
+            }
+          else
+            {
+              command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --asterisks --user-menu --cmd '${pkgs.xorg.xinit}/bin/startx ${pkgs.bspwm}/bin/bspwm'";
+              user = "greeter";
+            };
+      };
+    };
   };
 }

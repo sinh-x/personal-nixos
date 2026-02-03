@@ -27,8 +27,7 @@
 
     # windows manager
     wm = {
-      bspwm.enable = false;
-      hyprland = {
+      bspwm = {
         enable = true;
         greetd = {
           enable = true;
@@ -38,6 +37,7 @@
           };
         };
       };
+      hyprland.enable = false;
     };
 
     docker.enable = true;

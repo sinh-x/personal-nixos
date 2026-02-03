@@ -40,9 +40,9 @@ echo "hwmon-path = $(awk -F 'Package id 0 |$' '{print $2}' <<<"$(for i in /sys/c
 
 ## Manage Monitors and Workspaces
 ##
-## Default Setup (Set 8 workspaces on each monitor)
+## Uses Nix-generated script with declarative monitor/workspace configuration
 
-fish "$HOME/.config/bspwm/monitors-workspaces/$hostname.fish"
+fish "$HOME/.config/bspwm/scripts/monitor-management.fish"
 
 ## Apply bspwm configurations
 bspc config border_width "$BSPWM_BORDER"

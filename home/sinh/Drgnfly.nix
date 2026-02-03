@@ -91,16 +91,16 @@
     };
 
     wm = {
-      bspwm.enable = false;
-      hyprland = {
+      bspwm = {
         enable = true;
         monitors = {
           primary = "eDP-1";
-          primaryResolution = "3840x2400";
-          externalPosition = "left";
+          externalPosition = "left"; # External monitor to the left of primary
+          externalMaxResolution = 4000;
         };
-        workspaces.distribution = "split";
+        workspaces.distribution = "split"; # 1-5,11-15 left; 6-10,16-20 right
       };
+      hyprland.enable = false;
     };
 
     personal-scripts.enable = true;
