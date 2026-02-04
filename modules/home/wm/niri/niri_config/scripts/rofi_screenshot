@@ -55,7 +55,7 @@ if [[ ! -d "$dir" ]]; then
 fi
 
 # notify and view screenshot
-iDIR="$HOME/.config/niri/mako/icons"
+iDIR="$HOME/.config/mako/icons"
 notify_cmd_shot="notify-send -h string:x-canonical-private-synchronous:sys-notify-shot -u low -i ${iDIR}/picture.png"
 
 notify_view() {

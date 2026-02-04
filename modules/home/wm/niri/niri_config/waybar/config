@@ -1,6 +1,6 @@
 // Waybar config file for Niri
 {
-    "include": "~/.config/niri/waybar/modules",
+    "include": "~/.config/waybar/modules",
     "name": "main-bar",
     "id": "main-bar",
     "layer": "top",

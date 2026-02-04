@@ -35,7 +35,7 @@
         },
         "format": "{icon}",
         "format-charging": "",
-        "format-plugged": "ﮣ",
+        "format-plugged": "󰂄",
         "format-full": "",
         "format-icons": ["", "", "", "", "", "", "", "", ""],
         "format-time": "{H}h {M}min",
@@ -133,7 +133,7 @@
     },
 
     "custom/power": {
-         "format": "襤",
+         "format": "󰐥",
          "tooltip": false,
          "on-click": "$HOME/.config/niri/scripts/rofi_powermenu",
     },
@@ -160,7 +160,7 @@
 
 	// waybar-spotify
     "custom/spotify": {
-        "exec": "$HOME/.config/niri/waybar/spotify",
+        "exec": "$HOME/.config/waybar/spotify",
         "interval": 1,
         "format": "{}",
         "tooltip": true,
@@ -177,7 +177,7 @@
     "mpd": {
         "interval": 2,
         "unknown-tag": "N/A",
-        "format": "{artist} - {title} | 祥 {elapsedTime:%M:%S}",
+        "format": "{artist} - {title} | 󰥔 {elapsedTime:%M:%S}",
         "format-disconnected": "Disconnected",
         "format-paused": "{artist} - {title}",
         "format-stopped": "Stopped",
@@ -190,10 +190,10 @@
         "smooth-scrolling-threshold": 1,
     },
     "mpd#2": {
-        "format": "玲",
-        "format-disconnected": "玲",
-        "format-paused": "玲",
-        "format-stopped": "玲",
+        "format": "󰒮",
+        "format-disconnected": "󰒮",
+        "format-paused": "󰒮",
+        "format-stopped": "󰒮",
 		// Commands to execute on events
         "on-click": "mpc prev",
     },
@@ -211,10 +211,10 @@
         "on-click": "mpc toggle",
     },
     "mpd#4": {
-        "format": "怜",
-        "format-disconnected": "怜",
-        "format-paused": "怜",
-        "format-stopped": "怜",
+        "format": "󰒭",
+        "format-disconnected": "󰒭",
+        "format-paused": "󰒭",
+        "format-stopped": "󰒭",
 		// Commands to execute on events
         "on-click": "mpc next",
     },
@@ -223,12 +223,12 @@
     "network": {
 		"interval": 5,
         //"interface": "wlan*", // (Optional) To force the use of this interface, set it for netspeed to work
-        "format-wifi": "直",
-        "format-ethernet": "",
-        "format-linked": "",
-        "format-disconnected": "睊",
-        "format-disabled": "睊",
-        "tooltip-format": " {ifname} via {gwaddr}",
+        "format-wifi": "󰤨",
+        "format-ethernet": "󰈀",
+        "format-linked": "󰈀",
+        "format-disconnected": "󰤭",
+        "format-disabled": "󰤭",
+        "tooltip-format": "󰈀 {ifname} via {gwaddr}",
         "on-click": "~/.config/niri/scripts/rofi_network",
     },
     "network#2": {
@@ -239,8 +239,8 @@
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "Disconnected",
         "format-disabled": "Disabled",
-        "format-alt": " {bandwidthUpBits} |  {bandwidthDownBits}",
-        "tooltip-format": " {ifname} via {gwaddr}",
+        "format-alt": "󰕒 {bandwidthUpBits} | 󰇚 {bandwidthDownBits}",
+        "tooltip-format": "󰈀 {ifname} via {gwaddr}",
     },
 
 	// waybar-pulseaudio
@@ -254,7 +254,7 @@
         "format-source-muted": "",
         "format-icons": {
             "headphone": "",
-            "hands-free": "ﳌ",
+            "hands-free": "󰋎",
             "headset": "",
             "phone": "",
             "portable": "",
@@ -301,7 +301,7 @@
              "main-code": "󰨞",
              "chat": "󰻞",
              "email": "󰇮",
-             "ext-term": "",
+             "ext-term": "",
              "ext-code": "󰨞",
              "ext-browser": "󰈹",
              "urgent": "",

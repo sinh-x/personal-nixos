@@ -36,7 +36,7 @@ in
           source = ./niri_config/scripts;
           recursive = true;
         };
-        ".config/niri/mako" = {
+        ".config/mako" = {
           source = ./niri_config/mako;
           recursive = true;
         };
@@ -52,7 +52,7 @@ in
           source = ./niri_config/wallpapers;
           recursive = true;
         };
-        ".config/niri/waybar" = {
+        ".config/waybar" = {
           source = ./niri_config/waybar;
           recursive = true;
         };

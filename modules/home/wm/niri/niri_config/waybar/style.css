@@ -278,7 +278,8 @@ window#waybar.hidden {
 	color: #89b4fa;
 }
 #workspaces button.urgent {
-	color: #f38ba8;
+	background-color: #a6e3a1;
+	color: #1e1e2e;
 }
 #workspaces button.current_output {
 	background-color: @background-alt1;
