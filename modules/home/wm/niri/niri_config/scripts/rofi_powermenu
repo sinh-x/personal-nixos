@@ -98,6 +98,10 @@ run_cmd() {
 
 # Actions
 chosen="$(run_rofi)"
+
+# Exit if no selection (ESC pressed)
+[[ -z "$chosen" ]] && exit 0
+
 case ${chosen} in
     $option_1)
 		run_cmd --opt1

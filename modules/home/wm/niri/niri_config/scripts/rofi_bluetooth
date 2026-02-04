@@ -238,10 +238,12 @@ device_menu() {
     # Open rofi menu, read chosen option
     chosen="$(echo -e "$options" | $rofi_command "$device_name")"
 
+    # Exit if no selection (ESC pressed)
+    [[ -z "$chosen" ]] && exit 0
+
     # Match chosen option to command
     case "$chosen" in
-        "" | "$divider")
-            echo "No option chosen."
+        "$divider")
             ;;
         "$connected")
             toggle_connection "$mac"
@@ -283,10 +285,12 @@ show_menu() {
     # Open rofi menu, read chosen option
     chosen="$(echo -e "$options" | $rofi_command "Bluetooth")"
 
+    # Exit if no selection (ESC pressed)
+    [[ -z "$chosen" ]] && exit 0
+
     # Match chosen option to command
     case "$chosen" in
-        "" | "$divider")
-            echo "No option chosen."
+        "$divider")
             ;;
         "$power")
             toggle_power
