@@ -179,7 +179,7 @@ window-rule {
     match app-id=r#"(?i)zoom"#
     match title=r#"(?i)(meeting|zoom)"#
     open-fullscreen true
-    focus-on-open true
+    open-focused true
 }
 
 window-rule {
@@ -472,6 +472,7 @@ binds {
     // Apps
     Mod+E { spawn "thunar"; }
     Mod+Shift+W { spawn "zen-twilight"; }
+    Mod+Ctrl+W hotkey-overlay-title="Wallpaper Picker" { spawn "bash" "-c" "~/.config/niri/scripts/wallpaper --select"; }
 
     // Window management
     Mod+C { close-window; }
@@ -581,6 +582,10 @@ binds {
     Ctrl+Print { screenshot-window; }
     Shift+Print { screenshot-screen; }
 
+    // Screen Recording
+    Mod+S hotkey-overlay-title="Screen Record Menu" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_screenrecord"; }
+    Mod+Shift+S hotkey-overlay-title="Toggle Recording" { spawn "bash" "-c" "~/.config/niri/scripts/screenrecord --toggle"; }
+
     // Volume Control - Increase/decrease volume, mute speakers/mic
     XF86AudioRaiseVolume allow-when-locked=true hotkey-overlay-title="Volume Up" { spawn "bash" "-c" "~/.config/niri/scripts/volume --inc"; }
     XF86AudioLowerVolume allow-when-locked=true hotkey-overlay-title="Volume Down" { spawn "bash" "-c" "~/.config/niri/scripts/volume --dec"; }
@@ -623,7 +628,8 @@ binds {
 // Startup applications
 spawn-at-startup "bash" "-c" "~/.config/niri/scripts/statusbar"
 spawn-at-startup "mako"
-spawn-at-startup "swaybg" "-i" "~/.config/niri/wallpapers/wallpaper.png" "-m" "fill"
+spawn-at-startup "swww-daemon"
+spawn-at-startup "bash" "-c" "sleep 1 && ~/.config/niri/scripts/wallpaper --default"
 spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
 spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 spawn-at-startup "fcitx5"
