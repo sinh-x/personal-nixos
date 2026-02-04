@@ -19,5 +19,5 @@
     // Choose the order of the modules
     "modules-left": ["custom/menu", "niri/workspaces", "tray", "mpd#2", "mpd#3", "mpd#4", "mpd" ],
     "modules-center": [ "cpu", "cpu#2", "memory", "memory#2", "disk", "disk#2" ],
-    "modules-right": ["custom/themes", "pulseaudio", "pulseaudio#2", "backlight", "backlight#2", "battery", "battery#2", "bluetooth", "bluetooth#2", "network", "network#2", "clock", "clock#2", "custom/power"],
+    "modules-right": ["pulseaudio", "pulseaudio#2", "backlight", "backlight#2", "battery", "battery#2", "bluetooth", "bluetooth#2", "network", "network#2", "clock", "clock#2", "custom/power"],
 }

@@ -118,13 +118,6 @@
     },
 
 	// waybar-custom
-    "custom/themes": {
-        "format": "󰏘",
-        "tooltip": false,
-        "on-click": "$HOME/.config/niri/theme/theme.sh --pywal",
-        "on-click-right": "$HOME/.config/niri/theme/theme.sh --default",
-    },
-
     "custom/menu": {
          "format": "󰀻",
          "tooltip": false,
