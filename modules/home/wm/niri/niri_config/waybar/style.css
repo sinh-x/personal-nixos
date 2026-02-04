@@ -51,18 +51,6 @@ window#waybar.hidden {
 	padding: 2px 8px 2px 8px;
 }
 
-/** ********** Idle Inhibitor ********** **/
-#idle_inhibitor {
-	background-color: @green;
-	color: @background;
-	border-radius: 10px;
-	margin: 6px 0px 6px 6px ;
-	padding: 4px 6px;
-}
-#idle_inhibitor.deactivated {
-	background-color: @red;
-}
-
 /** ********** Tray ********** **/
 #tray {
 	background-color: @background-alt1;
@@ -278,8 +266,8 @@ window#waybar.hidden {
 	color: #89b4fa;
 }
 #workspaces button.urgent {
-	background-color: #a6e3a1;
-	color: #1e1e2e;
+	color: @red;
+	font-weight: bold;
 }
 #workspaces button.current_output {
 	background-color: @background-alt1;

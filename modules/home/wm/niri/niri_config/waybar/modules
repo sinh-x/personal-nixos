@@ -5,7 +5,7 @@
 		"interval": 2,
         //"device": "amdgpu_bl0",
         "format": "{icon}",
-        "format-icons": ["", "", "", "", "", "", ""],
+        "format-icons": ["󰃞", "󰃟", "󰃠", "󰃡", "󰃢", "󰃣", "󰃤"],
 		// Commands to execute on events
         "on-scroll-up": "light -A 5%",
         "on-scroll-down": "light -U 5%",
@@ -34,10 +34,10 @@
             "critical": 15
         },
         "format": "{icon}",
-        "format-charging": "",
+        "format-charging": "󰂄",
         "format-plugged": "󰂄",
-        "format-full": "",
-        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "format-full": "󰁹",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁"],
         "format-time": "{H}h {M}min",
         "tooltip": true,
     },
@@ -65,12 +65,12 @@
     "bluetooth": {
         //"controller": "controller1",
         //"format-device-preference": "",
-        "format": "",
-        "format-on": "",
-        "format-off": "",
-        "format-disabled": "",
-        "format-connected": "",
-        "format-connected-battery": "",
+        "format": "󰂯",
+        "format-on": "󰂯",
+        "format-off": "󰂲",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂱",
+        "format-connected-battery": "󰂱",
         "tooltip": true,
         "tooltip-format": "{controller_alias}\t{controller_address}",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
@@ -98,7 +98,7 @@
 	// waybar-clock
     "clock": {
         "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "",
+        "format": "󰥔",
     },
     "clock#2": {
 		"interval": 60,
@@ -110,7 +110,7 @@
 	// waybar-cpu
     "cpu": {
          "interval": 5,
-         "format": "",
+         "format": "󰻠",
     },
     "cpu#2": {
          "interval": 5,
@@ -119,14 +119,14 @@
 
 	// waybar-custom
     "custom/themes": {
-        "format": "",
+        "format": "󰏘",
         "tooltip": false,
         "on-click": "$HOME/.config/niri/theme/theme.sh --pywal",
         "on-click-right": "$HOME/.config/niri/theme/theme.sh --default",
     },
 
     "custom/menu": {
-         "format": "",
+         "format": "󰀻",
          "tooltip": false,
          "on-click": "$HOME/.config/niri/scripts/rofi_launcher",
          "on-click-right": "$HOME/.config/niri/scripts/rofi_runner",
@@ -141,7 +141,7 @@
 	// waybar-disk
     "disk": {
          "interval": 30,
-         "format": "",
+         "format": "󰋊",
     },
     "disk#2": {
          "interval": 30,
@@ -151,7 +151,7 @@
 	// waybar-memory
     "memory": {
          "interval": 10,
-         "format": "",
+         "format": "󰍛",
     },
     "memory#2": {
          "interval": 10,
@@ -200,12 +200,12 @@
     "mpd#3": {
         "interval": 1,
         "format": "{stateIcon}",
-        "format-disconnected": "",
+        "format-disconnected": "󰐊",
         "format-paused": "{stateIcon}",
-        "format-stopped": "",
+        "format-stopped": "󰓛",
         "state-icons": {
-            "paused": "",
-            "playing": ""
+            "paused": "󰏤",
+            "playing": "󰐊"
         },
 		// Commands to execute on events
         "on-click": "mpc toggle",
@@ -247,19 +247,19 @@
     "pulseaudio": {
         //"format": "{volume}% {icon} {format_source}",
         "format": "{icon}",
-        "format-muted": "",
-        "format-bluetooth": "",
-        "format-bluetooth-muted": "",
-        "format-source": "",
-        "format-source-muted": "",
+        "format-muted": "󰝟",
+        "format-bluetooth": "󰂰",
+        "format-bluetooth-muted": "󰂲",
+        "format-source": "󰍬",
+        "format-source-muted": "󰍭",
         "format-icons": {
-            "headphone": "",
+            "headphone": "󰋋",
             "hands-free": "󰋎",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
+            "headset": "󰋎",
+            "phone": "󰏲",
+            "portable": "󰏲",
+            "car": "󰄋",
+            "default": ["󰕿", "󰖀", "󰕾"]
         },
         "scroll-step": 5.0,
 		// Commands to execute on events
@@ -281,16 +281,6 @@
         "smooth-scrolling-threshold": 1,
     },
 
-	// waybar-idle-inhibitor
-    "idle_inhibitor": {
-         "format": "{icon}",
-         "format-icons": {
-             "activated": "",
-             "deactivated": ""
-         },
-         "timeout": 30
-    },
-
 	// niri workspaces - shows workspaces per monitor
     "niri/workspaces": {
          "format": "{icon}",
@@ -304,7 +294,7 @@
              "ext-term": "",
              "ext-code": "󰨞",
              "ext-browser": "󰈹",
-             "urgent": "",
+             "urgent": "",
              "default": ""
          },
          "on-click": "activate"
