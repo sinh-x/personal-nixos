@@ -2,7 +2,7 @@
 name: niri-config
 description: Help configure niri window manager - keybindings, window rules, workspaces, animations, monitors, and scripts
 allowed-tools: Read, Glob, Grep, Edit, Write, Bash(niri msg *, niri validate)
-argument-hint: [keybindings|window-rules|workspaces|animations|monitors|scripts|waybar]
+argument-hint: [keybindings|window-rules|workspaces|animations|monitors|scripts|waybar|rofi]
 ---
 
 # Niri Configuration Helper
@@ -19,6 +19,12 @@ This skill helps configure the niri Wayland compositor for this NixOS system.
    [[ -z "$chosen" ]] && exit 0
    ```
    This prevents the script from executing unintended actions when the user cancels with ESC.
+
+3. **Rofi Menu Icons (MANDATORY):** All rofi menu options MUST have proper icons:
+   - Check the `USE_ICON` flag in the .rasi theme file
+   - Provide BOTH icon-only (Symbols Nerd Font) AND text+icon (Nerd Font) versions
+   - Each option must have a meaningful, distinct icon
+   - Use consistent icon style across related options
 
 ## File Locations
 
@@ -136,16 +142,300 @@ Located in `niri_config/scripts/`:
 | `wallpaper` | Wallpaper manager (swww) |
 | `colorpicker` | Screen color picker |
 
+## Rofi Menu Configuration
+
+### File Structure
+
+| Location | Purpose |
+|----------|---------|
+| `niri_config/rofi/` | Theme files (.rasi) |
+| `niri_config/rofi/shared/colors.rasi` | Color palette |
+| `niri_config/rofi/shared/fonts.rasi` | Font configuration |
+| `niri_config/scripts/rofi_*` | Menu scripts |
+
+### Fonts
+
+**Text Font** (in `shared/fonts.rasi`):
+```css
+* {
+    font: "Iosevka 10";
+}
+```
+
+**Icon Font** (in individual .rasi files for icon-only menus):
+```css
+element-text {
+    font: "Symbols Nerd Font 20";
+}
+```
+
+**Required fonts:**
+- `Iosevka` - Main text font
+- `Symbols Nerd Font` - Icon font for icon-only mode (size 20)
+- Nerd Font (e.g., `Iosevka Nerd Font`) - For inline icons in text mode
+
+### Icon Display Modes (USE_ICON flag)
+
+Rofi menus support two display modes controlled by `USE_ICON` comment in .rasi files:
+
+**Icon-only mode** (`USE_ICON=YES`):
+```css
+/*
+USE_ICON=YES
+*/
+```
+- Uses Symbols Nerd Font icons (single characters)
+- Icons: ``, ``, ``, ``, ``, ``
+
+**Text + Icon mode** (`USE_ICON=NO`):
+```css
+/*
+USE_ICON=NO
+*/
+```
+- Uses Nerd Font icons with text labels
+- Example: `󰍹 Capture Desktop`, `󰩭 Capture Area`
+
+### Script Icon Pattern
+
+Scripts must check the `USE_ICON` flag and provide both icon sets:
+```bash
+layout=$(cat "$RASI" | grep 'USE_ICON' | cut -d'=' -f2)
+if [[ "$layout" == 'NO' ]]; then
+    # Text + Nerd Font icon mode
+    option_1="󰍹 Capture Desktop"
+    option_2="󰩭 Capture Area"
+    option_3="󰖯 Capture Window"
+else
+    # Icon-only mode (Symbols Nerd Font)
+    option_1="󰍹"
+    option_2="󰩭"
+    option_3="󰖯"
+fi
+```
+
+### Common Nerd Font Icons
+
+| Icon | Codepoint | Description |
+|------|-----------|-------------|
+| 󰍹 | `\U000f0379` | Monitor/Screen |
+| 󰩭 | `\U000f0a6d` | Selection/Area |
+| 󰖯 | `\U000f05af` | Window |
+| 󰔝 | `\U000f051d` | Timer 5s |
+| 󰔜 | `\U000f051c` | Timer 10s |
+| 󰓛 | `\U000f04db` | Stop |
+| 󰍬 | `\U000f036c` | Audio/Microphone |
+|  | Lock |
+|  | Sleep/Moon |
+|  | Logout |
+|  | Reboot |
+|  | Shutdown |
+|  | Play |
+|  | Pause |
+|  | Stop |
+|  | Previous |
+|  | Next |
+|  | Repeat |
+|  | Random/Shuffle |
+
+### Colors (in `shared/colors.rasi`)
+
+```css
+* {
+    background:     #391b0b;
+    background-alt: #4e2510;
+    foreground:     #f3ecdf;
+    selected:       #EEB48A;
+    active:         #F3AF71;
+    urgent:         #E4A85F;
+}
+```
+
+### Creating a New Rofi Menu
+
+1. **Create the theme file** (`niri_config/rofi/your_menu.rasi`):
+   ```css
+   configuration {
+       show-icons: false;
+   }
+
+   @import "shared/colors.rasi"
+   @import "shared/fonts.rasi"
+
+   /*
+   USE_ICON=YES
+   */
+
+   /* Copy window, mainbox, listview, element styles from existing .rasi */
+   ```
+
+2. **Create the script** (`niri_config/scripts/rofi_yourmenu`):
+   ```bash
+   #!/usr/bin/env bash
+
+   DIR="$HOME/.config/niri"
+   RASI="$DIR/rofi/your_menu.rasi"
+
+   prompt='Menu Name'
+   mesg="Description or status"
+
+   # Check USE_ICON flag for proper icon display
+   layout=$(cat "$RASI" | grep 'USE_ICON' | cut -d'=' -f2)
+   if [[ "$layout" == 'NO' ]]; then
+       option_1="󰍹 Option One"
+       option_2="󰩭 Option Two"
+   else
+       option_1="󰍹"
+       option_2="󰩭"
+   fi
+
+   rofi_cmd() {
+       rofi -dmenu \
+           -p "$prompt" \
+           -mesg "$mesg" \
+           -markup-rows \
+           -theme "$RASI"
+   }
+
+   run_rofi() {
+       echo -e "$option_1\n$option_2" | rofi_cmd
+   }
+
+   chosen="$(run_rofi)"
+
+   # CRITICAL: Handle ESC - exit gracefully
+   [[ -z "$chosen" ]] && exit 0
+
+   case "$chosen" in
+       "$option_1") action_one ;;
+       "$option_2") action_two ;;
+   esac
+   ```
+
+3. **Add keybinding** (after checking for duplicates):
+   ```kdl
+   Mod+Key hotkey-overlay-title="Your Menu" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_yourmenu"; }
+   ```
+
 ## Waybar Configuration
 
 Located in `niri_config/waybar/`:
 
 | File | Purpose |
 |------|---------|
-| `config` | Main waybar config (JSON-like) |
-| `modules` | Module definitions |
-| `style.css` | Styling |
-| `colors.css` | Color variables |
+| `config` | Main config (bar layout, module order, positioning) |
+| `modules` | Module definitions (formats, icons, actions) |
+| `style.css` | CSS styling (fonts, colors, spacing) |
+| `colors.css` | Color variable definitions |
+
+### Fonts (in `style.css`)
+
+```css
+* {
+    font-family: "JetBrains Mono", "Symbols Nerd Font", Iosevka, archcraft, sans-serif;
+    font-size: 14px;
+}
+```
+
+**Required fonts:**
+- `JetBrains Mono` - Primary monospace font
+- `Symbols Nerd Font` - Icon font for module icons
+- `Iosevka` - Fallback font
+
+### Colors (in `colors.css`)
+
+```css
+@define-color background      #391b0b;
+@define-color background-alt1 #4e2510;
+@define-color background-alt2 #642f13;
+@define-color foreground      #f3ecdf;
+@define-color selected        #EEB48A;
+@define-color red             #E4A85F;
+@define-color green           #F3AF71;
+@define-color yellow          #BDA089;
+@define-color blue            #EEB48A;
+@define-color magenta         #F7CC92;
+@define-color cyan            #F7D9AD;
+```
+
+### Module Structure (in `modules`)
+
+Each module typically has two variants:
+- **Icon variant** (e.g., `battery`) - Shows only icon
+- **Text variant** (e.g., `battery#2`) - Shows value/percentage
+
+Example module definition:
+```json
+"battery": {
+    "format": "{icon}",
+    "format-icons": ["", "", "", "", ""],
+    "format-charging": "",
+},
+"battery#2": {
+    "format": "{capacity}%",
+}
+```
+
+### Common Module Icons
+
+| Module | Icons Used |
+|--------|------------|
+| Battery | ``, ``, `` (charging), `󰂄` (plugged) |
+| Backlight | ``, ``, `` |
+| Pulseaudio | ``, ``, ``, `` (muted) |
+| Network | `󰤨` (wifi), `󰈀` (ethernet), `󰤭` (disconnected) |
+| Bluetooth | ``, `` |
+| Clock | `` |
+| CPU | `` |
+| Memory | `` |
+| Disk | `` |
+| MPD | `󰒮` (prev), `` (play), `` (pause), `󰒭` (next) |
+| Power | `󰐥` |
+| Menu | `` |
+
+### Workspace Icons (in `modules`)
+
+```json
+"niri/workspaces": {
+    "format-icons": {
+        "main-browser": "󰈹",
+        "main-term": "",
+        "main-code": "󰨞",
+        "chat": "󰻞",
+        "email": "󰇮",
+        "ext-term": "",
+        "ext-code": "󰨞",
+        "ext-browser": "󰈹",
+        "default": ""
+    }
+}
+```
+
+### Adding a Waybar Module
+
+1. Define module in `modules`:
+   ```json
+   "custom/mymodule": {
+       "format": "󰣇 {}",
+       "exec": "script-to-run",
+       "interval": 5,
+       "on-click": "action-on-click"
+   }
+   ```
+
+2. Add to module order in `config`:
+   ```json
+   "modules-right": ["custom/mymodule", "clock", ...]
+   ```
+
+3. Style in `style.css`:
+   ```css
+   #custom-mymodule {
+       color: @blue;
+       background-color: @background-alt1;
+       /* ... */
+   }
+   ```
 
 ## Applying Changes
 
