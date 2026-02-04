@@ -11,30 +11,28 @@ CNFR="$DIR/rofi/confirm.rasi"
 prompt="`hostname` (`echo $DESKTOP_SESSION`)"
 mesg="Uptime : `uptime -p | sed -e 's/up //g'`"
 
-# Options
+# Options (Order: Lock, Sleep, Logout, Reboot, Shutdown)
 layout=`cat ${RASI} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
-	option_1=" Lock"
-	option_2=" Logout"
-	option_3=" Suspend"
-	option_4=" Hibernate"
-	option_5=" Reboot"
-	option_6=" Shutdown"
+	option_1=" Lock"
+	option_2=" Sleep"
+	option_3=" Logout"
+	option_4=" Reboot"
+	option_5=" Shutdown"
 else
-	option_1=""
-	option_2=""
-	option_3=""
-	option_4=""
-	option_5=""
-	option_6=""
+	option_1=""
+	option_2=""
+	option_3=""
+	option_4=""
+	option_5=""
 fi
 cnflayout=`cat ${CNFR} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$cnflayout" == 'NO' ]]; then
-	yes=' Yes'
-	no=' No'
+	yes=' Yes'
+	no=' No'
 else
-	yes=''
-	no=''
+	yes=''
+	no=''
 fi
 
 # Rofi CMD
@@ -48,7 +46,7 @@ rofi_cmd() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6" | rofi_cmd
+	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5" | rofi_cmd
 }
 
 # Confirmation CMD
@@ -67,32 +65,33 @@ confirm_exit() {
 }
 
 # Confirm and execute
-confirm_run () {	
+confirm_run () {
 	selected="$(confirm_exit)"
 	if [[ "$selected" == "$yes" ]]; then
         ${1} && ${2} && ${3} && ${4}
     else
         exit
-    fi	
+    fi
 }
 
-no_confirm_run () {	
+no_confirm_run () {
   ${1} && ${2} && ${3} && ${4}
 }
 
 # Execute Command
 run_cmd() {
 	if [[ "$1" == '--opt1' ]]; then
-		hyprlock
+		# Lock screen using swaylock
+		swaylock
 	elif [[ "$1" == '--opt2' ]]; then
-		no_confirm_run 'hyprctl dispatch exit 0'
-	elif [[ "$1" == '--opt3' ]]; then
+		# Sleep/Suspend
 		no_confirm_run 'mpc -q pause' 'pulsemixer --mute' 'systemctl suspend'
+	elif [[ "$1" == '--opt3' ]]; then
+		# Logout from Niri
+		niri msg action quit
 	elif [[ "$1" == '--opt4' ]]; then
-		no_confirm_run 'systemctl hibernate'
-	elif [[ "$1" == '--opt5' ]]; then
 		no_confirm_run 'systemctl reboot'
-	elif [[ "$1" == '--opt6' ]]; then
+	elif [[ "$1" == '--opt5' ]]; then
 		no_confirm_run 'systemctl poweroff'
 	fi
 }
@@ -114,8 +113,5 @@ case ${chosen} in
         ;;
     $option_5)
 		run_cmd --opt5
-        ;;
-    $option_6)
-		run_cmd --opt6
         ;;
 esac

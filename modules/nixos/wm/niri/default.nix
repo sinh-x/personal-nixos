@@ -121,6 +121,7 @@ in
       pulsemixer
       pavucontrol
       socat
+      swaylock
 
       # File management
       thunar
