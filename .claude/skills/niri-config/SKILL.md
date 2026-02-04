@@ -13,6 +13,13 @@ This skill helps configure the niri Wayland compositor for this NixOS system.
 
 1. **Keybinding Duplicate Check (MANDATORY):** Before adding or modifying ANY keybinding, ALWAYS search `config.kdl` for the key combination to ensure it's not already in use. Use Grep to search for the key (e.g., `Mod+P`, `Ctrl+Alt+Delete`). If a duplicate is found, inform the user and ask how to proceed.
 
+2. **Rofi Menu ESC Handling (MANDATORY):** All rofi menu scripts MUST handle ESC (empty selection) properly. After capturing the rofi selection, always check if it's empty and exit gracefully:
+   ```bash
+   chosen="$(run_rofi)"
+   [[ -z "$chosen" ]] && exit 0
+   ```
+   This prevents the script from executing unintended actions when the user cancels with ESC.
+
 ## File Locations
 
 All niri configuration files are in `modules/home/wm/niri/`:
@@ -190,9 +197,39 @@ window-rule {
 ```
 
 ### Add a new rofi menu
-1. Create script in `niri_config/scripts/`
+1. Create script in `niri_config/scripts/` following this template:
+   ```bash
+   #!/usr/bin/env bash
+
+   DIR="$HOME/.config/niri"
+   RASI="$DIR/rofi/your_menu.rasi"
+
+   # Options
+   option_1="Option 1"
+   option_2="Option 2"
+
+   rofi_cmd() {
+     rofi -dmenu -p "Prompt" -mesg "Message" -theme "$RASI"
+   }
+
+   run_rofi() {
+     echo -e "$option_1\n$option_2" | rofi_cmd
+   }
+
+   # Get selection
+   chosen="$(run_rofi)"
+
+   # CRITICAL: Handle ESC (empty selection) - exit gracefully
+   [[ -z "$chosen" ]] && exit 0
+
+   # Process selection
+   case "$chosen" in
+     "$option_1") do_something ;;
+     "$option_2") do_something_else ;;
+   esac
+   ```
 2. Create theme in `niri_config/rofi/` (copy from existing .rasi)
-3. Add keybinding in `config.kdl`
+3. Add keybinding in `config.kdl` (after checking for duplicates)
 
 ### Modify waybar
 1. Edit modules in `niri_config/waybar/modules`
