@@ -14,25 +14,25 @@ mesg="Uptime : `uptime -p | sed -e 's/up //g'`"
 # Options (Order: Lock, Sleep, Logout, Reboot, Shutdown)
 layout=`cat ${RASI} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
-	option_1=" Lock"
-	option_2=" Sleep"
-	option_3=" Logout"
-	option_4=" Reboot"
-	option_5=" Shutdown"
+	option_1="󰌾 Lock"
+	option_2="󰒲 Sleep"
+	option_3="󰗽 Logout"
+	option_4="󰜉 Reboot"
+	option_5="󰐥 Shutdown"
 else
-	option_1=""
-	option_2=""
-	option_3=""
-	option_4=""
-	option_5=""
+	option_1="󰌾"
+	option_2="󰒲"
+	option_3="󰗽"
+	option_4="󰜉"
+	option_5="󰐥"
 fi
 cnflayout=`cat ${CNFR} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$cnflayout" == 'NO' ]]; then
-	yes=' Yes'
-	no=' No'
+	yes='󰄬 Yes'
+	no='󰜺 No'
 else
-	yes=''
-	no=''
+	yes='󰄬'
+	no='󰜺'
 fi
 
 # Rofi CMD
