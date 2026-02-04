@@ -1,13 +1,11 @@
-// Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
-//
-// Waybar modules configuration
+// Waybar modules configuration for Niri
 {
 	// waybar-backlight
     "backlight": {
 		"interval": 2,
         //"device": "amdgpu_bl0",
         "format": "{icon}",
-        "format-icons": ["", "", "", "", "", "", ""],
+        "format-icons": ["", "", "", "", "", "", ""],
 		// Commands to execute on events
         "on-scroll-up": "light -A 5%",
         "on-scroll-down": "light -U 5%",
@@ -36,10 +34,10 @@
             "critical": 15
         },
         "format": "{icon}",
-        "format-charging": "",
+        "format-charging": "",
         "format-plugged": "ﮣ",
-        "format-full": "",
-        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "format-full": "",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
         "format-time": "{H}h {M}min",
         "tooltip": true,
     },
@@ -67,17 +65,17 @@
     "bluetooth": {
         //"controller": "controller1",
         //"format-device-preference": "",
-        "format": "",
-        "format-on": "",
-        "format-off": "",
-        "format-disabled": "",
-        "format-connected": "",
-        "format-connected-battery": "",
+        "format": "",
+        "format-on": "",
+        "format-off": "",
+        "format-disabled": "",
+        "format-connected": "",
+        "format-connected-battery": "",
         "tooltip": true,
         "tooltip-format": "{controller_alias}\t{controller_address}",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        "on-click": "~/.config/hypr/scripts/rofi_bluetooth",
+        "on-click": "~/.config/niri/scripts/rofi_bluetooth",
         "on-click-right": "blueman-manager",
     },
     "bluetooth#2": {
@@ -93,14 +91,14 @@
         "tooltip-format": "{controller_alias}\t{controller_address}",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        "on-click": "~/.config/hypr/scripts/rofi_bluetooth",
+        "on-click": "~/.config/niri/scripts/rofi_bluetooth",
         "on-click-right": "blueman-manager",
     },
 
 	// waybar-clock
     "clock": {
         "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "",
+        "format": "",
     },
     "clock#2": {
 		"interval": 60,
@@ -112,7 +110,7 @@
 	// waybar-cpu
     "cpu": {
          "interval": 5,
-         "format": "",
+         "format": "",
     },
     "cpu#2": {
          "interval": 5,
@@ -121,31 +119,29 @@
 
 	// waybar-custom
     "custom/themes": {
-        "format": "",
+        "format": "",
         "tooltip": false,
-        "on-click": "$HOME/.config/hypr/theme/theme.sh --pywal",
-        "on-click-right": "$HOME/.config/hypr/theme/theme.sh --default",
+        "on-click": "$HOME/.config/niri/theme/theme.sh --pywal",
+        "on-click-right": "$HOME/.config/niri/theme/theme.sh --default",
     },
 
     "custom/menu": {
-         "format": "",
+         "format": "",
          "tooltip": false,
-         //"on-click": "$HOME/.config/hypr/scripts/wofi_menu",
-         "on-click": "$HOME/.config/hypr/scripts/rofi_launcher",
-         "on-click-right": "$HOME/.config/hypr/scripts/rofi_runner",
+         "on-click": "$HOME/.config/niri/scripts/rofi_launcher",
+         "on-click-right": "$HOME/.config/niri/scripts/rofi_runner",
     },
 
     "custom/power": {
-         "format": "襤",
+         "format": "襤",
          "tooltip": false,
-         //"on-click": "$HOME/.config/hypr/scripts/wlogout",
-         "on-click": "$HOME/.config/hypr/scripts/rofi_powermenu",
+         "on-click": "$HOME/.config/niri/scripts/rofi_powermenu",
     },
 
 	// waybar-disk
     "disk": {
          "interval": 30,
-         "format": "",
+         "format": "",
     },
     "disk#2": {
          "interval": 30,
@@ -155,7 +151,7 @@
 	// waybar-memory
     "memory": {
          "interval": 10,
-         "format": "",
+         "format": "",
     },
     "memory#2": {
          "interval": 10,
@@ -164,7 +160,7 @@
 
 	// waybar-spotify
     "custom/spotify": {
-        "exec": "$HOME/.config/hypr/waybar/spotify",
+        "exec": "$HOME/.config/niri/waybar/spotify",
         "interval": 1,
         "format": "{}",
         "tooltip": true,
@@ -181,7 +177,7 @@
     "mpd": {
         "interval": 2,
         "unknown-tag": "N/A",
-        "format": "{artist} - {title} | 祥 {elapsedTime:%M:%S}",
+        "format": "{artist} - {title} | 祥 {elapsedTime:%M:%S}",
         "format-disconnected": "Disconnected",
         "format-paused": "{artist} - {title}",
         "format-stopped": "Stopped",
@@ -194,31 +190,31 @@
         "smooth-scrolling-threshold": 1,
     },
     "mpd#2": {
-        "format": "玲",
-        "format-disconnected": "玲",
-        "format-paused": "玲",
-        "format-stopped": "玲",
+        "format": "玲",
+        "format-disconnected": "玲",
+        "format-paused": "玲",
+        "format-stopped": "玲",
 		// Commands to execute on events
         "on-click": "mpc prev",
     },
     "mpd#3": {
         "interval": 1,
         "format": "{stateIcon}",
-        "format-disconnected": "",
+        "format-disconnected": "",
         "format-paused": "{stateIcon}",
-        "format-stopped": "",
+        "format-stopped": "",
         "state-icons": {
-            "paused": "",
-            "playing": ""
+            "paused": "",
+            "playing": ""
         },
 		// Commands to execute on events
         "on-click": "mpc toggle",
     },
     "mpd#4": {
-        "format": "怜",
-        "format-disconnected": "怜",
-        "format-paused": "怜",
-        "format-stopped": "怜",
+        "format": "怜",
+        "format-disconnected": "怜",
+        "format-paused": "怜",
+        "format-stopped": "怜",
 		// Commands to execute on events
         "on-click": "mpc next",
     },
@@ -227,14 +223,13 @@
     "network": {
 		"interval": 5,
         //"interface": "wlan*", // (Optional) To force the use of this interface, set it for netspeed to work
-        "format-wifi": "直",
-        "format-ethernet": "",
-        "format-linked": "",
-        "format-disconnected": "睊",
-        "format-disabled": "睊",
-        "tooltip-format": " {ifname} via {gwaddr}",
-        //"on-click": "[[ ! `pidof nm-connection-editor` ]] && nm-connection-editor || pkill nm-connection-e",
-        "on-click": "~/.config/hypr/scripts/rofi_network",
+        "format-wifi": "直",
+        "format-ethernet": "",
+        "format-linked": "",
+        "format-disconnected": "睊",
+        "format-disabled": "睊",
+        "tooltip-format": " {ifname} via {gwaddr}",
+        "on-click": "~/.config/niri/scripts/rofi_network",
     },
     "network#2": {
 		"interval": 5,
@@ -244,27 +239,27 @@
         "format-linked": "{ifname} (No IP)",
         "format-disconnected": "Disconnected",
         "format-disabled": "Disabled",
-        "format-alt": " {bandwidthUpBits} |  {bandwidthDownBits}",
-        "tooltip-format": " {ifname} via {gwaddr}",
+        "format-alt": " {bandwidthUpBits} |  {bandwidthDownBits}",
+        "tooltip-format": " {ifname} via {gwaddr}",
     },
 
 	// waybar-pulseaudio
     "pulseaudio": {
         //"format": "{volume}% {icon} {format_source}",
         "format": "{icon}",
-        "format-muted": "",
-        "format-bluetooth": "",
-        "format-bluetooth-muted": "",
-        "format-source": "",
-        "format-source-muted": "",
+        "format-muted": "",
+        "format-bluetooth": "",
+        "format-bluetooth-muted": "",
+        "format-source": "",
+        "format-source-muted": "",
         "format-icons": {
-            "headphone": "",
+            "headphone": "",
             "hands-free": "ﳌ",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
         },
         "scroll-step": 5.0,
 		// Commands to execute on events
@@ -290,33 +285,29 @@
     "idle_inhibitor": {
          "format": "{icon}",
          "format-icons": {
-             "activated": "",
-             "deactivated": ""
+             "activated": "",
+             "deactivated": ""
          },
          "timeout": 30
     },
 
-	// waybar-wlr-workspaces
-    "hyprland/workspaces": {
+	// niri workspaces - shows workspaces per monitor
+    "niri/workspaces": {
          "format": "{icon}",
-         "sort-by-number": true,
-         "active-only": false,
+         "all-outputs": false,
          "format-icons": {
-             "1": "1", // "",
-             "2": "2", // "",
-             "3": "3", // "",
-             "4": "4", // "",
-             "5": "5", // "",
-             "6": "6", // "漣",
-             "7": "7", // "",
-             "8": "8", // "",
-             "9": "9", // "",
-             "10": "10", // "ﳴ",
-             "urgent": "",
-             "focused": "",
+             "main-browser": "󰈹",
+             "main-term": "",
+             "main-code": "󰨞",
+             "chat": "󰻞",
+             "email": "󰇮",
+             "ext-term": "",
+             "ext-code": "󰨞",
+             "ext-browser": "󰈹",
+             "urgent": "",
              "default": ""
          },
-         "on-click": "activate",
+         "on-click": "activate"
     },
 
 	// waybar-tray

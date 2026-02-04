@@ -119,21 +119,50 @@ This document breaks down the implementation of the Niri window manager module i
   - **Requirements**: REQ-SUCCESS-*
   - **Dependencies**: 1.1, 2.2, 3.1, 3.2, 3.3
 
-- [ ] **4.2** Build and Functional Testing
+- [x] **4.2** Build and Functional Testing
   - **Description**: Test build and verify functionality
   - **Implementation**:
     1. Run `sudo sys test` - verify no build errors
     2. Run `sudo sys rebuild` - apply changes
     3. Reboot and test:
-       - [ ] Niri starts via greetd
-       - [ ] SUPER+Return opens terminal
-       - [ ] SUPER+D opens rofi
-       - [ ] SUPER+C closes window
-       - [ ] SUPER+1-0 switches workspaces
-       - [ ] Waybar displays correctly
-       - [ ] Mako notifications work
+       - [x] Niri starts via greetd
+       - [x] SUPER+Return opens terminal
+       - [x] SUPER+D opens rofi
+       - [x] SUPER+C closes window
+       - [x] SUPER+1-8 switches named workspaces
+       - [x] Waybar displays correctly with niri/workspaces module
+       - [x] Mako notifications work
   - **Requirements**: REQ-SUCCESS-*
   - **Dependencies**: 4.1
+
+### Phase 5: Waybar & Window Rules Refinement
+
+- [x] **5.1** Configure Native Niri Waybar Support
+  - **Description**: Update waybar to use native niri/workspaces module
+  - **Deliverables**:
+    - Updated `waybar/config` with correct include path
+    - Updated `waybar/modules` with niri/workspaces module
+    - Updated `waybar/style.css` with workspace styling
+  - **Implementation**:
+    - Replace hyprland/workspaces with niri/workspaces
+    - Set `all-outputs: false` for per-monitor display
+    - Add format-icons for named workspaces (browser, term, code, chat, email)
+    - Fix all script paths from ~/.config/hypr/ to ~/.config/niri/
+    - Update CSS with blue color scheme for focused/active states
+  - **Requirements**: REQ-COMPAT-*
+  - **Dependencies**: 4.2
+
+- [x] **5.2** Add Application Window Rules
+  - **Description**: Configure window rules for specific applications
+  - **Deliverables**:
+    - Updated `config.kdl` with new window rules
+  - **Implementation**:
+    - Super Productivity -> open on "email" workspace
+    - Zoom main window -> fullscreen + focus on open
+    - Zoom dialogs -> floating
+    - Launch waybar via statusbar script for correct config
+  - **Requirements**: REQ-WINDOW-*
+  - **Dependencies**: 4.2
 
 ## Task Guidelines
 
@@ -168,12 +197,17 @@ Each task is considered complete when:
 
 ---
 
-**Task Status**: In Progress
+**Task Status**: Complete
 
-**Current Phase**: Phase 4 (Testing)
+**Current Phase**: Phase 5 (Refinement)
 
-**Overall Progress**: 7/8 tasks completed (87.5%)
+**Overall Progress**: 10/10 tasks completed (100%)
 
-**Last Updated**: 2026-02-03
+**Last Updated**: 2026-02-04
 
-**Notes**: Build testing passed. Module evaluates without errors. Functional testing pending (requires enabling Niri and rebooting).
+**Notes**:
+- All core functionality tested and working
+- Waybar updated with native niri/workspaces module support
+- Per-monitor workspace display with custom icons
+- Window rules added for Super Productivity and Zoom
+- All script paths corrected from hypr to niri

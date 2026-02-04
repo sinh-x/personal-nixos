@@ -43,13 +43,13 @@ output "MaxCom Technical Inc 0x1B1A 0x20230808" {
 
 // Named workspaces (always exist, even when empty)
 // Laptop monitor (main-)
+workspace "main-browser" {
+    open-on-output "LG Display 0x06AA Unknown"
+}
 workspace "main-term" {
     open-on-output "LG Display 0x06AA Unknown"
 }
 workspace "main-code" {
-    open-on-output "LG Display 0x06AA Unknown"
-}
-workspace "main-browser" {
     open-on-output "LG Display 0x06AA Unknown"
 }
 workspace "chat" {
@@ -60,13 +60,13 @@ workspace "email" {
 }
 
 // External monitor (ext-)
+workspace "ext-browser" {
+    open-on-output "MaxCom Technical Inc 0x1B1A 0x20230808"
+}
 workspace "ext-term" {
     open-on-output "MaxCom Technical Inc 0x1B1A 0x20230808"
 }
 workspace "ext-code" {
-    open-on-output "MaxCom Technical Inc 0x1B1A 0x20230808"
-}
-workspace "ext-browser" {
     open-on-output "MaxCom Technical Inc 0x1B1A 0x20230808"
 }
 
@@ -167,14 +167,19 @@ window-rule {
     open-floating true
 }
 
+// Zoom popups/dialogs -> floating
 window-rule {
-    match app-id="zoom"
+    match app-id=r#"(?i)zoom"#
+    match title=r#"(?i)(settings|participants|chat|share|invite)"#
     open-floating true
 }
 
+// Zoom main meeting window -> fullscreen and focused
 window-rule {
-    match app-id="Zoom"
-    open-floating true
+    match app-id=r#"(?i)zoom"#
+    match title=r#"(?i)(meeting|zoom)"#
+    open-fullscreen true
+    focus-on-open true
 }
 
 window-rule {
@@ -243,11 +248,6 @@ window-rule {
 
 window-rule {
     match app-id=r#"(?i)teams"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)zoom"#
     open-on-workspace "chat"
 }
 
@@ -435,6 +435,12 @@ window-rule {
     open-on-workspace "email"
 }
 
+// Super Productivity -> open on "email" workspace
+window-rule {
+    match app-id="superProductivity"
+    open-on-workspace "email"
+}
+
 // Keybindings
 binds {
     // Terminal
@@ -468,7 +474,7 @@ binds {
     Mod+Shift+W { spawn "zen-twilight"; }
 
     // Window management
-    Mod+Q { close-window; }
+    Mod+C { close-window; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
     Mod+Space { toggle-window-floating; }
@@ -525,26 +531,26 @@ binds {
     // Named workspaces - Main (Laptop) monitor
     Mod+1 hotkey-overlay-title="Main: Browser" { focus-workspace "main-browser"; }
     Mod+2 hotkey-overlay-title="Main: Terminal" { focus-workspace "main-term"; }
-    Mod+3 hotkey-overlay-title="Chat" { focus-workspace "chat"; }
-    Mod+4 hotkey-overlay-title="Email" { focus-workspace "email"; }
-    Mod+5 hotkey-overlay-title="Main: Code" { focus-workspace "main-code"; }
+    Mod+3 hotkey-overlay-title="Main: Code" { focus-workspace "main-code"; }
+    Mod+4 hotkey-overlay-title="Chat" { focus-workspace "chat"; }
+    Mod+5 hotkey-overlay-title="Email" { focus-workspace "email"; }
 
     // Named workspaces - External monitor
-    Mod+6 hotkey-overlay-title="Ext: Terminal" { focus-workspace "ext-term"; }
-    Mod+7 hotkey-overlay-title="Ext: Code" { focus-workspace "ext-code"; }
-    Mod+8 hotkey-overlay-title="Ext: Browser" { focus-workspace "ext-browser"; }
+    Mod+6 hotkey-overlay-title="Ext: Browser" { focus-workspace "ext-browser"; }
+    Mod+7 hotkey-overlay-title="Ext: Terminal" { focus-workspace "ext-term"; }
+    Mod+8 hotkey-overlay-title="Ext: Code" { focus-workspace "ext-code"; }
 
     // Move window to workspace - Main (Laptop) monitor
     Mod+Shift+1 { move-column-to-workspace "main-browser"; }
     Mod+Shift+2 { move-column-to-workspace "main-term"; }
-    Mod+Shift+3 { move-column-to-workspace "chat"; }
-    Mod+Shift+4 { move-column-to-workspace "email"; }
-    Mod+Shift+5 { move-column-to-workspace "main-code"; }
+    Mod+Shift+3 { move-column-to-workspace "main-code"; }
+    Mod+Shift+4 { move-column-to-workspace "chat"; }
+    Mod+Shift+5 { move-column-to-workspace "email"; }
 
     // Move window to workspace - External monitor
-    Mod+Shift+6 { move-column-to-workspace "ext-term"; }
-    Mod+Shift+7 { move-column-to-workspace "ext-code"; }
-    Mod+Shift+8 { move-column-to-workspace "ext-browser"; }
+    Mod+Shift+6 { move-column-to-workspace "ext-browser"; }
+    Mod+Shift+7 { move-column-to-workspace "ext-term"; }
+    Mod+Shift+8 { move-column-to-workspace "ext-code"; }
 
     // Workspace navigation
     Ctrl+Alt+Up { focus-workspace-up; }
@@ -615,7 +621,7 @@ binds {
 }
 
 // Startup applications
-spawn-at-startup "waybar"
+spawn-at-startup "bash" "-c" "~/.config/niri/scripts/statusbar"
 spawn-at-startup "mako"
 spawn-at-startup "swaybg" "-i" "~/.config/niri/wallpapers/wallpaper.png" "-m" "fill"
 spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"

@@ -258,7 +258,7 @@ window#waybar.hidden {
 	color: @blue;
 }
 
-/** ********** WLR Desktop ********** **/
+/** ********** Niri Workspaces ********** **/
 #workspaces {
 	background-color: @background;
 	border-radius: 10px;
@@ -266,17 +266,22 @@ window#waybar.hidden {
 	margin-bottom: 2px ;
 	padding: 0px;
 }
-#workspaces button{
+#workspaces button {
 	color: @foreground;
+	padding: 0px 6px;
 }
-#workspaces button.active{
-	color: @red;
+#workspaces button.focused {
+	color: #5cbbf6;
+	font-weight: bold;
 }
-#workspaces button.urgent{
-	color: @green;
+#workspaces button.active {
+	color: #89b4fa;
 }
-#workspaces button.hidden{
-	color: @yellow;
+#workspaces button.urgent {
+	color: #f38ba8;
+}
+#workspaces button.current_output {
+	background-color: @background-alt1;
 }
 
 /** ********** Common style ********** **/
