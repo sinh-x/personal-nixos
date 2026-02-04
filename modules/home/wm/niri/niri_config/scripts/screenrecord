@@ -21,6 +21,11 @@ fi
 # Notification commands
 notify_cmd="notify-send -h string:x-canonical-private-synchronous:sys-notify-record -u low -i ${iDIR}/picture.png"
 
+# Get focused output for multi-monitor setups
+get_focused_output() {
+    niri msg focused-output 2>/dev/null | head -1 | grep -oP '\(\K[^)]+' || echo ""
+}
+
 # Check if recording is in progress
 is_recording() {
     [[ -f "$PIDFILE" ]] && kill -0 "$(cat "$PIDFILE")" 2>/dev/null
@@ -29,13 +34,21 @@ is_recording() {
 # Stop recording
 stop_recording() {
     if is_recording; then
-        kill -INT "$(cat "$PIDFILE")" 2>/dev/null
-        sleep 0.5
+        local pid=$(cat "$PIDFILE")
+
+        # Send SIGINT and wait for process to finish properly
+        kill -INT "$pid" 2>/dev/null
+
+        # Wait for wf-recorder to finalize the file (up to 5 seconds)
+        local count=0
+        while kill -0 "$pid" 2>/dev/null && [[ $count -lt 50 ]]; do
+            sleep 0.1
+            ((count++))
+        done
 
         # Get the saved file path
         if [[ -f "$RECORDFILE" ]]; then
             local saved_file=$(cat "$RECORDFILE")
-            local filename=$(basename "$saved_file")
             rm -f "$RECORDFILE"
             $notify_cmd "Recording saved" "$saved_file"
         else
@@ -58,20 +71,27 @@ start_recording() {
     # Save the filename for later
     echo "$file" > "$RECORDFILE"
 
-    local cmd="wf-recorder -f \"$file\""
+    # Build command arguments array
+    local -a args=(-y -f "$file")
 
-    if [[ -n "$geometry" ]]; then
-        cmd="$cmd -g \"$geometry\""
+    # If no geometry specified, record focused output
+    if [[ -z "$geometry" ]]; then
+        local output=$(get_focused_output)
+        if [[ -n "$output" ]]; then
+            args+=(-o "$output")
+        fi
+    else
+        args+=(-g "$geometry")
     fi
 
     if [[ "$with_audio" == "true" ]]; then
-        cmd="$cmd -a"
+        args+=(-a)
     fi
 
     $notify_cmd "Recording started" "Press Mod+Shift+S to stop"
 
-    # Start recording in background
-    eval "$cmd" &
+    # Start recording in background and save actual PID
+    wf-recorder "${args[@]}" &
     echo $! > "$PIDFILE"
 }
 
