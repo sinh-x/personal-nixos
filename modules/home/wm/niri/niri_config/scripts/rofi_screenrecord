@@ -26,29 +26,21 @@ layout=$(cat "$RASI" | grep 'USE_ICON' | cut -d'=' -f2)
 if [[ "$layout" == 'NO' ]]; then
     if is_recording; then
         option_1=" Stop Recording"
-        option_2=""
-        option_3=""
-        option_4=""
-        option_5=""
     else
         option_1=" Record Screen"
-        option_2=" Record Area"
+        option_2="󰒅 Record Area"
         option_3=" Screen + Audio"
-        option_4=" Area + Audio"
+        option_4="󰒅 Area + Audio"
         option_5=" Stop Recording"
     fi
 else
     if is_recording; then
         option_1=""
-        option_2=""
-        option_3=""
-        option_4=""
-        option_5=""
     else
         option_1=""
-        option_2=""
+        option_2="󰒅"
         option_3=""
-        option_4=""
+        option_4="󰕧"
         option_5=""
     fi
 fi

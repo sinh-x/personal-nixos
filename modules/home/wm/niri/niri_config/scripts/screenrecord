@@ -7,6 +7,7 @@ DIR="$HOME/.config/niri"
 iDIR="$DIR/mako/icons"
 RECORDINGS_DIR="$HOME/Videos/Recordings"
 PIDFILE="/tmp/screenrecord.pid"
+RECORDFILE="/tmp/screenrecord.file"
 
 # Get Colors for slurp
 background="$(cat "$DIR"/rofi/shared/colors.rasi | grep 'background:' | cut -d':' -f2 | tr -d ' '\;)"
@@ -29,8 +30,19 @@ is_recording() {
 stop_recording() {
     if is_recording; then
         kill -INT "$(cat "$PIDFILE")" 2>/dev/null
+        sleep 0.5
+
+        # Get the saved file path
+        if [[ -f "$RECORDFILE" ]]; then
+            local saved_file=$(cat "$RECORDFILE")
+            local filename=$(basename "$saved_file")
+            rm -f "$RECORDFILE"
+            $notify_cmd "Recording saved" "$saved_file"
+        else
+            $notify_cmd "Recording stopped" "Saved to $RECORDINGS_DIR"
+        fi
+
         rm -f "$PIDFILE"
-        $notify_cmd "Recording stopped" "Video saved to $RECORDINGS_DIR"
     else
         $notify_cmd "No recording in progress"
     fi
@@ -43,6 +55,9 @@ start_recording() {
     local time=$(date +%Y-%m-%d-%H-%M-%S)
     local file="$RECORDINGS_DIR/Recording_${time}.mp4"
 
+    # Save the filename for later
+    echo "$file" > "$RECORDFILE"
+
     local cmd="wf-recorder -f \"$file\""
 
     if [[ -n "$geometry" ]]; then
@@ -53,7 +68,7 @@ start_recording() {
         cmd="$cmd -a"
     fi
 
-    $notify_cmd "Recording started" "Press Mod+Shift+R to stop"
+    $notify_cmd "Recording started" "Press Mod+Shift+S to stop"
 
     # Start recording in background
     eval "$cmd" &
@@ -63,7 +78,7 @@ start_recording() {
 # Record full screen
 record_screen() {
     if is_recording; then
-        $notify_cmd "Recording already in progress" "Press Mod+Shift+R to stop"
+        $notify_cmd "Recording already in progress" "Press Mod+Shift+S to stop"
         return
     fi
     start_recording "" "false"
@@ -72,7 +87,7 @@ record_screen() {
 # Record full screen with audio
 record_screen_audio() {
     if is_recording; then
-        $notify_cmd "Recording already in progress" "Press Mod+Shift+R to stop"
+        $notify_cmd "Recording already in progress" "Press Mod+Shift+S to stop"
         return
     fi
     start_recording "" "true"
@@ -81,7 +96,7 @@ record_screen_audio() {
 # Record selected area
 record_area() {
     if is_recording; then
-        $notify_cmd "Recording already in progress" "Press Mod+Shift+R to stop"
+        $notify_cmd "Recording already in progress" "Press Mod+Shift+S to stop"
         return
     fi
 
@@ -100,7 +115,7 @@ record_area() {
 # Record selected area with audio
 record_area_audio() {
     if is_recording; then
-        $notify_cmd "Recording already in progress" "Press Mod+Shift+R to stop"
+        $notify_cmd "Recording already in progress" "Press Mod+Shift+S to stop"
         return
     fi
 
@@ -148,6 +163,9 @@ case "$1" in
     --status)
         if is_recording; then
             echo "Recording in progress (PID: $(cat "$PIDFILE"))"
+            if [[ -f "$RECORDFILE" ]]; then
+                echo "File: $(cat "$RECORDFILE")"
+            fi
         else
             echo "Not recording"
         fi
