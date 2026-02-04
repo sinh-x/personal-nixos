@@ -608,6 +608,10 @@ binds {
     // Clipboard History - Browse and paste from clipboard history
     Ctrl+Grave hotkey-overlay-title="Clipboard History" { spawn "bash" "-c" "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
 
+    // Notifications - Dismiss mako notifications
+    Mod+K hotkey-overlay-title="Dismiss Notification" { spawn "makoctl" "dismiss"; }
+    Mod+Shift+K hotkey-overlay-title="Dismiss All Notifications" { spawn "makoctl" "dismiss" "-a"; }
+
     // Session Management - Quit niri compositor
     Ctrl+Alt+Delete { quit; }
 
