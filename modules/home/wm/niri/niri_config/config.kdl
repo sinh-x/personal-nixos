@@ -296,35 +296,11 @@ window-rule {
     open-on-workspace "chat"
 }
 
-// Terminal apps -> open on "main-term" workspace
+// Terminal apps -> open on "main-term" workspace maximized
 window-rule {
-    match app-id=r#"(?i)ghostty"#
+    match app-id=r#"(?i)(ghostty|alacritty|kitty|foot|wezterm|konsole)"#
     open-on-workspace "main-term"
-}
-
-window-rule {
-    match app-id=r#"(?i)alacritty"#
-    open-on-workspace "main-term"
-}
-
-window-rule {
-    match app-id=r#"(?i)kitty"#
-    open-on-workspace "main-term"
-}
-
-window-rule {
-    match app-id=r#"(?i)foot"#
-    open-on-workspace "main-term"
-}
-
-window-rule {
-    match app-id=r#"(?i)wezterm"#
-    open-on-workspace "main-term"
-}
-
-window-rule {
-    match app-id=r#"(?i)konsole"#
-    open-on-workspace "main-term"
+    open-maximized true
 }
 
 // Browser apps -> open on "main-browser" workspace
