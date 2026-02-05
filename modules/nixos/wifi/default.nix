@@ -243,6 +243,9 @@ let
     "Ca Re CaFe 5G" = {
       pskRaw = "ext:sg_carecafe";
     };
+    "The Yen Coffee and Tea" = {
+      pskRaw = "ext:tuyhoa_yencoffeetea";
+    };
 
     # Open networks (no password)
     "TOCEPO" = { };

@@ -24,6 +24,7 @@ in
       awscli2
       bc
       btop
+      dnsutils # dig, nslookup, host for DNS queries
       dua
       fd
       ffmpegthumbnailer
