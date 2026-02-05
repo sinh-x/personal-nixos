@@ -42,32 +42,33 @@ output "MaxCom Technical Inc 0x1B1A 0x20230808" {
 }
 
 // Named workspaces (always exist, even when empty)
-// Laptop monitor (main-)
+// Using connector names for portability - workspaces follow the port, not the specific monitor
+// Laptop monitor (main-) - eDP-1 is the built-in display
 workspace "main-browser" {
-    open-on-output "LG Display 0x06AA Unknown"
+    open-on-output "eDP-1"
 }
 workspace "main-term" {
-    open-on-output "LG Display 0x06AA Unknown"
+    open-on-output "eDP-1"
 }
 workspace "main-code" {
-    open-on-output "LG Display 0x06AA Unknown"
+    open-on-output "eDP-1"
 }
 workspace "chat" {
-    open-on-output "LG Display 0x06AA Unknown"
+    open-on-output "eDP-1"
 }
 workspace "email" {
-    open-on-output "LG Display 0x06AA Unknown"
+    open-on-output "eDP-1"
 }
 
-// External monitor (ext-)
+// External monitor (ext-) - HDMI-A-2 for external monitor
 workspace "ext-browser" {
-    open-on-output "MaxCom Technical Inc 0x1B1A 0x20230808"
+    open-on-output "HDMI-A-2"
 }
 workspace "ext-term" {
-    open-on-output "MaxCom Technical Inc 0x1B1A 0x20230808"
+    open-on-output "HDMI-A-2"
 }
 workspace "ext-code" {
-    open-on-output "MaxCom Technical Inc 0x1B1A 0x20230808"
+    open-on-output "HDMI-A-2"
 }
 
 // Layout configuration
