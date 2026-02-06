@@ -44,10 +44,10 @@ output "MaxCom Technical Inc 0x1B1A 0x20230808" {
 // Named workspaces (always exist, even when empty)
 // Using connector names for portability - workspaces follow the port, not the specific monitor
 // Laptop monitor (main-) - eDP-1 is the built-in display
-workspace "main-browser" {
+workspace "main-term" {
     open-on-output "eDP-1"
 }
-workspace "main-term" {
+workspace "main-browser" {
     open-on-output "eDP-1"
 }
 workspace "main-code" {
@@ -61,10 +61,10 @@ workspace "email" {
 }
 
 // External monitor (ext-) - HDMI-A-2 for external monitor
-workspace "ext-browser" {
+workspace "ext-term" {
     open-on-output "HDMI-A-2"
 }
-workspace "ext-term" {
+workspace "ext-browser" {
     open-on-output "HDMI-A-2"
 }
 workspace "ext-code" {
@@ -297,44 +297,6 @@ window-rule {
     open-on-workspace "chat"
 }
 
-// Terminal apps -> open on "main-term" workspace maximized
-window-rule {
-    match app-id=r#"(?i)(ghostty|alacritty|kitty|foot|wezterm|konsole)"#
-    open-on-workspace "main-term"
-    open-maximized true
-}
-
-// Browser apps -> open on "main-browser" workspace
-window-rule {
-    match app-id=r#"(?i)zen"#
-    open-on-workspace "main-browser"
-}
-
-window-rule {
-    match app-id=r#"(?i)firefox"#
-    open-on-workspace "main-browser"
-}
-
-window-rule {
-    match app-id=r#"(?i)chromium"#
-    open-on-workspace "main-browser"
-}
-
-window-rule {
-    match app-id=r#"(?i)google-chrome"#
-    open-on-workspace "main-browser"
-}
-
-window-rule {
-    match app-id=r#"(?i)brave"#
-    open-on-workspace "main-browser"
-}
-
-window-rule {
-    match app-id=r#"(?i)vivaldi"#
-    open-on-workspace "main-browser"
-}
-
 // Code editors -> open on "main-code" workspace
 window-rule {
     match app-id=r#"(?i)code"#
@@ -507,27 +469,27 @@ binds {
     Mod+Shift+Tab { focus-window-up-or-column-left; }
 
     // Named workspaces - Main (Laptop) monitor
-    Mod+1 hotkey-overlay-title="Main: Browser" { focus-workspace "main-browser"; }
-    Mod+2 hotkey-overlay-title="Main: Terminal" { focus-workspace "main-term"; }
+    Mod+1 hotkey-overlay-title="Main: Terminal" { focus-workspace "main-term"; }
+    Mod+2 hotkey-overlay-title="Main: Browser" { focus-workspace "main-browser"; }
     Mod+3 hotkey-overlay-title="Main: Code" { focus-workspace "main-code"; }
     Mod+4 hotkey-overlay-title="Chat" { focus-workspace "chat"; }
     Mod+5 hotkey-overlay-title="Email" { focus-workspace "email"; }
 
     // Named workspaces - External monitor
-    Mod+6 hotkey-overlay-title="Ext: Browser" { focus-workspace "ext-browser"; }
-    Mod+7 hotkey-overlay-title="Ext: Terminal" { focus-workspace "ext-term"; }
+    Mod+6 hotkey-overlay-title="Ext: Terminal" { focus-workspace "ext-term"; }
+    Mod+7 hotkey-overlay-title="Ext: Browser" { focus-workspace "ext-browser"; }
     Mod+8 hotkey-overlay-title="Ext: Code" { focus-workspace "ext-code"; }
 
     // Move window to workspace - Main (Laptop) monitor
-    Mod+Shift+1 { move-column-to-workspace "main-browser"; }
-    Mod+Shift+2 { move-column-to-workspace "main-term"; }
+    Mod+Shift+1 { move-column-to-workspace "main-term"; }
+    Mod+Shift+2 { move-column-to-workspace "main-browser"; }
     Mod+Shift+3 { move-column-to-workspace "main-code"; }
     Mod+Shift+4 { move-column-to-workspace "chat"; }
     Mod+Shift+5 { move-column-to-workspace "email"; }
 
     // Move window to workspace - External monitor
-    Mod+Shift+6 { move-column-to-workspace "ext-browser"; }
-    Mod+Shift+7 { move-column-to-workspace "ext-term"; }
+    Mod+Shift+6 { move-column-to-workspace "ext-term"; }
+    Mod+Shift+7 { move-column-to-workspace "ext-browser"; }
     Mod+Shift+8 { move-column-to-workspace "ext-code"; }
 
     // Workspace navigation
