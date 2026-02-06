@@ -577,6 +577,14 @@ spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
 spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 spawn-at-startup "fcitx5"
 
+// User applications
+spawn-at-startup "superproductivity"
+spawn-at-startup "signal-desktop"
+spawn-at-startup "telegram-desktop"
+spawn-at-startup "viber"
+spawn-at-startup "bash" "-c" "~/.config/niri/scripts/smart_spawn browser"
+spawn-at-startup "ghostty"
+
 // Animations
 animations {
     // Uncomment to disable all animations
