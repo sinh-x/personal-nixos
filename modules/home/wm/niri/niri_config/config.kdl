@@ -383,8 +383,8 @@ window-rule {
 // Keybindings
 binds {
     // Terminal
-    Mod+Return { spawn "ghostty"; }
-    Mod+T { spawn "ghostty"; }
+    Mod+Return { spawn "bash" "-c" "~/.config/niri/scripts/smart_spawn terminal"; }
+    Mod+T { spawn "bash" "-c" "~/.config/niri/scripts/smart_spawn terminal"; }
 
     // Overview (like GNOME Activities)
     Mod+O { toggle-overview; }
@@ -410,7 +410,7 @@ binds {
 
     // Apps
     Mod+E { spawn "thunar"; }
-    Mod+Shift+W { spawn "zen-twilight"; }
+    Mod+Shift+W { spawn "bash" "-c" "~/.config/niri/scripts/smart_spawn browser"; }
     Mod+Ctrl+W hotkey-overlay-title="Wallpaper Picker" { spawn "bash" "-c" "~/.config/niri/scripts/wallpaper --select"; }
 
     // Window management
