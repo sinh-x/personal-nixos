@@ -194,8 +194,14 @@
   networking = {
     hostName = "Drgnfly";
     networkmanager.enable = false;
-    firewall.allowedTCPPorts = [ 22 ];
+    firewall = {
+      allowedTCPPorts = [ 22 ];
+      trustedInterfaces = [ "tailscale0" ];
+      allowedUDPPorts = [ config.services.tailscale.port ];
+    };
   };
+
+  services.tailscale.enable = true;
 
   programs.steam.enable = true;
 
