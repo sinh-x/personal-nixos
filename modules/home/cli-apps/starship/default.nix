@@ -7,6 +7,7 @@
 with lib;
 let
   cfg = config.${namespace}.cli-apps.starship;
+  shellCfg = config.${namespace}.cli-apps.shell;
 in
 {
   options.${namespace}.cli-apps.starship = {
@@ -16,7 +17,8 @@ in
   config = mkIf cfg.enable {
     programs.starship = {
       enable = true;
-      enableFishIntegration = true;
+      enableFishIntegration = shellCfg.fish.enable or false;
+      enableZshIntegration = shellCfg.zsh.enable or false;
       settings = {
         add_newline = true;
 

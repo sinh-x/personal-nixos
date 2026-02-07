@@ -56,6 +56,7 @@
         warp.enable = false;
       };
       shell.fish.enable = true;
+      shell.zsh.enable = true;
       starship.enable = true;
       multiplexers.zellij.enable = true;
       editor.neovim.enable = true;
