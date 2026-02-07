@@ -72,6 +72,7 @@
       docker.enable = true;
       claudecode.enable = true;
       super-productivity.enable = true;
+      devbox.enable = true;
     };
 
     social-apps = {
