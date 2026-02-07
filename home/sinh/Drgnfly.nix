@@ -73,6 +73,7 @@
       claudecode.enable = true;
       super-productivity.enable = true;
       devbox.enable = true;
+      flutter.enable = true;
     };
 
     social-apps = {
