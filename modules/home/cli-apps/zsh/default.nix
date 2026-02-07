@@ -21,24 +21,10 @@ in
         enableZshIntegration = true;
       };
 
-      atuin = {
+      direnv = {
         enable = true;
         enableZshIntegration = true;
-        flags = [ "--disable-up-arrow" ]; # Use Ctrl+R instead, keep up-arrow for normal history
-        settings = {
-          auto_sync = true;
-          sync_frequency = "5m";
-          search_mode = "fuzzy";
-          filter_mode = "global";
-          style = "compact";
-          inline_height = 20;
-          show_preview = true;
-          history_filter = [
-            "^ls"
-            "^cd"
-            "^exit"
-          ];
-        };
+        nix-direnv.enable = true; # Better nix integration
       };
 
       zsh = {
@@ -63,7 +49,7 @@ in
           zmodload zsh/complist
         '';
 
-        initExtra = ''
+        initContent = ''
           # ----- Completion settings -----
           # Case-insensitive and partial matching
           zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
@@ -175,7 +161,7 @@ in
               owner = "jimhester";
               repo = "per-directory-history";
               rev = "master";
-              sha256 = "sha256-VHRgrVCqzILqOes8VXGjSgLek38BFs9eijmp0JHtD5Q=";
+              sha256 = "sha256-EV9QPBndwAWzdOcghDXrIIgP0oagVMOTyXzoyt8tXRo=";
             };
           }
         ];
