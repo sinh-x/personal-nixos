@@ -67,6 +67,12 @@ in
         # Misc
         confirm-close-surface = false;
         shell-integration = "none";
+
+        # Keybindings
+        keybind = [
+          "ctrl+shift+x=close_surface"
+          "ctrl+shift+w=unbind"
+        ];
       };
     };
 
