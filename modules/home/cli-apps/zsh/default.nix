@@ -45,11 +45,19 @@ in
         defaultKeymap = "viins";
 
         completionInit = ''
+          # Add custom completions to fpath
+          fpath=(~/.config/zsh/completions $fpath)
           autoload -U compinit && compinit
           zmodload zsh/complist
         '';
 
         initContent = ''
+          # ----- Atuin + zsh-vi-mode fix -----
+          # zsh-vi-mode overrides Ctrl+R, so re-bind Atuin after it loads
+          zvm_after_init() {
+            eval "$(atuin init zsh --disable-up-arrow)"
+          }
+
           # ----- Completion settings -----
           # Case-insensitive and partial matching
           zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
