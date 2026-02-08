@@ -580,7 +580,7 @@ spawn-at-startup "fcitx5"
 // User applications
 spawn-at-startup "superproductivity"
 spawn-at-startup "signal-desktop"
-spawn-at-startup "telegram-desktop"
+spawn-at-startup "Telegram"
 spawn-at-startup "viber"
 spawn-at-startup "bash" "-c" "~/.config/niri/scripts/smart_spawn browser"
 spawn-at-startup "ghostty"
