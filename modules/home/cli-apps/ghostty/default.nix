@@ -69,10 +69,7 @@ in
         shell-integration = "none";
 
         # Keybindings
-        keybind = [
-          "ctrl+shift+x=close_surface"
-          "ctrl+shift+w=unbind"
-        ];
+        keybind = "ctrl+shift+x=close_surface";
       };
     };
 
