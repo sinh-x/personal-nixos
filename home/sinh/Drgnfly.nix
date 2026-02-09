@@ -81,7 +81,7 @@
       discord = true;
       element = true;
       messenger = false;
-      slack = true;
+      slack = false;
       viber = true;
       zoom = true;
       telegram = true;

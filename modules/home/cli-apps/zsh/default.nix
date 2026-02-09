@@ -62,13 +62,14 @@ in
           # Case-insensitive and partial matching
           zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
-          # Menu-driven completion
-          zstyle ':completion:*' menu select
+          # Menu-driven completion (disabled - fzf-tab handles this)
+          # zstyle ':completion:*' menu select
+          zstyle ':completion:*' menu no
           zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
 
           # Group completions by category
           zstyle ':completion:*' group-name '''
-          zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
+          zstyle ':completion:*:descriptions' format '[%d]'
           zstyle ':completion:*:warnings' format '%F{red}-- no matches --%f'
 
           # Cache completions for speed
@@ -81,6 +82,14 @@ in
           # Process completion
           zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
           zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+          # ----- fzf-tab settings -----
+          # Switch group with < and >
+          zstyle ':fzf-tab:*' switch-group '<' '>'
+          # Show description in a separate column
+          zstyle ':fzf-tab:*' show-group full
+          # Continuous completion
+          zstyle ':fzf-tab:*' continuous-trigger '/'
 
           # ----- Bat (better cat) -----
           export BAT_THEME="tokyonight_night"
