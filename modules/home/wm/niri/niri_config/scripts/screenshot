@@ -18,12 +18,14 @@ file="Screenshot_${time}_${RANDOM}.png"
 # notify and view screenshot
 notify_cmd_shot="notify-send -h string:x-canonical-private-synchronous:sys-notify-shot -u low -i ${iDIR}/picture.png"
 notify_view() {
-  "$notify_cmd_shot" "Copied to clipboard."
-  # paplay sound disabled on NixOS
-  # paplay /run/current-system/sw/share/sounds/freedesktop/stereo/screen-capture.oga &>/dev/null &
-  viewnior "$dir/$file"
   if [[ -e "$dir/$file" ]]; then
-    "$notify_cmd_shot" "Screenshot Saved."
+    # Copy file path to clipboard (clipboard manager saves this)
+    echo -n "$dir/$file" | wl-copy
+    # Small delay to ensure clipboard manager registers both entries
+    sleep 0.1
+    # Copy image to clipboard (this becomes the active clipboard item)
+    wl-copy < "$dir/$file"
+    "$notify_cmd_shot" "Screenshot Saved" "Clipboard: image + path\n$dir/$file"
   else
     "$notify_cmd_shot" "Screenshot Deleted."
   fi
@@ -39,55 +41,51 @@ countdown() {
 
 # take shots
 shotnow() {
-  cd "$dir" && sleep 0.5 && grim - | tee "$file" | wl-copy
+  cd "$dir" && sleep 0.5 && grim "$file"
   notify_view
 }
 
 shot5() {
   countdown '5'
-  sleep 1 && cd "$dir" && grim - | tee "$file" | wl-copy
+  sleep 1 && cd "$dir" && grim "$file"
   notify_view
 }
 
 shot10() {
   countdown '10'
-  sleep 1 && cd "$dir" && grim - | tee "$file" | wl-copy
+  sleep 1 && cd "$dir" && grim "$file"
   notify_view
 }
 
 shotwin() {
-  w_pos=$(hyprctl activewindow | grep 'at:' | cut -d':' -f2 | tr -d ' ' | tail -n1)
-  w_size=$(hyprctl activewindow | grep 'size:' | cut -d':' -f2 | tr -d ' ' | tail -n1 | sed s/,/x/g)
-  cd "$dir" && grim -g "$w_pos $w_size" - | tee "$file" | wl-copy
+  # Get focused window geometry from niri
+  local geometry
+  geometry=$(niri msg --json focused-window | jq -r '"\(.x),\(.y) \(.width)x\(.height)"')
+
+  if [[ -z "$geometry" || "$geometry" == "null,null nullxnull" ]]; then
+    notify-send -u low "Screenshot" "No focused window"
+    return 1
+  fi
+
+  cd "$dir" && grim -g "$geometry" "$file"
   notify_view
 }
 
 shotarea() {
-  # Ensure your variables are correctly set before this function is called
-  # dir="..."
-  # file="..."
-  # background="..." (e.g., "#282a36")
-  # accent="..." (e.g., "#ff79c6")
-
-  # First, capture the geometry using slurp
+  # Capture the geometry using slurp
   local geometry
   geometry=$(slurp -b "${background:1}CC" -c "${accent:1}ff" -s "${accent:1}0D" -w 2)
 
-  # Check if slurp returned any geometry (e.g., user didn't cancel with Esc)
-  if [ "$geometry" = "" ]; then
-    echo "Screenshot cancelled or failed to select region."
+  # Check if slurp returned any geometry (user didn't cancel with Esc)
+  if [[ -z "$geometry" ]]; then
+    notify-send -u low "Screenshot" "Cancelled"
     return 1
   fi
 
-  # This give the Wayland compositor a moment to clear the slurp overly.
-  sleep 1
-
-  # Now perform the screenshot, tee to file, and copy to clipboard
-  cd "$dir" && grim -g "$geometry" - | tee "$file" | wl-copy
-
-  # If the sleep was intended to be after the screenshot and copy operation
-  sleep 0.3
-  notify_view # Assuming this is your notification function
+  # Give compositor a moment to clear slurp overlay
+  sleep 0.2
+  cd "$dir" && grim -g "$geometry" "$file"
+  notify_view
 }
 
 if [[ ! -d "$dir" ]]; then

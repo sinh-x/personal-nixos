@@ -28,6 +28,9 @@ in
       packages = with pkgs; [
         jq
         socat
+        inotify-tools # For screenshot watcher
+        wl-clipboard # For clipboard operations
+        libnotify # For notifications
       ];
 
       file = {
@@ -56,6 +59,46 @@ in
           source = ./niri_config/waybar;
           recursive = true;
         };
+      };
+    };
+
+    # Screenshot watcher service - copies both image + path to clipboard
+    systemd.user.services.screenshot-watcher = {
+      Unit = {
+        Description = "Watch for new screenshots and copy to clipboard";
+        After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+      Service = {
+        Type = "simple";
+        ExecStart = "${pkgs.writeShellScript "screenshot-watcher" ''
+          WATCH_DIR="$HOME/Pictures/Screenshots"
+          ICON_DIR="$HOME/.config/mako/icons"
+
+          mkdir -p "$WATCH_DIR"
+
+          ${pkgs.inotify-tools}/bin/inotifywait -m -e close_write --format '%w%f' "$WATCH_DIR" | while read -r filepath; do
+            [[ "$filepath" != *.png ]] && continue
+            sleep 0.2
+            [[ ! -s "$filepath" ]] && continue
+
+            # Copy path to clipboard (clipboard manager saves this)
+            echo -n "$filepath" | ${pkgs.wl-clipboard}/bin/wl-copy
+            sleep 0.1
+            # Copy image to clipboard (becomes active item)
+            ${pkgs.wl-clipboard}/bin/wl-copy < "$filepath"
+
+            ${pkgs.libnotify}/bin/notify-send -h string:x-canonical-private-synchronous:screenshot \
+              -u low -i "''${ICON_DIR}/picture.png" \
+              "Screenshot Saved" \
+              "Clipboard: image + path"
+          done
+        ''}";
+        Restart = "on-failure";
+        RestartSec = 5;
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
       };
     };
   };
