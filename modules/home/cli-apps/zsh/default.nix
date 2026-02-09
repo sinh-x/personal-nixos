@@ -91,6 +91,29 @@ in
           # Continuous completion
           zstyle ':fzf-tab:*' continuous-trigger '/'
 
+          # ----- Zellij session completion -----
+          # Function to list zellij sessions for completion
+          _zellij_list_sessions() {
+            local -a sessions
+            sessions=("''${(@f)$(command zellij list-sessions --short --no-formatting 2>/dev/null)}")
+            compadd -a sessions
+          }
+
+          # Register completion for zellij attach/kill/delete subcommands
+          # This runs after the main _zellij completion is loaded
+          _zellij_session_completion() {
+            case "$words[2]" in
+              attach|a|kill-session|k|delete-session|d)
+                if (( CURRENT == 3 )); then
+                  _zellij_list_sessions
+                  return
+                fi
+                ;;
+            esac
+            _zellij "$@"
+          }
+          compdef _zellij_session_completion zellij
+
           # ----- Bat (better cat) -----
           export BAT_THEME="tokyonight_night"
 

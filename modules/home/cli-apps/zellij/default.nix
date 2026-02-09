@@ -26,26 +26,9 @@ in
 
     xdg.configFile = {
       "zellij/config.kdl".source = ./config.kdl;
-      # Zellij zsh completions with session name support
+      # Zellij zsh completions - use generated file, session completion added via zshrc
       "zsh/completions/_zellij".source = pkgs.runCommand "zellij-completion" { } ''
-                # Generate base completion
-                ${pkgs.zellij}/bin/zellij setup --generate-completion zsh > $out
-
-                # Patch to add session name completion function
-                ${pkgs.gnused}/bin/sed -i '/_zellij() {/a\
-            # Function to complete session names\
-            _zellij_sessions() {\
-                local sessions\
-                sessions=(''${(f)"$(${pkgs.zellij}/bin/zellij list-sessions -sn 2>/dev/null)"})\
-                _describe -t sessions "session" sessions\
-            }
-        ' $out
-
-                # Replace empty session-name completion with our function
-                ${pkgs.gnused}/bin/sed -i "s/'::session-name -- Name of the session to attach to:'/'1:session-name -- Name of the session to attach to:_zellij_sessions'/" $out
-
-                # Make session-name come before subcommands by changing subcommands to optional
-                ${pkgs.gnused}/bin/sed -i "s/\":: :_zellij__attach_commands\"/\"2:: :_zellij__attach_commands\"/" $out
+        ${pkgs.zellij}/bin/zellij setup --generate-completion zsh > $out
       '';
       "zellij/layouts/default.kdl".text = ''
         layout {
