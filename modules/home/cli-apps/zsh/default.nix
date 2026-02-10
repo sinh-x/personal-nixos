@@ -53,9 +53,14 @@ in
 
         initContent = ''
           # ----- Atuin + zsh-vi-mode fix -----
-          # zsh-vi-mode overrides Ctrl+R, so re-bind Atuin after it loads
+          # zsh-vi-mode overrides keybindings, so re-bind after it loads
           zvm_after_init() {
             eval "$(atuin init zsh --disable-up-arrow)"
+            # Re-bind directory navigation (zvm may override)
+            bindkey '^[[1;3D' _dirstack_prev
+            bindkey '^[[1;3C' _dirstack_next
+            bindkey '^[^[[D' _dirstack_prev
+            bindkey '^[^[[C' _dirstack_next
           }
 
           # ----- Completion settings -----
@@ -143,28 +148,30 @@ in
           setopt AUTO_PUSHD           # cd automatically pushes to stack
           setopt PUSHD_IGNORE_DUPS    # No duplicates in stack
           setopt PUSHD_SILENT         # Don't print stack after pushd/popd
-          setopt PUSHD_MINUS          # Swap + and - meanings (more intuitive)
           DIRSTACKSIZE=20             # Keep 20 directories in stack
 
-          # Functions for directory navigation
-          _dirstack_prev() {
-            if [[ $#dirstack -gt 0 ]]; then
-              pushd -q +1
-              zle reset-prompt
-            fi
+          # Functions for directory navigation (as ZLE widgets)
+          function _dirstack_prev {
+            [[ $#dirstack -eq 0 ]] && return
+            builtin pushd -q +1 2>/dev/null
+            zle reset-prompt
           }
-          _dirstack_next() {
-            if [[ $#dirstack -gt 0 ]]; then
-              pushd -q -0
-              zle reset-prompt
-            fi
+          function _dirstack_next {
+            [[ $#dirstack -eq 0 ]] && return
+            builtin pushd -q -1 2>/dev/null
+            zle reset-prompt
           }
           zle -N _dirstack_prev
           zle -N _dirstack_next
 
-          # Alt+Left/Right for directory history (like fish)
-          bindkey '^[[1;3D' _dirstack_prev  # Alt+Left
-          bindkey '^[[1;3C' _dirstack_next  # Alt+Right
+          # Bind Alt+Left/Right - multiple sequences for terminal compatibility
+          # Test your terminal with: cat -v, then press the key combo
+          bindkey '^[[1;3D' _dirstack_prev  # Alt+Left (xterm)
+          bindkey '^[[1;3C' _dirstack_next  # Alt+Right (xterm)
+          bindkey '^[^[[D' _dirstack_prev   # Alt+Left (some terminals)
+          bindkey '^[^[[C' _dirstack_next   # Alt+Right (some terminals)
+          bindkey '\e[1;3D' _dirstack_prev  # Alt+Left (alternate)
+          bindkey '\e[1;3C' _dirstack_next  # Alt+Right (alternate)
 
           # ----- Per-directory history -----
           # Toggle with Ctrl+G: local (per-directory) vs global history
