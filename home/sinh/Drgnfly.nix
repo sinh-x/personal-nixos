@@ -44,7 +44,7 @@
       mpd.enable = true;
       utilities.enable = true;
       tools = {
-        kdenlive.enable = false; # TODO: Re-enable when nixpkgs fixes ffmpeg/shaderc linkage
+        kdenlive.enable = true;
       };
     };
 
