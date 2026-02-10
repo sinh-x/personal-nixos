@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 {
+  programs.zsh.enable = true;
+
   users = {
     # Define plugdev group for QMK/udev rules
     groups.plugdev = { };
@@ -22,7 +24,7 @@
       ]
       ++ (if config.virtualisation.virtualbox.host.enable or false then [ "vboxusers" ] else [ ]);
 
-      shell = pkgs.fish;
+      shell = pkgs.zsh;
 
       # Use SOPS-managed password hash when available
       hashedPasswordFile =

@@ -201,6 +201,12 @@ window-rule {
     default-window-height { fixed 150; }
 }
 
+// Terminal -> open maximized
+window-rule {
+    match app-id="com.mitchellh.ghostty"
+    open-maximized true
+}
+
 // Chat apps -> open on "chat" workspace
 window-rule {
     match app-id=r#"(?i)discord"#
@@ -411,6 +417,7 @@ binds {
     // Apps
     Mod+E { spawn "thunar"; }
     Mod+Shift+W { spawn "bash" "-c" "~/.config/niri/scripts/smart_spawn browser"; }
+    Ctrl+Alt+W hotkey-overlay-title="Window Switcher" { spawn "rofi" "-show" "window"; }
     Mod+Ctrl+W hotkey-overlay-title="Wallpaper Picker" { spawn "bash" "-c" "~/.config/niri/scripts/wallpaper --select"; }
 
     // Window management
@@ -580,7 +587,7 @@ spawn-at-startup "fcitx5"
 // User applications
 spawn-at-startup "superproductivity"
 spawn-at-startup "signal-desktop"
-spawn-at-startup "telegram-desktop"
+spawn-at-startup "Telegram"
 spawn-at-startup "viber"
 spawn-at-startup "bash" "-c" "~/.config/niri/scripts/smart_spawn browser"
 spawn-at-startup "ghostty"

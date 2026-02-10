@@ -24,6 +24,7 @@ in
       awscli2
       bc
       btop
+      python3 # Required for Claude Code skills and general scripting
       dnsutils # dig, nslookup, host for DNS queries
       dua
       fd
@@ -94,12 +95,36 @@ in
       atuin = {
         enable = true;
         enableFishIntegration = true;
-        flags = [ "--disable-up-arrow" ];
+        enableZshIntegration = true;
+        flags = [ "--disable-up-arrow" ]; # Use Ctrl+R instead, keep up-arrow for normal history
+        settings = {
+          # Sync settings
+          auto_sync = true;
+          # sync_address = "http://128.199.201.192:9001"; # offline, using default api.atuin.sh
+          sync_frequency = "5m";
+          sync.records = true;
+
+          # Search/UI settings
+          search_mode = "fuzzy";
+          filter_mode = "global";
+          style = "compact";
+          inline_height = 20;
+          show_preview = true;
+          enter_accept = true;
+
+          # Filter common commands from history
+          history_filter = [
+            "^ls"
+            "^cd"
+            "^exit"
+          ];
+        };
       };
 
       zoxide = {
         enable = true;
         enableFishIntegration = true;
+        enableZshIntegration = true;
       };
     };
 

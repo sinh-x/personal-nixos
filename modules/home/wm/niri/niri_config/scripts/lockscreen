@@ -21,6 +21,10 @@ swaylock -f \
 	--hide-keyboard-layout \
 	--indicator-caps-lock \
 	\
+	`# Background Image` \
+	--image "$DIR/wallpapers/lockscreen.png" \
+	--scaling fill \
+	\
 	`# Appearance` \
 	--color ${bg}E6 \
 	--font 'JetBrainsMono Nerd Font' --font-size 18 \

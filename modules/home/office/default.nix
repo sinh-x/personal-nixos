@@ -22,7 +22,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       evince # GNOME document viewer
-      obsidian # Document management
+      # obsidian # Document management - disabled, not used
       anytype # Broken on current nixpkgs - use flatpak: flatpak install flathub io.anytype.Anytype
       # wpsoffice
       onlyoffice-desktopeditors

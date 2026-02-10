@@ -44,7 +44,7 @@
       mpd.enable = true;
       utilities.enable = true;
       tools = {
-        kdenlive.enable = false; # TODO: Re-enable when nixpkgs fixes ffmpeg/shaderc linkage
+        kdenlive.enable = true;
       };
     };
 
@@ -56,6 +56,7 @@
         warp.enable = false;
       };
       shell.fish.enable = true;
+      shell.zsh.enable = true;
       starship.enable = true;
       multiplexers.zellij.enable = true;
       editor.neovim.enable = true;
@@ -80,7 +81,7 @@
       discord = true;
       element = true;
       messenger = false;
-      slack = true;
+      slack = false;
       viber = true;
       zoom = true;
       telegram = true;

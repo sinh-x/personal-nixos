@@ -76,50 +76,27 @@ countdown() {
   done
 }
 
-# take shots
+# take shots using niri's built-in screenshot (watcher service handles clipboard)
 shotnow() {
-  cd "$dir" && sleep 0.5 && grim - | tee "$file" | wl-copy
-  notify_view
+  niri msg action screenshot-screen
 }
 
 shot5() {
   countdown '5'
-  sleep 1 && cd "$dir" && grim - | tee "$file" | wl-copy
-  notify_view
+  niri msg action screenshot-screen
 }
 
 shot10() {
   countdown '10'
-  sleep 1 && cd "$dir" && grim - | tee "$file" | wl-copy
-  notify_view
+  niri msg action screenshot-screen
 }
 
 shotwin() {
-  # Get focused window geometry from niri
-  local win_info=$(niri msg focused-window 2>/dev/null)
-  if [[ -z "$win_info" ]]; then
-    $notify_cmd_shot "No focused window found"
-    return 1
-  fi
-
-  # Parse window position and size from niri output
-  local x=$(echo "$win_info" | grep -oP 'Tile pos in workspace view: \K\d+' | head -1)
-  local y=$(echo "$win_info" | grep -oP 'Tile pos in workspace view: \d+, \K\d+')
-  local w=$(echo "$win_info" | grep -oP 'Window size: \K\d+')
-  local h=$(echo "$win_info" | grep -oP 'Window size: \d+ x \K\d+')
-
-  if [[ -n "$x" && -n "$y" && -n "$w" && -n "$h" ]]; then
-    cd "$dir" && sleep 0.3 && grim -g "${x},${y} ${w}x${h}" - | tee "$file" | wl-copy
-    notify_view
-  else
-    $notify_cmd_shot "Could not get window geometry"
-    return 1
-  fi
+  niri msg action screenshot-window
 }
 
 shotarea() {
-  cd "$dir" && grim -g "$(slurp -b "${background:1}CC" -c "${accent:1}ff" -s "${accent:1}0D" -w 2)" - | tee "$file" | wl-copy
-  notify_view
+  niri msg action screenshot
 }
 
 # Execute Command
