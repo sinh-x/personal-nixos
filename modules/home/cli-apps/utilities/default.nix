@@ -24,6 +24,7 @@ in
       awscli2
       bc
       btop
+      python3 # Required for Claude Code skills and general scripting
       dnsutils # dig, nslookup, host for DNS queries
       dua
       fd

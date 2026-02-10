@@ -31,6 +31,7 @@ in
         inotify-tools # For screenshot watcher
         wl-clipboard # For clipboard operations
         libnotify # For notifications
+        hyprpicker # Color picker for Wayland
       ];
 
       file = {
