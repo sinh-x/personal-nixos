@@ -139,6 +139,33 @@ in
           # Clipboard
           bindkey -M vicmd 'yy' vi-yank-whole-line
 
+          # ----- Directory stack (like fish prevd/nextd) -----
+          setopt AUTO_PUSHD           # cd automatically pushes to stack
+          setopt PUSHD_IGNORE_DUPS    # No duplicates in stack
+          setopt PUSHD_SILENT         # Don't print stack after pushd/popd
+          setopt PUSHD_MINUS          # Swap + and - meanings (more intuitive)
+          DIRSTACKSIZE=20             # Keep 20 directories in stack
+
+          # Functions for directory navigation
+          _dirstack_prev() {
+            if [[ $#dirstack -gt 0 ]]; then
+              pushd -q +1
+              zle reset-prompt
+            fi
+          }
+          _dirstack_next() {
+            if [[ $#dirstack -gt 0 ]]; then
+              pushd -q -0
+              zle reset-prompt
+            fi
+          }
+          zle -N _dirstack_prev
+          zle -N _dirstack_next
+
+          # Alt+Left/Right for directory history (like fish)
+          bindkey '^[[1;3D' _dirstack_prev  # Alt+Left
+          bindkey '^[[1;3C' _dirstack_next  # Alt+Right
+
           # ----- Per-directory history -----
           # Toggle with Ctrl+G: local (per-directory) vs global history
           # Default: per-directory history
