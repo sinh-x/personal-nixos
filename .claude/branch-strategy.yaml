@@ -1,0 +1,21 @@
+# Branch strategy for personal-nixos
+version: 1
+strategy: monthly-integration
+
+branches:
+  production: main
+  integration_pattern: "feature/%Y%m"
+  feature_pattern: "{integration}-{description}"
+
+merge:
+  feature_target: integration
+  integration_target: production
+
+validation:
+  require_integration_prefix: true
+  allowed_prefixes: [feat/, fix/, refactor/, docs/, test/, chore/, hotfix/]
+  protected_branches: [main]
+
+auto_detect:
+  enabled: true
+  timezone: local
