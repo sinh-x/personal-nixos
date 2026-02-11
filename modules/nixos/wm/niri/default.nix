@@ -172,17 +172,18 @@ in
     services.greetd = lib.mkIf cfg.greetd.enable {
       enable = true;
       settings = {
-        default_session =
-          if cfg.greetd.autoLogin.enable then
-            {
-              command = "${pkgs.niri}/bin/niri-session";
-              inherit (cfg.greetd.autoLogin) user;
-            }
-          else
-            {
-              command = "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${pkgs.niri}/share/wayland-sessions";
-              user = "greeter";
-            };
+        # Always show tuigreet on logout (default_session persists across restarts)
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${pkgs.niri}/share/wayland-sessions";
+          user = "greeter";
+        };
+      }
+      // lib.optionalAttrs cfg.greetd.autoLogin.enable {
+        # Auto-login: initial_session runs once on boot, then falls back to default_session on logout
+        initial_session = {
+          command = "${pkgs.niri}/bin/niri-session";
+          inherit (cfg.greetd.autoLogin) user;
+        };
       };
     };
   };

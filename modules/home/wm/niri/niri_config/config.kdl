@@ -168,6 +168,12 @@ window-rule {
     open-floating true
 }
 
+// Zoom -> all windows on "email" workspace (workspace 5)
+window-rule {
+    match app-id=r#"(?i)zoom"#
+    open-on-workspace "email"
+}
+
 // Zoom popups/dialogs -> floating
 window-rule {
     match app-id=r#"(?i)zoom"#
@@ -175,11 +181,11 @@ window-rule {
     open-floating true
 }
 
-// Zoom main meeting window -> fullscreen and focused
+// Zoom main meeting window -> maximized and focused
 window-rule {
     match app-id=r#"(?i)zoom"#
     match title=r#"(?i)(meeting|zoom)"#
-    open-fullscreen true
+    open-maximized true
     open-focused true
 }
 
@@ -584,13 +590,10 @@ spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
 spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 spawn-at-startup "fcitx5"
 
-// User applications
-spawn-at-startup "superproductivity"
-spawn-at-startup "signal-desktop"
-spawn-at-startup "Telegram"
-spawn-at-startup "viber"
-spawn-at-startup "bash" "-c" "~/.config/niri/scripts/smart_spawn browser"
-spawn-at-startup "ghostty"
+// User applications (sequenced via startup_apps to avoid IPC race conditions)
+// Niri lacks spawn-on-workspace IPC, so we orchestrate focus + spawn order
+// to ensure apps land on correct workspaces with terminal retaining final focus
+spawn-at-startup "bash" "-c" "~/.config/niri/scripts/startup_apps"
 
 // Animations
 animations {
