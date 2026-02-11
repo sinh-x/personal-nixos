@@ -220,183 +220,27 @@ window-rule {
     open-on-workspace "main-browser"
 }
 
-// Chat apps -> open on "chat" workspace
+// Chat apps -> open on "chat" workspace without stealing focus
 window-rule {
-    match app-id=r#"(?i)discord"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)slack"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)telegram"#
-    open-on-workspace "chat"
-}
-
-window-rule {
+    match app-id="signal"
     match app-id="org.telegram.desktop"
+    match app-id="ViberPC"
     open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)signal"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)element"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)whatsapp"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)viber"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)skype"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)teams"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)wire"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)mattermost"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)zulip"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)caprine"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)messenger"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)wechat"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)line"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)rocketchat"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)threema"#
-    open-on-workspace "chat"
+    open-focused false
 }
 
 // Code editors -> open on "main-code" workspace
 window-rule {
     match app-id=r#"(?i)code"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
     match app-id=r#"(?i)vscode"#
     open-on-workspace "main-code"
 }
 
-window-rule {
-    match app-id=r#"(?i)zed"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)jetbrains"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)idea"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)webstorm"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)pycharm"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)goland"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)sublime"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)atom"#
-    open-on-workspace "main-code"
-}
-
-// Email apps -> open on "email" workspace
-window-rule {
-    match app-id=r#"(?i)thunderbird"#
-    open-on-workspace "email"
-}
-
-window-rule {
-    match app-id=r#"(?i)evolution"#
-    open-on-workspace "email"
-}
-
-window-rule {
-    match app-id=r#"(?i)geary"#
-    open-on-workspace "email"
-}
-
-window-rule {
-    match app-id=r#"(?i)mailspring"#
-    open-on-workspace "email"
-}
-
-window-rule {
-    match app-id=r#"(?i)kmail"#
-    open-on-workspace "email"
-}
-
-// Super Productivity -> open on "email" workspace
+// Email & productivity apps -> open on "email" workspace without stealing focus
 window-rule {
     match app-id="superProductivity"
     open-on-workspace "email"
+    open-focused false
 }
 
 // Keybindings
