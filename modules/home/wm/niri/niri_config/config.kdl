@@ -168,6 +168,12 @@ window-rule {
     open-floating true
 }
 
+// Zoom -> all windows on "email" workspace (workspace 5)
+window-rule {
+    match app-id=r#"(?i)zoom"#
+    open-on-workspace "email"
+}
+
 // Zoom popups/dialogs -> floating
 window-rule {
     match app-id=r#"(?i)zoom"#
@@ -175,11 +181,11 @@ window-rule {
     open-floating true
 }
 
-// Zoom main meeting window -> fullscreen and focused
+// Zoom main meeting window -> maximized and focused
 window-rule {
     match app-id=r#"(?i)zoom"#
     match title=r#"(?i)(meeting|zoom)"#
-    open-fullscreen true
+    open-maximized true
     open-focused true
 }
 
@@ -201,189 +207,40 @@ window-rule {
     default-window-height { fixed 150; }
 }
 
-// Terminal -> open maximized
+// Terminal -> open maximized on main-term
 window-rule {
     match app-id="com.mitchellh.ghostty"
+    open-on-workspace "main-term"
     open-maximized true
 }
 
-// Chat apps -> open on "chat" workspace
+// Browser -> open on main-browser
 window-rule {
-    match app-id=r#"(?i)discord"#
-    open-on-workspace "chat"
+    match app-id="zen-twilight"
+    open-on-workspace "main-browser"
 }
 
+// Chat apps -> open on "chat" workspace without stealing focus
 window-rule {
-    match app-id=r#"(?i)slack"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)telegram"#
-    open-on-workspace "chat"
-}
-
-window-rule {
+    match app-id="signal"
     match app-id="org.telegram.desktop"
+    match app-id="ViberPC"
     open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)signal"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)element"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)whatsapp"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)viber"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)skype"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)teams"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)wire"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)mattermost"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)zulip"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)caprine"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)messenger"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)wechat"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)line"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)rocketchat"#
-    open-on-workspace "chat"
-}
-
-window-rule {
-    match app-id=r#"(?i)threema"#
-    open-on-workspace "chat"
+    open-focused false
 }
 
 // Code editors -> open on "main-code" workspace
 window-rule {
     match app-id=r#"(?i)code"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
     match app-id=r#"(?i)vscode"#
     open-on-workspace "main-code"
 }
 
-window-rule {
-    match app-id=r#"(?i)zed"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)jetbrains"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)idea"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)webstorm"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)pycharm"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)goland"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)sublime"#
-    open-on-workspace "main-code"
-}
-
-window-rule {
-    match app-id=r#"(?i)atom"#
-    open-on-workspace "main-code"
-}
-
-// Email apps -> open on "email" workspace
-window-rule {
-    match app-id=r#"(?i)thunderbird"#
-    open-on-workspace "email"
-}
-
-window-rule {
-    match app-id=r#"(?i)evolution"#
-    open-on-workspace "email"
-}
-
-window-rule {
-    match app-id=r#"(?i)geary"#
-    open-on-workspace "email"
-}
-
-window-rule {
-    match app-id=r#"(?i)mailspring"#
-    open-on-workspace "email"
-}
-
-window-rule {
-    match app-id=r#"(?i)kmail"#
-    open-on-workspace "email"
-}
-
-// Super Productivity -> open on "email" workspace
+// Email & productivity apps -> open on "email" workspace without stealing focus
 window-rule {
     match app-id="superProductivity"
     open-on-workspace "email"
+    open-focused false
 }
 
 // Keybindings
@@ -584,13 +441,10 @@ spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
 spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 spawn-at-startup "fcitx5"
 
-// User applications
-spawn-at-startup "superproductivity"
-spawn-at-startup "signal-desktop"
-spawn-at-startup "Telegram"
-spawn-at-startup "viber"
-spawn-at-startup "bash" "-c" "~/.config/niri/scripts/smart_spawn browser"
-spawn-at-startup "ghostty"
+// User applications (sequenced via startup_apps to avoid IPC race conditions)
+// Niri lacks spawn-on-workspace IPC, so we orchestrate focus + spawn order
+// to ensure apps land on correct workspaces with terminal retaining final focus
+spawn-at-startup "bash" "-c" "~/.config/niri/scripts/startup_apps"
 
 // Animations
 animations {

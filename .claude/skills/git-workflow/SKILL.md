@@ -149,9 +149,17 @@ EOF
 | `feature/202602` | February 2026 integration (current) |
 | `feature/202602-zsh-switch` | Current feature work |
 
+## Critical Rules
+
+- **NEVER commit or make changes directly on the integration branch** (`feature/YYYYMM`) or `main`
+- **Always create a feature branch first** before making any code changes
+- If changes were accidentally made on the integration branch, stash them, create a feature branch, then pop the stash
+- The agent must check the current branch before starting work and create a feature branch if on integration or main
+
 ## Compatibility with /git-ship
 
 This skill works with `/git-ship`:
 - `/git-ship` handles commits, conventional format, co-author
 - This skill overrides **base branch** and **PR target** decisions
 - When in this repo, always use integration branch as base/target
+- `/git-ship` and `/dev-workflow` must respect this branch strategy — feature branch first, then PR to integration

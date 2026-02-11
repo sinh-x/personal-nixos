@@ -2,9 +2,13 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Agent Safety Rules
+
+- **NEVER run `sudo` commands.** All `sudo` operations (e.g., `sudo sys test`, `sudo sys rebuild`) must be presented to the user as instructions to run manually. Show the command and explain what it does, but do not execute it.
+
 ## Common Commands
 
-### System Management
+### System Management (user-executed, requires sudo)
 - **Rebuild system**: `sudo sys rebuild` (wrapper for `nixos-rebuild switch --flake .#`)
 - **Test configuration** (ephemeral, faster): `sudo sys test` (uses `nixos-rebuild test --no-reexec --flake .#`)
 - **Update flake inputs**: `nix flake update`
