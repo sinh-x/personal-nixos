@@ -1,34 +1,25 @@
 #!/usr/bin/env bash
 
 ## Startup application orchestrator for Niri
-## Sequences app launches to avoid IPC race conditions.
-## Niri does not support spawn-on-workspace via IPC, so we
-## focus each workspace before spawning the app sequentially.
+## All apps have open-on-workspace window rules, so placement is
+## handled by niri. We just control launch order and ensure
+## terminal gets focus last.
 
 # Wait for Niri IPC to be available
 while ! niri msg --json outputs &>/dev/null 2>&1; do
     sleep 0.2
 done
 
-# Phase 1: Chat & productivity apps
-# These have open-on-workspace window rules, so they go to the
-# correct workspace regardless of current focus. Spawned first
-# so they settle before we set final focus.
+# Phase 1: Chat & productivity apps (window rules -> chat/email workspace)
 superproductivity &
 signal-desktop &
 Telegram &
 viber &
 
-sleep 1
-
-# Phase 2: Browser on main-browser (no lasting focus)
-niri msg action focus-workspace "main-browser"
-sleep 0.3
+# Phase 2: Browser (window rule -> main-browser workspace)
 zen-twilight &
 
-sleep 1
-
-# Phase 3: Terminal on main-term (keeps final focus)
+# Phase 3: Terminal last so it gets focus (window rule -> main-term workspace)
+sleep 2
 niri msg action focus-workspace "main-term"
-sleep 0.3
 exec ghostty

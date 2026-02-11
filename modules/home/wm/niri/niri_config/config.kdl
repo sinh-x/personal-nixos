@@ -207,10 +207,17 @@ window-rule {
     default-window-height { fixed 150; }
 }
 
-// Terminal -> open maximized
+// Terminal -> open maximized on main-term
 window-rule {
     match app-id="com.mitchellh.ghostty"
+    open-on-workspace "main-term"
     open-maximized true
+}
+
+// Browser -> open on main-browser
+window-rule {
+    match app-id="zen-twilight"
+    open-on-workspace "main-browser"
 }
 
 // Chat apps -> open on "chat" workspace
