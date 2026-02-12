@@ -95,7 +95,7 @@ in
       atuin = {
         enable = true;
         enableFishIntegration = true;
-        enableZshIntegration = true;
+        enableZshIntegration = false;
         flags = [ "--disable-up-arrow" ]; # Use Ctrl+R instead, keep up-arrow for normal history
         settings = {
           # Sync settings
@@ -124,7 +124,7 @@ in
       zoxide = {
         enable = true;
         enableFishIntegration = true;
-        enableZshIntegration = true;
+        enableZshIntegration = false;
       };
     };
 
