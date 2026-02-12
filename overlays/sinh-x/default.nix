@@ -19,6 +19,8 @@ _final: prev: {
   inherit (inputs.sinh-x-pomodoro.packages.${prev.stdenv.hostPlatform.system}) sinh-x-pomodoro;
   inherit (inputs.sinh-x-gitstatus.packages.${prev.stdenv.hostPlatform.system}) sinh-x-gitstatus;
 
+  inherit (inputs.sinh-x-avodah.packages.${prev.stdenv.hostPlatform.system}) avo;
+
   nixvim = inputs.sinh-x-nixvim.packages.${prev.stdenv.hostPlatform.system}.nvim;
   zjstatus = inputs.zjstatus.packages.${prev.stdenv.hostPlatform.system}.default;
 

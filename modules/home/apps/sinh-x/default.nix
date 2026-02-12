@@ -25,6 +25,7 @@ in
       sinh-x-wallpaper
       #sinh-x-gitstatus
       sinh-x-ip_updater
+      avo
     ];
   };
 }
