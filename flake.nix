@@ -66,6 +66,10 @@
       url = "github:sinh-x/ip_update";
       # url = "/home/sinh/git-repos/sinh-x/ip_update";
     };
+    sinh-x-avodah = {
+      url = "github:sinh-x/avodah";
+      # url = "/home/sinh/git-repos/sinh-x/tools/avodah";
+    };
     sinh-x-nixvim = {
       url = "github:sinh-x/Neve";
       # url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
