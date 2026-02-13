@@ -21,12 +21,6 @@ in
         enableZshIntegration = true;
       };
 
-      direnv = {
-        enable = true;
-        enableZshIntegration = true;
-        nix-direnv.enable = true; # Better nix integration
-      };
-
       zsh = {
         enable = true;
         enableCompletion = true;

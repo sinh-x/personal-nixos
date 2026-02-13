@@ -126,6 +126,13 @@ in
         enableFishIntegration = true;
         enableZshIntegration = false;
       };
+
+      direnv = {
+        enable = true;
+        enableFishIntegration = true;
+        enableZshIntegration = false;
+        nix-direnv.enable = true;
+      };
     };
 
     xdg.mimeApps = {
