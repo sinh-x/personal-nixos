@@ -197,7 +197,6 @@
     parted
     gptfdisk
     lm_sensors
-    direnv
     devenv
     nix-tree
     yq
