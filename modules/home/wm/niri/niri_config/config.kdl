@@ -31,7 +31,7 @@ input {
 // Can use connector name (eDP-1) or "Manufacturer Model Serial"
 output "LG Display 0x06AA Unknown" {
     mode "3840x2400@60.000"
-    scale 1.0
+    scale 1.5
     position x=0 y=0
 }
 
