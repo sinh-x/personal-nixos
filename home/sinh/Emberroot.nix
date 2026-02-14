@@ -1,3 +1,4 @@
+# Emberroot home config - External 1TB SSD with btrfs + disko + impermanence + niri
 { pkgs, ... }:
 {
   imports = [ ./global ];
@@ -9,6 +10,7 @@
       aegisub
       acpilight
       sct # for setting color temperature
+      sound-theme-freedesktop # notification sounds
     ];
 
     sessionVariables = {
@@ -47,18 +49,21 @@
 
     cli-apps = {
       utilities.enable = true;
-      terminal.kitty.enable = true;
-      terminal.warp.enable = true;
+      terminal = {
+        ghostty.enable = true;
+        kitty.enable = true;
+        warp.enable = false;
+      };
       shell.fish.enable = true;
+      shell.zsh.enable = false;
       starship.enable = true;
       multiplexers.zellij.enable = true;
       editor.neovim.enable = true;
       backup.enable = true;
       nix.enable = true;
       tools = {
-        asciinema.enable = true;
         below.enable = true;
-        gurk.enable = false; # Using NixOS module instead (modules.gurk)
+        gurk.enable = false;
       };
     };
 
@@ -67,13 +72,15 @@
       docker.enable = true;
       claudecode.enable = true;
       super-productivity.enable = true;
+      devbox.enable = true;
+      flutter.enable = true;
     };
 
     social-apps = {
       discord = true;
       element = true;
       messenger = false;
-      slack = true;
+      slack = false;
       viber = true;
       zoom = true;
       telegram = true;
@@ -86,18 +93,26 @@
     };
 
     wm = {
-      bspwm.enable = false;
-      hyprland = {
-        enable = true;
+      bspwm = {
+        enable = false;
         monitors = {
           primary = "eDP-1";
-          primaryResolution = "3840x2400";
-          externalPosition = "left";
+          externalPosition = "left"; # External monitor to the left of primary
+          externalMaxResolution = 4000;
         };
-        workspaces.distribution = "split";
+        workspaces.distribution = "split"; # 1-5,11-15 left; 6-10,16-20 right
+      };
+      hyprland.enable = false;
+      niri = {
+        enable = true;
+        monitors.primary = "eDP-1";
       };
     };
 
     personal-scripts.enable = true;
+
+    # Note: Full home persistence is handled by NixOS module (modules.impermanence.users)
+    # To switch to selective persistence later, enable this and configure specific paths:
+    # impermanence.enable = true;
   };
 }
