@@ -1,8 +1,8 @@
 {
   disko.devices = {
-    disk.sdb = {
+    disk.sda = {
       type = "disk";
-      device = "/dev/sdb";
+      device = "/dev/sda";
       content = {
         type = "gpt";
         partitions = {
@@ -20,8 +20,16 @@
               ];
             };
           };
-          root = {
+          swap = {
             priority = 2;
+            size = "8G";
+            content = {
+              type = "swap";
+              resumeDevice = false;
+            };
+          };
+          root = {
+            priority = 3;
             size = "100%";
             content = {
               type = "btrfs";
@@ -57,14 +65,6 @@
                 };
                 "@root-blank" = { };
               };
-            };
-          };
-          swap = {
-            priority = 3;
-            size = "8G";
-            content = {
-              type = "swap";
-              resumeDevice = false;
             };
           };
         };
