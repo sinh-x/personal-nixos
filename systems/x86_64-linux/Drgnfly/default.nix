@@ -92,7 +92,9 @@
       efi.efiSysMountPoint = "/boot/efi";
     };
     # Note: deep sleep (S3) not supported on this hardware, only s2idle available
-    kernelParams = [ ];
+    kernelParams = [
+      "usb-storage.quirks=21c4:b083:u" # Lexar E300 SSD enclosure - disable UAS (buggy firmware)
+    ];
     extraModprobeConfig = ''
       options snd-hda-intel
     '';
