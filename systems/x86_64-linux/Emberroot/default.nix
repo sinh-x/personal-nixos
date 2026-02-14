@@ -1,3 +1,4 @@
+# Emberroot - External 1TB SSD with btrfs + disko + impermanence + niri
 {
   inputs,
   lib,
@@ -7,9 +8,10 @@
 }:
 {
   imports = [
+    inputs.disko.nixosModules.disko
+    ./disks.nix
     ./hardware-configuration.nix
     ../common/optional/pipewire.nix
-    # ../common/optional/sddm.nix
   ];
 
   sinh-x.default-desktop.enable = true;
@@ -27,20 +29,14 @@
     # windows manager
     wm = {
       bspwm.enable = false;
-      hyprland = {
+      hyprland.enable = false;
+      niri = {
         enable = true;
-        greetd = {
-          enable = true;
-          autoLogin = {
-            enable = true;
-            user = "sinh";
-          };
-        };
+        greetd.enable = true;
+        greetd.autoLogin.enable = true;
       };
     };
 
-    virtualbox.enable = false;
-    genymotion.enable = false;
     docker.enable = true;
 
     # network
@@ -48,6 +44,12 @@
     wifi.enable = true;
 
     sops.enable = true;
+
+    # Impermanence - btrfs root with persistent storage
+    impermanence = {
+      enable = true;
+      users = [ "sinh" ];
+    };
   };
 
   nix =
@@ -56,15 +58,12 @@
     in
     {
       settings = {
-        # Enable flakes and new 'nix' command
         experimental-features = [
           "nix-command"
           "flakes"
           "ca-derivations"
         ];
-        # Opinionated: disable global registry
         flake-registry = "";
-        # Workaround for https://github.com/NixOS/nix/issues/9574
         nix-path = config.nix.nixPath;
         trusted-users = [
           "root"
@@ -72,10 +71,7 @@
         ];
         auto-optimise-store = true;
       };
-      # Opinionated: disable channels
       channel.enable = false;
-
-      # Opinionated: make flake registry and nix path match flake inputs
       registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
       nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
 
@@ -101,48 +97,31 @@
     blacklistedKernelModules = [ "nouveau" ];
   };
 
-  # networking.hostName = "nixos"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
-  # Enable the X11 windowing system.
   services = {
+    # Monthly btrfs scrub to detect data corruption
+    btrfs.autoScrub = {
+      enable = true;
+      interval = "monthly";
+      fileSystems = [ "/" ];
+    };
+
     ip_updater = {
       enable = true;
       package = pkgs.sinh-x-ip_updater;
       wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-scripts/wasabi-access-key.env";
     };
 
-    xserver = {
-      videoDrivers = [
-        "nvidia"
-        "virtualbox"
-      ];
-    };
-
-    picom = {
-      enable = true;
-      backend = "glx";
-      vSync = true;
-      settings = {
-        glx-no-stencil = true;
-        glx-no-rebind-pixmap = true;
-      };
-    };
+    xserver.videoDrivers = [ "nvidia" ];
 
     printing = {
       enable = true;
-      cups-pdf = {
-        enable = true;
-      };
+      cups-pdf.enable = true;
       drivers = [ pkgs.brlaser ];
     };
 
     udev.packages = [ pkgs.qmk-udev-rules ];
   };
 
-  # Configure keymap in X11
   services.xserver.xkb.layout = "us";
   services.libinput.enable = true;
 
@@ -150,14 +129,14 @@
     acpilight.enable = true;
     bluetooth.enable = true;
 
-    # TrackPoint configuration to prevent cursor drift
     trackpoint = {
       enable = true;
       device = "TPPS/2 IBM TrackPoint";
-      drift_time = 25; # Default 5, increased to fix spontaneous cursor movement
-      sensitivity = 250; # Default 128, range 0-255
-      speed = 120; # Default 97, range 0-255
+      drift_time = 25;
+      sensitivity = 250;
+      speed = 120;
     };
+
     nvidia = {
       # Use the proprietary driver
       modesetting.enable = true;
@@ -181,16 +160,14 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
 
       powerManagement.enable = true;
-      powerManagement.finegrained = true; # Required for s2idle on Turing+ GPUs
+      powerManagement.finegrained = false; # Disabled - was causing suspend hangs (nvkms_unregister_backlight blocking)
       forceFullCompositionPipeline = false; # Can cause suspend issues
-
     };
 
     # Optional: Enable OpenGL
     graphics = {
       enable = true;
     };
-
   };
 
   environment.systemPackages = with pkgs; [
@@ -201,10 +178,13 @@
     nix-tree
     yq
     ntfs3g
+    compsize # Check btrfs compression ratios
     cargo-binstall # Install pre-built Rust binaries from GitHub (e.g., cargo binstall gurk-rs)
 
     pciutils
-    libva-vdpau-driver
+    libva
+    libva-utils # VA-API diagnostics (vainfo)
+    nvidia-vaapi-driver # Native VA-API support for NVIDIA
     libvdpau-va-gl
     nvidia-system-monitor-qt
     nvtopPackages.full
@@ -212,52 +192,41 @@
     qmk
     qmk-udev-rules
 
-    linuxPackages.virtualboxGuestAdditions
-
-    # # Only 'x86_64-linux' and 'aarch64-linux' are supported
-    # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
-    # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".beta
-    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
-    # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight-official # artifacts are downloaded from the official Zen repository
+    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight
   ];
-
-  # Open ports in the firewall.
 
   networking = {
     hostName = "Emberroot";
     networkmanager.enable = false;
-    firewall.allowedTCPPorts = [ 22 ];
-    # If using dhcpcd:
+    firewall = {
+      allowedTCPPorts = [ 22 ];
+      trustedInterfaces = [ "tailscale0" ];
+      allowedUDPPorts = [ config.services.tailscale.port ];
+    };
   };
-  # networking.firewall.allowedUDPPorts = [ ... ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs.steam = {
-    enable = true;
-  };
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-  # This setups a SSH server. Very important if you're setting up a headless system.
-  # Feel free to remove if you don't need it.
+  services.tailscale.enable = true;
+
+  programs.steam.enable = true;
+
+  # QEMU/KVM virtualization for VM testing
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
+  # Add libvirtd group for this system
+  users.users.sinh.extraGroups = [ "libvirtd" ];
+
   services = {
     flatpak.enable = true;
     upower.enable = true;
     openssh = {
       enable = true;
       settings = {
-        # Opinionated: forbid root login through SSH.
         PermitRootLogin = "no";
-        # Opinionated: use keys only.
-        # Remove if you want to SSH using passwords
         PasswordAuthentication = false;
       };
     };
   };
 
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.11";
 }

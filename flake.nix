@@ -27,6 +27,11 @@
     impermanence.url = "github:nix-community/impermanence";
     # optional, not necessary for the module
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
 
     # Snowfall (forked for full control)
