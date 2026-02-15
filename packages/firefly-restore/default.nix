@@ -5,6 +5,7 @@ writeShellScriptBin "firefly-restore" ''
   PROGRAM="firefly-restore"
   PROFILE="sinh-personal_file"
   DEFAULT_TARGET="/persist/home/sinh"
+  SNAPSHOT_HOME="/home/sinh"
 
   RESTORE_DIRS=(
     .ssh
@@ -16,6 +17,7 @@ writeShellScriptBin "firefly-restore" ''
     .config/rustic
     .config/sinh-x-scripts
     .zen
+    .config/zen
     .local/share/fish
     git-repos/sinh-x/personal-nixos
   )
@@ -55,7 +57,7 @@ writeShellScriptBin "firefly-restore" ''
     local target="$1"
     local dirname="$2"
     echo "Restoring $dirname -> $target/$dirname"
-    rustic -P "$PROFILE" restore "latest:/$dirname" "$target/$dirname"
+    rustic -P "$PROFILE" restore "latest:$SNAPSHOT_HOME/$dirname" "$target/$dirname"
   }
 
   cmd_essential() {
@@ -64,10 +66,17 @@ writeShellScriptBin "firefly-restore" ''
     echo ""
     echo "Restoring essential directories to: $target"
     echo ""
+    local failed=()
     for d in "''${RESTORE_DIRS[@]}"; do
-      cmd_restore_dir "$target" "$d"
+      if ! cmd_restore_dir "$target" "$d"; then
+        echo "WARN: Failed to restore $d, continuing..."
+        failed+=("$d")
+      fi
       echo ""
     done
+    if [[ ''${#failed[@]} -gt 0 ]]; then
+      echo "Failed to restore: ''${failed[*]}"
+    fi
     echo "Done. Essential directories restored to $target"
   }
 
