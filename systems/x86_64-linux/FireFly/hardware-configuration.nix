@@ -1,5 +1,5 @@
 # Hardware configuration for FireFly - portable NixOS on 128GB USB
-# Same ThinkPad hardware as Drgnfly, booting from external USB (/dev/sdb)
+# Same ThinkPad hardware as Drgnfly, booting from external USB (/dev/sda)
 #
 # Btrfs subvolumes (label: mobi):
 #   @root        -> /          (wiped on every boot via initrd rollback)

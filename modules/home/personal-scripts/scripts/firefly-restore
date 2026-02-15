@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# Restore .config and .local from latest Drgnfly backup to FireFly
+# Run on FireFly after first boot to pull app configs and data
+#
+# Usage: firefly-restore [--dry-run]
+
+set -euo pipefail
+
+PROFILE="sinh-personal_file"
+HOST_FILTER="Drgnfly"
+DRY_RUN=""
+
+if [[ "${1:-}" == "--dry-run" ]]; then
+  DRY_RUN="--dry-run"
+  echo "=== DRY RUN MODE ==="
+fi
+
+# Get latest Drgnfly snapshot ID
+echo "Finding latest Drgnfly snapshot..."
+LATEST=$(rustic -P "$PROFILE" snapshots --filter-host "$HOST_FILTER" --json 2>/dev/null \
+  | jq -r '.[-1].id')
+
+if [[ -z "$LATEST" || "$LATEST" == "null" ]]; then
+  echo "ERROR: No Drgnfly snapshots found in profile $PROFILE"
+  exit 1
+fi
+
+echo "Restoring from snapshot: $LATEST (Drgnfly)"
+echo ""
+
+# Restore .config (skip nix-managed, caches, and heavy app dirs)
+echo "=== Restoring .config ==="
+rustic -P "$PROFILE" restore "$LATEST:/home/sinh/.config" \
+  --target /home/sinh/.config \
+  --exclude '.config/nix' \
+  --exclude '.config/nixpkgs' \
+  --exclude '.config/cache' \
+  --exclude '.config/Code' \
+  --exclude '.config/google-chrome/Default/Service Worker' \
+  --exclude '.config/BraveSoftware/*/Service Worker' \
+  $DRY_RUN
+
+echo ""
+
+# Restore .local/share (app state: Signal, Telegram, Bitwarden, etc.)
+echo "=== Restoring .local ==="
+rustic -P "$PROFILE" restore "$LATEST:/home/sinh/.local" \
+  --target /home/sinh/.local \
+  --exclude '.local/share/Trash' \
+  --exclude '.local/share/baloo' \
+  --exclude '.local/share/Steam' \
+  --exclude '.local/lib' \
+  $DRY_RUN
+
+echo ""
+echo "Done. You may need to restart apps to pick up restored data."
