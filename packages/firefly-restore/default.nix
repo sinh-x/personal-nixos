@@ -15,6 +15,8 @@ writeShellScriptBin "firefly-restore" ''
     .config/rclone
     .config/rustic
     .config/sinh-x-scripts
+    .zen
+    .local/share/fish
     git-repos/sinh-x/personal-nixos
   )
 
