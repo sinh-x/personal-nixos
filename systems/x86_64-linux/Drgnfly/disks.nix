@@ -20,51 +20,67 @@
               ];
             };
           };
-          root = {
+          luks = {
             priority = 2;
             size = "100%";
             content = {
-              type = "btrfs";
-              extraArgs = [
-                "-f"
-                "--label"
-                "nixos"
-              ];
-              subvolumes = {
-                "@root" = {
-                  mountpoint = "/";
-                  mountOptions = [
-                    "subvol=@root"
-                    "compress=zstd"
-                    "noatime"
-                  ];
-                };
-                "@nix" = {
-                  mountpoint = "/nix";
-                  mountOptions = [
-                    "subvol=@nix"
-                    "compress=zstd"
-                    "noatime"
-                  ];
-                };
-                "@persist" = {
-                  mountpoint = "/persist";
-                  mountOptions = [
-                    "subvol=@persist"
-                    "compress=zstd"
-                    "noatime"
-                  ];
-                };
-                "@root-blank" = { };
+              type = "luks";
+              name = "cryptroot";
+              settings.allowDiscards = true;
+              content = {
+                type = "lvm_pv";
+                vg = "drgnfly";
               };
             };
           };
-          swap = {
-            priority = 3;
-            size = "64G";
-            content = {
-              type = "swap";
-              resumeDevice = true;
+        };
+      };
+    };
+    lvm_vg.drgnfly = {
+      type = "lvm_vg";
+      lvs = {
+        swap = {
+          size = "64G";
+          content = {
+            type = "swap";
+            resumeDevice = true;
+          };
+        };
+        root = {
+          size = "100%FREE";
+          content = {
+            type = "btrfs";
+            extraArgs = [
+              "-f"
+              "--label"
+              "nixos"
+            ];
+            subvolumes = {
+              "@root" = {
+                mountpoint = "/";
+                mountOptions = [
+                  "subvol=@root"
+                  "compress=zstd"
+                  "noatime"
+                ];
+              };
+              "@nix" = {
+                mountpoint = "/nix";
+                mountOptions = [
+                  "subvol=@nix"
+                  "compress=zstd"
+                  "noatime"
+                ];
+              };
+              "@persist" = {
+                mountpoint = "/persist";
+                mountOptions = [
+                  "subvol=@persist"
+                  "compress=zstd"
+                  "noatime"
+                ];
+              };
+              "@root-blank" = { };
             };
           };
         };

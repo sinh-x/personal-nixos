@@ -1,11 +1,13 @@
-# Hardware configuration for Drgnfly with btrfs + disko + impermanence
+# Hardware configuration for Drgnfly with LUKS + LVM + btrfs + disko + impermanence
 # Partition layout managed by disko (see disks.nix)
 #
-# Btrfs subvolumes (single ~1.95TB pool):
-#   @root        → /          (wiped on every boot via initrd rollback)
-#   @nix         → /nix       (persistent)
-#   @persist     → /persist   (persistent)
-#   @root-blank  (empty snapshot, rollback source)
+# nvme0n1p2 → LUKS (cryptroot) → LVM VG "drgnfly"
+#   LV swap  → swap (64G)
+#   LV root  → btrfs (label: nixos)
+#     @root        → /          (wiped on every boot via initrd rollback)
+#     @nix         → /nix       (persistent)
+#     @persist     → /persist   (persistent)
+#     @root-blank  (empty snapshot, rollback source)
 {
   config,
   lib,
@@ -27,16 +29,16 @@
         "sd_mod"
         "rtsx_pci_sdmmc"
       ];
-      kernelModules = [ ];
+      kernelModules = [ "dm_mod" ];
       supportedFilesystems = [
         "btrfs"
         "vfat"
       ];
 
       # Rollback @root to empty snapshot on every boot (impermanence)
-      postDeviceCommands = lib.mkAfter ''
+      postResumeCommands = lib.mkAfter ''
         mkdir -p /mnt
-        mount -t btrfs -o subvol=/ /dev/disk/by-label/nixos /mnt
+        mount -t btrfs -o subvol=/ /dev/drgnfly/root /mnt
 
         if [[ -e /mnt/@root-blank ]]; then
           # Delete old @root and any nested subvolumes
