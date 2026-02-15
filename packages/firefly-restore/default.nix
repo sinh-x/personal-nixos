@@ -43,7 +43,7 @@ writeShellScriptBin "firefly-restore" ''
   }
 
   cmd_list() {
-    echo "Directories that 'all' will restore:"
+    echo "Directories that 'essential' will restore:"
     for d in "''${RESTORE_DIRS[@]}"; do
       echo "  $d"
     done
@@ -56,17 +56,17 @@ writeShellScriptBin "firefly-restore" ''
     rustic -P "$PROFILE" restore "latest:/$dirname" "$target/$dirname"
   }
 
-  cmd_all() {
+  cmd_essential() {
     local target="''${1:-$DEFAULT_TARGET}"
     check_prerequisites
     echo ""
-    echo "Restoring all directories to: $target"
+    echo "Restoring essential directories to: $target"
     echo ""
     for d in "''${RESTORE_DIRS[@]}"; do
       cmd_restore_dir "$target" "$d"
       echo ""
     done
-    echo "Done. All directories restored to $target"
+    echo "Done. Essential directories restored to $target"
   }
 
   cmd_single() {
@@ -86,17 +86,17 @@ writeShellScriptBin "firefly-restore" ''
       $PROGRAM check
           Verify prerequisites (rclone.conf, rustic profile).
       $PROGRAM list
-          List directories that 'all' will restore.
-      $PROGRAM all [target]
-          Restore all directories to target (default: $DEFAULT_TARGET).
+          List directories that 'essential' will restore.
+      $PROGRAM essential [target]
+          Restore essential directories to target (default: $DEFAULT_TARGET).
       $PROGRAM <dirname> [target]
           Restore a single directory (e.g., .ssh, Documents).
       $PROGRAM help
           Show this text.
 
   Examples:
-      $PROGRAM all                              # Restore all to /persist/home/sinh
-      $PROGRAM all /mnt/persist/home/sinh       # Restore all during install
+      $PROGRAM essential                          # Restore essentials to /persist/home/sinh
+      $PROGRAM essential /mnt/persist/home/sinh   # Restore essentials during install
       $PROGRAM .ssh                             # Restore just .ssh
       $PROGRAM Documents /mnt/persist/home/sinh # Restore Documents to custom target
   _EOF
@@ -106,7 +106,7 @@ writeShellScriptBin "firefly-restore" ''
   case "$COMMAND" in
     check|c)   cmd_check ;;
     list|ls|l) cmd_list ;;
-    all|a)     shift; cmd_all "$@" ;;
+    essential|e) shift; cmd_essential "$@" ;;
     help|--help|-h) cmd_usage ;;
     *)         cmd_single "$@" ;;
   esac
