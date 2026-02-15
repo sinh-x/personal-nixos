@@ -32,6 +32,28 @@
             priority = 3;
             size = "100%";
             content = {
+              type = "luks";
+              name = "mobi-crypt";
+              settings = {
+                allowDiscards = true;
+              };
+              content = {
+                type = "lvm_pv";
+                vg = "mobi-vg";
+              };
+            };
+          };
+        };
+      };
+    };
+
+    lvm_vg = {
+      "mobi-vg" = {
+        type = "lvm_vg";
+        lvs = {
+          "mobi-lv" = {
+            size = "100%FREE";
+            content = {
               type = "btrfs";
               extraArgs = [
                 "-f"

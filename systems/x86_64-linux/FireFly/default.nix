@@ -160,6 +160,7 @@
     yq
     ntfs3g
     compsize
+    firefly-restore
 
     pciutils
     libva
