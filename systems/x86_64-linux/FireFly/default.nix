@@ -34,7 +34,7 @@
       niri = {
         enable = true;
         greetd.enable = true;
-        greetd.autoLogin.enable = true;
+        greetd.autoLogin.enable = false;
       };
     };
 
