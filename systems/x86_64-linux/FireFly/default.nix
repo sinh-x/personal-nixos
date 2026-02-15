@@ -162,6 +162,9 @@
     compsize
     sinh-x.firefly-restore
 
+    usbutils # lsusb
+    smartmontools # smartctl
+    sdparm # SCSI/USB device parameters
     pciutils
     libva
     libva-utils

@@ -92,9 +92,7 @@
       efi.efiSysMountPoint = "/boot/efi";
     };
     # Note: deep sleep (S3) not supported on this hardware, only s2idle available
-    kernelParams = [
-      "usb-storage.quirks=21c4:b083:u" # Lexar E300 SSD enclosure - disable UAS (buggy firmware)
-    ];
+    kernelParams = [ ];
     extraModprobeConfig = ''
       options snd-hda-intel
     '';
@@ -188,6 +186,11 @@
     compsize # Check btrfs compression ratios
     cargo-binstall # Install pre-built Rust binaries from GitHub (e.g., cargo binstall gurk-rs)
 
+    usbutils # lsusb
+    smartmontools # smartctl
+    sdparm # SCSI/USB device parameters
+    sedutil # TCG Opal SED management
+    nvme-cli # NVMe drive diagnostics
     pciutils
     libva
     libva-utils # VA-API diagnostics (vainfo)
