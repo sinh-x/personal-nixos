@@ -2876,11 +2876,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1770989723,
-        "narHash": "sha256-5qYMzZAVUFkTF10WSB8vJACIdDiJ4EU96CcZdoZ68Ps=",
+        "lastModified": 1771143630,
+        "narHash": "sha256-by3UpbBE8WTHONzsLm641xgItWmLipIrXlEq6yRClVc=",
         "owner": "sinh-x",
         "repo": "avodah",
-        "rev": "a2dd523d747db7db43d68d77c43b098860a70c71",
+        "rev": "6bc9217309e720cf1c3438df43e528328749818b",
         "type": "github"
       },
       "original": {
