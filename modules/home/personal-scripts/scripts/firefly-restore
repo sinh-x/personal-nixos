@@ -18,7 +18,7 @@ fi
 # Get latest Drgnfly snapshot ID
 echo "Finding latest Drgnfly snapshot..."
 LATEST=$(rustic -P "$PROFILE" snapshots --filter-host "$HOST_FILTER" --json 2>/dev/null \
-  | jq -r '.[-1].id')
+  | jq -r '.[0].snapshots[-1].id')
 
 if [[ -z "$LATEST" || "$LATEST" == "null" ]]; then
   echo "ERROR: No Drgnfly snapshots found in profile $PROFILE"
@@ -28,29 +28,47 @@ fi
 echo "Restoring from snapshot: $LATEST (Drgnfly)"
 echo ""
 
+# Auto-detect nix store symlinks and build glob excludes
+build_nix_excludes() {
+  local dir="$1"
+  local prefix="$2"
+  local globs=()
+  while IFS= read -r link; do
+    local rel="${link#"$dir"/}"
+    globs+=(--glob "!$rel")
+  done < <(find "$dir" -type l -lname '/nix/store/*' 2>/dev/null)
+  echo "${globs[@]}"
+}
+
 # Restore .config (skip nix-managed, caches, and heavy app dirs)
+echo "=== Detecting nix symlinks in .config ==="
+NIX_EXCLUDES_CONFIG=$(build_nix_excludes /home/sinh/.config .config)
+echo "Found $(echo "$NIX_EXCLUDES_CONFIG" | grep -o '!' | wc -l) nix symlinks to skip"
+
 echo "=== Restoring .config ==="
-rustic -P "$PROFILE" restore "$LATEST:/home/sinh/.config" \
-  --target /home/sinh/.config \
-  --exclude '.config/nix' \
-  --exclude '.config/nixpkgs' \
-  --exclude '.config/cache' \
-  --exclude '.config/Code' \
-  --exclude '.config/google-chrome/Default/Service Worker' \
-  --exclude '.config/BraveSoftware/*/Service Worker' \
-  $DRY_RUN
+rustic -P "$PROFILE" $DRY_RUN restore "$LATEST:/home/sinh/.config" /home/sinh/.config \
+  --no-ownership \
+  --glob '!cache' \
+  --glob '!Code' \
+  --glob '!google-chrome/Default/Service Worker' \
+  --glob '!BraveSoftware/*/Service Worker' \
+  $NIX_EXCLUDES_CONFIG
 
 echo ""
 
 # Restore .local/share (app state: Signal, Telegram, Bitwarden, etc.)
+echo "=== Detecting nix symlinks in .local ==="
+NIX_EXCLUDES_LOCAL=$(build_nix_excludes /home/sinh/.local .local)
+echo "Found $(echo "$NIX_EXCLUDES_LOCAL" | grep -o '!' | wc -l) nix symlinks to skip"
+
 echo "=== Restoring .local ==="
-rustic -P "$PROFILE" restore "$LATEST:/home/sinh/.local" \
-  --target /home/sinh/.local \
-  --exclude '.local/share/Trash' \
-  --exclude '.local/share/baloo' \
-  --exclude '.local/share/Steam' \
-  --exclude '.local/lib' \
-  $DRY_RUN
+rustic -P "$PROFILE" $DRY_RUN restore "$LATEST:/home/sinh/.local" /home/sinh/.local \
+  --no-ownership \
+  --glob '!share/Trash' \
+  --glob '!share/baloo' \
+  --glob '!share/Steam' \
+  --glob '!lib' \
+  $NIX_EXCLUDES_LOCAL
 
 echo ""
 echo "Done. You may need to restart apps to pick up restored data."
