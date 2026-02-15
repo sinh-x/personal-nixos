@@ -9,6 +9,8 @@
 }:
 {
   imports = [
+    inputs.disko.nixosModules.disko
+    ./disks.nix
     ./hardware-configuration.nix
     ../common/optional/pipewire.nix
     # ../common/optional/sddm.nix  # Disabled - using greetd with Niri
@@ -98,6 +100,13 @@
   };
 
   services = {
+    # Monthly btrfs scrub to detect data corruption
+    btrfs.autoScrub = {
+      enable = true;
+      interval = "monthly";
+      fileSystems = [ "/" ];
+    };
+
     ip_updater = {
       enable = true;
       package = pkgs.sinh-x-ip_updater;
@@ -174,8 +183,14 @@
     nix-tree
     yq
     ntfs3g
+    compsize # Check btrfs compression ratios
     cargo-binstall # Install pre-built Rust binaries from GitHub (e.g., cargo binstall gurk-rs)
 
+    usbutils # lsusb
+    smartmontools # smartctl
+    sdparm # SCSI/USB device parameters
+    sedutil # TCG Opal SED management
+    nvme-cli # NVMe drive diagnostics
     pciutils
     libva
     libva-utils # VA-API diagnostics (vainfo)

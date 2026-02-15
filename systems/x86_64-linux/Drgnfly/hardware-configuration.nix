@@ -1,13 +1,13 @@
-# Hardware configuration for new 2TB SSD with impermanence layout
-# Based on Emberroot hardware, but with tmpfs root and persistent partitions
+# Hardware configuration for Drgnfly with LUKS + LVM + btrfs + disko + impermanence
+# Partition layout managed by disko (see disks.nix)
 #
-# Partition layout (2TB NVMe SSD):
-#   nvme0n1p1: 512MB  vfat   /boot/efi  (EFI System Partition)
-#   nvme0n1p2: 350GB  ext4   /nix       (Nix store)
-#   nvme0n1p3: 1.6TB  ext4   /persist   (Persistent data)
-#   nvme0n1p4: 64GB   swap   [swap]     (Swap + hibernation)
-#
-# NOTE: UUIDs are placeholders - replace after partitioning the new SSD
+# nvme0n1p2 → LUKS (cryptroot) → LVM VG "drgnfly"
+#   LV swap  → swap (64G)
+#   LV root  → btrfs (label: nixos)
+#     @root        → /          (wiped on every boot via initrd rollback)
+#     @nix         → /nix       (persistent)
+#     @persist     → /persist   (persistent)
+#     @root-blank  (empty snapshot, rollback source)
 {
   config,
   lib,
@@ -29,59 +29,38 @@
         "sd_mod"
         "rtsx_pci_sdmmc"
       ];
-      kernelModules = [ ];
+      kernelModules = [ "dm_mod" ];
       supportedFilesystems = [
-        "ext4"
+        "btrfs"
         "vfat"
       ];
+
+      # Rollback @root to empty snapshot on every boot (impermanence)
+      postResumeCommands = lib.mkAfter ''
+        mkdir -p /mnt
+        mount -t btrfs -o subvol=/ /dev/drgnfly/root /mnt
+
+        if [[ -e /mnt/@root-blank ]]; then
+          # Delete old @root and any nested subvolumes
+          btrfs subvolume list -o /mnt/@root |
+            cut -f9 -d' ' |
+            while read subvolume; do
+              btrfs subvolume delete "/mnt/$subvolume"
+            done
+          btrfs subvolume delete /mnt/@root
+
+          # Restore from blank snapshot
+          btrfs subvolume snapshot /mnt/@root-blank /mnt/@root
+        fi
+
+        umount /mnt
+      '';
     };
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
   };
 
-  fileSystems = {
-    # Root is tmpfs (ephemeral - wiped on reboot)
-    "/" = {
-      device = "none";
-      fsType = "tmpfs";
-      options = [
-        "defaults"
-        "size=4G"
-        "mode=755"
-      ];
-    };
-
-    # EFI System Partition
-    "/boot/efi" = {
-      device = "/dev/disk/by-uuid/1B3E-EB7A";
-      fsType = "vfat";
-      options = [
-        "fmask=0022"
-        "dmask=0022"
-      ];
-    };
-
-    # Nix store partition (350GB)
-    "/nix" = {
-      device = "/dev/disk/by-uuid/903631a2-60b7-48e5-b03e-6d07080df4a1";
-      fsType = "ext4";
-      options = [ "noatime" ];
-      neededForBoot = true;
-    };
-
-    # Persistent data partition (1.6TB)
-    "/persist" = {
-      device = "/dev/disk/by-uuid/9e08cb02-a9ed-48c2-a3cb-1eae11c54b20";
-      fsType = "ext4";
-      options = [ "noatime" ];
-      neededForBoot = true;
-    };
-  };
-
-  # Swap partition (64GB for hibernation)
-  swapDevices = [
-    { device = "/dev/disk/by-uuid/ac1d28ea-517e-40c4-9240-5f48258f3e57"; }
-  ];
+  # fileSystems and swapDevices are managed by disko (see disks.nix)
 
   networking.useDHCP = lib.mkDefault true;
 

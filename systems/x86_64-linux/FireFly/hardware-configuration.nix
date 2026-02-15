@@ -1,10 +1,15 @@
-# Hardware configuration for Emberroot with btrfs + disko + impermanence
-# External 1TB SSD (/dev/sda), partition layout managed by disko (see disks.nix)
+# Hardware configuration for FireFly - portable NixOS on 64GB USB
+# Same ThinkPad hardware as Drgnfly, booting from external USB (/dev/sda)
 #
-# Btrfs subvolumes (label: emberroot):
-#   @root        → /          (wiped on every boot via initrd rollback)
-#   @nix         → /nix       (persistent)
-#   @persist     → /persist   (persistent)
+# LUKS → LVM → Btrfs layout:
+#   /dev/sda1  512MB  ESP (unencrypted)
+#   /dev/sda2  8GB    swap (plain)
+#   /dev/sda3  rest   LUKS "mobi-crypt" → LVM VG "mobi-vg" → LV "mobi-lv" → BTRFS
+#
+# Btrfs subvolumes (label: mobi):
+#   @root        -> /          (wiped on every boot via initrd rollback)
+#   @nix         -> /nix       (persistent)
+#   @persist     -> /persist   (persistent)
 #   @root-blank  (empty snapshot, rollback source)
 {
   config,
@@ -27,7 +32,7 @@
         "sd_mod"
         "rtsx_pci_sdmmc"
       ];
-      kernelModules = [ ];
+      kernelModules = [ "dm-mod" ];
       supportedFilesystems = [
         "btrfs"
         "vfat"
@@ -36,7 +41,7 @@
       # Rollback @root to empty snapshot on every boot (impermanence)
       postDeviceCommands = lib.mkAfter ''
         mkdir -p /mnt
-        mount -t btrfs -o subvol=/ /dev/disk/by-label/emberroot /mnt
+        mount -t btrfs -o subvol=/ /dev/mobi-vg/mobi-lv /mnt
 
         if [[ -e /mnt/@root-blank ]]; then
           # Delete old @root and any nested subvolumes

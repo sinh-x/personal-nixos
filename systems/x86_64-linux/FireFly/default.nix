@@ -1,4 +1,5 @@
-# Emberroot - External 1TB SSD with btrfs + disko + impermanence + niri
+# FireFly - Portable NixOS daily driver on 128GB USB
+# Based on Drgnfly config, lighter for USB use (no Docker, VMs, heavy dev tools)
 {
   inputs,
   lib,
@@ -22,22 +23,22 @@
     nix_ld.enable = true;
     fcitx5.enable = true;
     fish.enable = true;
-    gcloud.enable = true;
-    antigravity.enable = true;
+    gcloud.enable = false;
+    antigravity.enable = false;
     gurk.enable = false;
 
-    # windows manager
+    # window manager
     wm = {
       bspwm.enable = false;
       hyprland.enable = false;
       niri = {
         enable = true;
         greetd.enable = true;
-        greetd.autoLogin.enable = true;
+        greetd.autoLogin.enable = false;
       };
     };
 
-    docker.enable = true;
+    docker.enable = false;
 
     # network
     stubby.enable = true;
@@ -45,7 +46,7 @@
 
     sops.enable = true;
 
-    # Impermanence - btrfs root with persistent storage
+    # Impermanence - btrfs root rollback with persistent storage
     impermanence = {
       enable = true;
       users = [ "sinh" ];
@@ -89,8 +90,9 @@
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot/efi";
     };
-    # Note: deep sleep (S3) not supported on this hardware, only s2idle available
-    kernelParams = [ ];
+    kernelParams = [
+      "usb-storage.quirks=21c4:b083:u" # Lexar E300 SSD enclosure - disable UAS (buggy firmware)
+    ];
     extraModprobeConfig = ''
       options snd-hda-intel
     '';
@@ -105,21 +107,9 @@
       fileSystems = [ "/" ];
     };
 
-    ip_updater = {
-      enable = true;
-      package = pkgs.sinh-x-ip_updater;
-      wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-scripts/wasabi-access-key.env";
-    };
-
     xserver.videoDrivers = [ "nvidia" ];
 
-    printing = {
-      enable = true;
-      cups-pdf.enable = true;
-      drivers = [ pkgs.brlaser ];
-    };
-
-    udev.packages = [ pkgs.qmk-udev-rules ];
+    udev.packages = [ ];
   };
 
   services.xserver.xkb.layout = "us";
@@ -138,33 +128,25 @@
     };
 
     nvidia = {
-      # Use the proprietary driver
       modesetting.enable = true;
-
-      # Enable the NVIDIA settings menu
       nvidiaSettings = true;
       open = false;
 
-      # Enable the PRIME offloading (if you have a laptop with hybrid graphics)
       prime = {
         sync.enable = false;
         offload.enable = true;
-        offload.enableOffloadCmd = true; # Provides `nvidia-offload` command
-        # Intel is usually the integrated GPU
+        offload.enableOffloadCmd = true;
         intelBusId = "PCI:0:2:0";
-        # The NVIDIA GPU
         nvidiaBusId = "PCI:1:0:0";
       };
 
-      # Optionally, enable Vulkan support if needed
       package = config.boot.kernelPackages.nvidiaPackages.stable;
 
       powerManagement.enable = true;
-      powerManagement.finegrained = false; # Disabled - was causing suspend hangs (nvkms_unregister_backlight blocking)
-      forceFullCompositionPipeline = false; # Can cause suspend issues
+      powerManagement.finegrained = false;
+      forceFullCompositionPipeline = false;
     };
 
-    # Optional: Enable OpenGL
     graphics = {
       enable = true;
     };
@@ -174,29 +156,27 @@
     parted
     gptfdisk
     lm_sensors
-    devenv
     nix-tree
     yq
     ntfs3g
-    compsize # Check btrfs compression ratios
-    cargo-binstall # Install pre-built Rust binaries from GitHub (e.g., cargo binstall gurk-rs)
+    compsize
+    sinh-x.firefly-restore
 
+    usbutils # lsusb
+    smartmontools # smartctl
+    sdparm # SCSI/USB device parameters
     pciutils
     libva
-    libva-utils # VA-API diagnostics (vainfo)
-    nvidia-vaapi-driver # Native VA-API support for NVIDIA
+    libva-utils
+    nvidia-vaapi-driver
     libvdpau-va-gl
-    nvidia-system-monitor-qt
     nvtopPackages.full
-
-    qmk
-    qmk-udev-rules
 
     inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight
   ];
 
   networking = {
-    hostName = "Emberroot";
+    hostName = "FireFly";
     networkmanager.enable = false;
     firewall = {
       allowedTCPPorts = [ 22 ];
@@ -206,15 +186,6 @@
   };
 
   services.tailscale.enable = true;
-
-  programs.steam.enable = true;
-
-  # QEMU/KVM virtualization for VM testing
-  virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
-
-  # Add libvirtd group for this system
-  users.users.sinh.extraGroups = [ "libvirtd" ];
 
   services = {
     flatpak.enable = true;

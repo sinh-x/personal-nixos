@@ -1,16 +1,15 @@
-# Emberroot home config - External 1TB SSD with btrfs + disko + impermanence + niri
+# FireFly home config - portable NixOS daily driver on 128GB USB
+# Based on Drgnfly, lighter (no office, no heavy coding tools)
 { pkgs, ... }:
 {
   imports = [ ./global ];
 
   home = {
     packages = with pkgs; [
-      anydesk
       light
-      aegisub
       acpilight
-      sct # for setting color temperature
-      sound-theme-freedesktop # notification sounds
+      sct
+      sound-theme-freedesktop
     ];
 
     sessionVariables = {
@@ -37,13 +36,13 @@
       input-cfg.enable = true;
     };
 
-    office.enable = true;
+    office.enable = false;
 
     multimedia = {
       mpd.enable = true;
       utilities.enable = true;
       tools = {
-        kdenlive.enable = true;
+        kdenlive.enable = false;
       };
     };
 
@@ -68,12 +67,12 @@
     };
 
     coding = {
-      editor.vscode.enable = true;
-      docker.enable = true;
+      editor.vscode.enable = false;
+      docker.enable = false;
       claudecode.enable = true;
-      super-productivity.enable = true;
-      devbox.enable = true;
-      flutter.enable = true;
+      super-productivity.enable = false;
+      devbox.enable = false;
+      flutter.enable = false;
     };
 
     social-apps = {
@@ -97,10 +96,10 @@
         enable = false;
         monitors = {
           primary = "eDP-1";
-          externalPosition = "left"; # External monitor to the left of primary
+          externalPosition = "left";
           externalMaxResolution = 4000;
         };
-        workspaces.distribution = "split"; # 1-5,11-15 left; 6-10,16-20 right
+        workspaces.distribution = "split";
       };
       hyprland.enable = false;
       niri = {
@@ -110,9 +109,5 @@
     };
 
     personal-scripts.enable = true;
-
-    # Note: Full home persistence is handled by NixOS module (modules.impermanence.users)
-    # To switch to selective persistence later, enable this and configure specific paths:
-    # impermanence.enable = true;
   };
 }
