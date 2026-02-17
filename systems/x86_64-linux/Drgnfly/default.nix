@@ -44,6 +44,7 @@
     # network
     stubby.enable = true;
     wifi.enable = true;
+    wifi.interfaces = [ "wlp9s0" ];
 
     sops.enable = true;
 
