@@ -274,6 +274,12 @@ in
       default = true;
       description = "Allow user control via wpa_cli";
     };
+
+    interfaces = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "Wireless interfaces to use (e.g. [ \"wlp9s0\" ]). Empty list uses auto-detection.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -289,6 +295,7 @@ in
       secretsFile = config.sops.secrets."wifi/credentials".path;
       inherit (cfg) userControlled;
       networks = sharedNetworks // cfg.extraNetworks;
-    };
+    }
+    // lib.optionalAttrs (cfg.interfaces != [ ]) { inherit (cfg) interfaces; };
   };
 }
