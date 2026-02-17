@@ -203,6 +203,8 @@
     qmk-udev-rules
 
     inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight
+
+    sinh-x.anytype-cli # Headless Anytype server + CLI for scripting/MCP
   ];
 
   networking = {
