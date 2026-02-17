@@ -11,7 +11,7 @@ while ! niri msg --json outputs &>/dev/null 2>&1; do
 done
 
 # Phase 1: Chat & productivity apps (window rules -> chat/email workspace)
-superproductivity &
+anytype &
 signal-desktop &
 Telegram &
 viber &

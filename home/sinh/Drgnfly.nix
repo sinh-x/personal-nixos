@@ -73,7 +73,7 @@
       editor.vscode.enable = true;
       docker.enable = true;
       claudecode.enable = true;
-      super-productivity.enable = true;
+      super-productivity.enable = false;
       devbox.enable = true;
       flutter.enable = true;
     };
