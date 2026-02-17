@@ -203,6 +203,7 @@
     qmk-udev-rules
 
     inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight
+
   ];
 
   networking = {

@@ -27,6 +27,7 @@
 
   sinh-x = {
     apps = {
+      anytype.enable = true;
       sinh-x.enable = true;
       web.zen-browser.enable = true;
       web.browser = {
