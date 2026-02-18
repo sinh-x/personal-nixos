@@ -20,25 +20,30 @@ in
           {
             address_data = "1.1.1.1";
             tls_auth_name = "cloudflare-dns.com";
-            tls_pubkey_pinset = [
-              {
-                digest = "sha256";
-                value = "4pqQ+yl3lAtRvKdoCCUR8iDmA53I+cJ7orgBLiF08kQ=";
-              }
-            ];
           }
           {
             address_data = "1.0.0.1";
             tls_auth_name = "cloudflare-dns.com";
-            tls_pubkey_pinset = [
-              {
-                digest = "sha256";
-                value = "4pqQ+yl3lAtRvKdoCCUR8iDmA53I+cJ7orgBLiF08kQ=";
-              }
-            ];
+          }
+          {
+            address_data = "2606:4700:4700::1111";
+            tls_auth_name = "cloudflare-dns.com";
+          }
+          {
+            address_data = "2606:4700:4700::1001";
+            tls_auth_name = "cloudflare-dns.com";
           }
         ];
       };
     };
+
+    # Route all DNS through Stubby
+    networking.nameservers = lib.mkForce [
+      "127.0.0.1"
+      "::1"
+    ];
+
+    # Prevent DHCP from overwriting resolv.conf
+    networking.dhcpcd.extraConfig = "nohook resolv.conf";
   };
 }

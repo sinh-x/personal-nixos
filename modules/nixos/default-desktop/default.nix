@@ -47,7 +47,7 @@ in
       }
     ];
 
-    networking.nameservers = [
+    networking.nameservers = mkDefault [
       "1.1.1.1"
       "8.8.8.8"
       "8.8.4.4"
