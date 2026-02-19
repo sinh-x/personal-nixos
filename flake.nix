@@ -72,7 +72,7 @@
       # url = "/home/sinh/git-repos/sinh-x/ip_update";
     };
     sinh-x-avodah = {
-      url = "github:sinh-x/avodah";
+      url = "github:sinh-x/avodah/develop";
       # url = "/home/sinh/git-repos/sinh-x/tools/avodah";
     };
     sinh-x-nixvim = {

@@ -2885,6 +2885,7 @@
       },
       "original": {
         "owner": "sinh-x",
+        "ref": "develop",
         "repo": "avodah",
         "type": "github"
       }
