@@ -1,5 +1,5 @@
-# Hardware configuration for FireFly - portable NixOS on 64GB USB
-# Same ThinkPad hardware as Drgnfly, booting from external USB (/dev/sda)
+# Hardware configuration for FireFly - portable NixOS on USB
+# Generic x86_64 hardware: boots on Intel or AMD, any GPU (modesetting)
 #
 # LUKS → LVM → Btrfs layout:
 #   /dev/sda1  512MB  ESP (unencrypted)
@@ -59,7 +59,10 @@
         umount /mnt
       '';
     };
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [
+      "kvm-intel"
+      "kvm-amd"
+    ];
     extraModulePackages = [ ];
   };
 
@@ -69,4 +72,5 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

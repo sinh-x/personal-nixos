@@ -1,5 +1,5 @@
 # FireFly - Portable NixOS daily driver on 128GB USB
-# Based on Drgnfly config, lighter for USB use (no Docker, VMs, heavy dev tools)
+# Hardware-generic: boots on any x86_64 PC (no GPU-specific drivers)
 {
   inputs,
   lib,
@@ -90,13 +90,9 @@
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot/efi";
     };
-    kernelParams = [
-      "usb-storage.quirks=21c4:b083:u" # Lexar E300 SSD enclosure - disable UAS (buggy firmware)
-    ];
     extraModprobeConfig = ''
       options snd-hda-intel
     '';
-    blacklistedKernelModules = [ "nouveau" ];
   };
 
   services = {
@@ -107,7 +103,7 @@
       fileSystems = [ "/" ];
     };
 
-    xserver.videoDrivers = [ "nvidia" ];
+    xserver.videoDrivers = [ "modesetting" ];
 
     udev.packages = [ ];
   };
@@ -127,26 +123,6 @@
       speed = 120;
     };
 
-    nvidia = {
-      modesetting.enable = true;
-      nvidiaSettings = true;
-      open = false;
-
-      prime = {
-        sync.enable = false;
-        offload.enable = true;
-        offload.enableOffloadCmd = true;
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
-      };
-
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-
-      powerManagement.enable = true;
-      powerManagement.finegrained = false;
-      forceFullCompositionPipeline = false;
-    };
-
     graphics = {
       enable = true;
     };
@@ -160,7 +136,6 @@
     yq
     ntfs3g
     compsize
-    sinh-x.firefly-restore
 
     usbutils # lsusb
     smartmontools # smartctl
@@ -168,9 +143,6 @@
     pciutils
     libva
     libva-utils
-    nvidia-vaapi-driver
-    libvdpau-va-gl
-    nvtopPackages.full
 
     inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight
   ];
