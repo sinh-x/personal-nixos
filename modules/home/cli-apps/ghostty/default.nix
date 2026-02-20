@@ -55,6 +55,7 @@ in
 
         # Mouse
         copy-on-select = "clipboard";
+        app-notifications = "no-clipboard-copy";
 
         # Window layout
         window-padding-x = 12;
