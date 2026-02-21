@@ -14,9 +14,20 @@ in
   };
 
   config = mkIf cfg.enable {
+    users.users.ollama = {
+      isSystemUser = true;
+      group = "ollama";
+      home = "/persist/system/ollama";
+      createHome = true;
+    };
+    users.groups.ollama = { };
+
     services.ollama = {
       enable = true;
       package = pkgs.ollama-cuda;
+      user = "ollama";
+      group = "ollama";
+      home = "/persist/system/ollama";
     };
   };
 }

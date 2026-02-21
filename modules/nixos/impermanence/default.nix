@@ -41,7 +41,6 @@ in
         "/var/lib/systemd/coredump"
         "/var/lib/NetworkManager"
         "/var/lib/libvirt"
-        "/var/lib/private/ollama"
         "/var/lib/cups"
         "/var/lib/sddm" # SDDM state for display manager
         {
