@@ -40,6 +40,7 @@
     };
 
     docker.enable = true;
+    ollama.enable = true;
 
     # network
     stubby.enable = true;
