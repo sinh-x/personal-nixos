@@ -64,6 +64,7 @@
       backup.enable = true;
       nix.enable = true;
       tools = {
+        asciinema.enable = true;
         below.enable = true;
         gurk.enable = false;
       };
