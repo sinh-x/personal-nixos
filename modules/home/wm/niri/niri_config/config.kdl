@@ -31,14 +31,14 @@ input {
 // Can use connector name (eDP-1) or "Manufacturer Model Serial"
 output "LG Display 0x06AA Unknown" {
     mode "3840x2400@60.000"
-    scale 1.5
+    scale 1.25
     position x=0 y=0
 }
 
 output "MaxCom Technical Inc 0x1B1A 0x20230808" {
-    mode "2560x1600@129.995"
+    mode "2560x1600@59.995"
     scale 1.0
-    position x=3840 y=0
+    position x=3072 y=0
 }
 
 // Named workspaces (always exist, even when empty)
@@ -60,15 +60,15 @@ workspace "email" {
     open-on-output "eDP-1"
 }
 
-// External monitor (ext-) - HDMI-A-2 for external monitor
+// External monitor (ext-) - DP-6 for external monitor
 workspace "ext-term" {
-    open-on-output "HDMI-A-2"
+    open-on-output "DP-6"
 }
 workspace "ext-browser" {
-    open-on-output "HDMI-A-2"
+    open-on-output "DP-6"
 }
 workspace "ext-code" {
-    open-on-output "HDMI-A-2"
+    open-on-output "DP-6"
 }
 
 // Layout configuration
