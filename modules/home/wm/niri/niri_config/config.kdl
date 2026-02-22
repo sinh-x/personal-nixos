@@ -223,6 +223,7 @@ window-rule {
 
 // Chat apps -> open on "chat" workspace without stealing focus
 window-rule {
+    match app-id="discord"
     match app-id="signal"
     match app-id="org.telegram.desktop"
     match app-id="ViberPC"

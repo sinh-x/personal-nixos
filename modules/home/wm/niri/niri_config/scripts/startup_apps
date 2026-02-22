@@ -12,6 +12,7 @@ done
 
 # Phase 1: Chat & productivity apps (window rules -> chat/email workspace)
 anytype &
+discord &
 signal-desktop &
 Telegram &
 viber &
