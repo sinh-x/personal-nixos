@@ -96,6 +96,11 @@
       url = "github:sinh-x/super-productivity/feat/worklog-data-structure";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    fcitx5-lotus = {
+      url = "github:sinh-trusted/fcitx5-lotus/snapshot-20260223";
+      # inputs.nixpkgs.follows = "nixpkgs";  # optional, to avoid duplicate nixpkgs
+    };
   };
   outputs =
     inputs:
