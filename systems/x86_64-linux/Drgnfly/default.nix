@@ -23,6 +23,7 @@
     python.enable = true;
     nix_ld.enable = true;
     fcitx5.enable = true;
+    fcitx5.lotus.enable = true;
     fish.enable = true;
     gcloud.enable = true;
     antigravity.enable = true;
