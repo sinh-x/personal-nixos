@@ -2966,16 +2966,16 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1771773679,
-        "narHash": "sha256-Zt73m7EdxKzfUNa9XWdNJH3jFTms57LrcF42eEv+F9c=",
+        "lastModified": 1771853735,
+        "narHash": "sha256-DTFw9GqpeZQmYk2zbz0QyBf22IpflMhZ8MryulTzNho=",
         "owner": "sinh-x",
         "repo": "avodah",
-        "rev": "0610901cf1dcaa4e41301c7a4beb96dfa87d250a",
+        "rev": "ce5a603d485febcb36dc6bd37d05d97b1ede6f2a",
         "type": "github"
       },
       "original": {
         "owner": "sinh-x",
-        "ref": "develop",
+        "ref": "v0.3.0-beta.3",
         "repo": "avodah",
         "type": "github"
       }
