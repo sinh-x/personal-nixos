@@ -1,0 +1,23 @@
+# Colors configuration
+background = #391b0b
+foreground = #f3ecdf
+selection-background = #f3ecdf
+selection-foreground = #391b0b
+cursor-color = #f3ecdf
+
+palette = 0=#391b0b
+palette = 8=#aaa59c
+palette = 1=#E4A85F
+palette = 9=#E4A85F
+palette = 2=#F3AF71
+palette = 10=#F3AF71
+palette = 3=#BDA089
+palette = 11=#BDA089
+palette = 4=#EEB48A
+palette = 12=#EEB48A
+palette = 5=#F7CC92
+palette = 13=#F7CC92
+palette = 6=#F7D9AD
+palette = 14=#F7D9AD
+palette = 7=#f3ecdf
+palette = 15=#f3ecdf

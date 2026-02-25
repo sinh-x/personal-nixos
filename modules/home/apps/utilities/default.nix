@@ -24,12 +24,10 @@ in
       activitywatch
       aw-watcher-window-wayland
       qmk
-      evince
-      obsidian
-      wpsoffice
-      inkscape
       libtiff
       imagemagick
+      swayimg
+      upower
     ];
   };
 }

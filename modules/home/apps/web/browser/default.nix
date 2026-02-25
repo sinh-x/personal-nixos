@@ -16,30 +16,17 @@ let
 in
 {
   options.${namespace}.apps.web.browser = {
-    enable = mkEnableOption "Web browser apps";
+    chrome = mkEnableOption "Google Chrome";
+    brave = mkEnableOption "Brave";
+    edge = mkEnableOption "Edge";
   };
 
-  config = mkIf cfg.enable {
+  config = {
 
-    home.packages = with pkgs; [
-      floorp
-      firefox
-      google-chrome
-      # microsoft-edge
-      # opera
-
+    home.packages = mkMerge [
+      (mkIf cfg.chrome [ pkgs.google-chrome ])
+      (mkIf cfg.brave [ pkgs.brave ])
+      (mkIf cfg.brave [ pkgs.microsoft-edge ])
     ];
-
-    xdg.mimeApps.enable = true;
-    xdg.mimeApps.defaultApplications = {
-      "text/html" = [ "zen-beta.desktop" ];
-      "x-scheme-handler/http" = [ "zen-beta.desktop" ];
-      "x-scheme-handler/https" = [ "zen-beta.desktop" ];
-    };
-
-    home.sessionVariables = {
-      BROWSER = "/run/current-system/sw/bin/zen";
-    };
-
   };
 }

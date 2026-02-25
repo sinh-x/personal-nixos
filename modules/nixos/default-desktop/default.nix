@@ -47,7 +47,7 @@ in
       }
     ];
 
-    networking.nameservers = [
+    networking.nameservers = mkDefault [
       "1.1.1.1"
       "8.8.8.8"
       "8.8.4.4"
@@ -76,7 +76,7 @@ in
       meslo-lgs-nf
       hackgen-nf-font
       powerline-fonts
-      ubuntu_font_family
+      ubuntu-classic
       # (nerdfonts.override {
       #   fonts = [
       #     "FiraCode"
@@ -105,6 +105,7 @@ in
       openssl
       ocamlPackages.ssl
 
+      thunderbird
       sinh-x.sys
       kdePackages.okular
     ];

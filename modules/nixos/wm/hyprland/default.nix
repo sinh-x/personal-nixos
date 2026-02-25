@@ -9,8 +9,22 @@ let
   cfg = config.modules.wm.hyprland;
 in
 {
-  options = {
-    modules.wm.hyprland.enable = lib.mkEnableOption "hyprland";
+  options.modules.wm.hyprland = {
+    enable = lib.mkEnableOption "hyprland";
+
+    greetd = {
+      enable = lib.mkEnableOption "greetd display manager with hyprland";
+
+      autoLogin = {
+        enable = lib.mkEnableOption "auto-login without greeter";
+
+        user = lib.mkOption {
+          type = lib.types.str;
+          default = "sinh";
+          description = "User to auto-login as";
+        };
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -31,6 +45,10 @@ in
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_TYPE = "wayland";
       XDG_SESSION_DESKTOP = "Hyprland";
+      # Video acceleration for NVIDIA (VA-API)
+      LIBVA_DRIVER_NAME = "nvidia";
+      NVD_BACKEND = "direct"; # nvidia-vaapi-driver backend
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     };
 
     # hardware = {
@@ -123,15 +141,15 @@ in
       socat
 
       # File management
-      xfce.thunar # File manager
-      xfce.tumbler # Thumbnails for thunar
+      thunar # File manager
+      tumbler # Thumbnails for thunar
 
       # Clipboard & utilities
       wl-clipboard # Standard Wayland clipboard
       cliphist # Clipboard history
 
       # Launchers & menus (alternatives/additions to wofi)
-      rofi-wayland # Rofi for Wayland
+      rofi # Rofi for Wayland
       fuzzel # Fast application launcher
 
       # System info & monitoring
@@ -156,7 +174,7 @@ in
     fonts = {
       packages = with pkgs; [
         noto-fonts
-        noto-fonts-emoji
+        noto-fonts-color-emoji
         font-awesome
       ];
       fontconfig = {
@@ -173,6 +191,24 @@ in
     # Enable location service for automatic dark/light theme switching
     location.provider = "geoclue2";
     services.geoclue2.enable = true;
+
+    # greetd display manager
+    services.greetd = lib.mkIf cfg.greetd.enable {
+      enable = true;
+      settings = {
+        default_session =
+          if cfg.greetd.autoLogin.enable then
+            {
+              command = "${pkgs.hyprland}/bin/start-hyprland";
+              inherit (cfg.greetd.autoLogin) user;
+            }
+          else
+            {
+              command = "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${pkgs.hyprland}/share/wayland-sessions";
+              user = "greeter";
+            };
+      };
+    };
   };
 }
 

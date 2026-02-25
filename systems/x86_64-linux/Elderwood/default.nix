@@ -43,6 +43,7 @@
 
     # network
     stubby.enable = true;
+    wifi.enable = true;
 
     sops.enable = true;
   };
@@ -128,17 +129,6 @@
         prefixLength = 24;
       }
     ];
-
-    wireless = {
-      secretsFile = "/home/sinh/.config/wireless.env";
-      enable = true;
-      userControlled.enable = true;
-      networks = {
-        "5G_Vuon Nha" = {
-          pskRaw = "ext:vuonnha";
-        };
-      };
-    };
   };
 
   environment.systemPackages = with pkgs; [

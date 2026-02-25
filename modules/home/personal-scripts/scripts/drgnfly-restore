@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Restore full home directory from latest Drgnfly backup
+# Run on any new system as user sinh to set up home from backup
+#
+# Usage: drgnfly-restore [--dry-run]
+
+set -euo pipefail
+
+PROFILE="sinh-personal_file"
+HOST_FILTER="Drgnfly"
+DRY_RUN=""
+
+if [[ "${1:-}" == "--dry-run" ]]; then
+  DRY_RUN="--dry-run"
+  echo "=== DRY RUN MODE ==="
+fi
+
+# Get latest Drgnfly snapshot ID
+echo "Finding latest Drgnfly snapshot..."
+LATEST=$(rustic -P "$PROFILE" snapshots --filter-host "$HOST_FILTER" --json 2>/dev/null \
+  | jq -r '.[-1].id')
+
+if [[ -z "$LATEST" || "$LATEST" == "null" ]]; then
+  echo "ERROR: No Drgnfly snapshots found in profile $PROFILE"
+  exit 1
+fi
+
+echo "Restoring from snapshot: $LATEST (Drgnfly)"
+echo "Target: /home/sinh"
+echo ""
+
+# Restore full home, excluding nix-managed and heavy/unnecessary dirs
+echo "=== Restoring full home directory ==="
+rustic -P "$PROFILE" restore "$LATEST:/home/sinh" \
+  --target /home/sinh \
+  --exclude '.nix-defexpr' \
+  --exclude '.nix-profile' \
+  --exclude '.local/state/nix' \
+  --exclude '.local/share/Trash' \
+  --exclude '.local/share/baloo' \
+  --exclude '.local/share/Steam' \
+  --exclude '.cache' \
+  --exclude '.config/nix' \
+  --exclude '.config/nixpkgs' \
+  --exclude '.config/Code' \
+  $DRY_RUN
+
+echo ""
+echo "Done. You may need to restart apps to pick up restored data."

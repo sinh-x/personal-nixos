@@ -1,0 +1,27 @@
+# Ghostty configuration for Hyprland
+
+# Include colorscheme
+config-file = ~/.config/hypr/ghostty/colors
+
+# Include fonts
+config-file = ~/.config/hypr/ghostty/fonts
+
+# Cursor
+cursor-style = block
+
+# Scrollback
+scrollback-limit = 2000
+
+# Mouse
+copy-on-select = clipboard
+
+# Window layout
+window-padding-x = 12
+window-padding-y = 12
+
+# Background
+background-opacity = 0.90
+
+# Misc
+confirm-close-surface = false
+shell-integration = none

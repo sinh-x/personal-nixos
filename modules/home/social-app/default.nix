@@ -24,6 +24,8 @@ in
       zoom = mkEnableOption "Zoom";
       element = mkEnableOption "Element";
       pidgin = mkEnableOption "Pidgin";
+      telegram = mkEnableOption "Telegram";
+      signal = mkEnableOption "Signal";
     };
   };
 
@@ -35,6 +37,11 @@ in
       (mkIf cfg.viber [ pkgs.viber ])
       (mkIf cfg.zoom [ pkgs.zoom-us ])
       (mkIf cfg.element [ pkgs.element-desktop ])
+      (mkIf cfg.telegram [ pkgs.telegram-desktop ])
+      (mkIf cfg.signal [
+        pkgs.signal-desktop
+        pkgs.signal-cli
+      ])
       (mkIf cfg.pidgin [
         (pkgs.pidgin.override {
           plugins = [

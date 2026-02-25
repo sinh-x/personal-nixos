@@ -17,7 +17,7 @@ export PATH="${PATH}:$BSPDIR/scripts"
 export _JAVA_AWT_WM_NONREPARENTING=1
 #wmname LG3D
 
-export BROWSER=google-chrome-stable
+export BROWSER=zen-twilight
 export EDITOR=nvim
 
 ## Current theme ---------------------------------------------#
@@ -40,9 +40,13 @@ echo "hwmon-path = $(awk -F 'Package id 0 |$' '{print $2}' <<<"$(for i in /sys/c
 
 ## Manage Monitors and Workspaces
 ##
-## Default Setup (Set 8 workspaces on each monitor)
+## Uses Nix-generated script with declarative monitor/workspace configuration
+## Initial setup runs synchronously, then watcher runs in background for hot-plug
 
-fish "$HOME/.config/bspwm/monitors-workspaces/$hostname.fish"
+fish "$HOME/.config/bspwm/scripts/monitor-management.fish"
+
+## Start monitor watcher for auto-detection of plug/unplug events
+fish "$HOME/.config/bspwm/scripts/monitor-watcher.fish" &
 
 ## Apply bspwm configurations
 bspc config border_width "$BSPWM_BORDER"
@@ -111,7 +115,7 @@ done
 ## 4 > code (always open editors on workspace-4)
 declare -a code=(Geany code-oss)
 for i in "${code[@]}"; do
-  bspc rule -a "$i" desktop='3' follow=on focus=on
+  bspc rule -a "$i" desktop='4' follow=on focus=on
 done
 
 ## 5 > office and docs (always open office/doc apps on workspace-5)
@@ -160,6 +164,9 @@ bspc config external_rules_command "${HOME}/.config/bspwm/scripts/external_rules
 # Kill if already running
 killall -9 aw-qt xsettingsd sxhkd dunst ksuperkey xfce4-power-manager bspc input-leap fcitx5 flameshot copyq blueman-applet
 
+# Kill monitor watcher (it's a fish script, so we need to match the script name)
+pkill -f "monitor-watcher.fish" 2>/dev/null
+
 # Lauch xsettingsd daemon
 xsettingsd --config="$BSPDIR"/xsettingsd &
 
@@ -203,7 +210,7 @@ if [[ ${running_check[*]} -eq 0 ]]; then
 fi
 
 sinh-x-wallpaper refresh &
-dislaykey.fish &
+displaykey.fish &
 
 sleep 3
 running_check="($(pgrep -c 'aw-qt'))"

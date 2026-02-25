@@ -21,13 +21,11 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      (libsForQt5.kdenlive.overrideAttrs (prevAttrs: {
+      (kdePackages.kdenlive.overrideAttrs (prevAttrs: {
         nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [ makeBinaryWrapper ];
-        postInstall =
-          (prevAttrs.postInstall or "")
-          + ''
-            wrapProgram $out/bin/kdenlive --prefix LADSPA_PATH : ${rnnoise-plugin}/lib/ladspa
-          '';
+        postInstall = (prevAttrs.postInstall or "") + ''
+          wrapProgram $out/bin/kdenlive --prefix LADSPA_PATH : ${rnnoise-plugin}/lib/ladspa
+        '';
       }))
     ];
   };

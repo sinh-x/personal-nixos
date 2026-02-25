@@ -6,8 +6,16 @@
     hardware.url = "github:nixos/nixos-hardware";
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
+    # Pinned nixpkgs for packages broken in unstable (gurk-rs NIX_LDFLAGS issue)
+    nixpkgs-gurk.url = "github:nixos/nixpkgs/nixos-24.11";
+
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -15,16 +23,23 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    impermanence.url = "github:nix-community/impermanence";
     # optional, not necessary for the module
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
 
-    # Snowfall
+    # Snowfall (forked for full control)
     snowfall-lib = {
-      url = "github:snowfallorg/lib";
+      url = "github:sinh-x/snowfall-lib/develop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Snowfall Flake
+
     snowfall-flake = {
       url = "github:snowfallorg/flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -56,6 +71,10 @@
       url = "github:sinh-x/ip_update";
       # url = "/home/sinh/git-repos/sinh-x/ip_update";
     };
+    sinh-x-avodah = {
+      url = "github:sinh-x/avodah/v0.3.0-beta.3";
+      # url = "/home/sinh/git-repos/sinh-x/tools/avodah";
+    };
     sinh-x-nixvim = {
       url = "github:sinh-x/Neve";
       # url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
@@ -71,6 +90,16 @@
 
     zjstatus = {
       url = "github:dj95/zjstatus";
+    };
+
+    sinh-x-super-productivity = {
+      url = "github:sinh-x/super-productivity/feat/worklog-data-structure";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    fcitx5-lotus = {
+      url = "github:sinh-trusted/fcitx5-lotus/snapshot-20260223";
+      # inputs.nixpkgs.follows = "nixpkgs";  # optional, to avoid duplicate nixpkgs
     };
   };
   outputs =
