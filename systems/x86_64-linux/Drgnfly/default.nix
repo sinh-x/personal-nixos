@@ -219,8 +219,11 @@
     };
   };
 
+  sops.secrets."tailscale/Drgnfly" = { };
+
   services.tailscale = {
     enable = true;
+    authKeyFile = config.sops.secrets."tailscale/Drgnfly".path;
     extraSetFlags = [ "--ssh" ];
   };
 
