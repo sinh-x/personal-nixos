@@ -224,7 +224,7 @@
   services.tailscale = {
     enable = true;
     authKeyFile = config.sops.secrets."tailscale/Drgnfly".path;
-    extraSetFlags = [
+    extraUpFlags = [
       "--ssh"
       "--reset"
     ];
