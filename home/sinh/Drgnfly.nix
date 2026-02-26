@@ -12,6 +12,7 @@
       acpilight
       sct # for setting color temperature
       sound-theme-freedesktop # notification sounds
+      mermaid-cli # mmdc - diagram generation from text
     ];
 
     sessionVariables = {
