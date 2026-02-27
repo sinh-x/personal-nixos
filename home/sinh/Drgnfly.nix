@@ -13,6 +13,7 @@
       sct # for setting color temperature
       sound-theme-freedesktop # notification sounds
       mermaid-cli # mmdc - diagram generation from text
+      openai-whisper # speech-to-text recognition
     ];
 
     sessionVariables = {
