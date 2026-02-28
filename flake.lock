@@ -3035,11 +3035,11 @@
         "snowfall-lib": "snowfall-lib_7"
       },
       "locked": {
-        "lastModified": 1770903752,
-        "narHash": "sha256-jgrPa0mq8KoCrtuoOlF+dleMscxVxakZMDL+s7Z5L80=",
+        "lastModified": 1772319070,
+        "narHash": "sha256-5c2Y3xD3DxfovAPwiUJRFMf1/le6sOJCivYoNolPN5I=",
         "owner": "sinh-x",
         "repo": "Neve",
-        "rev": "f09ed15459a2eb914e3a5c3d4179d88669807921",
+        "rev": "a95fe3d7f6d1f62ff5da966fdfa3f448ae92f891",
         "type": "github"
       },
       "original": {
