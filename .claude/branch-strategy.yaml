@@ -4,7 +4,7 @@ strategy: monthly-integration
 
 branches:
   production: main
-  integration_pattern: "feature/%Y%m"
+  integration_pattern: "integrate/%Y%m"
   feature_pattern: "{integration}-{description}"
 
 merge:

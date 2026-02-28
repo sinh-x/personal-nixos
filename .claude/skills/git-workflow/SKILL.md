@@ -1,6 +1,6 @@
 ---
 name: git-workflow
-description: "Local branch strategy override for personal-nixos. Uses monthly integration branches (feature/YYYYMM) instead of merging directly to main. This skill extends /git-ship with project-specific rules. Applied automatically when /git-ship detects this repo."
+description: "Local branch strategy override for personal-nixos. Uses monthly integration branches (integrate/YYYYMM) instead of merging directly to main. This skill extends /git-ship with project-specific rules. Applied automatically when /git-ship detects this repo."
 ---
 
 # Git Workflow — personal-nixos Branch Strategy
@@ -12,14 +12,14 @@ This skill overrides the default `/git-ship` behavior for this repository, imple
 ```
 main (production)
   │
-  └── feature/202602 (February integration)
+  └── integrate/202602 (February integration)
         │
         ├── feat/202602-zsh-switch
         ├── fix/202602-polybar-crash
         └── chore/202602-cleanup
 ```
 
-- **Feature branches** merge into **monthly integration branches** (e.g., `feature/202602`)
+- **Feature branches** merge into **monthly integration branches** (e.g., `integrate/202602`)
 - **Monthly integration branches** merge into `main` when stable
 - This allows batching related changes and testing them together before production
 
@@ -27,7 +27,7 @@ main (production)
 
 Determine the current integration branch:
 ```bash
-INTEGRATION_BRANCH=$(date +"feature/%Y%m")  # e.g., feature/202602
+INTEGRATION_BRANCH=$(date +"integrate/%Y%m")  # e.g., integrate/202602
 ```
 
 Check if it exists:
@@ -71,7 +71,7 @@ git push -u origin "$INTEGRATION_BRANCH"
 
 ```bash
 # Get current integration branch
-INTEGRATION=$(date +"feature/%Y%m")
+INTEGRATION=$(date +"integrate/%Y%m")
 
 # Create feature branch from integration
 git checkout -b feat/$INTEGRATION-<description> $INTEGRATION
@@ -79,7 +79,7 @@ git checkout -b feat/$INTEGRATION-<description> $INTEGRATION
 
 Example:
 ```bash
-git checkout -b feat/202602-zsh-keybindings feature/202602
+git checkout -b feat/202602-zsh-keybindings integrate/202602
 ```
 
 ## Creating a PR
@@ -87,7 +87,7 @@ git checkout -b feat/202602-zsh-keybindings feature/202602
 PRs target the **integration branch**, not `main`:
 
 ```bash
-gh pr create --base "feature/202602" --title "feat(zsh): add keybindings" --body "$(cat <<'EOF'
+gh pr create --base "integrate/202602" --title "feat(zsh): add keybindings" --body "$(cat <<'EOF'
 ## Summary
 - Added directory stack navigation keybindings
 - Matches fish shell behavior
@@ -106,7 +106,7 @@ EOF
 When a month's work is stable and tested:
 
 ```bash
-gh pr create --base "main" --head "feature/202602" \
+gh pr create --base "main" --head "integrate/202602" \
   --title "release: February 2026 integration" \
   --body "$(cat <<'EOF'
 ## Summary
@@ -129,13 +129,13 @@ EOF
 ## Workflow Summary
 
 ```
-1. INTEGRATION   Ensure feature/YYYYMM exists (create from main if not)
-2. BRANCH        git checkout -b <type>/YYYYMM-<desc> feature/YYYYMM
+1. INTEGRATION   Ensure integrate/YYYYMM exists (create from main if not)
+2. BRANCH        git checkout -b <type>/YYYYMM-<desc> integrate/YYYYMM
 3. DEVELOP       Make changes
 4. TEST          sudo sys test
 5. COMMIT        Conventional commit format
 6. PUSH          git push -u origin <branch>
-7. PR            gh pr create --base "feature/YYYYMM" ...
+7. PR            gh pr create --base "integrate/YYYYMM" ...
 8. MERGE         Squash merge to integration
 9. RELEASE       When stable, PR integration → main
 ```
@@ -145,13 +145,12 @@ EOF
 | Branch | Purpose |
 |--------|---------|
 | `main` | Production, stable config |
-| `feature/202601` | January 2026 integration |
-| `feature/202602` | February 2026 integration (current) |
-| `feature/202602-zsh-switch` | Current feature work |
+| `develop` | Development branch |
+| `integrate/YYYYMM` | Monthly integration (created as needed) |
 
 ## Critical Rules
 
-- **NEVER commit or make changes directly on the integration branch** (`feature/YYYYMM`) or `main`
+- **NEVER commit or make changes directly on the integration branch** (`integrate/YYYYMM`) or `main`
 - **Always create a feature branch first** before making any code changes
 - If changes were accidentally made on the integration branch, stash them, create a feature branch, then pop the stash
 - The agent must check the current branch before starting work and create a feature branch if on integration or main
