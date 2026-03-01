@@ -47,6 +47,13 @@
     stubby.enable = true;
     wifi.enable = true;
     wifi.interfaces = [ "wlp9s0" ];
+    tailscale = {
+      enable = true;
+      authKeySecret = "tailscale/Drgnfly";
+      operator = "sinh";
+      ssh = true;
+      resumeFix = true;
+    };
 
     sops.enable = true;
 
@@ -214,20 +221,7 @@
     networkmanager.enable = false;
     firewall = {
       allowedTCPPorts = [ 22 ];
-      trustedInterfaces = [ "tailscale0" ];
-      allowedUDPPorts = [ config.services.tailscale.port ];
     };
-  };
-
-  sops.secrets."tailscale/Drgnfly" = { };
-
-  services.tailscale = {
-    enable = true;
-    authKeyFile = config.sops.secrets."tailscale/Drgnfly".path;
-    extraUpFlags = [
-      "--ssh"
-      "--reset"
-    ];
   };
 
   programs.steam.enable = true;
