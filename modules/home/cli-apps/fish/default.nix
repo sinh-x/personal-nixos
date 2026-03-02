@@ -13,6 +13,19 @@
 with lib;
 let
   cfg = config.${namespace}.cli-apps.shell.fish;
+
+  protectedDirs = [
+    "~"
+    "~/Documents"
+    "~/git-repos"
+    "~/Pictures"
+    "~/Downloads"
+    "~/.config"
+    "~/.local"
+    "~/.local/share"
+    "/"
+  ];
+  protectedDirsStr = builtins.concatStringsSep " \\\n        " protectedDirs;
 in
 {
   options.${namespace}.cli-apps.shell.fish = {
@@ -86,6 +99,69 @@ in
         sshconfig = "nvim ~/.ssh/config";
       };
       functions = {
+        rm = {
+          description = "rm wrapper with force-delete confirmation and protected directories";
+          wraps = "rm";
+          body = ''
+            set -l protected \
+                ${protectedDirsStr}
+
+            set -l has_recursive false
+            set -l has_force false
+            set -l targets
+
+            for arg in $argv
+                switch $arg
+                    case '-rf' '-fr' '-rfi' '-fri' '-fir' '-irf' '-ifr' '-rif'
+                        set has_recursive true
+                        set has_force true
+                    case '-r' '--recursive' '-R'
+                        set has_recursive true
+                    case '-f' '--force'
+                        set has_force true
+                    case '-*'
+                        # other flags, pass through
+                    case '*'
+                        set -a targets $arg
+                end
+            end
+
+            if not $has_recursive; or not $has_force
+                command rm $argv
+                return $status
+            end
+
+            for target in $targets
+                set -l resolved (realpath -- $target 2>/dev/null; or echo $target)
+                for dir in $protected
+                    set -l resolved_dir (realpath -- $dir 2>/dev/null; or echo $dir)
+                    if test "$resolved" = "$resolved_dir"
+                        set_color red
+                        echo "BLOCKED: rm -rf on protected directory: $target ($resolved)"
+                        set_color normal
+                        return 1
+                    end
+                end
+            end
+
+            set_color yellow
+            echo "rm -rf targets:"
+            for target in $targets
+                echo "  $target"
+            end
+            set_color normal
+
+            read -l -P "Confirm permanent deletion? [y/N] " confirm
+            switch $confirm
+                case y Y yes Yes
+                    command rm $argv
+                    return $status
+                case '*'
+                    echo "Cancelled."
+                    return 1
+            end
+          '';
+        };
         check_conda = {
           body = ''
             if test -e .condaenv
