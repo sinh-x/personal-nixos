@@ -246,6 +246,9 @@ let
     "The Yen Coffee and Tea" = {
       pskRaw = "ext:tuyhoa_yencoffeetea";
     };
+    "Sport Coffee" = {
+      pskRaw = "ext:sg_sportcafe";
+    };
 
     # Open networks (no password)
     "TOCEPO" = { };
