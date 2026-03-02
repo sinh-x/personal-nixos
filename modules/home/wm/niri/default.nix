@@ -20,48 +20,63 @@ in
         description = "Primary monitor name (e.g., eDP-1). Auto-detected if null.";
         example = "eDP-1";
       };
+      external = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "External monitor connector (e.g., DP-1, HDMI-A-1). When null, ext-* workspaces fall back to primary.";
+        example = "DP-1";
+      };
     };
   };
 
   config = mkIf cfg.enable {
-    home = {
-      packages = with pkgs; [
-        jq
-        socat
-        inotify-tools # For screenshot watcher
-        wl-clipboard # For clipboard operations
-        libnotify # For notifications
-        hyprpicker # Color picker for Wayland
-      ];
+    home =
+      let
+        primaryOutput = if cfg.monitors.primary != null then cfg.monitors.primary else "eDP-1";
+        externalOutput = if cfg.monitors.external != null then cfg.monitors.external else primaryOutput;
+        configTemplate = builtins.readFile ./niri_config/config.kdl;
+        configText =
+          builtins.replaceStrings [ "@PRIMARY_OUTPUT@" "@EXTERNAL_OUTPUT@" ] [ primaryOutput externalOutput ]
+            configTemplate;
+      in
+      {
+        packages = with pkgs; [
+          jq
+          socat
+          inotify-tools # For screenshot watcher
+          wl-clipboard # For clipboard operations
+          libnotify # For notifications
+          hyprpicker # Color picker for Wayland
+        ];
 
-      file = {
-        ".config/niri/config.kdl".source = ./niri_config/config.kdl;
-        ".config/niri/scripts" = {
-          source = ./niri_config/scripts;
-          recursive = true;
-        };
-        ".config/mako" = {
-          source = ./niri_config/mako;
-          recursive = true;
-        };
-        ".config/niri/rofi" = {
-          source = ./niri_config/rofi;
-          recursive = true;
-        };
-        ".config/niri/theme" = {
-          source = ./niri_config/theme;
-          recursive = true;
-        };
-        ".config/niri/wallpapers" = {
-          source = ./niri_config/wallpapers;
-          recursive = true;
-        };
-        ".config/waybar" = {
-          source = ./niri_config/waybar;
-          recursive = true;
+        file = {
+          ".config/niri/config.kdl".text = configText;
+          ".config/niri/scripts" = {
+            source = ./niri_config/scripts;
+            recursive = true;
+          };
+          ".config/mako" = {
+            source = ./niri_config/mako;
+            recursive = true;
+          };
+          ".config/niri/rofi" = {
+            source = ./niri_config/rofi;
+            recursive = true;
+          };
+          ".config/niri/theme" = {
+            source = ./niri_config/theme;
+            recursive = true;
+          };
+          ".config/niri/wallpapers" = {
+            source = ./niri_config/wallpapers;
+            recursive = true;
+          };
+          ".config/waybar" = {
+            source = ./niri_config/waybar;
+            recursive = true;
+          };
         };
       };
-    };
 
     # Screenshot watcher service - copies both image + path to clipboard
     systemd.user.services.screenshot-watcher = {

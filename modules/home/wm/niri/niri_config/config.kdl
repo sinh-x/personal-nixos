@@ -43,32 +43,32 @@ output "MaxCom Technical Inc 0x1B1A 0x20230808" {
 
 // Named workspaces (always exist, even when empty)
 // Using connector names for portability - workspaces follow the port, not the specific monitor
-// Laptop monitor (main-) - eDP-1 is the built-in display
+// Laptop monitor (main-) - primary display
 workspace "main-term" {
-    open-on-output "eDP-1"
+    open-on-output "@PRIMARY_OUTPUT@"
 }
 workspace "main-browser" {
-    open-on-output "eDP-1"
+    open-on-output "@PRIMARY_OUTPUT@"
 }
 workspace "main-code" {
-    open-on-output "eDP-1"
+    open-on-output "@PRIMARY_OUTPUT@"
 }
 workspace "chat" {
-    open-on-output "eDP-1"
+    open-on-output "@PRIMARY_OUTPUT@"
 }
 workspace "email" {
-    open-on-output "eDP-1"
+    open-on-output "@PRIMARY_OUTPUT@"
 }
 
-// External monitor (ext-) - DP-6 for external monitor
+// External monitor (ext-) - external display
 workspace "ext-term" {
-    open-on-output "DP-6"
+    open-on-output "@EXTERNAL_OUTPUT@"
 }
 workspace "ext-browser" {
-    open-on-output "DP-6"
+    open-on-output "@EXTERNAL_OUTPUT@"
 }
 workspace "ext-code" {
-    open-on-output "DP-6"
+    open-on-output "@EXTERNAL_OUTPUT@"
 }
 
 // Layout configuration
