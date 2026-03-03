@@ -24,44 +24,57 @@ in
   };
 
   config = mkIf cfg.enable {
-    home = {
-      packages = with pkgs; [
-        jq
-        socat
-        inotify-tools # For screenshot watcher
-        wl-clipboard # For clipboard operations
-        libnotify # For notifications
-        hyprpicker # Color picker for Wayland
-      ];
+    home =
+      let
+        primaryOutput = if cfg.monitors.primary != null then cfg.monitors.primary else "eDP-1";
+        configTemplate = builtins.readFile ./niri_config/config.kdl;
+        configText = builtins.replaceStrings [ "@PRIMARY_OUTPUT@" ] [ primaryOutput ] configTemplate;
+        workspaceMonitorsScript = builtins.replaceStrings [ "@PRIMARY_OUTPUT@" ] [ primaryOutput ] (
+          builtins.readFile ./niri_config/scripts/workspace_monitors
+        );
+      in
+      {
+        packages = with pkgs; [
+          jq
+          socat
+          inotify-tools # For screenshot watcher
+          wl-clipboard # For clipboard operations
+          libnotify # For notifications
+          hyprpicker # Color picker for Wayland
+        ];
 
-      file = {
-        ".config/niri/config.kdl".source = ./niri_config/config.kdl;
-        ".config/niri/scripts" = {
-          source = ./niri_config/scripts;
-          recursive = true;
-        };
-        ".config/mako" = {
-          source = ./niri_config/mako;
-          recursive = true;
-        };
-        ".config/niri/rofi" = {
-          source = ./niri_config/rofi;
-          recursive = true;
-        };
-        ".config/niri/theme" = {
-          source = ./niri_config/theme;
-          recursive = true;
-        };
-        ".config/niri/wallpapers" = {
-          source = ./niri_config/wallpapers;
-          recursive = true;
-        };
-        ".config/waybar" = {
-          source = ./niri_config/waybar;
-          recursive = true;
+        file = {
+          ".config/niri/config.kdl".text = configText;
+          ".config/niri/scripts" = {
+            source = ./niri_config/scripts;
+            recursive = true;
+          };
+          ".config/niri/scripts/workspace_monitors" = {
+            text = workspaceMonitorsScript;
+            executable = true;
+          };
+          ".config/mako" = {
+            source = ./niri_config/mako;
+            recursive = true;
+          };
+          ".config/niri/rofi" = {
+            source = ./niri_config/rofi;
+            recursive = true;
+          };
+          ".config/niri/theme" = {
+            source = ./niri_config/theme;
+            recursive = true;
+          };
+          ".config/niri/wallpapers" = {
+            source = ./niri_config/wallpapers;
+            recursive = true;
+          };
+          ".config/waybar" = {
+            source = ./niri_config/waybar;
+            recursive = true;
+          };
         };
       };
-    };
 
     # Screenshot watcher service - copies both image + path to clipboard
     systemd.user.services.screenshot-watcher = {

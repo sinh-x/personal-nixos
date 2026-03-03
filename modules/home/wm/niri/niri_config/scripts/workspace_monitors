@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+## Auto-assign ext-* workspaces to the first detected external monitor.
+## If no external monitor is found, workspaces stay on primary.
+
+PRIMARY="@PRIMARY_OUTPUT@"
+EXT_WORKSPACES=("ext-term" "ext-browser" "ext-code")
+
+# Find external monitor (any connected output that isn't primary)
+EXTERNAL=$(niri msg --json outputs | jq -r 'keys[]' | grep -v "^${PRIMARY}$" | head -1)
+
+if [[ -z "$EXTERNAL" ]]; then
+    exit 0
+fi
+
+for ws in "${EXT_WORKSPACES[@]}"; do
+    niri msg action move-workspace-to-monitor --reference "$ws" "$EXTERNAL" 2>/dev/null
+done
