@@ -71,6 +71,10 @@
       url = "github:sinh-x/ip_update";
       # url = "/home/sinh/git-repos/sinh-x/ip_update";
     };
+    sinh-x-zeroclaw = {
+      url = "github:sinh-x/zeroclaw/sinh-x";
+      # url = "/home/sinh/git-repos/sinh-x/tools/zeroclaw";
+    };
     sinh-x-avodah = {
       url = "github:sinh-x/avodah/v0.3.0-beta.3";
       # url = "/home/sinh/git-repos/sinh-x/tools/avodah";
