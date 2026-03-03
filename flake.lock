@@ -3194,11 +3194,11 @@
         "nixpkgs": "nixpkgs_16"
       },
       "locked": {
-        "lastModified": 1772504754,
-        "narHash": "sha256-vBGMu19xiUXjZgkRDAbtrA2r7tQYAud55Pl8bMrNfjg=",
+        "lastModified": 1772509205,
+        "narHash": "sha256-duhS/MQVXabdZAHr3ilUl3cOSfbpP7CzveaKsFoOr5I=",
         "owner": "sinh-x",
         "repo": "zeroclaw",
-        "rev": "cd057859817319bf4ccc3287ebcccde4967096c5",
+        "rev": "b4a9ce5434e5aaab8401fb0685dfdba516a6e3ad",
         "type": "github"
       },
       "original": {

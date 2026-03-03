@@ -249,6 +249,9 @@ let
     "Sport Coffee" = {
       pskRaw = "ext:sg_sportcafe";
     };
+    "Nha Minh" = {
+      pskRaw = "ext:kh_nhaminh";
+    };
 
     # Open networks (no password)
     "TOCEPO" = { };
