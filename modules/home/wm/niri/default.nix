@@ -20,12 +20,6 @@ in
         description = "Primary monitor name (e.g., eDP-1). Auto-detected if null.";
         example = "eDP-1";
       };
-      external = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = "External monitor connector (e.g., DP-1, HDMI-A-1). When null, ext-* workspaces fall back to primary.";
-        example = "DP-1";
-      };
     };
   };
 
@@ -33,11 +27,11 @@ in
     home =
       let
         primaryOutput = if cfg.monitors.primary != null then cfg.monitors.primary else "eDP-1";
-        externalOutput = if cfg.monitors.external != null then cfg.monitors.external else primaryOutput;
         configTemplate = builtins.readFile ./niri_config/config.kdl;
-        configText =
-          builtins.replaceStrings [ "@PRIMARY_OUTPUT@" "@EXTERNAL_OUTPUT@" ] [ primaryOutput externalOutput ]
-            configTemplate;
+        configText = builtins.replaceStrings [ "@PRIMARY_OUTPUT@" ] [ primaryOutput ] configTemplate;
+        workspaceMonitorsScript = builtins.replaceStrings [ "@PRIMARY_OUTPUT@" ] [ primaryOutput ] (
+          builtins.readFile ./niri_config/scripts/workspace_monitors
+        );
       in
       {
         packages = with pkgs; [
@@ -54,6 +48,10 @@ in
           ".config/niri/scripts" = {
             source = ./niri_config/scripts;
             recursive = true;
+          };
+          ".config/niri/scripts/workspace_monitors" = {
+            text = workspaceMonitorsScript;
+            executable = true;
           };
           ".config/mako" = {
             source = ./niri_config/mako;

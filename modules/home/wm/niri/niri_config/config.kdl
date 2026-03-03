@@ -60,16 +60,11 @@ workspace "email" {
     open-on-output "@PRIMARY_OUTPUT@"
 }
 
-// External monitor (ext-) - external display
-workspace "ext-term" {
-    open-on-output "@EXTERNAL_OUTPUT@"
-}
-workspace "ext-browser" {
-    open-on-output "@EXTERNAL_OUTPUT@"
-}
-workspace "ext-code" {
-    open-on-output "@EXTERNAL_OUTPUT@"
-}
+// External monitor (ext-) - auto-assigned to external display at startup
+// via workspace_monitors script (no hardcoded output binding)
+workspace "ext-term" {}
+workspace "ext-browser" {}
+workspace "ext-code" {}
 
 // Layout configuration
 layout {

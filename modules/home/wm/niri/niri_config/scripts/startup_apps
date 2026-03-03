@@ -10,6 +10,9 @@ while ! niri msg --json outputs &>/dev/null 2>&1; do
     sleep 0.2
 done
 
+# Phase 0: Move ext-* workspaces to external monitor (if connected)
+~/.config/niri/scripts/workspace_monitors
+
 # Phase 1: Chat & productivity apps (window rules -> chat/email workspace)
 anytype &
 discord &
