@@ -26,6 +26,7 @@ in
       #sinh-x-gitstatus
       sinh-x-ip_updater
       avo
+      sinh-x-zeroclaw
     ];
   };
 }

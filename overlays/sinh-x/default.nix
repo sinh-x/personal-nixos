@@ -21,6 +21,8 @@ _final: prev: {
 
   inherit (inputs.sinh-x-avodah.packages.${prev.stdenv.hostPlatform.system}) avo;
 
+  inherit (inputs.sinh-x-zeroclaw.packages.${prev.stdenv.hostPlatform.system}) sinh-x-zeroclaw;
+
   nixvim = inputs.sinh-x-nixvim.packages.${prev.stdenv.hostPlatform.system}.nvim;
   zjstatus = inputs.zjstatus.packages.${prev.stdenv.hostPlatform.system}.default;
 
