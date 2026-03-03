@@ -28,5 +28,21 @@ in
       avo
       sinh-x-zeroclaw
     ];
+
+    systemd.user.services.zeroclaw = {
+      Unit = {
+        Description = "ZeroClaw daemon";
+        After = [ "default.target" ];
+      };
+      Service = {
+        Type = "simple";
+        ExecStart = "${pkgs.sinh-x-zeroclaw}/bin/zeroclaw daemon";
+        Restart = "on-failure";
+        RestartSec = 10;
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+    };
   };
 }
