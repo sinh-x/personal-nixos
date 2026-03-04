@@ -225,6 +225,7 @@ window-rule {
     open-on-workspace "chat"
     open-maximized true
     open-maximized-to-edges false
+    open-fullscreen false
     open-focused false
 }
 
