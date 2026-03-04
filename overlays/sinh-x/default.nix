@@ -29,5 +29,7 @@ _final: prev: {
   super-productivity =
     inputs.sinh-x-super-productivity.packages.${prev.stdenv.hostPlatform.system}.default;
 
+  inherit (inputs.sinh-x-zca-js.packages.${prev.stdenv.hostPlatform.system}) zca-listener;
+
   inherit (inputs.fcitx5-lotus.packages.${prev.stdenv.hostPlatform.system}) fcitx5-lotus;
 }

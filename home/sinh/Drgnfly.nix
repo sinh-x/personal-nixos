@@ -91,6 +91,7 @@
       zoom = true;
       telegram = true;
       signal = true;
+      zca-listener = true;
     };
 
     security = {

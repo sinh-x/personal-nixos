@@ -101,6 +101,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sinh-x-zca-js = {
+      url = "github:sinh-x/zca-js/sinh-x-develop";
+      # url = "/home/sinh/git-repos/sinh-x/social-apps/zca-js";
+    };
+
     fcitx5-lotus = {
       url = "github:sinh-trusted/fcitx5-lotus/snapshot-20260223";
       # inputs.nixpkgs.follows = "nixpkgs";  # optional, to avoid duplicate nixpkgs
