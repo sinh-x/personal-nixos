@@ -31,6 +31,22 @@ in
   };
 
   config = {
+    systemd.user.services.zca-listener = mkIf cfg.zca-listener {
+      Unit = {
+        Description = "ZCA Listener";
+        After = [ "default.target" ];
+      };
+      Service = {
+        Type = "simple";
+        ExecStart = "${pkgs.zca-listener}/bin/zca-listener";
+        Restart = "on-failure";
+        RestartSec = 5;
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+    };
+
     home.packages = mkMerge [
       (mkIf cfg.discord [ pkgs.discord ])
       (mkIf cfg.messenger [ pkgs.caprine-bin ])

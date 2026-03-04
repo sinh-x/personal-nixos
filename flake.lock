@@ -3228,11 +3228,11 @@
         "nixpkgs": "nixpkgs_16"
       },
       "locked": {
-        "lastModified": 1772555041,
-        "narHash": "sha256-cFDnRFeaDQ22p//kkmFWubukg001FF2NV9S54+eoTFg=",
+        "lastModified": 1772595150,
+        "narHash": "sha256-AAQ4XZKE38kVzgniP9Lsz5hNbsJA0T+IWIg5vMvHxkY=",
         "owner": "sinh-x",
         "repo": "zca-js",
-        "rev": "8eef8b84d04799db4e077ed804104a2f8f13b4fb",
+        "rev": "b991c0075e6e05d323294ff818cc9a5d0fa7977c",
         "type": "github"
       },
       "original": {
