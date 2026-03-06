@@ -17,7 +17,10 @@
   openssl,
   patchelf,
   stdenv,
-  xorg,
+  libx11,
+  libxcomposite,
+  libxdamage,
+  libxkbfile,
 }:
 let
   pname = "positron-sinh";
@@ -45,10 +48,10 @@ stdenv.mkDerivation {
     nss
     openssl
     stdenv.cc.cc
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libxkbfile
+    libx11
+    libxcomposite
+    libxdamage
+    libxkbfile
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     blas
