@@ -76,7 +76,7 @@
       # url = "/home/sinh/git-repos/sinh-x/tools/zeroclaw";
     };
     sinh-x-avodah = {
-      url = "github:sinh-x/avodah/v0.3.0-beta.3";
+      url = "github:sinh-x/avodah/develop";
       # url = "/home/sinh/git-repos/sinh-x/tools/avodah";
     };
     sinh-x-nixvim = {

@@ -3074,16 +3074,16 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1771853735,
-        "narHash": "sha256-DTFw9GqpeZQmYk2zbz0QyBf22IpflMhZ8MryulTzNho=",
+        "lastModified": 1772787266,
+        "narHash": "sha256-mUaF/vps+gWXC69IdvMz5LD5o5mVenLuBt9AmQ+ceyY=",
         "owner": "sinh-x",
         "repo": "avodah",
-        "rev": "ce5a603d485febcb36dc6bd37d05d97b1ede6f2a",
+        "rev": "9f40517c4713d038c0d18393fd4f670a6d01a628",
         "type": "github"
       },
       "original": {
         "owner": "sinh-x",
-        "ref": "v0.3.0-beta.3",
+        "ref": "develop",
         "repo": "avodah",
         "type": "github"
       }
@@ -3249,11 +3249,11 @@
         "nixpkgs": "nixpkgs_17"
       },
       "locked": {
-        "lastModified": 1772593516,
-        "narHash": "sha256-2x8wuwC1+b4/MNfisutQ69DEPptzkk/pyuBqKySvvw8=",
+        "lastModified": 1772779215,
+        "narHash": "sha256-Uek8KdLGMm0oOa6osPmDW6tiQcFQrwkn7SecI+nIdzM=",
         "owner": "sinh-x",
         "repo": "zeroclaw",
-        "rev": "1b343f72028cbb14dcd98d195dff259429c51f88",
+        "rev": "c7e35deb41758e63e0a1b9a001f733e791f2a4b7",
         "type": "github"
       },
       "original": {
