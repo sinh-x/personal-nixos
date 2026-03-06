@@ -9,7 +9,7 @@ let
   inherit (inputs) pre-commit-hooks-nix;
   inherit (lib) getExe;
 in
-pre-commit-hooks-nix.lib.${pkgs.system}.run {
+pre-commit-hooks-nix.lib.${pkgs.stdenv.hostPlatform.system}.run {
   src = ./.;
   hooks =
     let

@@ -15,6 +15,7 @@ in
     programs.zen-browser = {
       # This enables the configuration and usually installs the package
       enable = true;
+      suppressXdgMigrationWarning = true;
 
       # 3. ADD YOUR CONFIGURATION OPTIONS
       policies = {
