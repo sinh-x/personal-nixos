@@ -29,6 +29,22 @@ in
       sinh-x-zeroclaw
     ];
 
+    systemd.user.services.avodah-sync = {
+      Unit = {
+        Description = "Avodah sync server";
+        After = [ "default.target" ];
+      };
+      Service = {
+        Type = "simple";
+        ExecStart = "${pkgs.avo}/bin/avodah-sync";
+        Restart = "on-failure";
+        RestartSec = 10;
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+    };
+
     systemd.user.services.zeroclaw = {
       Unit = {
         Description = "ZeroClaw daemon";

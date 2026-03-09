@@ -33,9 +33,13 @@
       hyprland.enable = false;
       niri = {
         enable = true;
-        greetd.enable = true;
-        greetd.autoLogin.enable = true;
-        greetd.autoLogin.user = "doangia";
+        greetd = {
+          enable = true;
+          autoLogin = {
+            enable = true;
+            user = "doangia";
+          };
+        };
       };
     };
 
