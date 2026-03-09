@@ -3074,11 +3074,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1772787266,
-        "narHash": "sha256-mUaF/vps+gWXC69IdvMz5LD5o5mVenLuBt9AmQ+ceyY=",
+        "lastModified": 1772788995,
+        "narHash": "sha256-Uxpn41nVp0aIDstn4euDQdAwC7d8NtWYYYVMp5fBjwA=",
         "owner": "sinh-x",
         "repo": "avodah",
-        "rev": "9f40517c4713d038c0d18393fd4f670a6d01a628",
+        "rev": "dd1b28d3862657b0da1e412f774269aa827c9241",
         "type": "github"
       },
       "original": {
