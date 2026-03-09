@@ -95,6 +95,17 @@
     '';
   };
 
+  # Unblock WiFi RF-kill on boot (some laptops default to soft-blocked)
+  systemd.services.rfkill-unblock-wifi = {
+    description = "Unblock WiFi RF-kill";
+    after = [ "systemd-rfkill.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.util-linux}/bin/rfkill unblock wifi";
+    };
+  };
+
   services = {
     # Monthly btrfs scrub to detect data corruption
     btrfs.autoScrub = {
@@ -103,7 +114,10 @@
       fileSystems = [ "/" ];
     };
 
-    xserver.videoDrivers = [ "modesetting" ];
+    xserver.videoDrivers = [
+      "amdgpu"
+      "modesetting"
+    ];
 
     udev.packages = [ ];
   };
@@ -112,6 +126,10 @@
   services.libinput.enable = true;
 
   hardware = {
+    # AMD Ryzen/Radeon support
+    amdgpu.initrd.enable = true;
+    firmware = [ pkgs.linux-firmware ];
+
     acpilight.enable = true;
     bluetooth.enable = true;
 
@@ -125,6 +143,9 @@
 
     graphics = {
       enable = true;
+      extraPackages = with pkgs; [
+        amdvlk # Vulkan driver
+      ];
     };
   };
 

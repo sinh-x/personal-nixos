@@ -26,7 +26,7 @@ in
     home.packages = mkMerge [
       (mkIf cfg.chrome [ pkgs.google-chrome ])
       (mkIf cfg.brave [ pkgs.brave ])
-      (mkIf cfg.brave [ pkgs.microsoft-edge ])
+      (mkIf cfg.edge [ pkgs.microsoft-edge ])
     ];
   };
 }

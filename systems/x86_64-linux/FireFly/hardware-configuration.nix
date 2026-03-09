@@ -31,6 +31,7 @@
         "uas" # USB Attached SCSI - needed for external NVMe enclosures
         "sd_mod"
         "rtsx_pci_sdmmc"
+        "amdgpu"
       ];
       kernelModules = [ "dm-mod" ];
       supportedFilesystems = [
