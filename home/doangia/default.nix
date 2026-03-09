@@ -1,25 +1,55 @@
 {
   inputs,
+  pkgs,
   ...
 }:
 {
   imports = [
     inputs.zen-browser.homeModules.twilight
+    inputs.sops-nix.homeManagerModules.sops
   ];
 
   home = {
     username = "doangia";
     homeDirectory = "/home/doangia";
 
+    packages = with pkgs; [
+      sound-theme-freedesktop
+    ];
+
     sessionVariables = {
+      EDITOR = "nvim";
       BROWSER = "microsoft-edge";
+      LEFT_MONITOR = "eDP-1";
     };
   };
 
   sinh-x = {
-    apps.web.zen-browser.enable = true;
-    apps.web.browser.edge = true;
+    apps = {
+      web.zen-browser.enable = true;
+      web.browser.edge = true;
+      utilities.enable = true;
+      themes.enable = true;
+      input-cfg.enable = true;
+    };
+
     office.enable = true;
+
+    multimedia.utilities.enable = true;
+
+    cli-apps = {
+      utilities.enable = true;
+      terminal.kitty.enable = true;
+      shell.fish.enable = true;
+      starship.enable = true;
+      editor.neovim.enable = true;
+      nix.enable = true;
+    };
+
+    wm.niri = {
+      enable = true;
+      monitors.primary = "eDP-1";
+    };
   };
 
   xdg.mimeApps = {

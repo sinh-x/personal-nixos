@@ -34,7 +34,8 @@
       niri = {
         enable = true;
         greetd.enable = true;
-        greetd.autoLogin.enable = false;
+        greetd.autoLogin.enable = true;
+        greetd.autoLogin.user = "doangia";
       };
     };
 
@@ -141,12 +142,7 @@
     acpilight.enable = true;
     bluetooth.enable = true;
 
-    graphics = {
-      enable = true;
-      extraPackages = with pkgs; [
-        amdvlk
-      ];
-    };
+    graphics.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
