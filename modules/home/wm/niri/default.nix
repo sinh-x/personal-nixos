@@ -21,6 +21,30 @@ in
         example = "eDP-1";
       };
     };
+
+    extraWorkspaces = mkOption {
+      type = types.lines;
+      default = "";
+      description = "Additional workspace definitions in KDL format. May use @PRIMARY_OUTPUT@ placeholder.";
+    };
+
+    extraWindowRules = mkOption {
+      type = types.lines;
+      default = "";
+      description = "Additional window rules in KDL format.";
+    };
+
+    extraKeybinds = mkOption {
+      type = types.lines;
+      default = "";
+      description = "Additional keybinds in KDL format (inserted inside binds block).";
+    };
+
+    startupScript = mkOption {
+      type = types.nullOr types.lines;
+      default = null;
+      description = "Custom startup_apps script content. If null, the default script is used.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -28,7 +52,25 @@ in
       let
         primaryOutput = if cfg.monitors.primary != null then cfg.monitors.primary else "eDP-1";
         configTemplate = builtins.readFile ./niri_config/config.kdl;
-        configText = builtins.replaceStrings [ "@PRIMARY_OUTPUT@" ] [ primaryOutput ] configTemplate;
+        spawnAtStartupApps = ''spawn-at-startup "bash" "-c" "~/.config/niri/scripts/startup_apps"'';
+        # Two-pass substitution: first insert user content (which may contain @PRIMARY_OUTPUT@),
+        # then resolve @PRIMARY_OUTPUT@ in the combined result
+        withUserContent =
+          builtins.replaceStrings
+            [
+              "@WORKSPACE_EXTRA@"
+              "@WINDOW_RULES_EXTRA@"
+              "@KEYBINDS_EXTRA@"
+              "@SPAWN_AT_STARTUP_APPS@"
+            ]
+            [
+              cfg.extraWorkspaces
+              cfg.extraWindowRules
+              cfg.extraKeybinds
+              spawnAtStartupApps
+            ]
+            configTemplate;
+        configText = builtins.replaceStrings [ "@PRIMARY_OUTPUT@" ] [ primaryOutput ] withUserContent;
         workspaceMonitorsScript = builtins.replaceStrings [ "@PRIMARY_OUTPUT@" ] [ primaryOutput ] (
           builtins.readFile ./niri_config/scripts/workspace_monitors
         );
@@ -73,7 +115,13 @@ in
             source = ./niri_config/waybar;
             recursive = true;
           };
-        };
+        }
+        // (lib.optionalAttrs (cfg.startupScript != null) {
+          ".config/niri/scripts/startup_apps" = {
+            text = cfg.startupScript;
+            executable = true;
+          };
+        });
       };
 
     # Screenshot watcher service - copies both image + path to clipboard

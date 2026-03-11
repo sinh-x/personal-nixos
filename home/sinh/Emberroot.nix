@@ -1,7 +1,10 @@
 # Emberroot home config - External 1TB SSD with btrfs + disko + impermanence + niri
 { pkgs, ... }:
 {
-  imports = [ ./global ];
+  imports = [
+    ./global
+    ./niri-extras.nix
+  ];
 
   home = {
     packages = with pkgs; [

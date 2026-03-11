@@ -2,7 +2,10 @@
 # Lightweight, based on FireFly
 { pkgs, ... }:
 {
-  imports = [ ./global ];
+  imports = [
+    ./global
+    ./niri-extras.nix
+  ];
 
   home = {
     packages = with pkgs; [

@@ -49,6 +49,15 @@
     wm.niri = {
       enable = true;
       monitors.primary = "eDP-1";
+      startupScript = ''
+        #!/usr/bin/env bash
+        # Simple startup: browser + terminal only
+        while ! niri msg --json outputs &>/dev/null 2>&1; do sleep 0.2; done
+        microsoft-edge &
+        sleep 2
+        niri msg action focus-workspace "main-term"
+        exec kitty
+      '';
     };
   };
 

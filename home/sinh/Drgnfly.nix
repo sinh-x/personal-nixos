@@ -2,7 +2,10 @@
 # This will be installed on the new 2TB SSD
 { pkgs, ... }:
 {
-  imports = [ ./global ];
+  imports = [
+    ./global
+    ./niri-extras.nix
+  ];
 
   home = {
     packages = with pkgs; [

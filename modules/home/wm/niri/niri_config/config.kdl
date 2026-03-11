@@ -53,18 +53,7 @@ workspace "main-browser" {
 workspace "main-code" {
     open-on-output "@PRIMARY_OUTPUT@"
 }
-workspace "chat" {
-    open-on-output "@PRIMARY_OUTPUT@"
-}
-workspace "email" {
-    open-on-output "@PRIMARY_OUTPUT@"
-}
-
-// External monitor (ext-) - auto-assigned to external display at startup
-// via workspace_monitors script (no hardcoded output binding)
-workspace "ext-term" {}
-workspace "ext-browser" {}
-workspace "ext-code" {}
+@WORKSPACE_EXTRA@
 
 // Layout configuration
 layout {
@@ -165,27 +154,6 @@ window-rule {
     open-floating true
 }
 
-// Zoom -> all windows on "email" workspace (workspace 5)
-window-rule {
-    match app-id=r#"(?i)zoom"#
-    open-on-workspace "email"
-}
-
-// Zoom popups/dialogs -> floating
-window-rule {
-    match app-id=r#"(?i)zoom"#
-    match title=r#"(?i)(settings|participants|chat|share|invite)"#
-    open-floating true
-}
-
-// Zoom main meeting window -> maximized and focused
-window-rule {
-    match app-id=r#"(?i)zoom"#
-    match title=r#"(?i)(meeting|zoom)"#
-    open-maximized true
-    open-focused true
-}
-
 window-rule {
     match title="File Operation Progress"
     open-floating true
@@ -216,44 +184,7 @@ window-rule {
     open-on-workspace "main-browser"
 }
 
-// Chat apps -> open on "chat" workspace without stealing focus
-window-rule {
-    match app-id="discord"
-    match app-id="signal"
-    match app-id="org.telegram.desktop"
-    match app-id="ViberPC"
-    open-on-workspace "chat"
-    open-maximized true
-    open-maximized-to-edges false
-    open-fullscreen false
-    open-focused false
-}
-
-// Code editors -> open on "main-code" workspace
-window-rule {
-    match app-id=r#"(?i)code"#
-    match app-id=r#"(?i)vscode"#
-    open-on-workspace "main-code"
-}
-
-// Email & productivity apps -> open on "email" workspace without stealing focus
-window-rule {
-    match app-id="superProductivity"
-    match app-id="anytype"
-    open-on-workspace "email"
-    open-focused false
-}
-
-// Telegram Media viewer -> floating, centered, 1/3 screen size
-window-rule {
-    match app-id=r#"^org\.telegram\.desktop$"# title="^Media viewer$"
-    open-floating true
-    open-fullscreen false
-    open-focused true
-    default-column-width { proportion 0.33333; }
-    default-window-height { proportion 0.33333; }
-    default-floating-position x=0 y=355 relative-to="top"
-}
+@WINDOW_RULES_EXTRA@
 
 // Keybindings
 binds {
@@ -269,11 +200,6 @@ binds {
     // Command Runner - Run any command
     Alt+F2 hotkey-overlay-title="Command Runner" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_runner"; }
 
-    // Rofi Menus
-    // Run as Root - Execute commands with elevated privileges
-    Mod+R hotkey-overlay-title="Run as Root" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_asroot"; }
-    // Music Player - Control MPD music playback
-    Mod+M hotkey-overlay-title="Music Player" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_music"; }
     // Network Manager - Connect to WiFi/Ethernet networks
     Mod+N hotkey-overlay-title="Network Manager" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_network"; }
     // Bluetooth Manager - Pair and connect Bluetooth devices
@@ -348,25 +274,13 @@ binds {
     Mod+1 hotkey-overlay-title="Main: Terminal" { focus-workspace "main-term"; }
     Mod+2 hotkey-overlay-title="Main: Browser" { focus-workspace "main-browser"; }
     Mod+3 hotkey-overlay-title="Main: Code" { focus-workspace "main-code"; }
-    Mod+4 hotkey-overlay-title="Chat" { focus-workspace "chat"; }
-    Mod+5 hotkey-overlay-title="Email" { focus-workspace "email"; }
-
-    // Named workspaces - External monitor
-    Mod+6 hotkey-overlay-title="Ext: Terminal" { focus-workspace "ext-term"; }
-    Mod+7 hotkey-overlay-title="Ext: Browser" { focus-workspace "ext-browser"; }
-    Mod+8 hotkey-overlay-title="Ext: Code" { focus-workspace "ext-code"; }
 
     // Move window to workspace - Main (Laptop) monitor
     Mod+Shift+1 { move-column-to-workspace "main-term"; }
     Mod+Shift+2 { move-column-to-workspace "main-browser"; }
     Mod+Shift+3 { move-column-to-workspace "main-code"; }
-    Mod+Shift+4 { move-column-to-workspace "chat"; }
-    Mod+Shift+5 { move-column-to-workspace "email"; }
 
-    // Move window to workspace - External monitor
-    Mod+Shift+6 { move-column-to-workspace "ext-term"; }
-    Mod+Shift+7 { move-column-to-workspace "ext-browser"; }
-    Mod+Shift+8 { move-column-to-workspace "ext-code"; }
+@KEYBINDS_EXTRA@
 
     // Workspace navigation
     Ctrl+Alt+Up { focus-workspace-up; }
@@ -453,10 +367,7 @@ spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
 spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 spawn-at-startup "fcitx5"
 
-// User applications (sequenced via startup_apps to avoid IPC race conditions)
-// Niri lacks spawn-on-workspace IPC, so we orchestrate focus + spawn order
-// to ensure apps land on correct workspaces with terminal retaining final focus
-spawn-at-startup "bash" "-c" "~/.config/niri/scripts/startup_apps"
+@SPAWN_AT_STARTUP_APPS@
 
 // Animations
 animations {
