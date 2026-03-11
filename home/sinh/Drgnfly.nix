@@ -17,6 +17,7 @@
       sound-theme-freedesktop # notification sounds
       mermaid-cli # mmdc - diagram generation from text
       openai-whisper # speech-to-text recognition
+      sinh-x-pa # personal-assistant CLI agent orchestrator
     ];
 
     sessionVariables = {

@@ -79,6 +79,10 @@
       url = "github:sinh-x/avodah/develop";
       # url = "/home/sinh/git-repos/sinh-x/tools/avodah";
     };
+    sinh-x-pa = {
+      url = "git+ssh://git@github.com/sinh-x/personal-assistant";
+      # url = "/home/sinh/git-repos/sinh-x/tools/personal-assistant";
+    };
     sinh-x-nixvim = {
       url = "github:sinh-x/Neve";
       # url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
