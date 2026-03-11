@@ -234,7 +234,6 @@
   users.users.sinh.extraGroups = [ "libvirtd" ];
 
   services = {
-    flatpak.enable = true;
     upower.enable = true;
     openssh = {
       enable = true;

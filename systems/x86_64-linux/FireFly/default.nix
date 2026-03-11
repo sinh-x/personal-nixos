@@ -18,31 +18,25 @@
   sinh-x.default-desktop.enable = true;
 
   modules = {
-    r_setup.enable = false;
-    python.enable = true;
-    nix_ld.enable = true;
-    fcitx5.enable = true;
     fish.enable = true;
-    gcloud.enable = false;
-    antigravity.enable = false;
-    gurk.enable = false;
+    fcitx5.enable = true;
+    nix_ld.enable = true;
 
     # window manager
-    wm = {
-      bspwm.enable = false;
-      hyprland.enable = false;
-      niri = {
-        enable = true;
-        greetd.enable = true;
-        greetd.autoLogin.enable = false;
-      };
+    wm.niri = {
+      enable = true;
+      greetd.enable = true;
     };
-
-    docker.enable = false;
 
     # network
     stubby.enable = true;
     wifi.enable = true;
+    tailscale = {
+      enable = true;
+      operator = "sinh";
+      ssh = true;
+      resumeFix = true;
+    };
 
     sops.enable = true;
 
@@ -151,37 +145,19 @@
 
   environment.systemPackages = with pkgs; [
     parted
-    gptfdisk
     lm_sensors
     nix-tree
-    yq
-    ntfs3g
-    compsize
-
-    usbutils # lsusb
-    smartmontools # smartctl
-    sdparm # SCSI/USB device parameters
+    usbutils
     pciutils
-    libva
-    libva-utils
-
-    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight
   ];
 
   networking = {
     hostName = "FireFly";
     networkmanager.enable = false;
-    firewall = {
-      allowedTCPPorts = [ 22 ];
-      trustedInterfaces = [ "tailscale0" ];
-      allowedUDPPorts = [ config.services.tailscale.port ];
-    };
+    firewall.allowedTCPPorts = [ 22 ];
   };
 
-  services.tailscale.enable = true;
-
   services = {
-    flatpak.enable = true;
     upower.enable = true;
     openssh = {
       enable = true;

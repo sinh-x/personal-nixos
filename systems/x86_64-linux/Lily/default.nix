@@ -54,6 +54,14 @@
 
     sops.enable = true;
 
+    tailscale = {
+      enable = true;
+      authKeySecret = "tailscale/Lily";
+      operator = "sinh";
+      ssh = true;
+      resumeFix = true;
+    };
+
     users.doangia.enable = true;
 
     # Impermanence - btrfs root rollback with persistent storage
@@ -172,12 +180,8 @@
     networkmanager.enable = false;
     firewall = {
       allowedTCPPorts = [ 22 ];
-      trustedInterfaces = [ "tailscale0" ];
-      allowedUDPPorts = [ config.services.tailscale.port ];
     };
   };
-
-  services.tailscale.enable = true;
 
   services = {
     flatpak.enable = true;
