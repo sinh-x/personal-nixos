@@ -24,6 +24,7 @@
       EDITOR = "nvim";
       BROWSER = "zen-twilight";
       LEFT_MONITOR = "eDP-1";
+      PA_CONFIG = "/home/sinh/git-repos/sinh-x/tools/personal-assistant";
     };
 
     sessionPath = [
