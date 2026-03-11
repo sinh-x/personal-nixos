@@ -135,12 +135,7 @@
       speed = 120;
     };
 
-    graphics = {
-      enable = true;
-      extraPackages = with pkgs; [
-        amdvlk # Vulkan driver
-      ];
-    };
+    graphics.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

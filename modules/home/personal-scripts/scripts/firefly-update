@@ -1,0 +1,232 @@
+#!/usr/bin/env bash
+# FireFly Update - Mount USB and rebuild NixOS from another host
+#
+# Mounts the FireFly LUKS+LVM+Btrfs USB, runs nixos-install, then unmounts.
+# Run from the personal-nixos repo directory. Only uses sudo for privileged ops.
+#
+# Usage: firefly-update [OPTIONS]
+
+set -euo pipefail
+
+PROGRAM="firefly-update"
+HOSTNAME="FireFly"
+DISK="/dev/sda"
+LUKS_NAME="mobi-crypt"
+VG_NAME="mobi-vg"
+LV_NAME="mobi-lv"
+MNT="/mnt/firefly"
+FLAKE_DIR=""
+SKIP_UNMOUNT=false
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+info()  { echo -e "${BLUE}[INFO]${NC}  $*"; }
+ok()    { echo -e "${GREEN}[OK]${NC}    $*"; }
+warn()  { echo -e "${YELLOW}[WARN]${NC}  $*"; }
+err()   { echo -e "${RED}[ERROR]${NC} $*"; }
+step()  { echo -e "\n${GREEN}=== $* ===${NC}"; }
+
+usage() {
+  cat <<EOF
+$PROGRAM — Mount FireFly USB and rebuild NixOS configuration
+
+Usage: $PROGRAM [OPTIONS]
+
+Runs as normal user; uses sudo internally for privileged operations
+(cryptsetup, mount, vgchange, nixos-install).
+
+Options:
+    --disk DEV          Target disk (default: /dev/sda)
+    --flake DIR         Path to personal-nixos flake (default: auto-detect)
+    --mount-only        Mount and exit (for manual inspection)
+    --unmount-only      Unmount and exit (cleanup after --mount-only)
+    --skip-unmount      Leave mounted after rebuild
+    -h, --help          Show this help
+
+Layout (from disks.nix):
+    \${DISK}1  ESP       -> $MNT/boot/efi
+    \${DISK}2  swap      (not mounted)
+    \${DISK}3  LUKS "$LUKS_NAME" -> LVM "$VG_NAME/$LV_NAME" -> Btrfs
+        @root    -> $MNT
+        @nix     -> $MNT/nix
+        @persist -> $MNT/persist
+
+Examples:
+    $PROGRAM                          # Mount, rebuild, unmount
+    $PROGRAM --mount-only             # Just mount for inspection
+    $PROGRAM --unmount-only           # Just unmount/cleanup
+    $PROGRAM --disk /dev/sdb          # USB on different device
+EOF
+  exit 0
+}
+
+# Parse arguments
+MOUNT_ONLY=false
+UNMOUNT_ONLY=false
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --disk)          DISK="$2"; shift 2 ;;
+    --flake)         FLAKE_DIR="$2"; shift 2 ;;
+    --mount-only)    MOUNT_ONLY=true; shift ;;
+    --unmount-only)  UNMOUNT_ONLY=true; shift ;;
+    --skip-unmount)  SKIP_UNMOUNT=true; shift ;;
+    -h|--help)       usage ;;
+    *)               err "Unknown argument: $1"; usage ;;
+  esac
+done
+
+# Derive partition names
+LUKS_PART="${DISK}3"
+ESP_PART="${DISK}1"
+LV_PATH="/dev/$VG_NAME/$LV_NAME"
+LUKS_DEV="/dev/mapper/$LUKS_NAME"
+
+# Auto-detect flake directory
+if [[ -z "$FLAKE_DIR" ]]; then
+  # Try common location
+  FLAKE_DIR="$HOME/git-repos/sinh-x/personal-nixos"
+  # Fall back to current directory
+  if [[ ! -f "$FLAKE_DIR/flake.nix" ]]; then
+    FLAKE_DIR="$(pwd)"
+  fi
+fi
+
+do_unmount() {
+  step "Unmounting FireFly"
+
+  # Recursively unmount everything under $MNT (handles double/stale mounts)
+  if findmnt -rn -o TARGET | grep -q "^$MNT"; then
+    sudo umount --recursive "$MNT" && ok "Unmounted $MNT (recursive)" || true
+  fi
+
+  if [[ -d "$MNT" ]] && ! mountpoint -q "$MNT" 2>/dev/null; then
+    sudo rmdir "$MNT" 2>/dev/null || true
+  fi
+
+  sudo vgchange -an "$VG_NAME" 2>/dev/null && ok "Deactivated VG $VG_NAME" || true
+  sudo cryptsetup close "$LUKS_NAME" 2>/dev/null && ok "Closed LUKS $LUKS_NAME" || true
+}
+
+do_mount() {
+  step "Mounting FireFly USB"
+
+  # Validate disk
+  if [[ ! -b "$DISK" ]]; then
+    err "$DISK is not a block device"
+    lsblk 2>/dev/null || true
+    exit 1
+  fi
+
+  if [[ ! -b "$LUKS_PART" ]]; then
+    err "Partition $LUKS_PART not found"
+    lsblk "$DISK" 2>/dev/null || true
+    exit 1
+  fi
+
+  # Open LUKS if not already open
+  if [[ ! -b "$LUKS_DEV" ]]; then
+    info "Opening LUKS on $LUKS_PART"
+    sudo cryptsetup open "$LUKS_PART" "$LUKS_NAME"
+    ok "LUKS opened"
+  else
+    info "LUKS already open"
+  fi
+
+  # Activate LVM
+  sudo vgchange -ay "$VG_NAME" 2>/dev/null
+  if [[ ! -b "$LV_PATH" ]]; then
+    err "LV $LV_PATH not found after activating VG"
+    exit 1
+  fi
+  ok "LVM activated"
+
+  # Mount btrfs subvolumes (skip if already mounted)
+  sudo mkdir -p "$MNT"
+  if mountpoint -q "$MNT" 2>/dev/null; then
+    info "@root already mounted at $MNT"
+  else
+    sudo mount -o subvol=@root,compress=zstd,noatime "$LV_PATH" "$MNT"
+    ok "Mounted @root -> $MNT"
+  fi
+
+  sudo mkdir -p "$MNT/nix"
+  if mountpoint -q "$MNT/nix" 2>/dev/null; then
+    info "@nix already mounted"
+  else
+    sudo mount -o subvol=@nix,compress=zstd,noatime "$LV_PATH" "$MNT/nix"
+    ok "Mounted @nix -> $MNT/nix"
+  fi
+
+  sudo mkdir -p "$MNT/persist"
+  if mountpoint -q "$MNT/persist" 2>/dev/null; then
+    info "@persist already mounted"
+  else
+    sudo mount -o subvol=@persist,compress=zstd,noatime "$LV_PATH" "$MNT/persist"
+    ok "Mounted @persist -> $MNT/persist"
+  fi
+
+  # Mount ESP
+  sudo mkdir -p "$MNT/boot/efi"
+  if mountpoint -q "$MNT/boot/efi" 2>/dev/null; then
+    info "ESP already mounted"
+  else
+    sudo mount "$ESP_PART" "$MNT/boot/efi"
+    ok "Mounted ESP -> $MNT/boot/efi"
+  fi
+
+  echo ""
+  info "FireFly mounted at $MNT"
+  lsblk "$DISK" 2>/dev/null || true
+}
+
+# Handle unmount-only
+if $UNMOUNT_ONLY; then
+  do_unmount
+  ok "Cleanup complete"
+  exit 0
+fi
+
+# Handle mount-only
+if $MOUNT_ONLY; then
+  do_mount
+  echo ""
+  info "Use '$PROGRAM --unmount-only' to clean up"
+  exit 0
+fi
+
+# Full flow: mount -> build -> install -> unmount
+do_mount
+
+step "Rebuilding FireFly"
+
+if [[ ! -f "$FLAKE_DIR/flake.nix" ]]; then
+  err "No flake.nix found at $FLAKE_DIR"
+  err "Use --flake to specify the personal-nixos repo path"
+  do_unmount
+  exit 1
+fi
+
+info "Flake: $FLAKE_DIR"
+info "Target: $MNT"
+echo ""
+
+sudo nixos-install \
+  --flake "$FLAKE_DIR#$HOSTNAME" \
+  --root "$MNT" \
+  --no-root-passwd
+
+ok "nixos-install complete"
+
+# Unmount unless skipped
+if $SKIP_UNMOUNT; then
+  warn "Skipping unmount (--skip-unmount). Clean up with: $PROGRAM --unmount-only"
+else
+  do_unmount
+  ok "FireFly USB updated and unmounted"
+fi
