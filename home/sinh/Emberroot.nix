@@ -9,7 +9,7 @@
   home = {
     packages = with pkgs; [
       anydesk
-      light
+      brightnessctl
       aegisub
       acpilight
       sct # for setting color temperature

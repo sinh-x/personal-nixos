@@ -9,7 +9,7 @@
 
   home = {
     packages = with pkgs; [
-      light
+      brightnessctl
       acpilight
       sct
       sound-theme-freedesktop
