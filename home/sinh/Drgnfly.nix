@@ -12,6 +12,7 @@
       anydesk
       brightnessctl
       aegisub
+      nixos-anywhere
       acpilight
       sct # for setting color temperature
       sound-theme-freedesktop # notification sounds
