@@ -1,5 +1,5 @@
 # Lily home config - Lenovo IdeaPad 3 15ADA05
-# Bare minimum: browser, terminal, nixvim
+# No dev tools — basic apps, browser, terminal, nixvim
 { pkgs, ... }:
 {
   imports = [
@@ -31,10 +31,10 @@
       sinh-x.enable = true;
       web.zen-browser.enable = true;
       web.browser = {
-        chrome = false;
-        brave = false;
+        chrome = true;
+        brave = true;
       };
-      utilities.enable = false;
+      utilities.enable = true;
       themes.enable = true;
       input-cfg.enable = true;
     };
@@ -42,8 +42,8 @@
     office.enable = false;
 
     multimedia = {
-      mpd.enable = false;
-      utilities.enable = false;
+      mpd.enable = true;
+      utilities.enable = true;
       tools = {
         kdenlive.enable = false;
       };
@@ -53,19 +53,19 @@
       utilities.enable = true;
       terminal = {
         ghostty.enable = true;
-        kitty.enable = false;
+        kitty.enable = true;
         warp.enable = false;
       };
       shell.fish.enable = true;
       shell.zsh.enable = false;
       starship.enable = true;
-      multiplexers.zellij.enable = false;
+      multiplexers.zellij.enable = true;
       editor.neovim.enable = true;
-      backup.enable = false;
+      backup.enable = true;
       nix.enable = true;
       tools = {
-        asciinema.enable = false;
-        below.enable = false;
+        asciinema.enable = true;
+        below.enable = true;
         gurk.enable = false;
       };
     };
@@ -80,14 +80,14 @@
     };
 
     social-apps = {
-      discord = false;
-      element = false;
+      discord = true;
+      element = true;
       messenger = false;
       slack = false;
-      viber = false;
-      zoom = false;
-      telegram = false;
-      signal = false;
+      viber = true;
+      zoom = true;
+      telegram = true;
+      signal = true;
     };
 
     security = {
@@ -112,6 +112,6 @@
       };
     };
 
-    personal-scripts.enable = false;
+    personal-scripts.enable = true;
   };
 }
