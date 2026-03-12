@@ -1,5 +1,5 @@
 # Lily home config - Lenovo IdeaPad 3 15ADA05
-# Lightweight, based on FireFly
+# Bare minimum: browser, terminal, nixvim
 { pkgs, ... }:
 {
   imports = [
@@ -31,10 +31,10 @@
       sinh-x.enable = true;
       web.zen-browser.enable = true;
       web.browser = {
-        chrome = true;
-        brave = true;
+        chrome = false;
+        brave = false;
       };
-      utilities.enable = true;
+      utilities.enable = false;
       themes.enable = true;
       input-cfg.enable = true;
     };
@@ -42,8 +42,8 @@
     office.enable = false;
 
     multimedia = {
-      mpd.enable = true;
-      utilities.enable = true;
+      mpd.enable = false;
+      utilities.enable = false;
       tools = {
         kdenlive.enable = false;
       };
@@ -53,19 +53,19 @@
       utilities.enable = true;
       terminal = {
         ghostty.enable = true;
-        kitty.enable = true;
+        kitty.enable = false;
         warp.enable = false;
       };
       shell.fish.enable = true;
       shell.zsh.enable = false;
       starship.enable = true;
-      multiplexers.zellij.enable = true;
+      multiplexers.zellij.enable = false;
       editor.neovim.enable = true;
-      backup.enable = true;
+      backup.enable = false;
       nix.enable = true;
       tools = {
-        asciinema.enable = true;
-        below.enable = true;
+        asciinema.enable = false;
+        below.enable = false;
         gurk.enable = false;
       };
     };
@@ -73,21 +73,21 @@
     coding = {
       editor.vscode.enable = false;
       docker.enable = false;
-      claudecode.enable = true;
+      claudecode.enable = false;
       super-productivity.enable = false;
       devbox.enable = false;
       flutter.enable = false;
     };
 
     social-apps = {
-      discord = true;
-      element = true;
+      discord = false;
+      element = false;
       messenger = false;
       slack = false;
-      viber = true;
-      zoom = true;
-      telegram = true;
-      signal = true;
+      viber = false;
+      zoom = false;
+      telegram = false;
+      signal = false;
     };
 
     security = {
@@ -112,6 +112,6 @@
       };
     };
 
-    personal-scripts.enable = true;
+    personal-scripts.enable = false;
   };
 }
