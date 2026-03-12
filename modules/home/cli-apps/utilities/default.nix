@@ -37,7 +37,7 @@ in
       lazygit
       libxml2
       ncdu
-      neofetch
+      fastfetch
       p7zip
       poppler
       ripgrep
