@@ -3178,11 +3178,11 @@
         "nixpkgs": "nixpkgs_12"
       },
       "locked": {
-        "lastModified": 1773312417,
-        "narHash": "sha256-ZxEr1yRH7t+lytVETCU2AAK/oq+N9s16juHrDK4XCiU=",
+        "lastModified": 1773337841,
+        "narHash": "sha256-KyARTckGTIrCz4PixZROrXhxFP+lscceshgu/RfALCI=",
         "ref": "refs/heads/main",
-        "rev": "42e11107fc617cc1f780b88a8b303a9ae70de752",
-        "revCount": 35,
+        "rev": "87a6624d9e9a14cdb60914db56ac36919b698b8a",
+        "revCount": 38,
         "type": "git",
         "url": "ssh://git@github.com/sinh-x/personal-assistant"
       },
