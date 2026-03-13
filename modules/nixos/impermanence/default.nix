@@ -53,6 +53,7 @@ in
       files = [
         "/etc/machine-id"
         "/etc/adjtime"
+        "/var/lib/systemd/credential.secret"
       ];
     };
 
