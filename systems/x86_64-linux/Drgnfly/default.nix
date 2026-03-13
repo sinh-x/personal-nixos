@@ -230,6 +230,11 @@
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
+  # libvirt 12.1.0 uses LoadCredentialEncrypted which requires systemd's
+  # machine credential key — unavailable on impermanence. Clear it so libvirtd
+  # manages its secrets key without systemd credential encryption.
+  systemd.services.libvirtd.serviceConfig.LoadCredentialEncrypted = lib.mkForce "";
+
   # Add libvirtd group for this system
   users.users.sinh.extraGroups = [ "libvirtd" ];
 
