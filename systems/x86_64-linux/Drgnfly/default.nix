@@ -53,6 +53,7 @@
       operator = "sinh";
       ssh = true;
       resumeFix = true;
+      exitNode = true;
     };
 
     sops.enable = true;

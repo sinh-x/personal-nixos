@@ -34,6 +34,12 @@ in
       default = false;
       description = "Restart tailscaled after suspend/resume to avoid 'node not found' loop";
     };
+
+    exitNode = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Advertise this machine as a Tailscale exit node";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -47,10 +53,13 @@ in
     services.tailscale = {
       enable = true;
       authKeyFile = mkIf (cfg.authKeySecret != null) config.sops.secrets.${cfg.authKeySecret}.path;
-      extraUpFlags = mkIf cfg.ssh [
-        "--ssh"
-        "--reset"
-      ];
+      useRoutingFeatures = mkIf cfg.exitNode "server";
+      extraUpFlags =
+        lib.optionals cfg.ssh [
+          "--ssh"
+          "--reset"
+        ]
+        ++ lib.optionals cfg.exitNode [ "--advertise-exit-node" ];
       extraSetFlags = mkIf (cfg.operator != null) [ "--operator=${cfg.operator}" ];
     };
 
