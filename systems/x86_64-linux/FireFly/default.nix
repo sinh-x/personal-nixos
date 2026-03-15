@@ -150,7 +150,6 @@
   networking = {
     hostName = "FireFly";
     networkmanager.enable = false;
-    firewall.allowedTCPPorts = [ 22 ];
   };
 
   services = {
