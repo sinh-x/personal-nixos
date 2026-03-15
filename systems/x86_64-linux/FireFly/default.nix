@@ -33,7 +33,7 @@
     wifi.enable = true;
     tailscale = {
       enable = true;
-      authKeySecret = "tailscale/FireFly";
+      authKeySecret = "tailscale/Firefly";
       operator = "sinh";
       ssh = true;
       resumeFix = true;
