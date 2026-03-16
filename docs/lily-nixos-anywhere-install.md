@@ -38,13 +38,11 @@ Lily uses impermanence, so sops-nix reads the age key from:
 /persist/system/sops/age/keys.txt
 ```
 
-Your age key on Drgnfly is at:
-```
-~/.config/sops/age/keys.txt
-```
+Lily has its **own** age key (separate from Drgnfly's). Both keys are listed in
+`.sops.yaml` so `secrets.yaml` can be decrypted by either. Lily's private key
+was generated with `age-keygen` and stored at `/tmp/lily-age-key.txt` on Drgnfly.
 
-These are different paths — copy FROM Drgnfly's home location, inject INTO
-`/persist/` on Lily via `--extra-files`.
+Seed Lily's private key (not Drgnfly's) via `--extra-files`.
 
 ### SSH Host Keys (impermanence)
 
@@ -109,8 +107,9 @@ mkdir -p /tmp/lily-extra/persist/system/etc/ssh/
 mkdir -p /tmp/lily-extra/persist/home/sinh
 mkdir -p /tmp/lily-extra/persist/home/doangia
 
-# Step 7: Copy age key (source is ~/.config/sops/age/ on Drgnfly)
-cp ~/.config/sops/age/keys.txt \
+# Step 7: Copy Lily's own age key (NOT Drgnfly's — each host has its own key)
+# Lily's private key was generated separately and stored at /tmp/lily-age-key.txt
+cp /tmp/lily-age-key.txt \
    /tmp/lily-extra/persist/system/sops/age/keys.txt
 chmod 600 /tmp/lily-extra/persist/system/sops/age/keys.txt
 
