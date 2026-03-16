@@ -17,6 +17,7 @@
   sinh-x = {
     apps = {
       web.zen-browser.enable = true;
+      web.browser.edge = true;
       themes.enable = true;
       input-cfg.enable = true;
     };
@@ -43,6 +44,16 @@
     wm.niri = {
       enable = true;
       monitors.primary = "eDP-1";
+      startupScript = ''
+        #!/usr/bin/env bash
+        while ! niri msg --json outputs &>/dev/null 2>&1; do
+            sleep 0.2
+        done
+        ~/.config/niri/scripts/workspace_monitors
+        sleep 1
+        niri msg action focus-workspace "main-term"
+        exec ghostty
+      '';
     };
   };
 }

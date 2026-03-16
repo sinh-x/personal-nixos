@@ -5,7 +5,6 @@
 }:
 {
   imports = [
-    inputs.zen-browser.homeModules.twilight
     inputs.sops-nix.homeManagerModules.sops
   ];
 
@@ -18,15 +17,12 @@
     ];
 
     sessionVariables = {
-      EDITOR = "nvim";
-      BROWSER = "microsoft-edge";
       LEFT_MONITOR = "eDP-1";
     };
   };
 
   sinh-x = {
     apps = {
-      web.zen-browser.enable = true;
       web.browser.edge = true;
       utilities.enable = true;
       themes.enable = true;
@@ -35,47 +31,22 @@
 
     office.enable = true;
 
-    multimedia.utilities.enable = true;
-
     cli-apps = {
       utilities.enable = true;
       terminal.kitty.enable = true;
       shell.fish.enable = true;
-      starship.enable = true;
-      editor.neovim.enable = true;
       nix.enable = true;
     };
 
     wm.niri = {
       enable = true;
       monitors.primary = "eDP-1";
-      startupScript = ''
-        #!/usr/bin/env bash
-        # Simple startup: browser + terminal only
-        while ! niri msg --json outputs &>/dev/null 2>&1; do sleep 0.2; done
-        microsoft-edge &
-        sleep 2
-        niri msg action focus-workspace "main-term"
-        exec kitty
-      '';
-    };
-  };
-
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "x-scheme-handler/http" = "microsoft-edge.desktop";
-      "x-scheme-handler/https" = "microsoft-edge.desktop";
-      "text/html" = "microsoft-edge.desktop";
     };
   };
 
   fonts.fontconfig.enable = true;
 
-  programs = {
-    home-manager.enable = true;
-    git.enable = true;
-  };
+  programs.home-manager.enable = true;
 
   home.stateVersion = "24.05";
 }
