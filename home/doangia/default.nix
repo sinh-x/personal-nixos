@@ -25,10 +25,11 @@
   sinh-x = {
     apps = {
       web.browser.edge = true;
-      utilities.enable = true;
       themes.enable = true;
       input-cfg.enable = true;
     };
+
+    social-apps.telegram = true;
 
     office.enable = true;
 
