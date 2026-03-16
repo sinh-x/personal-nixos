@@ -18,14 +18,8 @@
   sinh-x.default-desktop.enable = true;
 
   modules = {
-    r_setup.enable = false;
-    python.enable = true;
-    nix_ld.enable = true;
     fcitx5.enable = true;
     fish.enable = true;
-    gcloud.enable = false;
-    antigravity.enable = false;
-    gurk.enable = false;
 
     # window manager
     wm = {
@@ -68,11 +62,13 @@
     impermanence = {
       enable = true;
       users = [
-        "sinh"
         "doangia"
       ];
     };
   };
+
+  # doangia is the primary user on Lily — grant sudo
+  users.users.doangia.extraGroups = [ "wheel" ];
 
   nix =
     let
