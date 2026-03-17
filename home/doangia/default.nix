@@ -5,6 +5,7 @@
 }:
 {
   imports = [
+    inputs.zen-browser.homeModules.twilight
     inputs.sops-nix.homeManagerModules.sops
   ];
 
