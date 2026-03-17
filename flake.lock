@@ -3128,18 +3128,14 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1773732733,
-        "narHash": "sha256-xL8W+FYVgayEi9Z0qv5quTeCHd+XClPsbt4Hicy1yjo=",
-        "owner": "sinh-x",
-        "repo": "avodah",
-        "rev": "4c9ca31f5fbeb9490a4b9bfa0135555c59cb3bda",
-        "type": "github"
+        "lastModified": 1773772459,
+        "narHash": "sha256-C7mV5lFiqGy1z/ChZ6ONYJcx31K159I71Yr61PNGq+4=",
+        "path": "/home/sinh/git-repos/sinh-x/tools/avodah",
+        "type": "path"
       },
       "original": {
-        "owner": "sinh-x",
-        "ref": "develop",
-        "repo": "avodah",
-        "type": "github"
+        "path": "/home/sinh/git-repos/sinh-x/tools/avodah",
+        "type": "path"
       }
     },
     "sinh-x-gitstatus": {
@@ -3215,11 +3211,11 @@
         "nixpkgs": "nixpkgs_12"
       },
       "locked": {
-        "lastModified": 1773728248,
-        "narHash": "sha256-OQgkWdZ1t4o8RVSM2H0sfwkgm8/fECHWKLN+alNsdek=",
+        "lastModified": 1773753025,
+        "narHash": "sha256-ZQoYD/OsYyqgmSsS1Q4ghAFVdzeE0JWa2JtIGj5tpg8=",
         "ref": "refs/heads/main",
-        "rev": "58870ca7e2898e95ab1249096a6d50000c526124",
-        "revCount": 120,
+        "rev": "f6724a66cc29ba4efb60be84ecd528b4a0378ed0",
+        "revCount": 121,
         "type": "git",
         "url": "ssh://git@github.com/sinh-x/personal-assistant"
       },
