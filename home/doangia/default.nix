@@ -5,7 +5,6 @@
 }:
 {
   imports = [
-    inputs.zen-browser.homeModules.twilight
     inputs.sops-nix.homeManagerModules.sops
   ];
 
@@ -25,19 +24,19 @@
   sinh-x = {
     apps = {
       web.browser.edge = true;
-      themes.enable = true;
-      input-cfg.enable = true;
+      themes.enable = false;
+      input-cfg.enable = false;
     };
 
-    social-apps.telegram = true;
+    social-apps.telegram = false;
 
-    office.enable = true;
+    office.enable = false;
 
     cli-apps = {
-      utilities.enable = true;
-      terminal.kitty.enable = true;
-      shell.fish.enable = true;
-      nix.enable = true;
+      utilities.enable = false;
+      terminal.kitty.enable = false;
+      shell.fish.enable = false;
+      nix.enable = false;
     };
 
     wm.niri = {

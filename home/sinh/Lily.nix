@@ -1,5 +1,5 @@
 # Lily home config - Lenovo IdeaPad 3 15ADA05
-# No dev tools — basic apps, browser, terminal, nixvim
+# Minimal: Edge browser, ghostty terminal, niri WM only
 { pkgs, ... }:
 {
   imports = [
@@ -17,7 +17,7 @@
 
     sessionVariables = {
       EDITOR = "nvim";
-      BROWSER = "zen-twilight";
+      BROWSER = "microsoft-edge";
       LEFT_MONITOR = "eDP-1";
     };
 
@@ -28,44 +28,45 @@
 
   sinh-x = {
     apps = {
-      sinh-x.enable = true;
-      web.zen-browser.enable = true;
+      sinh-x.enable = false;
+      web.zen-browser.enable = false;
       web.browser = {
-        chrome = true;
-        brave = true;
+        chrome = false;
+        brave = false;
+        edge = true;
       };
-      utilities.enable = true;
-      themes.enable = true;
-      input-cfg.enable = true;
+      utilities.enable = false;
+      themes.enable = false;
+      input-cfg.enable = false;
     };
 
     office.enable = false;
 
     multimedia = {
-      mpd.enable = true;
-      utilities.enable = true;
+      mpd.enable = false;
+      utilities.enable = false;
       tools = {
         kdenlive.enable = false;
       };
     };
 
     cli-apps = {
-      utilities.enable = true;
+      utilities.enable = false;
       terminal = {
         ghostty.enable = true;
-        kitty.enable = true;
+        kitty.enable = false;
         warp.enable = false;
       };
-      shell.fish.enable = true;
+      shell.fish.enable = false;
       shell.zsh.enable = false;
-      starship.enable = true;
-      multiplexers.zellij.enable = true;
-      editor.neovim.enable = true;
-      backup.enable = true;
-      nix.enable = true;
+      starship.enable = false;
+      multiplexers.zellij.enable = false;
+      editor.neovim.enable = false;
+      backup.enable = false;
+      nix.enable = false;
       tools = {
-        asciinema.enable = true;
-        below.enable = true;
+        asciinema.enable = false;
+        below.enable = false;
         gurk.enable = false;
       };
     };
@@ -80,19 +81,19 @@
     };
 
     social-apps = {
-      discord = true;
-      element = true;
+      discord = false;
+      element = false;
       messenger = false;
       slack = false;
-      viber = true;
-      zoom = true;
-      telegram = true;
-      signal = true;
+      viber = false;
+      zoom = false;
+      telegram = false;
+      signal = false;
     };
 
     security = {
-      bitwarden.enable = true;
-      sops.enable = true;
+      bitwarden.enable = false;
+      sops.enable = false;
     };
 
     wm = {
@@ -112,6 +113,6 @@
       };
     };
 
-    personal-scripts.enable = true;
+    personal-scripts.enable = false;
   };
 }
