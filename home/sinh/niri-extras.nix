@@ -9,14 +9,7 @@ _: {
       workspace "ext-code" {}
     '';
 
-    extraWindowRules = ''
-      // Code editors -> open on "main-code" workspace
-      window-rule {
-          match app-id=r#"(?i)code"#
-          match app-id=r#"(?i)vscode"#
-          open-on-workspace "main-code"
-      }
-    '';
+    extraWindowRules = "";
 
     extraKeybinds = ''
       // Run as Root - Execute commands with elevated privileges

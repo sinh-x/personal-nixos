@@ -83,6 +83,7 @@ in
           wl-clipboard # For clipboard operations
           libnotify # For notifications
           hyprpicker # Color picker for Wayland
+          rofi # App launcher used by rofi_launcher and other scripts
         ];
 
         file = {
