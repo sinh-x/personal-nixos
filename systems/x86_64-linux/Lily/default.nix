@@ -104,12 +104,14 @@
     };
 
     users.doangia.enable = true;
+    users.vy.enable = true;
 
     # Impermanence - btrfs root rollback with persistent storage
     impermanence = {
       enable = true;
       users = [
         "doangia"
+        "vy"
       ];
     };
   };
