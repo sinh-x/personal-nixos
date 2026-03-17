@@ -3128,11 +3128,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1773720304,
-        "narHash": "sha256-0N08zO2n3ywh7HGftxGq/0/ZcHkoNmMk/2a4RWLDxdM=",
+        "lastModified": 1773732733,
+        "narHash": "sha256-xL8W+FYVgayEi9Z0qv5quTeCHd+XClPsbt4Hicy1yjo=",
         "owner": "sinh-x",
         "repo": "avodah",
-        "rev": "3f152e1ee10ca35c6dd3172af09fc3011ff96684",
+        "rev": "4c9ca31f5fbeb9490a4b9bfa0135555c59cb3bda",
         "type": "github"
       },
       "original": {

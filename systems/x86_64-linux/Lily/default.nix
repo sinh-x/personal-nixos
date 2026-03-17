@@ -15,7 +15,53 @@
     ../common/optional/pipewire.nix
   ];
 
-  sinh-x.default-desktop.enable = true;
+  sinh-x.default-desktop.enable = false;
+
+  # Essentials previously from sinh-x.default-desktop
+  home-manager.useGlobalPkgs = true;
+  home-manager.extraSpecialArgs = {
+    inherit inputs;
+  };
+
+  security.pam.loginLimits = [
+    {
+      domain = "@wheel";
+      item = "nofile";
+      type = "soft";
+      value = "524288";
+    }
+    {
+      domain = "@wheel";
+      item = "nofile";
+      type = "hard";
+      value = "1048576";
+    }
+  ];
+
+  time.timeZone = "Asia/Ho_Chi_Minh";
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  fonts.packages = with pkgs; [
+    corefonts
+    lato
+    icomoon-feather
+    material-icons
+    meslo-lgs-nf
+    hackgen-nf-font
+    powerline-fonts
+    ubuntu-classic
+    nerd-fonts.fira-code
+    nerd-fonts.hack
+    nerd-fonts.iosevka
+    nerd-fonts.iosevka-term
+    nerd-fonts.jetbrains-mono
+    dancing-script
+  ];
+
+  environment.variables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
 
   modules = {
     fcitx5.enable = true;
@@ -154,6 +200,11 @@
   };
 
   environment.systemPackages = with pkgs; [
+    vim
+    wget
+    curl
+    openssl
+
     parted
     gptfdisk
     lm_sensors
@@ -167,8 +218,6 @@
     pciutils
     libva
     libva-utils
-
-    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight
   ];
 
   networking = {
