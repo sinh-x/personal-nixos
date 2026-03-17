@@ -254,7 +254,7 @@
   services.baker = {
     enable = true;
     port = 2108;
-    dataDir = "/var/lib/baker";
+    dataDir = "/home/sinh/Documents/bakery-shop/prod/data";
   };
 
   system.stateVersion = "24.11";
