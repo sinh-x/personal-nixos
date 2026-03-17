@@ -18,6 +18,8 @@
     ];
 
     sessionVariables = {
+      EDITOR = "nvim";
+      BROWSER = "microsoft-edge";
       LEFT_MONITOR = "eDP-1";
     };
   };
@@ -43,6 +45,20 @@
     wm.niri = {
       enable = true;
       monitors.primary = "eDP-1";
+      startupScript = ''
+        #!/usr/bin/env bash
+        while ! niri msg --json outputs &>/dev/null 2>&1; do sleep 0.2; done
+        microsoft-edge &
+        sleep 2
+        niri msg action focus-workspace "main-term"
+        exec ghostty
+      '';
+      extraWindowRules = ''
+        window-rule {
+            match app-id="microsoft-edge"
+            open-on-workspace "main-browser"
+        }
+      '';
     };
   };
 
