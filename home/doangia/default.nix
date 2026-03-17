@@ -15,6 +15,7 @@
 
     packages = with pkgs; [
       sound-theme-freedesktop
+      onlyoffice-desktopeditors
     ];
 
     sessionVariables = {
