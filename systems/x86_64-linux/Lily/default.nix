@@ -69,8 +69,6 @@
 
     # window manager
     wm = {
-      bspwm.enable = false;
-      hyprland.enable = false;
       niri = {
         enable = true;
         greetd = {

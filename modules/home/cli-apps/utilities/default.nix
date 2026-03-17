@@ -50,7 +50,6 @@ in
       yazi
       zig
       zip
-      zjstatus
     ];
 
     programs = {

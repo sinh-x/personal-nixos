@@ -21,7 +21,7 @@ in
       messenger = mkEnableOption "Facebook Messenger";
       slack = mkEnableOption "Slack";
       viber = mkEnableOption "Viber";
-      zca-listener = mkEnableOption "ZCA Listener";
+
       zoom = mkEnableOption "Zoom";
       element = mkEnableOption "Element";
       pidgin = mkEnableOption "Pidgin";
@@ -31,28 +31,12 @@ in
   };
 
   config = {
-    systemd.user.services.zca-listener = mkIf cfg.zca-listener {
-      Unit = {
-        Description = "ZCA Listener";
-        After = [ "default.target" ];
-      };
-      Service = {
-        Type = "simple";
-        ExecStart = "${pkgs.zca-listener}/bin/zca-listener";
-        Restart = "on-failure";
-        RestartSec = 5;
-      };
-      Install = {
-        WantedBy = [ "default.target" ];
-      };
-    };
-
     home.packages = mkMerge [
       (mkIf cfg.discord [ pkgs.discord ])
       (mkIf cfg.messenger [ pkgs.caprine-bin ])
       (mkIf cfg.slack [ pkgs.slack ])
       (mkIf cfg.viber [ pkgs.viber ])
-      (mkIf cfg.zca-listener [ pkgs.zca-listener ])
+
       (mkIf cfg.zoom [ pkgs.zoom-us ])
       (mkIf cfg.element [ pkgs.element-desktop ])
       (mkIf cfg.telegram [ pkgs.telegram-desktop ])

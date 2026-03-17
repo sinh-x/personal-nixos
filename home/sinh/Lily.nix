@@ -28,8 +28,6 @@
 
   sinh-x = {
     apps = {
-      sinh-x.enable = false;
-      web.zen-browser.enable = false;
       web.browser = {
         chrome = false;
         brave = false;
@@ -60,14 +58,13 @@
       shell.fish.enable = false;
       shell.zsh.enable = false;
       starship.enable = false;
-      multiplexers.zellij.enable = false;
-      editor.neovim.enable = false;
+
       backup.enable = false;
       nix.enable = false;
       tools = {
         asciinema.enable = false;
         below.enable = false;
-        gurk.enable = false;
+
       };
     };
 
@@ -75,7 +72,7 @@
       editor.vscode.enable = false;
       docker.enable = false;
       claudecode.enable = false;
-      super-productivity.enable = false;
+
       devbox.enable = false;
       flutter.enable = false;
     };
@@ -97,16 +94,6 @@
     };
 
     wm = {
-      bspwm = {
-        enable = false;
-        monitors = {
-          primary = "eDP-1";
-          externalPosition = "left";
-          externalMaxResolution = 4000;
-        };
-        workspaces.distribution = "split";
-      };
-      hyprland.enable = false;
       niri = {
         enable = true;
         monitors.primary = "eDP-1";
