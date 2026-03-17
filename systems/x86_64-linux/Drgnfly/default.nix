@@ -14,6 +14,7 @@
     ./hardware-configuration.nix
     ../common/optional/pipewire.nix
     # ../common/optional/sddm.nix  # Disabled - using greetd with Niri
+    inputs.bakery-shop.nixosModules.default
   ];
 
   sinh-x.default-desktop.enable = true;
@@ -248,6 +249,12 @@
         PasswordAuthentication = false;
       };
     };
+  };
+
+  services.baker = {
+    enable = true;
+    port = 2108;
+    dataDir = "/var/lib/baker";
   };
 
   system.stateVersion = "24.11";
