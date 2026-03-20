@@ -62,8 +62,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1773961416,
-        "narHash": "sha256-NAyw6J8H2QLaN9uV1oxiWlFFJcm89sgzffPwyG17H1w=",
+        "lastModified": 1773988370,
+        "narHash": "sha256-FmbZKQlK0RwH1WyzyqJhphIFQyLJz5tAfGYnGr/9AfY=",
         "path": "/home/sinh/Documents/bakery-shop",
         "type": "path"
       },
@@ -3128,8 +3128,8 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1773934580,
-        "narHash": "sha256-bvxyPmX3GUO79Y9GehR8DNqu7vgKWzotxUGOB8JpAIA=",
+        "lastModified": 1773990770,
+        "narHash": "sha256-SxI3wViIZSx9s5j3LKi8r47tPLm20XYGwFYZLuUKhVA=",
         "path": "/home/sinh/git-repos/sinh-x/tools/avodah",
         "type": "path"
       },
@@ -3211,11 +3211,11 @@
         "nixpkgs": "nixpkgs_12"
       },
       "locked": {
-        "lastModified": 1773855124,
-        "narHash": "sha256-t3FpPd7AbTHshHGICOdEd83/IooYIX8yZt1JJWbR4K8=",
+        "lastModified": 1774006035,
+        "narHash": "sha256-WOu8uTrdkzyu+XKIi+Q15dnmAvO7xyIJfv7od1dEFok=",
         "ref": "refs/heads/main",
-        "rev": "2cc5e3c5211af86c7ec2683da09e9a814c47e2e6",
-        "revCount": 155,
+        "rev": "1d0105008680f072f59065fbd1217759092ef326",
+        "revCount": 174,
         "type": "git",
         "url": "ssh://git@github.com/sinh-x/personal-assistant"
       },
