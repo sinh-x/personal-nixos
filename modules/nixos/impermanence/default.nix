@@ -37,6 +37,7 @@ in
         "/var/lib/docker"
         "/var/lib/flatpak"
         "/var/lib/bluetooth"
+        "/var/lib/tailscale"
         "/var/lib/nixos"
         "/var/lib/systemd/coredump"
         "/var/lib/NetworkManager"
