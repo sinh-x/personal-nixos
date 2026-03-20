@@ -40,6 +40,12 @@ in
       default = false;
       description = "Advertise this machine as a Tailscale exit node";
     };
+
+    hostname = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "Override the Tailscale hostname (prevents drgnfly-1 increment on re-auth)";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -59,7 +65,8 @@ in
           "--ssh"
           "--reset"
         ]
-        ++ lib.optionals cfg.exitNode [ "--advertise-exit-node" ];
+        ++ lib.optionals cfg.exitNode [ "--advertise-exit-node" ]
+        ++ lib.optionals (cfg.hostname != null) [ "--hostname=${cfg.hostname}" ];
       extraSetFlags = mkIf (cfg.operator != null) [ "--operator=${cfg.operator}" ];
     };
 

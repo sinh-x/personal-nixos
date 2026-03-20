@@ -97,6 +97,7 @@
     tailscale = {
       enable = true;
       authKeySecret = "tailscale/Lily";
+      hostname = "lily";
       operator = "sinh";
       ssh = true;
       resumeFix = true;

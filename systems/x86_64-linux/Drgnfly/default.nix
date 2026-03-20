@@ -51,6 +51,7 @@
     tailscale = {
       enable = true;
       authKeySecret = "tailscale/Drgnfly";
+      hostname = "drgnfly";
       operator = "sinh";
       ssh = true;
       resumeFix = true;

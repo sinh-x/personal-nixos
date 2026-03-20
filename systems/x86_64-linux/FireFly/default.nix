@@ -34,6 +34,7 @@
     tailscale = {
       enable = true;
       authKeySecret = "tailscale/Firefly";
+      hostname = "firefly";
       operator = "sinh";
       ssh = true;
       resumeFix = true;
