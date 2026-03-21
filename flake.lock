@@ -62,8 +62,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1773988370,
-        "narHash": "sha256-FmbZKQlK0RwH1WyzyqJhphIFQyLJz5tAfGYnGr/9AfY=",
+        "lastModified": 1774054360,
+        "narHash": "sha256-sUnNwC6yhmQmlYwfRz3AzQbtSOKgW8rGynsyI2vXTuI=",
         "path": "/home/sinh/Documents/bakery-shop",
         "type": "path"
       },
@@ -3211,11 +3211,11 @@
         "nixpkgs": "nixpkgs_12"
       },
       "locked": {
-        "lastModified": 1774006035,
-        "narHash": "sha256-WOu8uTrdkzyu+XKIi+Q15dnmAvO7xyIJfv7od1dEFok=",
+        "lastModified": 1774050917,
+        "narHash": "sha256-U+U5OgmzVczXY/JeauNun6kYVSEw8728iVzvM7Q9ERU=",
         "ref": "refs/heads/main",
-        "rev": "1d0105008680f072f59065fbd1217759092ef326",
-        "revCount": 174,
+        "rev": "00a28ce464274d2e96ba6cf5970385a83cab27b0",
+        "revCount": 175,
         "type": "git",
         "url": "ssh://git@github.com/sinh-x/personal-assistant"
       },
