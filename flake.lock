@@ -3211,17 +3211,14 @@
         "nixpkgs": "nixpkgs_12"
       },
       "locked": {
-        "lastModified": 1774051068,
-        "narHash": "sha256-aVpDymyvSYFil63JKOyJZaJQL6biMQs9UbKVT7Ffte0=",
-        "ref": "refs/heads/main",
-        "rev": "023d1bb22165d6fbc4e13138a0dd407b2a94aaa6",
-        "revCount": 176,
-        "type": "git",
-        "url": "ssh://git@github.com/sinh-x/personal-assistant"
+        "lastModified": 1774089598,
+        "narHash": "sha256-CGZ7WFLp1gfN+/HBE5XOIPV4btoG3A4MnzzgEBj+N9g=",
+        "path": "/home/sinh/git-repos/sinh-x/tools/personal-assistant",
+        "type": "path"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/sinh-x/personal-assistant"
+        "path": "/home/sinh/git-repos/sinh-x/tools/personal-assistant",
+        "type": "path"
       }
     },
     "sinh-x-pomodoro": {
