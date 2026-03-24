@@ -1,14 +1,14 @@
-/** ********** Colors ********** **/
-@define-color background      #391b0b;
-@define-color background-alt1 #4e2510;
-@define-color background-alt2 #642f13;
-@define-color foreground      #f3ecdf;
-@define-color selected        #EEB48A;
-@define-color black           #391b0b;
-@define-color red             #E4A85F;
-@define-color green           #F3AF71;
-@define-color yellow          #BDA089;
-@define-color blue            #EEB48A;
-@define-color magenta         #F7CC92;
-@define-color cyan            #F7D9AD;
-@define-color white           #f3ecdf;
+/** ********** Colors — Catppuccin Mocha ********** **/
+@define-color background      #1e1e2e;
+@define-color background-alt1 #313244;
+@define-color background-alt2 #45475a;
+@define-color foreground      #cdd6f4;
+@define-color selected        #89b4fa;
+@define-color black           #45475a;
+@define-color red             #f38ba8;
+@define-color green           #a6e3a1;
+@define-color yellow          #f9e2af;
+@define-color blue            #89b4fa;
+@define-color magenta         #f5c2e7;
+@define-color cyan            #94e2d5;
+@define-color white           #cdd6f4;

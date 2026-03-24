@@ -85,7 +85,7 @@ run_cmd() {
 		swaylock
 	elif [[ "$1" == '--opt2' ]]; then
 		# Sleep/Suspend
-		no_confirm_run 'mpc -q pause' 'pulsemixer --mute' 'systemctl suspend'
+		no_confirm_run 'mpc -q pause' 'pulsemixer --mute' 'systemctl hibernate'
 	elif [[ "$1" == '--opt3' ]]; then
 		# Logout from Niri
 		niri msg action quit

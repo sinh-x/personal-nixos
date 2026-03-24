@@ -18,29 +18,29 @@ in
       enable = true;
       enableFishIntegration = true;
       settings = {
-        # Colors
-        background = "#391b0b";
-        foreground = "#f3ecdf";
-        selection-background = "#f3ecdf";
-        selection-foreground = "#391b0b";
-        cursor-color = "#f3ecdf";
+        # Colors — Catppuccin Mocha
+        background = "#1e1e2e";
+        foreground = "#cdd6f4";
+        selection-background = "#585b70";
+        selection-foreground = "#cdd6f4";
+        cursor-color = "#f5e0dc";
         palette = [
-          "0=#391b0b"
-          "8=#aaa59c"
-          "1=#E4A85F"
-          "9=#E4A85F"
-          "2=#F3AF71"
-          "10=#F3AF71"
-          "3=#BDA089"
-          "11=#BDA089"
-          "4=#EEB48A"
-          "12=#EEB48A"
-          "5=#F7CC92"
-          "13=#F7CC92"
-          "6=#F7D9AD"
-          "14=#F7D9AD"
-          "7=#f3ecdf"
-          "15=#f3ecdf"
+          "0=#45475a"
+          "8=#585b70"
+          "1=#f38ba8"
+          "9=#f38ba8"
+          "2=#a6e3a1"
+          "10=#a6e3a1"
+          "3=#f9e2af"
+          "11=#f9e2af"
+          "4=#89b4fa"
+          "12=#89b4fa"
+          "5=#f5c2e7"
+          "13=#f5c2e7"
+          "6=#94e2d5"
+          "14=#94e2d5"
+          "7=#bac2de"
+          "15=#a6adc8"
         ];
 
         # Fonts
