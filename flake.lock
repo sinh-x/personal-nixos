@@ -3211,8 +3211,8 @@
         "nixpkgs": "nixpkgs_12"
       },
       "locked": {
-        "lastModified": 1774354772,
-        "narHash": "sha256-6ddyiEIM4TJ8NqK7GrR8PsZVuhOre90gHDb1GoYJHW4=",
+        "lastModified": 1774417143,
+        "narHash": "sha256-g3FOgJPsxohSgZiwwaHq+19x7HBVxtFWJOA6wzKb3LI=",
         "path": "/home/sinh/git-repos/sinh-x/tools/personal-assistant",
         "type": "path"
       },
