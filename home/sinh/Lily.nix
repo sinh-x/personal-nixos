@@ -13,6 +13,9 @@
       acpilight
       sct
       sound-theme-freedesktop
+
+      rclone
+      rustic
     ];
 
     sessionVariables = {
