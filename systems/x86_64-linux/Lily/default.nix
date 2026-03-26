@@ -83,7 +83,7 @@
       };
     };
 
-    docker.enable = false;
+    docker.enable = true;
 
     # network
     stubby.enable = true;
