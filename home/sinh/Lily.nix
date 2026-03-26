@@ -16,6 +16,7 @@
 
       rclone
       rustic
+      docker-client
     ];
 
     sessionVariables = {
