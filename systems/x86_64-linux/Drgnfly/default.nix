@@ -197,6 +197,7 @@
     ntfs3g
     compsize # Check btrfs compression ratios
     cargo-binstall # Install pre-built Rust binaries from GitHub (e.g., cargo binstall gurk-rs)
+    uv
 
     usbutils # lsusb
     smartmontools # smartctl

@@ -3128,8 +3128,8 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1774517369,
-        "narHash": "sha256-4ZInJs23hfriR0hhv/uDGC25UrZknjz755qmBq+Ya2o=",
+        "lastModified": 1774596860,
+        "narHash": "sha256-20SYPB0QnTqIxzMfO91NmeQe/IcytRfGmmCKZOTr6kI=",
         "path": "/home/sinh/git-repos/sinh-x/tools/avodah",
         "type": "path"
       },
@@ -3211,7 +3211,7 @@
         "nixpkgs": "nixpkgs_12"
       },
       "locked": {
-        "lastModified": 1774531060,
+        "lastModified": 1774566658,
         "narHash": "sha256-4WkbD1nlu93rWqOcvJxsKClyD44M/xxN7sBc90S82CA=",
         "path": "/home/sinh/git-repos/sinh-x/tools/personal-assistant",
         "type": "path"
