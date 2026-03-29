@@ -226,6 +226,10 @@
     pciutils
     libva
     libva-utils
+
+    rclone
+    rustic
+    docker-client
   ];
 
   networking = {
