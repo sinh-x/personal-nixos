@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  inputs,
   namespace,
   ...
 }:
@@ -8,6 +9,8 @@ let
   cfg = config.${namespace}.apps.web.zen-browser;
 in
 {
+  imports = [ inputs.zen-browser.homeModules.twilight ];
+
   options.${namespace}.apps.web.zen-browser.enable = lib.mkEnableOption "zen-browser";
 
   config = lib.mkIf cfg.enable {
