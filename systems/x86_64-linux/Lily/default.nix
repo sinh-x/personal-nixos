@@ -117,8 +117,12 @@
     };
   };
 
-  # doangia is the primary user on Lily — grant sudo
-  users.users.doangia.extraGroups = [ "wheel" ];
+  # doangia is the primary user on Lily — grant sudo + docker
+  users.users.doangia.extraGroups = [
+    "wheel"
+    "docker"
+  ];
+  users.users.vy.extraGroups = [ "docker" ];
 
   nix =
     let
