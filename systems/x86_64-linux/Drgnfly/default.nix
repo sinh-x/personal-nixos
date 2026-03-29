@@ -42,6 +42,7 @@
 
     docker.enable = true;
     ollama.enable = true;
+    thermal-printer.enable = true;
 
     # network
     stubby.enable = true;
@@ -197,6 +198,7 @@
     ntfs3g
     compsize # Check btrfs compression ratios
     cargo-binstall # Install pre-built Rust binaries from GitHub (e.g., cargo binstall gurk-rs)
+    uv
 
     usbutils # lsusb
     smartmontools # smartctl
