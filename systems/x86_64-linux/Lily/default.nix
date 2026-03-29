@@ -209,6 +209,7 @@
 
   environment.systemPackages = with pkgs; [
     vim
+    git
     wget
     curl
     openssl
