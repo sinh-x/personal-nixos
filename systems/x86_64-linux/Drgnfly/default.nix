@@ -42,6 +42,7 @@
 
     docker.enable = true;
     ollama.enable = true;
+    thermal-printer.enable = true;
 
     # network
     stubby.enable = true;

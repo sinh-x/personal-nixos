@@ -84,6 +84,7 @@
     };
 
     docker.enable = false;
+    thermal-printer.enable = true;
 
     # network
     stubby.enable = true;
