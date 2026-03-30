@@ -111,8 +111,8 @@
     };
 
     fcitx5-lotus = {
-      url = "github:sinh-trusted/fcitx5-lotus/snapshot-20260223";
-      # inputs.nixpkgs.follows = "nixpkgs";  # optional, to avoid duplicate nixpkgs
+      url = "github:sinh-trusted/fcitx5-lotus/snapshot-20260330";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     bakery-shop = {
