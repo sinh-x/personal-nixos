@@ -86,6 +86,14 @@
     docker.enable = true;
     thermal-printer.enable = true;
 
+    rustic-backup = {
+      enable = true;
+      profile = "baker-prod";
+      dataDir = "/home/sinh/bakery-shop/prod/data";
+      calendar = "22:00";
+      user = "sinh";
+    };
+
     # network
     stubby.enable = true;
     wifi = {
