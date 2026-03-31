@@ -138,8 +138,16 @@ in
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {
-        # Images
+        # Images - swayimg
         "image/jpeg" = "swayimg.desktop";
+        "image/png" = "swayimg.desktop";
+        "image/gif" = "swayimg.desktop";
+        "image/webp" = "swayimg.desktop";
+        "image/bmp" = "swayimg.desktop";
+        "image/tiff" = "swayimg.desktop";
+        "image/x-portable-pixmap" = "swayimg.desktop";
+        "image/svg+xml" = "swayimg.desktop";
+        "image/x-xpixmap" = "swayimg.desktop";
 
         # Browser - zen-twilight
         "x-scheme-handler/http" = "zen-twilight.desktop";
