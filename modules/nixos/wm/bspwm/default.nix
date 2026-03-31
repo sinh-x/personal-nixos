@@ -81,6 +81,8 @@ in
       thunar
       gvfs
       lxappearance
+      exo-utils
+      xfce4-terminal
       xorg.xev
       xorg.xinit
       xdg-desktop-portal
