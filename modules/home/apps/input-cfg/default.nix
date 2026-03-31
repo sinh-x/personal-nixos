@@ -23,7 +23,9 @@ in
       sessionVariables = {
         IMSETTINGS_MODULE = "fcitx";
         INPUT_METHOD = "fcitx";
-        GTK_IM_MODULE = "fcitx";
+        # GTK_IM_MODULE removed: on Wayland, GTK4 apps (e.g. Ghostty) should use
+        # the text-input protocol instead. Setting GTK_IM_MODULE=fcitx causes dual
+        # input context conflicts. See fcitx5#1218, ghostty#3628.
         QT_IM_MODULE = "fcitx";
         GLFW_IM_MODULE = "fcitx";
         XMODIFIERS = "@im=fcitx";
