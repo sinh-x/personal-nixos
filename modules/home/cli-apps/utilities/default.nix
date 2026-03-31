@@ -138,8 +138,16 @@ in
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {
-        # Images
+        # Images - swayimg
         "image/jpeg" = "swayimg.desktop";
+        "image/png" = "swayimg.desktop";
+        "image/gif" = "swayimg.desktop";
+        "image/webp" = "swayimg.desktop";
+        "image/bmp" = "swayimg.desktop";
+        "image/tiff" = "swayimg.desktop";
+        "image/x-portable-pixmap" = "swayimg.desktop";
+        "image/svg+xml" = "swayimg.desktop";
+        "image/x-xpixmap" = "swayimg.desktop";
 
         # Browser - zen-twilight
         "x-scheme-handler/http" = "zen-twilight.desktop";
@@ -162,6 +170,16 @@ in
         # PDF
         "application/pdf" = "org.gnome.Evince.desktop";
       };
+    };
+
+    # Xfce terminal preferences for Thunar "Open Terminal Here"
+    home.file.".config/xfce4/xfconf/single-instance.xml" = {
+      text = ''
+        <?xml version="1.0" encoding="UTF-8"?>
+        <channel name="exo-preferred-applications" version="1.0">
+          <property name="TerminalEmulator" type="string" value="com.mitchellh.ghostty.desktop"/>
+        </channel>
+      '';
     };
   };
 }
