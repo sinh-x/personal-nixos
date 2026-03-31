@@ -171,5 +171,15 @@ in
         "application/pdf" = "org.gnome.Evince.desktop";
       };
     };
+
+    # Xfce terminal preferences for Thunar "Open Terminal Here"
+    home.file.".config/xfce4/xfconf/single-instance.xml" = {
+      text = ''
+        <?xml version="1.0" encoding="UTF-8"?>
+        <channel name="exo-preferred-applications" version="1.0">
+          <property name="TerminalEmulator" type="string" value="com.mitchellh.ghostty.desktop"/>
+        </channel>
+      '';
+    };
   };
 }
