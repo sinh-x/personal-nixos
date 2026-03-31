@@ -14,6 +14,9 @@
       sct
       sound-theme-freedesktop
 
+      rclone
+      rustic
+      docker-client
     ];
 
     sessionVariables = {
