@@ -15,14 +15,6 @@
 
   sinh-x.default-desktop.enable = true;
 
-  services = {
-    ip_updater = {
-      enable = true;
-      package = pkgs.sinh-x-ip_updater;
-      wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-scripts/wasabi-access-key.env";
-    };
-  };
-
   virtualisation = {
     docker.enable = true;
   };
@@ -76,13 +68,35 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  services.picom = {
-    enable = true;
-    shadow = true;
-  };
+  services = {
+    picom = {
+      enable = true;
+      shadow = true;
+    };
 
-  # Configure keymap in X11
-  services.xserver.xkb.layout = "us";
+    # Configure keymap in X11
+    xserver.xkb.layout = "us";
+
+    # This setups a SSH server. Very important if you're setting up a headless system.
+    # Feel free to remove if you don't need it.
+    openssh = {
+      enable = true;
+      settings = {
+        # opinionated: forbid root login through ssh.
+        PermitRootLogin = "no";
+        # opinionated: use keys only.
+        # remove if you want to ssh using passwords
+        PasswordAuthentication = false;
+      };
+    };
+
+    printing = {
+      enable = true;
+      cups-pdf = {
+        enable = true;
+      };
+    };
+  };
 
   hardware.bluetooth.enable = true;
 
@@ -141,33 +155,6 @@
     inputs.zen-browser.packages."${system}".twilight # artifacts are downloaded from this repository to guarantee reproducibility
     inputs.zen-browser.packages."${system}".twilight-official # artifacts are downloaded from the official Zen repository
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-  # This setups a SSH server. Very important if you're setting up a headless system.
-  # Feel free to remove if you don't need it.
-  services.openssh = {
-    enable = true;
-    settings = {
-      # opinionated: forbid root login through ssh.
-      PermitRootLogin = "no";
-      # opinionated: use keys only.
-      # remove if you want to ssh using passwords
-      PasswordAuthentication = false;
-    };
-  };
-
-  services.printing = {
-    enable = true;
-    cups-pdf = {
-      enable = true;
-    };
-  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
