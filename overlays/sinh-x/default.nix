@@ -33,4 +33,5 @@ _final: prev: {
   inherit (inputs.sinh-x-zca-js.packages.${prev.stdenv.hostPlatform.system}) zca-listener;
 
   inherit (inputs.fcitx5-lotus.packages.${prev.stdenv.hostPlatform.system}) fcitx5-lotus;
+  inherit (inputs.andafin-jira-mcp.packages.${prev.stdenv.hostPlatform.system}) andafin-jira-mcp;
 }

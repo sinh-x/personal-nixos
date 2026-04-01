@@ -115,6 +115,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    andafin-jira-mcp = {
+      url = "/home/sinh/git-repos/andafin/infrastructure/andafin-jira-mcp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     bakery-shop = {
       url = "path:/home/sinh/Documents/bakery-shop";
       inputs.nixpkgs.follows = "nixpkgs";

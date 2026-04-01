@@ -20,6 +20,7 @@
       openai-whisper # speech-to-text recognition
       sinh-x-pa # personal-assistant CLI agent orchestrator
       obsidian
+      andafin-jira-mcp
     ];
 
     sessionVariables = {
