@@ -18,27 +18,6 @@ _: {
     '';
 
     extraWindowRules = ''
-      // Zoom -> all windows on "email" workspace
-      window-rule {
-          match app-id=r#"(?i)zoom"#
-          open-on-workspace "email"
-      }
-
-      // Zoom popups/dialogs -> floating
-      window-rule {
-          match app-id=r#"(?i)zoom"#
-          match title=r#"(?i)(settings|participants|chat|share|invite)"#
-          open-floating true
-      }
-
-      // Zoom main meeting window -> maximized and focused
-      window-rule {
-          match app-id=r#"(?i)zoom"#
-          match title=r#"(?i)(meeting|zoom)"#
-          open-maximized true
-          open-focused true
-      }
-
       // Chat apps -> open on "chat" workspace without stealing focus
       window-rule {
           match app-id="discord"

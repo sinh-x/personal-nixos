@@ -1,6 +1,6 @@
 theme "tokyo-night"
 
-defaultShell "fish"
+default_shell "fish"
 simplified_ui true
 scrollback_editor "nvim"
 pane_frames false
