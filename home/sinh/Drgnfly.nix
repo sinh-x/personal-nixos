@@ -19,7 +19,9 @@
       mermaid-cli # mmdc - diagram generation from text
       openai-whisper # speech-to-text recognition
       sinh-x-pa # personal-assistant CLI agent orchestrator
+      sinh-x.pa-update # update sinh-x-pa flake input and rebuild
       obsidian
+      andafin-jira-mcp
     ];
 
     sessionVariables = {
@@ -94,7 +96,7 @@
       messenger = false;
       slack = false;
       viber = true;
-      zoom = true;
+      zoom = false;
       telegram = true;
       signal = true;
       zca-listener = true;

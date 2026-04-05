@@ -83,11 +83,11 @@
       # url = "git+ssh://git@github.com/sinh-x/personal-assistant";
       url = "/home/sinh/git-repos/sinh-x/tools/personal-assistant";
     };
-    sinh-x-nixvim = {
-      url = "github:sinh-x/Neve";
-      # url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # sinh-x-nixvim = {
+    #   url = "github:sinh-x/Neve";
+    #   # url = "/home/sinh/git-repos/sinh-x/sinh-x-Neve";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -115,8 +115,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    andafin-jira-mcp = {
+      url = "/home/sinh/git-repos/andafin/infrastructure/andafin-jira-mcp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     bakery-shop = {
       url = "path:/home/sinh/Documents/bakery-shop";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    personal-google-mcp = {
+      url = "/home/sinh/git-repos/sinh-x/tools/personal-google-mcp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

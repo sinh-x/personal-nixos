@@ -120,12 +120,6 @@
       fileSystems = [ "/" ];
     };
 
-    ip_updater = {
-      enable = true;
-      package = pkgs.sinh-x-ip_updater;
-      wasabiAccessKeyFile = "/home/sinh/.config/sinh-x-scripts/wasabi-access-key.env";
-    };
-
     xserver.videoDrivers = [ "nvidia" ];
 
     # Note: greetd is configured by modules.wm.niri when enabled

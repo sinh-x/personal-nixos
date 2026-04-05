@@ -21,10 +21,7 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      sinh-x-pomodoro
       sinh-x-wallpaper
-      #sinh-x-gitstatus
-      sinh-x-ip_updater
       avo
       sinh-x-zeroclaw
     ];

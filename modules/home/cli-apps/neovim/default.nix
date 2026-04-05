@@ -21,7 +21,7 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      nixvim
+      # nixvim # disabled: sinh-x-nixvim uses deprecated nodePackages
 
       # programming
       cargo
@@ -36,8 +36,8 @@ in
       lua-language-server
       luajit
       mercurial
-      nodePackages.svelte-language-server
-      nodePackages.typescript-language-server
+      svelte-language-server
+      typescript-language-server
       nodejs_22
       prettierd
       python312Packages.black

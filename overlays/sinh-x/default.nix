@@ -24,7 +24,7 @@ _final: prev: {
   sinh-x-pa = inputs.sinh-x-pa.packages.${prev.stdenv.hostPlatform.system}.personal-assistant;
   inherit (inputs.sinh-x-zeroclaw.packages.${prev.stdenv.hostPlatform.system}) sinh-x-zeroclaw;
 
-  nixvim = inputs.sinh-x-nixvim.packages.${prev.stdenv.hostPlatform.system}.nvim;
+  # nixvim = inputs.sinh-x-nixvim.packages.${prev.stdenv.hostPlatform.system}.nvim; # disabled: uses deprecated nodePackages
   zjstatus = inputs.zjstatus.packages.${prev.stdenv.hostPlatform.system}.default;
 
   super-productivity =
@@ -33,4 +33,5 @@ _final: prev: {
   inherit (inputs.sinh-x-zca-js.packages.${prev.stdenv.hostPlatform.system}) zca-listener;
 
   inherit (inputs.fcitx5-lotus.packages.${prev.stdenv.hostPlatform.system}) fcitx5-lotus;
+  inherit (inputs.andafin-jira-mcp.packages.${prev.stdenv.hostPlatform.system}) andafin-jira-mcp;
 }
