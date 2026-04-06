@@ -24,7 +24,7 @@ _final: prev: {
   sinh-x-pa = inputs.sinh-x-pa.packages.${prev.stdenv.hostPlatform.system}.personal-assistant;
   inherit (inputs.sinh-x-zeroclaw.packages.${prev.stdenv.hostPlatform.system}) sinh-x-zeroclaw;
 
-  # nixvim = inputs.sinh-x-nixvim.packages.${prev.stdenv.hostPlatform.system}.nvim; # disabled: uses deprecated nodePackages
+  nixvim = inputs.sinh-x-nixvim.packages.${prev.stdenv.hostPlatform.system}.nvim;
   zjstatus = inputs.zjstatus.packages.${prev.stdenv.hostPlatform.system}.default;
 
   super-productivity =
