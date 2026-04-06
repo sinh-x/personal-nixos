@@ -27,8 +27,8 @@
     fish.enable = true;
 
     # windows manager
-    bspwm.enable = true;
-    hyprland.enable = false;
+    wm.bspwm.enable = true;
+    wm.hyprland.enable = false;
 
     virtualbox.enable = true;
     genymotion.enable = true;
