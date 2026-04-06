@@ -34,7 +34,6 @@ _final: prev: {
 
   inherit (inputs.fcitx5-lotus.packages.${prev.stdenv.hostPlatform.system}) fcitx5-lotus;
   inherit (inputs.andafin-jira-mcp.packages.${prev.stdenv.hostPlatform.system}) andafin-jira-mcp;
-  inherit (inputs.personal-google-mcp.packages.${prev.stdenv.hostPlatform.system})
-    personal-google-mcp
-    ;
+  personal-google-mcp =
+    inputs.personal-google-mcp.packages.${prev.stdenv.hostPlatform.system}.default;
 }
