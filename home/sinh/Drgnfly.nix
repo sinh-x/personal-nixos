@@ -22,6 +22,7 @@
       sinh-x.pa-update # update sinh-x-pa flake input and rebuild
       obsidian
       andafin-jira-mcp
+      personal-google-mcp
     ];
 
     sessionVariables = {
