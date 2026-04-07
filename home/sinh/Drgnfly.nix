@@ -44,6 +44,7 @@
       web.browser = {
         chrome = true;
         brave = true;
+        edge = true;
       };
       utilities.enable = true;
       themes.enable = true;
