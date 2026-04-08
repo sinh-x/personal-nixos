@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROGRAM="pa-update"
+NIXOS_REPO="${NIXOS_REPO:-$HOME/git-repos/sinh-x/personal-nixos}"
+DRY_RUN=false
+USE_TEST=false
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+info() { echo -e "${BLUE}[INFO]${NC}  $*"; }
+ok() { echo -e "${GREEN}[OK]${NC}    $*"; }
+warn() { echo -e "${YELLOW}[WARN]${NC}  $*"; }
+err() { echo -e "${RED}[ERROR]${NC} $*"; }
+step() { echo -e "\n${GREEN}=== $* ===${NC}"; }
+
+usage() {
+  cat <<EOF
+$PROGRAM — Update sinh-x-pa flake input, rebuild system, restart pa serve
+
+Usage: $PROGRAM [OPTIONS]
+
+Runs nix flake update for sinh-x-pa only, then rebuilds the NixOS system
+configuration and restarts the pa server if it was running.
+
+Requires sudo for nixos-rebuild.
+
+Options:
+    --dry-run       Show what would happen without executing
+    --test          Use nixos-rebuild test instead of switch
+    --repo DIR      Path to personal-nixos repo (default: \$NIXOS_REPO or ~/git-repos/sinh-x/personal-nixos)
+    -h, --help      Show this help
+EOF
+  exit 0
+}
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+  --dry-run)
+    DRY_RUN=true
+    shift
+    ;;
+  --test)
+    USE_TEST=true
+    shift
+    ;;
+  --repo)
+    NIXOS_REPO="$2"
+    shift 2
+    ;;
+  -h | --help) usage ;;
+  *)
+    err "Unknown argument: $1"
+    usage
+    ;;
+  esac
+done
+
+# Validate repo
+if [[ ! -f "$NIXOS_REPO/flake.nix" ]]; then
+  err "No flake.nix found at $NIXOS_REPO"
+  err "Set NIXOS_REPO or use --repo to specify the personal-nixos repo path"
+  exit 1
+fi
+
+if ! grep -q 'sinh-x-pa' "$NIXOS_REPO/flake.nix"; then
+  err "sinh-x-pa input not found in $NIXOS_REPO/flake.nix"
+  exit 1
+fi
+
+info "Repo: $NIXOS_REPO"
+
+# Check for dirty git tree
+if git -C "$NIXOS_REPO" status --porcelain 2>/dev/null | grep -q .; then
+  warn "Working tree has uncommitted changes (proceeding anyway)"
+fi
+
+if "$DRY_RUN"; then
+  info "[DRY RUN] Would execute the following:"
+  echo "  1. cd $NIXOS_REPO && nix flake update sinh-x-pa"
+  if "$USE_TEST"; then
+    echo "  2. sudo nixos-rebuild test --no-reexec --flake $NIXOS_REPO#"
+  else
+    echo "  2. sudo nixos-rebuild switch --flake $NIXOS_REPO#"
+  fi
+  echo "  3. pa serve restart --background (if running)"
+  exit 0
+fi
+
+# Phase 1: Update sinh-x-pa flake input
+step "Updating sinh-x-pa flake input"
+cd "$NIXOS_REPO"
+nix flake update sinh-x-pa
+ok "sinh-x-pa input updated"
+
+# Phase 2: Rebuild system
+if "$USE_TEST"; then
+  step "Testing system configuration (ephemeral)"
+  sudo nixos-rebuild test --no-reexec --flake "$NIXOS_REPO#" >/dev/null 2>&1 &
+  ok "System test build started in background (PID: $!)"
+else
+  step "Rebuilding system configuration"
+  sudo nixos-rebuild switch --flake "$NIXOS_REPO#" >/dev/null 2>&1 &
+  ok "System rebuild started in background (PID: $!)"
+fi
+
+# Phase 3: Restart pa serve
+step "Restarting pa serve"
+if pa serve status >/dev/null 2>&1; then
+  pa serve restart --background
+  ok "pa serve restarted"
+else
+  info "pa serve was not running — skipping restart"
+fi
+
+echo ""
+ok "PA update complete! Rebuild running in background."
