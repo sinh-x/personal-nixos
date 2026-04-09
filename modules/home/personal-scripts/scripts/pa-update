@@ -102,12 +102,12 @@ ok "sinh-x-pa input updated"
 # Phase 2: Rebuild system
 if "$USE_TEST"; then
   step "Testing system configuration (ephemeral)"
-  sudo nixos-rebuild test --no-reexec --flake "$NIXOS_REPO#" >/dev/null 2>&1 &
-  ok "System test build started in background (PID: $!)"
+  sudo nixos-rebuild test --no-reexec --flake "$NIXOS_REPO#"
+  ok "System test build complete"
 else
   step "Rebuilding system configuration"
-  sudo nixos-rebuild switch --flake "$NIXOS_REPO#" >/dev/null 2>&1 &
-  ok "System rebuild started in background (PID: $!)"
+  sudo nixos-rebuild switch --flake "$NIXOS_REPO#"
+  ok "System rebuild complete"
 fi
 
 # Phase 3: Restart pa serve
@@ -120,4 +120,4 @@ else
 fi
 
 echo ""
-ok "PA update complete! Rebuild running in background."
+ok "PA update complete!"
