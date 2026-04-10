@@ -21,7 +21,7 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      # nixvim # disabled: sinh-x-nixvim uses deprecated nodePackages
+      nixvim
 
       # programming
       cargo
