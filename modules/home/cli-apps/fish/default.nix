@@ -91,6 +91,9 @@ in
         lag = "ls -la | grep";
 
         sshref = "rm ~/.ssh/known_hosts";
+
+        # ----- general abbr -----
+        za = "zellij attach --create";
       };
       shellAliases = {
         # ----- general alias -----
