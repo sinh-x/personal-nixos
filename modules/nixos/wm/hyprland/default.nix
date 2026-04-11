@@ -118,7 +118,7 @@ in
       foot
       eww
       libnotify
-      swww
+      awww
       wl-clipboard
       wl-clip-persist
       cliphist
