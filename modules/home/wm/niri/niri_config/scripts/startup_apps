@@ -19,8 +19,9 @@ signal-desktop &
 Telegram &
 viber &
 
-# Phase 2: Browser (window rule -> main-browser workspace)
+# Phase 2: Browser and productivity (window rule -> main-browser / email workspace)
 zen-twilight &
+logseq &
 
 # Phase 3: Terminal last so it gets focus (window rule -> main-term workspace)
 sleep 2
