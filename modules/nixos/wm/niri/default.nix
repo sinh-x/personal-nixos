@@ -92,7 +92,7 @@ in
 
       # Wayland utilities
       swaybg
-      swww
+      awww
       wl-clipboard
       wl-clip-persist
       cliphist
