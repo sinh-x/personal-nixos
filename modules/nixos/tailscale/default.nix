@@ -65,7 +65,15 @@ in
     services.tailscale = {
       enable = true;
       authKeyFile = mkIf (cfg.authKeySecret != null) config.sops.secrets.${cfg.authKeySecret}.path;
-      useRoutingFeatures = mkIf cfg.exitNode (mkIf cfg.useExitNode true "server");
+      useRoutingFeatures =
+        if cfg.exitNode && cfg.useExitNode then
+          "both"
+        else if cfg.useExitNode && !cfg.exitNode then
+          "client"
+        else if cfg.exitNode && !cfg.useExitNode then
+          "server"
+        else
+          null;
       extraUpFlags =
         lib.optionals cfg.ssh [
           "--ssh"
