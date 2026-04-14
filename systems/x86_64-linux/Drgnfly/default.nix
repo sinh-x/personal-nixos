@@ -56,6 +56,7 @@
       ssh = true;
       resumeFix = true;
       exitNode = true;
+      useExitNode = true;
     };
 
     sops.enable = true;
