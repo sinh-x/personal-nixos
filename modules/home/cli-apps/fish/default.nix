@@ -197,6 +197,36 @@ in
             check_conda
           '';
         };
+        mullvad-on = {
+          body = ''
+            if test (hostname) != "Drgnfly"
+              echo "mullvad-on: only available on Drgnfly"
+              return 1
+            end
+
+            set -l nodes (tailscale exit-node list | grep -i mullvad)
+            if test -z "$nodes"
+              echo "No Mullvad exit nodes found"
+              return 1
+            end
+
+            set -l first_node (echo $nodes | awk '{print $1}')
+            set -l node_name (echo $nodes | awk '{print $2}')
+            tailscale set --exit-node=$first_node --exit-node-allow-lan-access
+            echo "Connected to Mullvad exit node: $node_name ($first_node)"
+          '';
+        };
+        mullvad-off = {
+          body = ''
+            if test (hostname) != "Drgnfly"
+              echo "mullvad-off: only available on Drgnfly"
+              return 1
+            end
+
+            tailscale set --exit-node=
+            echo "Exit node disabled, direct routing restored"
+          '';
+        };
       };
       plugins = [
         {
