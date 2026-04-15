@@ -11,11 +11,12 @@ TRANSITION_TYPE="grow"
 TRANSITION_DURATION=1
 TRANSITION_FPS=60
 
-# Ensure awww daemon is running
-if ! pgrep -x "awww-daemon" > /dev/null; then
-    awww-daemon &
-    sleep 0.5
-fi
+# awww-daemon is spawned by Niri at startup via spawn-at-startup.
+# We just ensure the cache directory exists (impermanence may not have created it).
+mkdir -p "$HOME/.cache/awww"
+
+# Wait for daemon to be ready (it may still be starting up)
+sleep 0.5
 
 case "$1" in
     --set)
