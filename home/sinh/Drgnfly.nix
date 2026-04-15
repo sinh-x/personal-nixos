@@ -97,7 +97,7 @@
       messenger = false;
       slack = false;
       viber = true;
-      zoom = false;
+      zoom = true;
       telegram = true;
       signal = true;
       zca-listener = true;
