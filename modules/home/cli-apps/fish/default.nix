@@ -212,7 +212,10 @@ in
 
             set -l first_node (echo $nodes | awk '{print $1}')
             set -l node_name (echo $nodes | awk '{print $2}')
-            tailscale set --exit-node=$first_node --exit-node-allow-lan-access
+            if not tailscale set --exit-node=$first_node --exit-node-allow-lan-access
+              echo "Failed to connect to Mullvad exit node"
+              return 1
+            end
             echo "Connected to Mullvad exit node: $node_name ($first_node)"
           '';
         };
@@ -223,7 +226,10 @@ in
               return 1
             end
 
-            tailscale set --exit-node=
+            if not tailscale set --exit-node=
+              echo "Failed to disable exit node"
+              return 1
+            end
             echo "Exit node disabled, direct routing restored"
           '';
         };
