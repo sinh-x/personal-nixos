@@ -73,7 +73,7 @@ in
         else if cfg.exitNode && !cfg.useExitNode then
           "server"
         else
-          null;
+          "none";
       extraUpFlags =
         lib.optionals cfg.ssh [
           "--ssh"
