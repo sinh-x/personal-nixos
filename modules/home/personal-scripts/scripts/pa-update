@@ -4,7 +4,7 @@ set -euo pipefail
 PROGRAM="pa-update"
 NIXOS_REPO="${NIXOS_REPO:-$HOME/git-repos/sinh-x/personal-nixos}"
 DRY_RUN=false
-USE_TEST=false
+USE_TEST=TRUE
 
 # Colors
 RED='\033[0;31m'
@@ -32,7 +32,7 @@ Requires sudo for nixos-rebuild.
 
 Options:
     --dry-run       Show what would happen without executing
-    --test          Use nixos-rebuild test instead of switch
+    --switch          Use nixos-rebuild swtich instead of test
     --repo DIR      Path to personal-nixos repo (default: \$NIXOS_REPO or ~/git-repos/sinh-x/personal-nixos)
     -h, --help      Show this help
 EOF
@@ -46,8 +46,8 @@ while [[ $# -gt 0 ]]; do
     DRY_RUN=true
     shift
     ;;
-  --test)
-    USE_TEST=true
+  --switch)
+    USE_TEST=false
     shift
     ;;
   --repo)

@@ -41,6 +41,12 @@ in
       description = "Advertise this machine as a Tailscale exit node";
     };
 
+    useExitNode = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Allow this machine to use exit nodes (use as a client)";
+    };
+
     hostname = mkOption {
       type = types.nullOr types.str;
       default = null;
@@ -59,7 +65,15 @@ in
     services.tailscale = {
       enable = true;
       authKeyFile = mkIf (cfg.authKeySecret != null) config.sops.secrets.${cfg.authKeySecret}.path;
-      useRoutingFeatures = mkIf cfg.exitNode "server";
+      useRoutingFeatures =
+        if cfg.exitNode && cfg.useExitNode then
+          "both"
+        else if cfg.useExitNode && !cfg.exitNode then
+          "client"
+        else if cfg.exitNode && !cfg.useExitNode then
+          "server"
+        else
+          null;
       extraUpFlags =
         lib.optionals cfg.ssh [
           "--ssh"

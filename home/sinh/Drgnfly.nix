@@ -20,6 +20,7 @@
       openai-whisper # speech-to-text recognition
       sinh-x-pa # personal-assistant CLI agent orchestrator
       obsidian
+      logseq
       andafin-jira-mcp
       personal-google-mcp
     ];
@@ -37,7 +38,6 @@
 
   sinh-x = {
     apps = {
-      anytype.enable = true;
       sinh-x.enable = true;
       web.zen-browser.enable = true;
       web.browser = {
@@ -97,7 +97,7 @@
       messenger = false;
       slack = false;
       viber = true;
-      zoom = false;
+      zoom = true;
       telegram = true;
       signal = true;
       zca-listener = true;

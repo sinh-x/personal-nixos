@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## Set Wallpaper in Niri using swww
+## Set Wallpaper in Niri using awww
 
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
 CONFIG_DIR="$HOME/.config/niri"
@@ -11,17 +11,18 @@ TRANSITION_TYPE="grow"
 TRANSITION_DURATION=1
 TRANSITION_FPS=60
 
-# Ensure swww daemon is running
-if ! pgrep -x "swww-daemon" > /dev/null; then
-    swww-daemon &
-    sleep 0.5
-fi
+# awww-daemon is spawned by Niri at startup via spawn-at-startup.
+# We just ensure the cache directory exists (impermanence may not have created it).
+mkdir -p "$HOME/.cache/awww"
+
+# Wait for daemon to be ready (it may still be starting up)
+sleep 0.5
 
 case "$1" in
     --set)
         # Set specific wallpaper
         if [[ -f "$2" ]]; then
-            swww img "$2" \
+            awww img "$2" \
                 --transition-type "$TRANSITION_TYPE" \
                 --transition-duration "$TRANSITION_DURATION" \
                 --transition-fps "$TRANSITION_FPS"
@@ -35,7 +36,7 @@ case "$1" in
         if [[ -d "$WALLPAPER_DIR" ]]; then
             RANDOM_WALL=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" \) | shuf -n 1)
             if [[ -n "$RANDOM_WALL" ]]; then
-                swww img "$RANDOM_WALL" \
+                awww img "$RANDOM_WALL" \
                     --transition-type "$TRANSITION_TYPE" \
                     --transition-duration "$TRANSITION_DURATION" \
                     --transition-fps "$TRANSITION_FPS"
@@ -54,7 +55,7 @@ case "$1" in
         if [[ -d "$WALLPAPER_DIR" ]]; then
             SELECTED=$(find "$WALLPAPER_DIR" -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" -o -name "*.webp" \) | rofi -dmenu -i -p "Wallpaper")
             if [[ -n "$SELECTED" && -f "$SELECTED" ]]; then
-                swww img "$SELECTED" \
+                awww img "$SELECTED" \
                     --transition-type "$TRANSITION_TYPE" \
                     --transition-duration "$TRANSITION_DURATION" \
                     --transition-fps "$TRANSITION_FPS"
@@ -67,7 +68,7 @@ case "$1" in
     --default)
         # Set default wallpaper
         if [[ -f "$DEFAULT_WALLPAPER" ]]; then
-            swww img "$DEFAULT_WALLPAPER" \
+            awww img "$DEFAULT_WALLPAPER" \
                 --transition-type "$TRANSITION_TYPE" \
                 --transition-duration "$TRANSITION_DURATION" \
                 --transition-fps "$TRANSITION_FPS"
@@ -87,7 +88,7 @@ case "$1" in
         echo ""
         # Default action: set default wallpaper
         if [[ -f "$DEFAULT_WALLPAPER" ]]; then
-            swww img "$DEFAULT_WALLPAPER" \
+            awww img "$DEFAULT_WALLPAPER" \
                 --transition-type "$TRANSITION_TYPE" \
                 --transition-duration "$TRANSITION_DURATION" \
                 --transition-fps "$TRANSITION_FPS"

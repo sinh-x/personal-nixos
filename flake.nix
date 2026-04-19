@@ -76,12 +76,12 @@
       # url = "/home/sinh/git-repos/sinh-x/tools/zeroclaw";
     };
     sinh-x-avodah = {
-      # url = "github:sinh-x/avodah/develop";
-      url = "/home/sinh/git-repos/sinh-x/tools/avodah";
+      url = "github:sinh-x/avodah/develop";
+      # url = "/home/sinh/git-repos/sinh-x/tools/avodah";
     };
     sinh-x-pa = {
-      # url = "git+ssh://git@github.com/sinh-x/personal-assistant";
-      url = "/home/sinh/git-repos/sinh-x/tools/personal-assistant";
+      url = "git+ssh://git@github.com/sinh-x/personal-assistant?ref=develop";
+      # url = "/home/sinh/git-repos/sinh-x/tools/personal-assistant";
     };
     sinh-x-nixvim = {
       url = "github:sinh-x/Neve";
@@ -117,11 +117,6 @@
 
     andafin-jira-mcp = {
       url = "/home/sinh/git-repos/andafin/infrastructure/andafin-jira-mcp";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    bakery-shop = {
-      url = "path:/home/sinh/Documents/bakery-shop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

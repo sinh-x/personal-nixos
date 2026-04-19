@@ -55,7 +55,8 @@
       operator = "sinh";
       ssh = true;
       resumeFix = true;
-      exitNode = true;
+      exitNode = false;
+      useExitNode = true;
     };
 
     sops.enable = true;

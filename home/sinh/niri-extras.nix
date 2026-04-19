@@ -41,7 +41,7 @@ _: {
       // Email & productivity apps -> open on "email" workspace without stealing focus
       window-rule {
           match app-id="superProductivity"
-          match app-id="anytype"
+          match app-id="Logseq"
           open-on-workspace "email"
           open-focused false
       }
