@@ -210,12 +210,13 @@ cd ~/git-repos/sinh-x/personal-nixos
 nix build .#nixosConfigurations.Lily.config.system.build.toplevel
 
 # Step 2: Deploy to Lily (builds locally, copies closure, switches remotely)
-sudo nixos-rebuild switch --flake .#Lily --target-host sinh@lily --sudo
+sudo nixos-rebuild switch --flake .#Lily --target-host sinh@lily --sudo --ask-sudo-password
 ```
 
 `--target-host sinh@lily` SSHs into Lily, copies the built closure, and runs
 `switch-to-configuration switch`. The `--sudo` flag runs the activation on
 the remote host with sudo (replaces the deprecated `--use-remote-sudo`).
+`--ask-sudo-password` prompts for the remote sudo password interactively.
 
 **Prerequisites:**
 - Lily reachable via SSH (`ssh sinh@lily` works — typically via Tailscale)
@@ -224,7 +225,7 @@ the remote host with sudo (replaces the deprecated `--use-remote-sudo`).
 
 **For ephemeral testing** (reverts on reboot due to impermanence):
 ```bash
-sudo nixos-rebuild test --flake .#Lily --target-host sinh@lily --sudo
+sudo nixos-rebuild test --flake .#Lily --target-host sinh@lily --sudo --ask-sudo-password
 ```
 
 ---
