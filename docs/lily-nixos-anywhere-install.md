@@ -5,7 +5,7 @@
 > **Installer:** FireFly USB booted on the laptop
 > **Source:** Drgnfly (run all commands from here)
 > **Tailscale hostname of FireFly on laptop:** `firefly`
-> **Last updated:** 2026-03-16
+> **Last updated:** 2026-04-19
 
 This guide installs the Lily NixOS configuration remotely via `nixos-anywhere`.
 The laptop must be booted from the FireFly USB and reachable via tailscale.
@@ -60,6 +60,7 @@ after boot. Seed into `/persist/system/etc/ssh/` via `--extra-files`.
 Impermanence bind-mounts:
 - `/home/sinh` → `/persist/home/sinh`
 - `/home/doangia` → `/persist/home/doangia`
+- `/home/vy` → `/persist/home/vy`
 
 If these paths don't exist in `/persist`, first boot will fail to mount them.
 Seed empty directories via `--extra-files`.
@@ -106,6 +107,7 @@ mkdir -p /tmp/lily-extra/persist/system/sops/age/
 mkdir -p /tmp/lily-extra/persist/system/etc/ssh/
 mkdir -p /tmp/lily-extra/persist/home/sinh
 mkdir -p /tmp/lily-extra/persist/home/doangia
+mkdir -p /tmp/lily-extra/persist/home/vy
 
 # Step 7: Copy Lily's own age key (NOT Drgnfly's — each host has its own key)
 # Lily's private key was generated separately and stored at /tmp/lily-age-key.txt
@@ -193,6 +195,37 @@ ssh sinh@lily "tailscale status"
 # Step 14: Verify doangia home mount
 ssh sinh@lily "ls /home/doangia"
 # Should show an empty home (or greetd creates it on first login)
+```
+
+---
+
+## Remote Update (without reinstall)
+
+For routine config changes (no disk wipe), build locally and deploy to Lily over SSH.
+Run from the machine with the flake checkout (e.g. Drgnfly).
+
+```bash
+# Step 1: Verify Lily config builds
+cd ~/git-repos/sinh-x/personal-nixos
+nix build .#nixosConfigurations.Lily.config.system.build.toplevel
+
+# Step 2: Deploy to Lily (builds locally, copies closure, switches remotely)
+sudo nixos-rebuild switch --flake .#Lily --target-host sinh@lily --sudo --ask-sudo-password
+```
+
+`--target-host sinh@lily` SSHs into Lily, copies the built closure, and runs
+`switch-to-configuration switch`. The `--sudo` flag runs the activation on
+the remote host with sudo (replaces the deprecated `--use-remote-sudo`).
+`--ask-sudo-password` prompts for the remote sudo password interactively.
+
+**Prerequisites:**
+- Lily reachable via SSH (`ssh sinh@lily` works — typically via Tailscale)
+- Local user can run `sudo` (needed for signing/nix operations)
+- Remote user `sinh` has sudo access on Lily
+
+**For ephemeral testing** (reverts on reboot due to impermanence):
+```bash
+sudo nixos-rebuild test --flake .#Lily --target-host sinh@lily --sudo --ask-sudo-password
 ```
 
 ---
