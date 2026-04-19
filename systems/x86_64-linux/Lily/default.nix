@@ -112,8 +112,11 @@
       resumeFix = true;
     };
 
-    users.doangia.enable = true;
-    users.vy.enable = true;
+    users = {
+      doangia.enable = true;
+      vy.enable = true;
+      sinh.enable = true;
+    };
 
     # Impermanence - btrfs root rollback with persistent storage
     impermanence = {
@@ -121,6 +124,7 @@
       users = [
         "doangia"
         "vy"
+        "sinh"
       ];
     };
   };
