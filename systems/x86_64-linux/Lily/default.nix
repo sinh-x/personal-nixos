@@ -90,7 +90,7 @@
       enable = true;
       profile = "baker-prod";
       dataDir = "/home/sinh/bakery-shop/prod/data";
-      calendar = "22:00";
+      calendar = "hourly";
       user = "sinh";
     };
 
