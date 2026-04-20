@@ -1,6 +1,6 @@
 # Overlay to get latest Claude Code version
-# The npm tarball bundles all deps, so we build from scratch instead of
-# fighting buildNpmPackage's npmConfigHook lockfile validation.
+# Since v2.1.x, Claude Code ships as a Bun-compiled native binary via
+# platform-specific npm packages. We fetch the linux-x64 binary directly.
 { lib, ... }:
 _final: prev:
 let
@@ -12,23 +12,36 @@ in
     inherit version;
 
     src = prev.fetchurl {
-      url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
-      hash = "sha256-IJKlrGrnEV9GuWFmLV3IcgOCGfN8+R7le3AEYUuHua8=";
+      url = "https://registry.npmjs.org/@anthropic-ai/claude-code-linux-x64/-/claude-code-linux-x64-${version}.tgz";
+      hash = "sha256-wRI9taxQAxhWhoZvdDHMnIMeksKGu6IQQ4LKRAMjAZU=";
     };
 
-    nativeBuildInputs = [ prev.makeWrapper ];
+    nativeBuildInputs = with prev; [
+      makeWrapper
+      autoPatchelfHook
+    ];
 
+    buildInputs = with prev; [
+      stdenv.cc.cc.lib
+      zlib
+    ];
+
+    # Bun-compiled binary has JS bytecode appended after the ELF.
+    # strip corrupts the appended data.
+    dontStrip = true;
     dontBuild = true;
 
     installPhase = ''
       runHook preInstall
 
-      mkdir -p $out/lib/node_modules/@anthropic-ai/claude-code
-      cp -r . $out/lib/node_modules/@anthropic-ai/claude-code
-
       mkdir -p $out/bin
-      makeWrapper ${prev.nodejs}/bin/node $out/bin/claude \
-        --add-flags "$out/lib/node_modules/@anthropic-ai/claude-code/cli.js" \
+      install -m755 claude $out/bin/claude
+
+      runHook postInstall
+    '';
+
+    postFixup = ''
+      wrapProgram $out/bin/claude \
         --set DISABLE_AUTOUPDATER 1 \
         --set DISABLE_INSTALLATION_CHECKS 1 \
         --unset DEV \
@@ -42,8 +55,6 @@ in
             ]
           )
         }
-
-      runHook postInstall
     '';
 
     meta = with lib; {

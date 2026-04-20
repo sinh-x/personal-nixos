@@ -93,7 +93,7 @@ in
         sshref = "rm ~/.ssh/known_hosts";
 
         # ----- general abbr -----
-        za = "zellij attach --create";
+        za = "zellij attach";
       };
       shellAliases = {
         # ----- general alias -----
