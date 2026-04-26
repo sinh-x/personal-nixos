@@ -19,6 +19,8 @@
       mermaid-cli # mmdc - diagram generation from text
       openai-whisper # speech-to-text recognition
       sinh-x-pa # personal-assistant CLI agent orchestrator
+      pa-core # PA platform core CLI
+      opa # PA platform opencode adapter CLI
       obsidian
       logseq
       andafin-jira-mcp
