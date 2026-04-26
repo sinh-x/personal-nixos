@@ -36,4 +36,12 @@ _final: prev: {
   inherit (inputs.andafin-jira-mcp.packages.${prev.stdenv.hostPlatform.system}) andafin-jira-mcp;
   personal-google-mcp =
     inputs.personal-google-mcp.packages.${prev.stdenv.hostPlatform.system}.default;
+
+  inherit (inputs.pa-platform.packages.${prev.stdenv.hostPlatform.system})
+    pa-platform
+    pa-core
+    opa
+    ;
+
+  opencode = inputs.opencode.packages.${prev.stdenv.hostPlatform.system}.default;
 }

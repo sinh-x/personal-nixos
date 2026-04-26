@@ -121,9 +121,16 @@
     };
 
     personal-google-mcp = {
-      url = "/home/sinh/git-repos/sinh-x/tools/personal-google-mcp";
+      url = "git+file:///home/sinh/git-repos/sinh-x/tools/personal-google-mcp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    pa-platform = {
+      url = "github:sinh-x/pa-platform/develop";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    opencode.url = "github:anomalyco/opencode/v1.14.25";
   };
   outputs =
     inputs:
