@@ -2931,11 +2931,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777229819,
-        "narHash": "sha256-wr+VviCpptc2gGu0w7GyRgfbSMkmA5Acgf2/L19PfF0=",
+        "lastModified": 1777430095,
+        "narHash": "sha256-DkoBF7iT8VBYuiRFgxMAUEeRNEi+2C0fZrACSBPoDxg=",
         "owner": "sinh-x",
         "repo": "pa-platform",
-        "rev": "6746f8364d32af81335d8548d777786966748a19",
+        "rev": "760ad174eb0c4716f0bb9f025fa60a01a8123598",
         "type": "github"
       },
       "original": {
