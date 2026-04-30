@@ -67,7 +67,7 @@
       terminal = {
         ghostty.enable = true;
         kitty.enable = true;
-        warp.enable = false;
+        warp.enable = true;
       };
       shell.fish.enable = true;
       shell.zsh.enable = false;
