@@ -47,12 +47,14 @@ let
     );
 
   repoLib =
-    (import ../default.nix { lib = flakeLib; })
+    (import ../default.nix { inherit lib; })
     // (import ../file/default.nix { lib = flakeLib; })
     // (import ../module/default.nix { lib = flakeLib; })
     // (import ../theme/default.nix { lib = flakeLib; });
 
-  flakeLib = lib // repoLib // { ${namespace} = repoLib; };
+  flakeLib = lib.extend (
+    _final: _prev: inputs.home-manager.lib // repoLib // { ${namespace} = repoLib; }
+  );
 
   packageFiles = discoverDefaultNix (src + "/packages");
   overlayFiles = discoverDefaultNix (src + "/overlays");
@@ -70,9 +72,17 @@ let
 
   packageOverlays = lib.mapAttrs' (name: file: {
     name = "package/${name}";
-    value = final: _prev: {
-      ${name} = final.callPackage file { };
-    };
+    value =
+      final: prev:
+      let
+        package = final.callPackage file { };
+      in
+      {
+        ${name} = package;
+        ${namespace} = (prev.${namespace} or { }) // {
+          ${name} = package;
+        };
+      };
   }) packageFiles;
 
   namedOverlays = lib.mapAttrs (_name: importOverlay) overlayFiles;
@@ -95,7 +105,7 @@ let
         allowUnfree = true;
         permittedInsecurePackages = [ ];
       };
-      overlays = builtins.attrValues nonDefaultOverlays;
+      overlays = (builtins.attrValues nonDefaultOverlays) ++ [ (_final: _prev: { lib = flakeLib; }) ];
     };
 
   pkgs = forAllSystems (system: {

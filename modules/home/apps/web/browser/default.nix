@@ -16,6 +16,7 @@ let
 in
 {
   options.${namespace}.apps.web.browser = {
+    enable = mkEnableOption "browser package compatibility option";
     chrome = mkEnableOption "Google Chrome";
     brave = mkEnableOption "Brave";
     edge = mkEnableOption "Edge";
