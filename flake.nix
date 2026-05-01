@@ -134,36 +134,8 @@
   };
   outputs =
     inputs:
-    let
-      lib = inputs.snowfall-lib.mkLib {
-        inherit inputs;
-        src = ./.;
-
-        snowfall = {
-          meta = {
-            name = "sinh-x";
-            title = "Sinh's NixOS configurations";
-          };
-          namespace = "sinh-x";
-        };
-      };
-    in
-    lib.mkFlake {
-      # You must provide our flake inputs to Snowfall Lib.
+    import ./lib/flake-support {
       inherit inputs;
       src = ./.;
-
-      channels-config = {
-        allowUnfree = true;
-        permittedInsercuerPackages = [ ];
-
-        experimental-features = [
-          "nix-command"
-          "flakes"
-          "ca-derivations"
-          "repl-flake"
-        ];
-      };
-
     };
 }
