@@ -81,7 +81,7 @@ in
       thunar
       gvfs
       lxappearance
-      exo-utils
+      exo
       xfce4-terminal
       xorg.xev
       xorg.xinit
