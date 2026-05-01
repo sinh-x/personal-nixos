@@ -15,7 +15,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Clean Nix store**: `sys clean`
 
 ### Development
-- **Enter dev shell**: `nix develop` (includes pre-commit hooks, snowfall-flake tools, nix-inspect)
+- **Enter dev shell**: `nix develop` (includes pre-commit hooks and Nix tooling)
 - **Format code**: `nixfmt <file>` (RFC-style)
 - **Check for unused code**: `deadnix --edit <file>`
 - **Static analysis**: `statix check`
@@ -28,12 +28,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Architecture
 
-### Snowfall Lib Organization
-This repository uses **Snowfall Lib** which provides automatic module discovery. All directories follow Snowfall conventions:
+### Repo-Owned Flake Orchestration
+This repository uses repo-owned Nix orchestration instead of Snowfall. `flake.nix` delegates output construction to `lib/flake-support/default.nix`, which is the traceable source for generated flake outputs.
 
-- **Auto-discovered**: Modules, packages, overlays, shells, checks are automatically loaded from their respective directories
+- **Entry points**: `flake.nix` imports `./lib/flake-support` with `inputs` and `src`
+- **Generated outputs**: `nixosConfigurations`, `nixosModules`, `homeModules`, `overlays`, `packages`, `checks`, `devShells`, `lib`, and `pkgs`
+- **Discovery logic**: `lib/flake-support/default.nix` scans repo-owned directories for `default.nix` files and maps them into the generated outputs
 - **Namespace**: `sinh-x` for home modules; `modules.*` for NixOS modules
-- **Systems**: Three hosts - Emberroot (desktop, Hyprland), Elderwood (desktop, BSPWM), Drgnfly (laptop, BSPWM)
+- **Systems**: Four hosts - Drgnfly, Elderwood, FireFly, and Lily
 
 ### Directory Structure
 
@@ -60,6 +62,7 @@ modules/
       └── security/
 
 lib/
+  ├── flake-support/            # Repo-owned flake output orchestration
   ├── module/                   # Helper functions (mkOpt, enabled/disabled)
   ├── theme/                    # SCSS compilation
   └── file/                     # File utilities
@@ -71,8 +74,9 @@ overlays/                       # Package overlays (including sinh-x projects)
 ### Configuration Flow
 1. **System**: `systems/x86_64-linux/<hostname>/default.nix` defines hardware, nix settings, and enables `modules.*` options
 2. **Home**: `home/sinh/<hostname>.nix` imports `./global` and enables `sinh-x.*` options
-3. **Modules**: Auto-discovered by Snowfall, define namespaced options
-4. **Overlays**: `overlays/sinh-x/default.nix` exposes external flake inputs (pomodoro, wallpaper, gitstatus, ip_updater, nixvim/Neve)
+3. **Output generation**: `lib/flake-support/default.nix` collects hosts, modules, packages, overlays, checks, and shells from repo directories and exposes them as flake outputs
+4. **Modules**: NixOS modules keep `modules.*` options; Home Manager modules keep `${namespace}.*` options with `namespace = "sinh-x"` injected by the orchestration helper
+5. **Overlays**: `overlays/sinh-x/default.nix` exposes external flake inputs (pomodoro, wallpaper, gitstatus, ip_updater, nixvim/Neve)
 
 ### Module Patterns
 
@@ -152,13 +156,13 @@ sudo sys rebuild  # Apply changes permanently
 ### Adding a Module
 1. Create `modules/{nixos,home}/<category>/<name>/default.nix`
 2. Define options under appropriate namespace
-3. Snowfall auto-discovers it
+3. `lib/flake-support/default.nix` discovers the module from its `default.nix` path and exposes it through `nixosModules` or `homeModules`
 4. Enable in system/home config
 
 ### Adding a Package
 1. Create `packages/<name>/default.nix`
-2. Snowfall auto-exposes as overlay
-3. Use as `pkgs.<name>` in configs
+2. `lib/flake-support/default.nix` exposes it under `packages.<system>.<name>` and creates a `package/<name>` overlay that adds `pkgs.<name>` and `pkgs.sinh-x.<name>`
+3. Use as `pkgs.<name>` or `pkgs.sinh-x.<name>` in configs
 
 ### Fish Shell Configuration
 Primary shell config in `modules/home/cli-apps/fish/default.nix`:
