@@ -34,17 +34,6 @@
 
     pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
 
-    # Snowfall (forked for full control)
-    snowfall-lib = {
-      url = "github:sinh-x/snowfall-lib/develop";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    snowfall-flake = {
-      url = "github:snowfallorg/flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
@@ -134,36 +123,8 @@
   };
   outputs =
     inputs:
-    let
-      lib = inputs.snowfall-lib.mkLib {
-        inherit inputs;
-        src = ./.;
-
-        snowfall = {
-          meta = {
-            name = "sinh-x";
-            title = "Sinh's NixOS configurations";
-          };
-          namespace = "sinh-x";
-        };
-      };
-    in
-    lib.mkFlake {
-      # You must provide our flake inputs to Snowfall Lib.
+    import ./lib/flake-support {
       inherit inputs;
       src = ./.;
-
-      channels-config = {
-        allowUnfree = true;
-        permittedInsercuerPackages = [ ];
-
-        experimental-features = [
-          "nix-command"
-          "flakes"
-          "ca-derivations"
-          "repl-flake"
-        ];
-      };
-
     };
 }
