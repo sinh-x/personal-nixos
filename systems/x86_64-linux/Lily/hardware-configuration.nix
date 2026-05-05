@@ -15,6 +15,7 @@
   config,
   lib,
   modulesPath,
+  pkgs,
   ...
 }:
 {
@@ -36,26 +37,39 @@
         "vfat"
       ];
 
-      # Rollback @root to empty snapshot on every boot (impermanence)
-      postResumeCommands = lib.mkAfter ''
-        mkdir -p /mnt
-        mount -t btrfs -o subvol=/ /dev/disk/by-label/lily /mnt
+      systemd.services.rollback-root = {
+        description = "Rollback Btrfs root subvolume";
+        wantedBy = [ "initrd.target" ];
+        requires = [ "dev-disk-by\\x2dlabel-lily.device" ];
+        after = [ "dev-disk-by\\x2dlabel-lily.device" ];
+        before = [ "sysroot.mount" ];
+        unitConfig.DefaultDependencies = "no";
+        path = [
+          pkgs.btrfs-progs
+          pkgs.coreutils
+          pkgs.util-linux
+        ];
+        serviceConfig.Type = "oneshot";
+        script = ''
+          mkdir -p /mnt
+          mount -t btrfs -o subvol=/ /dev/disk/by-label/lily /mnt
 
-        if [[ -e /mnt/@root-blank ]]; then
-          # Delete old @root and any nested subvolumes
-          btrfs subvolume list -o /mnt/@root |
-            cut -f9 -d' ' |
-            while read subvolume; do
-              btrfs subvolume delete "/mnt/$subvolume"
-            done
-          btrfs subvolume delete /mnt/@root
+          if [[ -e /mnt/@root-blank ]]; then
+            # Delete old @root and any nested subvolumes
+            btrfs subvolume list -o /mnt/@root |
+              cut -f9 -d' ' |
+              while read subvolume; do
+                btrfs subvolume delete "/mnt/$subvolume"
+              done
+            btrfs subvolume delete /mnt/@root
 
-          # Restore from blank snapshot
-          btrfs subvolume snapshot /mnt/@root-blank /mnt/@root
-        fi
+            # Restore from blank snapshot
+            btrfs subvolume snapshot /mnt/@root-blank /mnt/@root
+          fi
 
-        umount /mnt
-      '';
+          umount /mnt
+        '';
+      };
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];

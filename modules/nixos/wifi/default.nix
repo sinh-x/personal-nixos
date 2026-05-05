@@ -252,6 +252,9 @@ let
     "Nha Minh" = {
       pskRaw = "ext:kh_nhaminh";
     };
+    "CA PHE BAO NGUYEN" = {
+      pskRaw = "ext:kh_baonguyen";
+    };
 
     # Open networks (no password)
     "TOCEPO" = { };
