@@ -11,29 +11,30 @@ if [[ -z "$windows_json" ]]; then
     exit 0
 fi
 
-mapfile -t titles < <(echo "$windows_json" | jq -r '
+mapfile -t entries < <(printf '%s\n' "$windows_json" | jq -r '
     [.[] | select(.app_id == "com.mitchellh.ghostty")]
-    | if length == 0 then empty else .[] | (.title // "[Ghostty]") end
+    | if length == 0 then empty
+      else .[] | "\(.title // "[Ghostty]")\t\(.id)"
+      end
 ')
 
-mapfile -t ids < <(echo "$windows_json" | jq -r '
-    [.[] | select(.app_id == "com.mitchellh.ghostty")]
-    | if length == 0 then empty else .[] | .id end
-')
-
-if [[ ${#titles[@]} -eq 0 ]]; then
+if [[ ${#entries[@]} -eq 0 ]]; then
     exit 0
 fi
 
-chosen=$(
+titles=()
+ids=()
+for entry in "${entries[@]}"; do
+    titles+=("${entry%$'\t'*}")
+    ids+=("${entry##*$'\t'}")
+done
+
+chosen_index=$(
     for i in "${!titles[@]}"; do
-        printf '%s\0icon\037%d\n' "${titles[$i]}" "${ids[$i]}"
-    done | rofi -dmenu -p "Ghostty" -theme "$RASI"
+        printf '[%d] %s\n' "$((i + 1))" "${titles[$i]}"
+    done | rofi -dmenu -format i -p "Ghostty" -theme "$RASI"
 )
 
-[[ -z "$chosen" ]] && exit 0
+[[ -z "$chosen_index" ]] && exit 0
 
-window_id="${chosen##*$'\x1f'}"
-if [[ -n "$window_id" ]]; then
-    niri msg action focus-window --id "$window_id"
-fi
+niri msg action focus-window --id "${ids[$chosen_index]}"
