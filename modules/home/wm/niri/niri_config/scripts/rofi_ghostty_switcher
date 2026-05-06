@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+## Ghostty-only window switcher for Niri via Rofi dmenu.
+## Queries open windows via niri IPC, filters to com.mitchellh.ghostty,
+## presents them in Rofi, and focuses the selected window.
+
+DIR="$HOME/.config/niri"
+RASI="$DIR/rofi/ghostty_switcher.rasi"
+
+windows_json=$(niri msg --json windows 2>/dev/null)
+if [[ -z "$windows_json" ]]; then
+    exit 0
+fi
+
+mapfile -t entries < <(printf '%s\n' "$windows_json" | jq -r '
+    [.[] | select(.app_id == "com.mitchellh.ghostty")]
+    | if length == 0 then empty
+      else .[] | "\(.title // "[Ghostty]")\t\(.id)"
+      end
+')
+
+if [[ ${#entries[@]} -eq 0 ]]; then
+    exit 0
+fi
+
+titles=()
+ids=()
+for entry in "${entries[@]}"; do
+    titles+=("${entry%$'\t'*}")
+    ids+=("${entry##*$'\t'}")
+done
+
+chosen_index=$(
+    for i in "${!titles[@]}"; do
+        printf '[%d] %s\n' "$((i + 1))" "${titles[$i]}"
+    done | rofi -dmenu -format i -p "Ghostty" -theme "$RASI"
+)
+
+[[ -z "$chosen_index" ]] && exit 0
+
+niri msg action focus-window --id "${ids[$chosen_index]}"

@@ -213,6 +213,7 @@ binds {
     Mod+E { spawn "thunar"; }
     Mod+Shift+W { spawn "bash" "-c" "~/.config/niri/scripts/smart_spawn browser"; }
     Ctrl+Alt+W hotkey-overlay-title="Window Switcher" { spawn "rofi" "-show" "window"; }
+    Ctrl+Alt+T hotkey-overlay-title="Ghostty Switcher" { spawn "bash" "-c" "~/.config/niri/scripts/rofi_ghostty_switcher"; }
     Mod+Ctrl+W hotkey-overlay-title="Wallpaper Picker" { spawn "bash" "-c" "~/.config/niri/scripts/wallpaper --select"; }
 
     // Window management
