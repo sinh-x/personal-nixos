@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+DIR="$HOME/.config/niri"
+RASI="$DIR/rofi/ghostty_switcher.rasi"
+
+windows_json=$(niri msg --json windows 2>/dev/null)
+if [[ -z "$windows_json" ]]; then
+    exit 0
+fi
+
+entries=$(echo "$windows_json" | jq -r '
+    [.[] | select(.app_id == "com.mitchellh.ghostty")] as $ghostty
+    | if ($ghostty | length) == 0 then
+        ""
+    else
+        $ghostty[]
+        | (.title // "[Ghostty]") as $title
+        | "\($title)\u0000icon\u001f\(.id)"
+    end
+')
+
+if [[ -z "$entries" ]]; then
+    exit 0
+fi
+
+chosen=$(echo "$entries" | rofi -dmenu -p "Ghostty" -theme "$RASI")
+[[ -z "$chosen" ]] && exit 0
+
+window_id=$(echo "$chosen" | sed 's/.*\x00icon\x1f//')
+if [[ -n "$window_id" ]]; then
+    niri msg action focus-window --id "$window_id"
+fi
