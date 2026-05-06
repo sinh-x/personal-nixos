@@ -93,7 +93,7 @@ in
         sshref = "rm ~/.ssh/known_hosts";
 
         # ----- general abbr -----
-        za = "zellij attach";
+        za = "zellij_attach_safe";
       };
       shellAliases = {
         # ----- general alias -----
@@ -231,6 +231,54 @@ in
               return 1
             end
             echo "Exit node disabled, direct routing restored"
+          '';
+        };
+        zellij_attach_safe = {
+          description = "Attach to a Zellij session with EXITED/resurrection awareness";
+          body = ''
+            if test (count $argv) -eq 0
+                command zellij attach
+                return $status
+            end
+
+            set -l session $argv[1]
+            set -l session_line
+
+            command zellij list-sessions --no-formatting 2>/dev/null | while read -l line
+                set -l listed_session (string split -m1 " " -- $line)[1]
+                if test "$listed_session" = "$session"
+                    set session_line $line
+                    break
+                end
+            end
+
+            if test -z "$session_line"
+                set_color yellow
+                echo "Zellij session '$session' was not found."
+                echo "To create a new session intentionally, run: zellij attach --create $session"
+                set_color normal
+                return 1
+            end
+
+            if string match -q "*EXITED*" -- $session_line
+                set_color yellow
+                echo "Zellij session '$session' is EXITED; attach will resurrect cached state."
+                echo "This does not reload default_layout, and may restore a blank/degraded serialized layout."
+                echo "It will not force-run resurrected commands."
+                set_color normal
+
+                read -l -P "Attach and resurrect '$session'? [y/N] " confirm
+                switch $confirm
+                    case y Y yes Yes
+                        command zellij attach $argv
+                        return $status
+                    case '*'
+                        echo "Cancelled. To start fresh safely, use a new session name."
+                        return 1
+                end
+            end
+
+            command zellij attach $argv
           '';
         };
       };
