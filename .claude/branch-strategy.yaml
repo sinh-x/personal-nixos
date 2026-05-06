@@ -1,20 +1,20 @@
 # Branch strategy for personal-nixos
 version: 1
-strategy: monthly-integration
+strategy: develop-flow
 
 branches:
   production: main
-  integration_pattern: "integrate/%Y%m"
-  feature_pattern: "{integration}-{description}"
+  develop: develop
+  feature_pattern: "{prefix}{description}"
 
 merge:
-  feature_target: integration
-  integration_target: production
+  feature_target: develop
+  develop_target: production
 
 validation:
-  require_integration_prefix: true
+  require_integration_prefix: false
   allowed_prefixes: [feat/, fix/, refactor/, docs/, test/, chore/, hotfix/]
-  protected_branches: [main]
+  protected_branches: [main, develop]
 
 auto_detect:
   enabled: true
