@@ -5,7 +5,7 @@ strategy: develop-flow
 branches:
   production: main
   develop: develop
-  feature_pattern: "{prefix}{description}"
+  feature_pattern: "{prefix}{description}" # prefix = one allowed prefix (feat/, fix/, docs/, chore/, etc.); description = kebab-case topic
 
 merge:
   feature_target: develop
