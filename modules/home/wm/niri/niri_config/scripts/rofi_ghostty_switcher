@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+## Ghostty-only window switcher for Niri via Rofi dmenu.
+## Queries open windows via niri IPC, filters to com.mitchellh.ghostty,
+## presents them in Rofi, and focuses the selected window.
 
 DIR="$HOME/.config/niri"
 RASI="$DIR/rofi/ghostty_switcher.rasi"
@@ -8,25 +11,26 @@ if [[ -z "$windows_json" ]]; then
     exit 0
 fi
 
-entries=$(echo "$windows_json" | jq -r '
-    [.[] | select(.app_id == "com.mitchellh.ghostty")] as $ghostty
-    | if ($ghostty | length) == 0 then
-        ""
-    else
-        $ghostty[]
-        | (.title // "[Ghostty]") as $title
-        | "\($title)\u0000icon\u001f\(.id)"
-    end
+mapfile -t titles < <(echo "$windows_json" | jq -r '
+    [.[] | select(.app_id == "com.mitchellh.ghostty")]
+    | if length == 0 then empty else .[] | (.title // "[Ghostty]") end
 ')
 
-if [[ -z "$entries" ]]; then
+mapfile -t ids < <(echo "$windows_json" | jq -r '
+    [.[] | select(.app_id == "com.mitchellh.ghostty")]
+    | if length == 0 then empty else .[] | .id end
+')
+
+if [[ ${#titles[@]} -eq 0 ]]; then
     exit 0
 fi
 
-chosen=$(echo "$entries" | rofi -dmenu -p "Ghostty" -theme "$RASI")
+chosen=$(printf '%s\n' "${titles[@]}" | rofi -dmenu -p "Ghostty" -theme "$RASI")
 [[ -z "$chosen" ]] && exit 0
 
-window_id=$(echo "$chosen" | sed 's/.*\x00icon\x1f//')
-if [[ -n "$window_id" ]]; then
-    niri msg action focus-window --id "$window_id"
-fi
+for i in "${!titles[@]}"; do
+    if [[ "${titles[$i]}" == "$chosen" ]]; then
+        niri msg action focus-window --id "${ids[$i]}"
+        break
+    fi
+done
