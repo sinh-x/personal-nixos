@@ -20,7 +20,28 @@ window {
     border-radius:               0px;
     border-color:                @background-alt;
     background-color:            @background;
-    children:                    [ "listview" ];
+    children:                    [ "inputbar", "listview" ];
+}
+
+/*****----- Inputbar -----*****/
+inputbar {
+    enabled:                     true;
+    spacing:                     0px;
+    margin:                      0px 0px 8px 0px;
+    padding:                     0px;
+    background-color:            transparent;
+    text-color:                  @foreground;
+    children:                    [ "entry" ];
+}
+
+entry {
+    padding:                     8px 12px;
+    border-radius:               0px;
+    background-color:            @background-alt;
+    text-color:                  @foreground;
+    cursor:                      text;
+    placeholder:                 "Filter...";
+    placeholder-color:           inherit;
 }
 
 /*****----- Listview -----*****/
