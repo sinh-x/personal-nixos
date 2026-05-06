@@ -25,12 +25,15 @@ if [[ ${#titles[@]} -eq 0 ]]; then
     exit 0
 fi
 
-chosen=$(printf '%s\n' "${titles[@]}" | rofi -dmenu -p "Ghostty" -theme "$RASI")
+chosen=$(
+    for i in "${!titles[@]}"; do
+        printf '%s\0icon\037%d\n' "${titles[$i]}" "${ids[$i]}"
+    done | rofi -dmenu -p "Ghostty" -theme "$RASI"
+)
+
 [[ -z "$chosen" ]] && exit 0
 
-for i in "${!titles[@]}"; do
-    if [[ "${titles[$i]}" == "$chosen" ]]; then
-        niri msg action focus-window --id "${ids[$i]}"
-        break
-    fi
-done
+window_id="${chosen##*$'\x1f'}"
+if [[ -n "$window_id" ]]; then
+    niri msg action focus-window --id "$window_id"
+fi
