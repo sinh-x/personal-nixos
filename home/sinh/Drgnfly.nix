@@ -86,6 +86,7 @@
     coding = {
       editor.vscode.enable = true;
       docker.enable = true;
+      codex.enable = true;
       claudecode.enable = true;
       opencode.enable = true;
       super-productivity.enable = false;
