@@ -56,6 +56,13 @@ in
 
         alias cat "bat"
 
+        function __zsafe_sessions
+            command zellij list-sessions --short --no-formatting 2>/dev/null
+        end
+
+        complete -c zsafe -f
+        complete -c zsafe -a '(__zsafe_sessions)'
+
         fish_vi_key_bindings
 
       '';
@@ -100,6 +107,7 @@ in
         vim = "nvim";
         ssha = "ssh-add";
         sshconfig = "nvim ~/.ssh/config";
+        zsafe = "zellij_attach_safe";
       };
       functions = {
         rm = {
