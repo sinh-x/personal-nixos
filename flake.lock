@@ -2670,11 +2670,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1777542354,
-        "narHash": "sha256-BdboIGISO7veZxeoy1i9aUQKpiE9rrMsB78nKyV43pg=",
+        "lastModified": 1778312723,
+        "narHash": "sha256-LLnWKiNIBGS2mA3uIwfFuIRzi0sdWa2JiuHFtXAjEdw=",
         "owner": "sinh-x",
         "repo": "opencode",
-        "rev": "22bbfee3572c7dc1cfe533be68b0ca73a490d2af",
+        "rev": "65a75ee89d2e1b84c7f790a1c5db2fea19de1831",
         "type": "github"
       },
       "original": {
@@ -2691,11 +2691,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778000238,
-        "narHash": "sha256-TRxuEt9f6nF9QzCOQ0OGRau7+AHodEr44V3l9c/0uqA=",
+        "lastModified": 1778064208,
+        "narHash": "sha256-u6FSIkh9lJQC+P3eYO1DuDkV3k/w3SHiE2qyyGtOoQk=",
         "owner": "sinh-x",
         "repo": "pa-platform",
-        "rev": "fb5afb1b8614758228f6a4471076a2167d640c05",
+        "rev": "74440399383a8cc03f203910b0252a115219389f",
         "type": "github"
       },
       "original": {
