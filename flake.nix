@@ -119,7 +119,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    opencode.url = "github:anomalyco/opencode/v1.14.25";
+    opencode.url = "github:sinh-x/opencode/sinh-x-dev";
   };
   outputs =
     inputs:
