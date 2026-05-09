@@ -56,6 +56,13 @@ in
 
         alias cat "bat"
 
+        function __zsafe_sessions
+            command zellij list-sessions --short --no-formatting 2>/dev/null
+        end
+
+        complete -c zsafe -f
+        complete -c zsafe -a '(__zsafe_sessions)'
+
         fish_vi_key_bindings
 
       '';
@@ -100,6 +107,7 @@ in
         vim = "nvim";
         ssha = "ssh-add";
         sshconfig = "nvim ~/.ssh/config";
+        zsafe = "zellij_attach_safe";
       };
       functions = {
         rm = {
@@ -267,13 +275,21 @@ in
                 echo "It will not force-run resurrected commands."
                 set_color normal
 
-                read -l -P "Attach and resurrect '$session'? [y/N] " confirm
-                switch $confirm
-                    case y Y yes Yes
+                read -l -P "Choose: [a]ttach EXITED, [n]ew fresh session, or [c]ancel (default) " action
+                switch $action
+                    case a A attach ATTACH
                         command zellij attach $argv
                         return $status
+                    case n N new NEW
+                        set -l fresh_session "$session-fresh"
+                        read -l -P "Fresh session name [$fresh_session]: " user_session
+                        if test -n "$user_session"
+                            set fresh_session $user_session
+                        end
+                        command zellij attach --create $fresh_session
+                        return $status
                     case '*'
-                        echo "Cancelled. To start fresh safely, use a new session name."
+                        echo "Cancelled. No session was modified."
                         return 1
                 end
             end

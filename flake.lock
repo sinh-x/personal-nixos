@@ -2670,16 +2670,16 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1777127810,
-        "narHash": "sha256-v1aaq4HWAJ5wZm9bUeaRkyKr0iYjdOhigr/I31wwhEk=",
-        "owner": "anomalyco",
+        "lastModified": 1778312723,
+        "narHash": "sha256-LLnWKiNIBGS2mA3uIwfFuIRzi0sdWa2JiuHFtXAjEdw=",
+        "owner": "sinh-x",
         "repo": "opencode",
-        "rev": "3c85719fea0ee83389c814d7abbf1f98c5c6f0f1",
+        "rev": "65a75ee89d2e1b84c7f790a1c5db2fea19de1831",
         "type": "github"
       },
       "original": {
-        "owner": "anomalyco",
-        "ref": "v1.14.25",
+        "owner": "sinh-x",
+        "ref": "sinh-x-dev",
         "repo": "opencode",
         "type": "github"
       }
@@ -2691,11 +2691,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778000238,
-        "narHash": "sha256-TRxuEt9f6nF9QzCOQ0OGRau7+AHodEr44V3l9c/0uqA=",
+        "lastModified": 1778064208,
+        "narHash": "sha256-u6FSIkh9lJQC+P3eYO1DuDkV3k/w3SHiE2qyyGtOoQk=",
         "owner": "sinh-x",
         "repo": "pa-platform",
-        "rev": "fb5afb1b8614758228f6a4471076a2167d640c05",
+        "rev": "74440399383a8cc03f203910b0252a115219389f",
         "type": "github"
       },
       "original": {
