@@ -115,7 +115,8 @@
     };
 
     pa-platform = {
-      url = "github:sinh-x/pa-platform/develop";
+      # Local checkout for testing PA platform changes before pushing upstream.
+      url = "/home/sinh/git-repos/sinh-x/tools/pa-platform";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

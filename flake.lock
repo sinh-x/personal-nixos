@@ -2691,18 +2691,14 @@
         ]
       },
       "locked": {
-        "lastModified": 1778064208,
-        "narHash": "sha256-u6FSIkh9lJQC+P3eYO1DuDkV3k/w3SHiE2qyyGtOoQk=",
-        "owner": "sinh-x",
-        "repo": "pa-platform",
-        "rev": "74440399383a8cc03f203910b0252a115219389f",
-        "type": "github"
+        "lastModified": 1778406768,
+        "narHash": "sha256-L0Rc7nWpcluOIpEGT2cBPpwrWeQfIFbl1ay7ORDCsts=",
+        "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
+        "type": "path"
       },
       "original": {
-        "owner": "sinh-x",
-        "ref": "develop",
-        "repo": "pa-platform",
-        "type": "github"
+        "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
+        "type": "path"
       }
     },
     "personal-google-mcp": {
