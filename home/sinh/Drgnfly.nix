@@ -40,7 +40,10 @@
 
   sinh-x = {
     apps = {
-      sinh-x.enable = true;
+      sinh-x = {
+        enable = true;
+        zeroclaw.enable = false;
+      };
       web.zen-browser.enable = true;
       web.browser = {
         chrome = true;

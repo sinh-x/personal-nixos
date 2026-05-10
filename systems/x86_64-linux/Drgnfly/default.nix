@@ -41,7 +41,7 @@
     };
 
     docker.enable = true;
-    ollama.enable = true;
+    ollama.enable = false;
     thermal-printer.enable = true;
 
     # network

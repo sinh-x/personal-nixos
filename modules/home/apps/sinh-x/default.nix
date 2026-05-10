@@ -17,16 +17,24 @@ in
 {
   options.${namespace}.apps.sinh-x = {
     enable = mkEnableOption "Sinh-x apps";
+
+    zeroclaw.enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Enable the ZeroClaw daemon user service";
+    };
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      sinh-x-wallpaper
-      avo
-      sinh-x-zeroclaw
-    ];
+    home.packages =
+      with pkgs;
+      [
+        sinh-x-wallpaper
+        avo
+      ]
+      ++ optionals cfg.zeroclaw.enable [ sinh-x-zeroclaw ];
 
-    systemd.user.services.zeroclaw = {
+    systemd.user.services.zeroclaw = mkIf cfg.zeroclaw.enable {
       Unit = {
         Description = "ZeroClaw daemon";
         After = [ "default.target" ];
