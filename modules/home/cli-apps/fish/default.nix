@@ -60,6 +60,8 @@ in
             command zellij list-sessions --short --no-formatting 2>/dev/null
         end
 
+        complete -c za -f
+        complete -c za -a '(__zsafe_sessions)'
         complete -c zsafe -f
         complete -c zsafe -a '(__zsafe_sessions)'
 
@@ -100,13 +102,13 @@ in
         sshref = "rm ~/.ssh/known_hosts";
 
         # ----- general abbr -----
-        za = "zellij_attach_safe";
       };
       shellAliases = {
         # ----- general alias -----
         vim = "nvim";
         ssha = "ssh-add";
         sshconfig = "nvim ~/.ssh/config";
+        za = "zellij attach";
         zsafe = "zellij_attach_safe";
       };
       functions = {
