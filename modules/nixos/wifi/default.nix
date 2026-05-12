@@ -255,6 +255,9 @@ let
     "CA PHE BAO NGUYEN" = {
       pskRaw = "ext:kh_baonguyen";
     };
+    "KiKu Cafe Bar" = {
+      pskRaw = "ext:kh_kikubar";
+    };
 
     # Open networks (no password)
     "TOCEPO" = { };
