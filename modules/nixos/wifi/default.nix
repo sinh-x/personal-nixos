@@ -258,6 +258,9 @@ let
     "KiKu Cafe Bar" = {
       pskRaw = "ext:kh_kikubar";
     };
+    "ChuoiKSvenbiengiatot" = {
+      pskRaw = "ext:dn_kissgroup";
+    };
 
     # Open networks (no password)
     "TOCEPO" = { };
