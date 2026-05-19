@@ -258,8 +258,14 @@ let
     "KiKu Cafe Bar" = {
       pskRaw = "ext:kh_kikubar";
     };
+    "LA VIETTEL" = {
+      pskRaw = "ext:dn_lascafe";
+    };
     "ChuoiKSvenbiengiatot" = {
       pskRaw = "ext:dn_kissgroup";
+    };
+    "NGHE CAFFE STAGE 2_5G" = {
+      pskRaw = "ext:qn_nghecafe";
     };
 
     # Open networks (no password)
