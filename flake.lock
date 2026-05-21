@@ -2691,11 +2691,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778861971,
-        "narHash": "sha256-IcUNBsn6krAZHBZZQ1Xln6YGSw3puyee91EhNFW8Tuc=",
+        "lastModified": 1779353633,
+        "narHash": "sha256-g77CVEagO+KBFbtBTlr1kZjXFRtbI/tgO5r2umGcEsA=",
         "ref": "develop",
-        "rev": "7c49f6bb2d29257df325b926f20fd4fed1e1c19a",
-        "revCount": 323,
+        "rev": "eb17783202fac0c3b4ee68e48cc10ba35fce5f34",
+        "revCount": 331,
         "type": "git",
         "url": "ssh://git@github.com/sinh-x/pa-platform"
       },
