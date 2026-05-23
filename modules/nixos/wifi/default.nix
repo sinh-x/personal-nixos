@@ -267,6 +267,9 @@ let
     "NGHE CAFFE STAGE 2_5G" = {
       pskRaw = "ext:qn_nghecafe";
     };
+    "BELLA CAFE 3" = {
+      pskRaw = "ext:kh_bellacafe";
+    };
 
     # Open networks (no password)
     "TOCEPO" = { };
