@@ -2670,11 +2670,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1778824960,
-        "narHash": "sha256-vHFogKyshZStNipzJaA0XqIuOSAfoDv9TuyAo6c8mQ8=",
+        "lastModified": 1779517785,
+        "narHash": "sha256-urZDYVADOaXIZV0xBQ/6GQ6kfNf131lT6DSCavHOR5Q=",
         "owner": "sinh-x",
         "repo": "opencode",
-        "rev": "217916b6eab4b4743ef1c6b543d9973fb64be5ac",
+        "rev": "a07b3d6712dcc3b64e9d79d1f44ea562ba3d55f8",
         "type": "github"
       },
       "original": {
