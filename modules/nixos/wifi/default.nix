@@ -228,7 +228,7 @@ let
     "KIEU GIANG" = {
       pskRaw = "ext:kh_nhaan";
     };
-    "NHIEN cafe PL" = {
+    "NHIEN coffee" = {
       pskRaw = "ext:kh_nhiencafe";
     };
     "S&D Suites 5F" = {
