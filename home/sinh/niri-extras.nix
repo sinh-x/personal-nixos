@@ -70,7 +70,7 @@ _: {
 
       // Named workspaces - External monitor
       Mod+6 hotkey-overlay-title="Ext: Terminal" { focus-workspace "ext-term"; }
-      Mod+7 hotkey-overlay-title="Ext: Browser" { focus-workspace "ext-browser"; }
+      Mod+7 hotkey-overlay-title="Ext: Vivaldi" { focus-workspace "ext-browser"; }
       Mod+8 hotkey-overlay-title="Ext: Code" { focus-workspace "ext-code"; }
 
       // Move window to workspace - Chat & Email
