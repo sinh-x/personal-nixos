@@ -64,6 +64,8 @@ in
         ".config/zen"
         ".config/BraveSoftware"
         ".config/google-chrome"
+        ".config/vivaldi"
+        ".cache/vivaldi"
 
         # === Password Manager ===
         ".config/Bitwarden"
