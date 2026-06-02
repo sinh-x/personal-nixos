@@ -29,7 +29,7 @@
 
     sessionVariables = {
       EDITOR = "nvim";
-      BROWSER = "zen-twilight";
+      BROWSER = "vivaldi";
       LEFT_MONITOR = "eDP-1";
     };
 
@@ -44,11 +44,11 @@
         enable = true;
         zeroclaw.enable = false;
       };
-      web.zen-browser.enable = true;
-      web.browser = {
-        chrome = true;
-        brave = true;
-        edge = true;
+      web = {
+        browser = {
+          edge = true;
+        };
+        vivaldi.enable = true;
       };
       utilities.enable = true;
       themes.enable = true;

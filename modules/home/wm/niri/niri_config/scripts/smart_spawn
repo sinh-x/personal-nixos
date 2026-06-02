@@ -10,7 +10,7 @@ APP_TYPE="$1"
 
 # Define apps
 TERMINAL="ghostty"
-BROWSER="${BROWSER:-zen-twilight}"
+BROWSER="${BROWSER:-vivaldi}"
 
 # Define output names
 MAIN_OUTPUT="eDP-1"
