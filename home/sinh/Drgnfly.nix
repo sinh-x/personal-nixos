@@ -45,10 +45,7 @@
         zeroclaw.enable = false;
       };
       web = {
-        zen-browser.enable = true;
         browser = {
-          chrome = true;
-          brave = true;
           edge = true;
         };
         vivaldi.enable = true;
