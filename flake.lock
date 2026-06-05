@@ -7,8 +7,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1777549512,
-        "narHash": "sha256-sqDtIIJnjWngKS23bKWCJuaZJP1HiXvcI4+Y1Q/pOBw=",
+        "lastModified": 1780319360,
+        "narHash": "sha256-rHjsHMUgCtEHSpWL3WC8Kmm/QvFIQDerEIIACLAeo1s=",
         "path": "/home/sinh/git-repos/andafin/infrastructure/andafin-jira-mcp",
         "type": "path"
       },
@@ -2691,11 +2691,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779771612,
-        "narHash": "sha256-T/Xd2IoHk252K/CQJUvUd3117+qENBY10XAeA0+Ibck=",
+        "lastModified": 1780288712,
+        "narHash": "sha256-aMfW1oDYeO2PJXldkJeflq6DXueyQTOOSgF/ijZhtuY=",
         "ref": "develop",
-        "rev": "fdf732929693ab2824925bb446879604c6f32e03",
-        "revCount": 347,
+        "rev": "31126bfb9f561bb65ff4f0d26e3efc836069bab0",
+        "revCount": 350,
         "type": "git",
         "url": "ssh://git@github.com/sinh-x/pa-platform"
       },
@@ -2951,11 +2951,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1777958261,
-        "narHash": "sha256-G9m7wRDYg7r2UK9J+PIuxnjjFFtxNTeMPnKB+/kYOIc=",
+        "lastModified": 1780560932,
+        "narHash": "sha256-1wwhEpN7vtPdL4GBxFeYKg4xMXok2OqiU692x8nRbjI=",
         "owner": "sinh-x",
         "repo": "avodah",
-        "rev": "1bc7e536ddd783682b890ceb1fcda34b89bc63a6",
+        "rev": "2ff2f11926d5369eb6973a842cf5834fe3127c4f",
         "type": "github"
       },
       "original": {
