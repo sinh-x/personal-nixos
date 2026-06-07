@@ -267,6 +267,12 @@ let
     "NGHE CAFFE STAGE 2_5G" = {
       pskRaw = "ext:qn_nghecafe";
     };
+    "L4 404,405" = {
+      pskRaw = "ext:sg_loftlau4";
+    };
+    "GEEK Hub" = {
+      pskRaw = "ext:sg_geekhubndc";
+    };
     "BELLA CAFE 3" = {
       pskRaw = "ext:kh_bellacafe";
     };
