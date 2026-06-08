@@ -32,13 +32,13 @@ input {
 output "LG Display 0x06AA Unknown" {
     mode "3840x2400@60.000"
     scale 1.25
-    position x=0 y=0
+    position x=1920 y=0
 }
 
-output "MaxCom Technical Inc 0x1B1A 0x20230808" {
-    mode "2560x1600@59.995"
+output "ASUSTek COMPUTER INC PA248QV L8LMQS149577" {
+    mode "1920x1200@59.950"
     scale 1.0
-    position x=3072 y=0
+    position x=0 y=0
 }
 
 // Named workspaces (always exist, even when empty)
