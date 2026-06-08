@@ -273,6 +273,9 @@ let
     "GEEK Hub" = {
       pskRaw = "ext:sg_geekhubndc";
     };
+    "Hello Mia" = {
+      pskRaw = "ext:sg_hellomia";
+    };
     "BELLA CAFE 3" = {
       pskRaw = "ext:kh_bellacafe";
     };
