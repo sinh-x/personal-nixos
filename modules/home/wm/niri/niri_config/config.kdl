@@ -41,6 +41,12 @@ output "ASUSTek COMPUTER INC PA248QV L8LMQS149577" {
     position x=0 y=0
 }
 
+output "MaxCom Technical Inc 0x1B1A 0x20230808" {
+    mode "2560x1600@59.995"
+    scale 1.0
+    position x=4992 y=0
+}
+
 // Named workspaces (always exist, even when empty)
 // Using connector names for portability - workspaces follow the port, not the specific monitor
 // Laptop monitor (main-) - primary display
