@@ -1,17 +1,16 @@
 { writeShellScriptBin, ... }:
 writeShellScriptBin "sys" ''
 
-  TOTAL_CORES=''${TOTAL_CORES:-10}
+  NIX_BUILD_CORES=''${NIX_BUILD_CORES:-2}
   MAX_JOBS=''${MAX_JOBS:-4}
-  NIX_BUILD_CORES=$(( TOTAL_CORES / MAX_JOBS ))
 
   cmd_rebuild() {
-      echo "🔨 Building system configuration with $REBUILD_COMMAND (total: $TOTAL_CORES cores, $MAX_JOBS jobs, $NIX_BUILD_CORES cores/job)"
+      echo "🔨 Building system configuration with $REBUILD_COMMAND (cores: $NIX_BUILD_CORES, jobs: $MAX_JOBS)"
       NIX_BUILD_CORES=$NIX_BUILD_CORES $REBUILD_COMMAND switch --flake .# --max-jobs $MAX_JOBS
   }
 
   cmd_test() {
-      echo "🏗️ Building ephemeral system configuration with $REBUILD_COMMAND (total: $TOTAL_CORES cores, $MAX_JOBS jobs, $NIX_BUILD_CORES cores/job)"
+      echo "🏗️ Building ephemeral system configuration with $REBUILD_COMMAND (cores: $NIX_BUILD_CORES, jobs: $MAX_JOBS)"
       NIX_BUILD_CORES=$NIX_BUILD_CORES $REBUILD_COMMAND test --no-reexec --flake .# --max-jobs $MAX_JOBS
   }
 
@@ -44,9 +43,8 @@ writeShellScriptBin "sys" ''
           Show this text.
 
   Options:
-      --cores N    Total CPU cores budget (default: 10, env: TOTAL_CORES)
+      --cores N    Cores per build job (default: 2, env: NIX_BUILD_CORES)
       --jobs N     Max parallel build jobs (default: 4, env: MAX_JOBS)
-                   cores/job = total / jobs
   _EOF
   }
 
@@ -60,13 +58,12 @@ writeShellScriptBin "sys" ''
   # Parse --cores/--jobs before subcommand
   for arg in "$@"; do
       case "$arg" in
-          --cores) shift; TOTAL_CORES="$1"; shift ;;
-          --cores=*) TOTAL_CORES="''${arg#*=}"; shift ;;
+          --cores) shift; NIX_BUILD_CORES="$1"; shift ;;
+          --cores=*) NIX_BUILD_CORES="''${arg#*=}"; shift ;;
           --jobs) shift; MAX_JOBS="$1"; shift ;;
           --jobs=*) MAX_JOBS="''${arg#*=}"; shift ;;
       esac
   done
-  NIX_BUILD_CORES=$(( TOTAL_CORES / MAX_JOBS ))
 
   PROGRAM=sys
   COMMAND="$1"
