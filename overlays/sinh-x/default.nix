@@ -46,52 +46,39 @@ _final: prev: {
   opencode = inputs.opencode.packages.${prev.stdenv.hostPlatform.system}.default;
 
   qt6Packages = prev.qt6Packages // {
-    fcitx5-with-addons =
-      let
-        customScope = prev // {
-          libsForQt5 = prev.qt6Packages // {
-            inherit (prev.kdePackages) extra-cmake-modules;
-          };
-        };
-      in
-      prev.callPackageWith customScope (
-        {
-          symlinkJoin,
-          makeBinaryWrapper,
-          fcitx5,
-          fcitx5-gtk,
-          qt6Packages,
-          addons ? [ ],
-        }:
-        symlinkJoin {
-          name = "fcitx5-with-addons-${fcitx5.version}";
-          paths = [
-            fcitx5
-            qt6Packages.fcitx5-qt
-            fcitx5-gtk
-            qt6Packages.fcitx5-configtool
-          ]
-          ++ addons;
-          nativeBuildInputs = [ makeBinaryWrapper ];
-          postBuild = ''
-            wrapProgram $out/bin/fcitx5 \
-              --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE" \
-              --prefix FCITX_ADDON_DIRS : "$out/lib/fcitx5" \
-              --suffix XDG_DATA_DIRS : "$out/share" \
-              --suffix PATH : "$out/bin"
+    fcitx5-with-addons = prev.lib.makeOverridable (
+      {
+        addons ? [ ],
+      }:
+      prev.symlinkJoin {
+        name = "fcitx5-with-addons-${prev.fcitx5.version}";
+        paths = [
+          prev.fcitx5
+          prev.qt6Packages.fcitx5-qt
+          prev.fcitx5-gtk
+          prev.qt6Packages.fcitx5-configtool
+        ]
+        ++ addons;
+        nativeBuildInputs = [ prev.makeBinaryWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/fcitx5 \
+            --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE" \
+            --prefix FCITX_ADDON_DIRS : "$out/lib/fcitx5" \
+            --suffix XDG_DATA_DIRS : "$out/share" \
+            --suffix PATH : "$out/bin"
 
-            wrapProgram $out/bin/fcitx5-config-qt --prefix FCITX_ADDON_DIRS : "$out/lib/fcitx5"
+          wrapProgram $out/bin/fcitx5-config-qt --prefix FCITX_ADDON_DIRS : "$out/lib/fcitx5"
 
-            pushd $out
-            grep -Rl --include=\*.{desktop,service} share/applications etc/xdg/autostart share/dbus-1/services -e ${fcitx5} | while read -r file; do
-              rm $file
-              cp ${fcitx5}/$file $file
-              substituteInPlace $file --replace-fail ${fcitx5} $out
-            done
-            popd
-          '';
-          inherit (fcitx5) meta;
-        }
-      ) { };
+          pushd $out
+          grep -Rl --include=\*.{desktop,service} share/applications etc/xdg/autostart share/dbus-1/services -e ${prev.fcitx5} | while read -r file; do
+            rm $file
+            cp ${prev.fcitx5}/$file $file
+            substituteInPlace $file --replace-fail ${prev.fcitx5} $out
+          done
+          popd
+        '';
+        inherit (prev.fcitx5) meta;
+      }
+    ) { };
   };
 }
