@@ -103,7 +103,7 @@ let
       inherit system;
       config = {
         allowUnfree = true;
-        permittedInsecurePackages = [ ];
+        permittedInsecurePackages = [ "electron-39.8.10" ];
       };
       overlays = (builtins.attrValues nonDefaultOverlays) ++ [ (_final: _prev: { lib = flakeLib; }) ];
     };
