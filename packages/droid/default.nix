@@ -2,7 +2,9 @@
   lib,
   fetchurl,
   stdenv,
+  makeWrapper,
   autoPatchelfHook,
+  zlib,
 }:
 let
   pname = "droid";
@@ -18,14 +20,29 @@ stdenv.mkDerivation {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [
+    makeWrapper
+    autoPatchelfHook
+  ];
 
+  buildInputs = [
+    stdenv.cc.cc.lib
+    zlib
+  ];
+
+  dontStrip = true;
   dontBuild = true;
 
   installPhase = ''
     runHook preInstall
     install -Dm755 package/bin/droid "$out/bin/droid"
     runHook postInstall
+  '';
+
+  postFixup = ''
+    wrapProgram $out/bin/droid \
+      --set DISABLE_AUTOUPDATER 1 \
+      --set DISABLE_INSTALLATION_CHECKS 1
   '';
 
   meta = with lib; {
