@@ -89,8 +89,8 @@
     coding = {
       editor.vscode.enable = false;
       docker.enable = true;
-      codex.enable = true;
-      claudecode.enable = true;
+      codex.enable = false;
+      claudecode.enable = false;
       opencode.enable = true;
       droid.enable = true;
       super-productivity.enable = false;
