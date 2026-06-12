@@ -45,13 +45,7 @@ _final: prev: {
 
   opencode = inputs.opencode.packages.${prev.stdenv.hostPlatform.system}.default;
 
-  libsForQt5 = {
-    inherit (prev.qt6Packages)
-      fcitx5-qt
-      qtbase
-      qtsvg
-      wrapQtAppsHook
-      ;
+  libsForQt5 = prev.qt6Packages // {
     inherit (prev.kdePackages) extra-cmake-modules;
   };
 }
