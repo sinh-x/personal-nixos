@@ -30,6 +30,8 @@ stdenv.mkDerivation {
     zlib
   ];
 
+  # Bun-compiled binary has JS bytecode appended after the ELF.
+  # strip corrupts the appended data.
   dontStrip = true;
   dontBuild = true;
 
