@@ -45,6 +45,12 @@ _final: prev: {
 
   opencode = inputs.opencode.packages.${prev.stdenv.hostPlatform.system}.default;
 
+  inherit (prev.kdePackages) extra-cmake-modules;
+
+  libsForQt5 = prev.qt6Packages // {
+    inherit (prev.kdePackages) extra-cmake-modules;
+  };
+
   qt6Packages = prev.qt6Packages // {
     fcitx5-with-addons = prev.lib.makeOverridable (
       {
