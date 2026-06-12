@@ -20,13 +20,13 @@
 
   modules = {
     r_setup.enable = false;
-    python.enable = true;
+    python.enable = false;
     nix_ld.enable = true;
     fcitx5.enable = true;
     fcitx5.lotus.enable = true;
     fish.enable = true;
     gcloud.enable = true;
-    antigravity.enable = true;
+    antigravity.enable = false;
     gurk.enable = false;
 
     # windows manager
@@ -132,7 +132,7 @@
       drivers = [ pkgs.brlaser ];
     };
 
-    udev.packages = [ pkgs.qmk-udev-rules ];
+    udev.packages = [ ];
   };
 
   services.xserver.xkb.layout = "us";
@@ -208,11 +208,6 @@
     nvidia-system-monitor-qt
     nvtopPackages.full
 
-    qmk
-    qmk-udev-rules
-
-    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".twilight
-
   ];
 
   networking = {
@@ -223,7 +218,7 @@
     };
   };
 
-  programs.steam.enable = true;
+  programs.steam.enable = false;
 
   # QEMU/KVM virtualization for VM testing
   virtualisation.libvirtd.enable = true;
