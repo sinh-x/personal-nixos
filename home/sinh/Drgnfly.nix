@@ -92,6 +92,7 @@
       codex.enable = true;
       claudecode.enable = true;
       opencode.enable = true;
+      droid.enable = true;
       super-productivity.enable = false;
       devbox.enable = true;
       flutter.enable = true;
