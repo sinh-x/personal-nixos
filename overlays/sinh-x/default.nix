@@ -44,4 +44,12 @@ _final: prev: {
     ;
 
   opencode = inputs.opencode.packages.${prev.stdenv.hostPlatform.system}.default;
+
+  qt6Packages = prev.qt6Packages // {
+    fcitx5-with-addons = prev.qt6Packages.fcitx5-with-addons.override {
+      libsForQt5 = {
+        inherit (prev.qt6Packages) fcitx5-qt;
+      };
+    };
+  };
 }
