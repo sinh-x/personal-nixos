@@ -23,7 +23,6 @@ in
     home.packages = with pkgs; [
       activitywatch
       aw-watcher-window-wayland
-      qmk
       libtiff
       imagemagick
       swayimg

@@ -87,7 +87,7 @@
     };
 
     coding = {
-      editor.vscode.enable = true;
+      editor.vscode.enable = false;
       docker.enable = true;
       codex.enable = true;
       claudecode.enable = true;
