@@ -16,7 +16,9 @@ function activityLogPath() {
 }
 
 function patternsFile() {
-  return join(process.env.HOME || "", ".claude", "hooks", "sensitive-patterns.conf")
+  const claudePath = join(process.env.HOME || "", ".claude", "hooks", "sensitive-patterns.conf")
+  if (existsSync(claudePath)) return claudePath
+  return join(process.env.HOME || "", ".config", "opencode", "sensitive-patterns.conf")
 }
 
 function readPatterns() {

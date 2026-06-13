@@ -31,12 +31,6 @@ in
         ".config/opencode/plugins/git-context.tsx" = {
           source = ./config/plugins/git-context.tsx;
         };
-        ".config/opencode/plugins/tui-smoke.tsx" = {
-          source = ./config/plugins/tui-smoke.tsx;
-        };
-        ".config/opencode/plugins/smoke-theme.json" = {
-          source = ./config/plugins/smoke-theme.json;
-        };
         ".config/opencode/plugins/pa-safety-activity.js" = {
           source = ./config/plugins/pa-safety-activity.js;
         };
