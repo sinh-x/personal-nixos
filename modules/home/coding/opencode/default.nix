@@ -25,18 +25,12 @@ in
     })
     (mkIf cfg.plugins.enable {
       home.file = {
-        ".config/opencode/opencode.json" = {
-          source = ./config/opencode.json;
-        };
-        ".config/opencode/plugins/git-context.tsx" = {
-          source = ./config/plugins/git-context.tsx;
-        };
-        ".config/opencode/plugins/pa-safety-activity.js" = {
-          source = ./config/plugins/pa-safety-activity.js;
-        };
-        ".config/opencode/themes/mytheme.json" = {
-          source = ./config/themes/mytheme.json;
-        };
+        ".config/opencode/opencode.json".text = builtins.readFile ./config/opencode.json;
+        ".config/opencode/plugins/git-context.tsx".text =
+          builtins.readFile ./config/plugins/git-context.tsx;
+        ".config/opencode/plugins/pa-safety-activity.js".text =
+          builtins.readFile ./config/plugins/pa-safety-activity.js;
+        ".config/opencode/themes/mytheme.json".text = builtins.readFile ./config/themes/mytheme.json;
       };
     })
   ];
