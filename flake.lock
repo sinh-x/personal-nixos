@@ -2741,11 +2741,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1781234301,
-        "narHash": "sha256-jfUeJBOWFQL1CJVEO+ER0WCxIlUQSvWQO4tZz7lJF5E=",
+        "lastModified": 1781370789,
+        "narHash": "sha256-mmiarU3oiAFGW4iW0XwirpOdoUS/RRPX1FiNU09EdEg=",
         "owner": "sinh-x",
         "repo": "opencode",
-        "rev": "6a387490ace2c66b508108857d12bd21fefb4bc7",
+        "rev": "6ac18cc61360307a4b4e5108e7f36fd94a211e9c",
         "type": "github"
       },
       "original": {
@@ -2762,8 +2762,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1781257263,
-        "narHash": "sha256-liDAseLglVFrnI1F5TdVKbgzJq/izVrmxiCWk3iU3ck=",
+        "lastModified": 1781371065,
+        "narHash": "sha256-rr5+8SDTZhO6F8U7N2SdWSqiOmOXmK1Vfh6ObchMopI=",
         "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
         "type": "path"
       },
