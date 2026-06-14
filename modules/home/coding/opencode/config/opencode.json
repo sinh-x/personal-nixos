@@ -1,0 +1,29 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "edit": {
+      "/home/sinh/Documents/ai-usage/**": "allow"
+    },
+    "external_directory": {
+      "/home/sinh/Documents/ai-usage/**": "allow",
+      "/nix/store/**": "allow"
+    },
+    "glob": {
+      "/home/sinh/Documents/ai-usage/**": "allow"
+    },
+    "grep": {
+      "/home/sinh/Documents/ai-usage/**": "allow"
+    },
+    "list": {
+      "/home/sinh/Documents/ai-usage/**": "allow"
+    },
+    "read": {
+      "/home/sinh/Documents/ai-usage/**": "allow"
+    }
+  },
+  "mcp": {},
+  "tools": {
+    "github-triage": false,
+    "github-pr-search": false
+  }
+}

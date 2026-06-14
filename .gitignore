@@ -50,3 +50,6 @@ result
 flake
 .pre-commit-config.yaml
 Session.vim
+
+# opencode project-level directory (dev scaffolding; config is Nix-managed)
+.opencode/
