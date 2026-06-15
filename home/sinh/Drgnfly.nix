@@ -91,10 +91,7 @@
       docker.enable = true;
       codex.enable = false;
       claudecode.enable = false;
-      opencode = {
-        enable = true;
-        plugins.enable = true;
-      };
+      opencode.enable = true;
       droid.enable = true;
       super-productivity.enable = false;
       devbox.enable = true;
