@@ -276,6 +276,12 @@ let
     "Hello Mia" = {
       pskRaw = "ext:sg_hellomia";
     };
+    "DELION CAFE" = {
+      pskRaw = "ext:kh_delionvangia";
+    };
+    "TOLI COFFEE" = {
+      pskRaw = "ext:kh_tolivangia";
+    };
     "BELLA CAFE 3" = {
       pskRaw = "ext:kh_bellacafe";
     };
