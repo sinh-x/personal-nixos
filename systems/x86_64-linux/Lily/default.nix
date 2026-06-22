@@ -282,6 +282,10 @@
         </Location>
       '';
     };
+
+    # CUPS NixOS module blacklists usblp (it prefers libusb). But our Y41BT
+    # config uses parallel:/dev/usb/lp0 which needs usblp. Remove the blacklist.
+    boot.blacklistedKernelModules = [ ];
   };
 
   # Configure Y41BT raw queue after CUPS starts — also mark as shared for remote access
