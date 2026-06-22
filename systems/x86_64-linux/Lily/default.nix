@@ -270,7 +270,7 @@
     printing = {
       enable = true;
       drivers = [ pkgs.gutenprint ];
-      listenAddresses = [ "100.64.0.0/10:631" ];
+      listenAddresses = [ "*:631" ];
       defaultShared = false;
       browsing = false;
       allowFrom = [ "100.64.0.0/10" ];
