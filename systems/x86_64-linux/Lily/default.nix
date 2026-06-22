@@ -249,7 +249,10 @@
     hostName = "Lily";
     networkmanager.enable = false;
     firewall = {
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [
+        22
+        631
+      ];
     };
   };
 
@@ -262,6 +265,25 @@
         PermitRootLogin = "no";
         PasswordAuthentication = false;
       };
+    };
+
+    printing = {
+      enable = true;
+      drivers = [ pkgs.gutenprint ];
+      listenAddresses = [ "100.64.0.0/10:631" ];
+      defaultShared = false;
+      browsing = false;
+      allowFrom = [ "100.64.0.0/10" ];
+      ensurePrinters = [
+        {
+          name = "Y41BT";
+          location = "Lily";
+          description = "Y41BT Thermal Receipt Printer";
+          deviceUri = "parallel:/dev/usb/lp0";
+          model = "raw";
+          ensureDefaultPrinter = true;
+        }
+      ];
     };
   };
 
