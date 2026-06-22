@@ -274,16 +274,25 @@
       defaultShared = false;
       browsing = false;
       allowFrom = [ "100.64.0.0/10" ];
-      ensurePrinters = [
-        {
-          name = "Y41BT";
-          location = "Lily";
-          description = "Y41BT Thermal Receipt Printer";
-          deviceUri = "parallel:/dev/usb/lp0";
-          model = "raw";
-          ensureDefaultPrinter = true;
-        }
-      ];
+    };
+
+    # Configure Y41BT raw queue after CUPS starts (ensurePrinters not available in this nixpkgs)
+    systemd.services.cups-y41bt-setup = {
+      description = "Configure Y41BT thermal printer raw queue in CUPS";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "cups.service" ];
+      requires = [ "cups.service" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+      path = [ pkgs.cups ];
+      script = ''
+        if ! lpstat -p Y41BT > /dev/null 2>&1; then
+          lpadmin -p Y41BT -E -v parallel:/dev/usb/lp0 -m raw \
+            -L "Lily" -D "Y41BT Thermal Receipt Printer"
+        fi
+      '';
     };
   };
 
