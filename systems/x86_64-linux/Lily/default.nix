@@ -271,9 +271,15 @@
       enable = true;
       drivers = [ pkgs.gutenprint ];
       listenAddresses = [ "*:631" ];
-      defaultShared = false;
+      defaultShared = true;
       browsing = false;
       allowFrom = [ "100.64.0.0/10" ];
+      extraConf = ''
+        <Limit Send-Document Send-URI Hold-Job Release-Job>
+          Order allow,deny
+          Allow from 100.64.0.0/10
+        </Limit>
+      '';
     };
   };
 
