@@ -275,22 +275,16 @@
       browsing = false;
       allowFrom = [ "100.64.0.0/10" ];
       extraConf = ''
-        ServerName lily
+        ServerName lily.tail10c2c6.ts.net
         <Location /printers>
           Order allow,deny
-          Allow from 100.64.0.0/10
-          Satisfy any
-        </Location>
-        <Location /printers/Y41BT>
-          Order allow,deny
           Allow from all
-          Satisfy any
         </Location>
       '';
     };
   };
 
-  # Configure Y41BT raw queue after CUPS starts (ensurePrinters not available in this nixpkgs)
+  # Configure Y41BT raw queue after CUPS starts — also mark as shared for remote access
   systemd.services.cups-y41bt-setup = {
     description = "Configure Y41BT thermal printer raw queue in CUPS";
     wantedBy = [ "multi-user.target" ];
@@ -306,6 +300,8 @@
         lpadmin -p Y41BT -E -v parallel:/dev/usb/lp0 -m raw \
           -L "Lily" -D "Y41BT Thermal Receipt Printer"
       fi
+      # Ensure printer is shared so remote CUPS clients can see and use it
+      lpadmin -p Y41BT -o printer-is-shared=true
     '';
   };
 
