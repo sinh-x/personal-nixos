@@ -275,10 +275,17 @@
       browsing = false;
       allowFrom = [ "100.64.0.0/10" ];
       extraConf = ''
-        <Limit Send-Document Send-URI Hold-Job Release-Job>
+        ServerName lily
+        <Location /printers>
           Order allow,deny
           Allow from 100.64.0.0/10
-        </Limit>
+          Satisfy any
+        </Location>
+        <Location /printers/Y41BT>
+          Order allow,deny
+          Allow from all
+          Satisfy any
+        </Location>
       '';
     };
   };
