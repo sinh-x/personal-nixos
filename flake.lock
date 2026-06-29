@@ -2741,11 +2741,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1781370789,
-        "narHash": "sha256-mmiarU3oiAFGW4iW0XwirpOdoUS/RRPX1FiNU09EdEg=",
+        "lastModified": 1782691757,
+        "narHash": "sha256-0A/9klMu/KfFev31kj/kKsJ1dfZA4fYhGsEb6evqRTs=",
         "owner": "sinh-x",
         "repo": "opencode",
-        "rev": "6ac18cc61360307a4b4e5108e7f36fd94a211e9c",
+        "rev": "f36db1090f6f2a0ec7b37dd81813ab3734fdd38d",
         "type": "github"
       },
       "original": {
