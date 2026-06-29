@@ -2750,7 +2750,7 @@
       },
       "original": {
         "owner": "sinh-x",
-        "ref": "sinh-x-dev",
+        "ref": "fix/source-build-v2",
         "repo": "opencode",
         "type": "github"
       }
