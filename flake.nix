@@ -122,7 +122,10 @@
 
     opencode.url = "github:sinh-x/opencode?ref=sinh-x-dev";
 
-    herdr.url = "github:ogulcancelik/herdr";
+    herdr = {
+      url = "github:ogulcancelik/herdr?ref=master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs:

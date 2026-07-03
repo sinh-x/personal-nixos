@@ -15,7 +15,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.herdr ];
+    home.packages = [
+      pkgs.herdr
+      pkgs.jq
+    ];
 
     xdg.configFile."herdr/config.toml".source = ./config.toml;
   };
