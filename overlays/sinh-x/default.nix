@@ -49,6 +49,8 @@ _final: prev: {
 
   opencode = inputs.opencode.packages.${prev.stdenv.hostPlatform.system}.default;
 
+  inherit (inputs.herdr.packages.${prev.stdenv.hostPlatform.system}) herdr;
+
   inherit (prev.kdePackages) extra-cmake-modules;
 
   libsForQt5 = prev.qt6Packages // {

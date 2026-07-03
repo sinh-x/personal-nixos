@@ -121,6 +121,8 @@
     };
 
     opencode.url = "github:sinh-x/opencode?ref=sinh-x-dev";
+
+    herdr.url = "github:ogulcancelik/herdr";
   };
   outputs =
     inputs:
