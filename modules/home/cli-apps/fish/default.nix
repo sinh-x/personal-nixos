@@ -65,6 +65,13 @@ in
         complete -c zsafe -f
         complete -c zsafe -a '(__zsafe_sessions)'
 
+        function __herdr_sessions
+            command herdr session list --json 2>/dev/null | jq -r '.sessions[].name' 2>/dev/null
+        end
+
+        complete -c hr -f
+        complete -c hr -a '(__herdr_sessions)'
+
         fish_vi_key_bindings
 
       '';
@@ -110,6 +117,7 @@ in
         sshconfig = "nvim ~/.ssh/config";
         za = "zellij attach";
         zsafe = "zellij_attach_safe";
+        hr = "herdr";
       };
       functions = {
         rm = {
