@@ -1,0 +1,9 @@
+# herdr configuration
+# Managed declaratively by Nix home-manager (sinh-x.cli-apps.multiplexers.herdr)
+# Reference: https://herdr.dev
+
+[theme]
+name = "tokyo-night"
+
+[keys]
+prefix = "ctrl+b"
