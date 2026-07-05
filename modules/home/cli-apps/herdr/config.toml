@@ -7,3 +7,7 @@ name = "tokyo-night"
 
 [keys]
 prefix = "ctrl+b"
+focus_pane_left = ["prefix+h", "alt+left", "ctrl+alt+left"]
+focus_pane_right = ["prefix+l", "alt+right", "ctrl+alt+right"]
+previous_tab = ["prefix+p", "alt+shift+left", "ctrl+alt+shift+left"]
+next_tab = ["prefix+n", "alt+shift+right", "ctrl+alt+shift+right"]
