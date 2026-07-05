@@ -76,6 +76,7 @@
       shell.zsh.enable = false;
       starship.enable = true;
       multiplexers.zellij.enable = true;
+      multiplexers.herdr.enable = true;
       editor.neovim.enable = true;
       backup.enable = true;
       nix.enable = true;
