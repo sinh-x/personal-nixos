@@ -282,6 +282,9 @@ let
     "TOLI COFFEE" = {
       pskRaw = "ext:kh_bellacafe";
     };
+    "Skyler Nest Wifi" = {
+      pskRaw = "ext:sg_skylernest";
+    };
     "BELLA CAFE 3" = {
       pskRaw = "ext:kh_bellacafe";
     };
