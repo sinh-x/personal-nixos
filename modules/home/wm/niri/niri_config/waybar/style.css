@@ -238,6 +238,13 @@ window#waybar.hidden {
 #clock {
 	color: @blue;
 }
+#clock.3 {
+	background-color: @background-alt2;
+	color: @blue;
+	border-radius: 10px 10px 10px 10px;
+	margin: 6px 6px 6px 6px;
+	padding: 5px 10px 4px 10px;
+}
 
 /** ********** Niri Workspaces ********** **/
 #workspaces {
@@ -285,6 +292,7 @@ window#waybar.hidden {
 #backlight.2, 
 #battery.2,
 #clock.2,
+#clock.3,
 #cpu.2,
 #disk.2,
 #memory.2,
