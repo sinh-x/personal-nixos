@@ -280,7 +280,7 @@ let
       pskRaw = "ext:kh_delionvangia";
     };
     "TOLI COFFEE" = {
-      pskRaw = "ext:kh_tolivangia";
+      pskRaw = "ext:kh_bellacafe";
     };
     "BELLA CAFE 3" = {
       pskRaw = "ext:kh_bellacafe";
@@ -296,6 +296,7 @@ let
     "Hust_C1_213" = { };
     "@ TASECO FREE WIFI" = { };
     "Highlands Coffee" = { };
+    "AMERICANO" = { };
   };
 in
 {
