@@ -285,6 +285,9 @@ let
     "Skyler Nest Wifi" = {
       pskRaw = "ext:sg_skylernest";
     };
+    "Every Half Coffee Roasters" = {
+      pskRaw = "ext:sg_everyhalf_bt";
+    };
     "BELLA CAFE 3" = {
       pskRaw = "ext:kh_bellacafe";
     };
