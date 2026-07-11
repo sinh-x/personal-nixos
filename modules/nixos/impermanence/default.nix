@@ -26,6 +26,12 @@ in
       default = [ ];
       description = "Users whose entire home directories should be persisted";
     };
+
+    tmpSize = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "Size of /tmp tmpfs (e.g. \"64G\"). Null uses NixOS default (half of RAM).";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -98,5 +104,8 @@ in
 
     # Use tmpfs for /tmp
     boot.tmp.useTmpfs = true;
+
+    # Optional tmpfs size override
+    boot.tmp.tmpfsSize = mkIf (cfg.tmpSize != null) cfg.tmpSize;
   };
 }
