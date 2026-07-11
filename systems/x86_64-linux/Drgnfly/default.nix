@@ -65,6 +65,7 @@
     impermanence = {
       enable = true;
       users = [ "sinh" ]; # Persist entire home directory
+      tmpSize = "64G"; # 64GB /tmp tmpfs for build cache
     };
   };
 
