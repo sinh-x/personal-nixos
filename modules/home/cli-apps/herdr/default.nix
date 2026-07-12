@@ -18,6 +18,7 @@ in
     home.packages = [
       pkgs.herdr
       pkgs.jq
+      pkgs.fzf
     ];
 
     xdg.configFile."herdr/config.toml".source = ./config.toml;
