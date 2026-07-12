@@ -73,7 +73,7 @@ in
         complete -c hr -a '(__herdr_sessions)'
 
         function __herdr_agents
-            command herdr agent list --json 2>/dev/null | jq -r '.result.agents[].agent' 2>/dev/null
+            command herdr agent list 2>/dev/null | jq -r '.result.agents[].agent' 2>/dev/null
         end
 
         complete -c ha -f
@@ -281,7 +281,11 @@ in
             if test -z "$label"
                 set label "unnamed"
             end
-            command herdr agent rename "$label" 2>/dev/null
+            set -l focused_id (command herdr agent list 2>/dev/null | jq -r '.result.agents[] | select(.focused == true) | .terminal_id' 2>/dev/null)
+            if test -z "$focused_id"
+                return
+            end
+            command herdr agent rename "$focused_id" "$label" 2>/dev/null
           '';
         };
         zellij_attach_safe = {
