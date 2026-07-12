@@ -288,6 +288,9 @@ let
     "Every Half Coffee Roasters" = {
       pskRaw = "ext:sg_everyhalf_bt";
     };
+    "Latica Coffee" = {
+      pskRaw = "ext:sg_latica";
+    };
     "BELLA CAFE 3" = {
       pskRaw = "ext:kh_bellacafe";
     };
