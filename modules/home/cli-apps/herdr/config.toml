@@ -17,3 +17,15 @@ new_tab = ["prefix+c", "alt+c", "ctrl+alt+c"]
 split_vertical = ["prefix+d", "alt+d", "ctrl+alt+d"]
 zoom = ["prefix+z", "alt+z", "ctrl+alt+z"]
 switch_workspace = ["prefix+1", "prefix+2", "prefix+3", "prefix+4", "prefix+5", "prefix+6", "prefix+7", "prefix+8", "prefix+9", "ctrl+alt+1", "ctrl+alt+2", "ctrl+alt+3", "ctrl+alt+4", "ctrl+alt+5", "ctrl+alt+6", "ctrl+alt+7", "ctrl+alt+8", "ctrl+alt+9"]
+focus_agent = ["prefix+alt+1", "prefix+alt+2", "prefix+alt+3", "prefix+alt+4", "prefix+alt+5", "prefix+alt+6", "prefix+alt+7", "prefix+alt+8", "prefix+alt+9"]
+workspace_picker = ["prefix+w"]
+
+[[keys.command]]
+keys = ["prefix+a"]
+type = "pane"
+command = '''
+target=$($HERDR_BIN_PATH agent list | jq -r '.result.agents[] | "\(.terminal_id)\t\(.agent)\t\(.workspace_id)\t\(.cwd)"' 2>/dev/null | fzf --with-nth=2.. --prompt="Agent > " | awk '{print $1}')
+if [ -n "$target" ]; then
+  $HERDR_BIN_PATH agent focus "$target"
+fi
+'''
