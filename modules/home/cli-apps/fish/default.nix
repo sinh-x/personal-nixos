@@ -79,6 +79,9 @@ in
         complete -c ha -f
         complete -c ha -a '(__herdr_agents)'
 
+        # Auto-label herdr agent pane with CWD basename on startup
+        __auto_label_herdr_pane
+
         fish_vi_key_bindings
 
       '';
@@ -266,6 +269,19 @@ in
                 return 1
             end
             command herdr agent focus $argv[1]
+          '';
+        };
+        __auto_label_herdr_pane = {
+          description = "Auto-label herdr agent pane with CWD project name on startup";
+          body = ''
+            if not command -sq herdr
+                return
+            end
+            set -l label (basename (pwd) 2>/dev/null)
+            if test -z "$label"
+                set label "unnamed"
+            end
+            command herdr agent rename "$label" 2>/dev/null
           '';
         };
         zellij_attach_safe = {
