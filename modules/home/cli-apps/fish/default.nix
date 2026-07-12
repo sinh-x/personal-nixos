@@ -72,6 +72,13 @@ in
         complete -c hr -f
         complete -c hr -a '(__herdr_sessions)'
 
+        function __herdr_agents
+            command herdr agent list --json 2>/dev/null | jq -r '.result.agents[].agent' 2>/dev/null
+        end
+
+        complete -c ha -f
+        complete -c ha -a '(__herdr_agents)'
+
         fish_vi_key_bindings
 
       '';
@@ -249,6 +256,16 @@ in
               return 1
             end
             echo "Exit node disabled, direct routing restored"
+          '';
+        };
+        ha = {
+          description = "Focus a herdr agent pane by label";
+          body = ''
+            if test (count $argv) -eq 0
+                echo "Usage: ha <agent-label>"
+                return 1
+            end
+            command herdr agent focus $argv[1]
           '';
         };
         zellij_attach_safe = {
