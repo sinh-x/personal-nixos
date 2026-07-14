@@ -79,6 +79,7 @@ in
         if command -q herdr
             source ${pkgs.herdr-fish-completions}/share/fish/vendor_completions.d/herdr.fish
             complete -c hr --wraps herdr
+            complete -c herdr -n "__fish_herdr_using_subcommand session; and __fish_seen_subcommand_from attach" -f -a '(__herdr_sessions)'
         end
 
         # Auto-label herdr agent pane with CWD basename on startup
