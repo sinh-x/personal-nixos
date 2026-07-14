@@ -69,15 +69,18 @@ in
             command herdr session list --json 2>/dev/null | jq -r '.sessions[].name' 2>/dev/null
         end
 
-        complete -c hr -f
-        complete -c hr -a '(__herdr_sessions)'
-
         function __herdr_agents
             command herdr agent list 2>/dev/null | jq -r '.result.agents[].agent' 2>/dev/null
         end
 
         complete -c ha -f
         complete -c ha -a '(__herdr_agents)'
+
+        if command -q herdr
+            source ${pkgs.herdr-fish-completions}/share/fish/vendor_completions.d/herdr.fish
+            complete -c hr --wraps herdr
+            complete -c herdr -n "__fish_herdr_using_subcommand session; and __fish_seen_subcommand_from attach" -f -a '(__herdr_sessions)'
+        end
 
         # Auto-label herdr agent pane with CWD basename on startup
         __auto_label_herdr_pane
