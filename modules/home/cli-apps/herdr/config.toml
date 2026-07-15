@@ -24,8 +24,8 @@ workspace_picker = ["prefix+w"]
 keys = ["prefix+a"]
 type = "pane"
 command = '''
-target=$($HERDR_BIN_PATH agent list | jq -r '.result.agents[] | "\(.terminal_id)\t\(.agent)\t\(.workspace_id)\t\(.cwd)"' 2>/dev/null | fzf --with-nth=2.. --prompt="Agent > " | awk '{print $1}')
+target=$(${HERDR_BIN_PATH:-herdr} agent list | jq -r '.result.agents[] | "\(.terminal_id)\t\(.agent)\t\(.workspace_id)\t\(.cwd)"' 2>/dev/null | fzf --with-nth=2.. --prompt="Agent > " | awk '{print $1}')
 if [ -n "$target" ]; then
-  $HERDR_BIN_PATH agent focus "$target"
+  ${HERDR_BIN_PATH:-herdr} agent focus "$target"
 fi
 '''
