@@ -82,14 +82,15 @@ in
         defaultOptions = [
           "--color=fg:#CBE0F0,bg:#011628,hl:#B388FF,fg+:#CBE0F0,bg+:#143652,hl+:#B388FF,info:#06BCE4,prompt:#2CF9ED,pointer:#2CF9ED,marker:#2CF9ED,spinner:#2CF9ED,header:#2CF9ED"
         ];
-        fileWidgetCommand = "fd --hidden --strip-cwd-prefix --exclude .git";
-        fileWidgetOptions = [
+        fileWidget.command = "fd --hidden --strip-cwd-prefix --exclude .git";
+        fileWidget.options = [
           "--preview 'if [ -d {} ]; then lsd --tree --depth=2 --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi'"
         ];
-        changeDirWidgetCommand = "fd --type=d --hidden --strip-cwd-prefix --exclude .git";
-        changeDirWidgetOptions = [
+        changeDirWidget.command = "fd --type=d --hidden --strip-cwd-prefix --exclude .git";
+        changeDirWidget.options = [
           "--preview 'lsd --tree --depth=2 --color=always {} | head -200'"
         ];
+        historyWidget.command = ""; # Disable fzf Ctrl-R (atuin owns it)
       };
 
       atuin = {
