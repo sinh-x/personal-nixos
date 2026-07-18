@@ -2762,18 +2762,18 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1784170150,
-        "narHash": "sha256-ejj2Nk+eHLSbCfA0jGOfBfHvqNkgKtINzHVJb1W0L04=",
-        "ref": "feat/OPC-023-nix-source-build",
-        "rev": "140ec0669428fb9b87156b3e0c6594901cdd19a6",
-        "revCount": 14614,
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/tools/opencode"
+        "lastModified": 1784363132,
+        "narHash": "sha256-fGc/7QUBmG597mwHRPixn3rynxXf3hvqm9FseDvfP38=",
+        "owner": "sinh-x",
+        "repo": "opencode",
+        "rev": "162a2a4d13f2ce2be7e5dd2bd0dc11946c255331",
+        "type": "github"
       },
       "original": {
-        "ref": "feat/OPC-023-nix-source-build",
-        "type": "git",
-        "url": "file:///home/sinh/git-repos/sinh-x/tools/opencode"
+        "owner": "sinh-x",
+        "ref": "sinh-x-dev",
+        "repo": "opencode",
+        "type": "github"
       }
     },
     "pa-platform": {
