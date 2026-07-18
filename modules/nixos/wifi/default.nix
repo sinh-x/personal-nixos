@@ -291,6 +291,9 @@ let
     "Latica Coffee" = {
       pskRaw = "ext:sg_latica";
     };
+    "The Wiselands Coffee" = {
+      pskRaw = "ext:sg_wiseland";
+    };
     "BELLA CAFE 3" = {
       pskRaw = "ext:kh_bellacafe";
     };
