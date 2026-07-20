@@ -2682,11 +2682,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1784363132,
-        "narHash": "sha256-fGc/7QUBmG597mwHRPixn3rynxXf3hvqm9FseDvfP38=",
+        "lastModified": 1784568552,
+        "narHash": "sha256-VVkGtT/XycqiItfG2Gf5yrX2CjZsXQjnqbw040CT/9c=",
         "owner": "sinh-x",
         "repo": "opencode",
-        "rev": "162a2a4d13f2ce2be7e5dd2bd0dc11946c255331",
+        "rev": "a3a97d22d997ea6ec8a3f05e2e4f28a53079c606",
         "type": "github"
       },
       "original": {
