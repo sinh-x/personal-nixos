@@ -138,7 +138,7 @@
     "custom/cpu_temp": {
          "exec": "~/.config/niri/scripts/temperature.sh cpu",
          "interval": 10,
-         "format": "󰔹 ",
+         "format": " ",
          "class": "custom-cpu_temp",
          "tooltip": true,
          "return-type": "json",
@@ -154,7 +154,7 @@
     "custom/disk_temp": {
          "exec": "~/.config/niri/scripts/temperature.sh disk",
          "interval": 10,
-         "format": "󰔸 ",
+         "format": "󰋊 ",
          "class": "custom-disk_temp",
          "tooltip": true,
          "return-type": "json",
