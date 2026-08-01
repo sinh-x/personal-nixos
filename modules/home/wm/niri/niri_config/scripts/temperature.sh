@@ -25,7 +25,7 @@ class_for_temp() {
 # Discover the CPU package temperature sensor by scanning hwmon temp*_label
 # for "Package id 0", "Tctl", or "CPU". Returns "<hwmon>/tempN_input <label>".
 discover_cpu_sensor() {
-	local hwmon hwmon_name label_file label input_file
+	local hwmon label_file label input_file
 	for hwmon in "$HWMON_DIR"/hwmon*; do
 		[ -d "$hwmon" ] || continue
 		for label_file in "$hwmon"/temp*_label; do
