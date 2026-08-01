@@ -22,6 +22,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       awscli2
+      ssm-session-manager-plugin
       bc
       btop
       python3 # Required for Claude Code skills and general scripting

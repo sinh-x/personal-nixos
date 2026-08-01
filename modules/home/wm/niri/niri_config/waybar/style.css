@@ -278,6 +278,8 @@ window#waybar.hidden {
 #battery,
 #clock,
 #cpu,
+#custom-cpu_temp,
+#custom-disk_temp,
 #disk,
 #memory,
 #pulseaudio,
@@ -293,6 +295,8 @@ window#waybar.hidden {
 #battery.2,
 #clock.2,
 #cpu.2,
+#custom-cpu_temp.2,
+#custom-disk_temp.2,
 #disk.2,
 #memory.2,
 #pulseaudio.2,
@@ -305,4 +309,20 @@ window#waybar.hidden {
 	border-radius: 0px 10px 10px 0px;
 	margin: 6px 6px 6px 0px ;
 	padding: 5px 6px 4px 6px;
+}
+
+/** ********** Temperature ********** **/
+#custom-cpu_temp.normal,
+#custom-disk_temp.normal {
+	color: @foreground;
+}
+
+#custom-cpu_temp.warning,
+#custom-disk_temp.warning {
+	color: @yellow;
+}
+
+#custom-cpu_temp.critical,
+#custom-disk_temp.critical {
+	color: @red;
 }
