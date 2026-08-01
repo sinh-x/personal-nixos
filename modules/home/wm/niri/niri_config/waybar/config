@@ -18,6 +18,6 @@
     "fixed-center": true,
     // Choose the order of the modules
     "modules-left": ["custom/menu", "niri/workspaces", "tray", "mpd#2", "mpd#3", "mpd#4", "mpd" ],
-    "modules-center": [ "cpu", "cpu#2", "memory", "memory#2", "disk", "disk#2", "clock#3" ],
+    "modules-center": [ "custom/cpu_temp", "custom/cpu_temp#2", "custom/disk_temp", "custom/disk_temp#2", "cpu", "cpu#2", "memory", "memory#2", "disk", "disk#2", "clock#3" ],
     "modules-right": ["pulseaudio", "pulseaudio#2", "backlight", "backlight#2", "battery", "battery#2", "bluetooth", "bluetooth#2", "network", "network#2", "clock", "clock#2", "custom/power"],
 }
