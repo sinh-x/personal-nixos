@@ -135,6 +135,41 @@
          "on-click": "$HOME/.config/niri/scripts/rofi_powermenu",
     },
 
+    "custom/cpu_temp": {
+         "exec": "~/.config/niri/scripts/temperature.sh cpu",
+         "interval": 10,
+         "format": "󰔹 ",
+         "class": "custom-cpu_temp",
+         "tooltip": true,
+         "return-type": "json",
+    },
+    "custom/cpu_temp#2": {
+         "exec": "~/.config/niri/scripts/temperature.sh cpu",
+         "interval": 10,
+         "format": "{0}",
+         "format-icons": [],
+         "class": "custom-cpu_temp",
+         "tooltip": true,
+         "return-type": "json",
+    },
+    "custom/disk_temp": {
+         "exec": "~/.config/niri/scripts/temperature.sh disk",
+         "interval": 10,
+         "format": "󰔸 ",
+         "class": "custom-disk_temp",
+         "tooltip": true,
+         "return-type": "json",
+    },
+    "custom/disk_temp#2": {
+         "exec": "~/.config/niri/scripts/temperature.sh disk",
+         "interval": 10,
+         "format": "{0}",
+         "format-icons": [],
+         "class": "custom-disk_temp",
+         "tooltip": true,
+         "return-type": "json",
+    },
+
 	// waybar-disk
     "disk": {
          "interval": 30,
