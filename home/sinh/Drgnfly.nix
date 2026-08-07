@@ -45,7 +45,7 @@
       };
       web = {
         browser = {
-          edge = true;
+          chrome = true;
         };
         vivaldi.enable = true;
       };
