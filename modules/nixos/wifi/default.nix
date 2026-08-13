@@ -294,6 +294,9 @@ let
     "The Wiselands Coffee" = {
       pskRaw = "ext:sg_wiseland";
     };
+    "Mon Mon Ext" = {
+      pskRaw = "ext:nt_monmon";
+    };
     "Min Home" = {
       pskRaw = "ext:bmt_minhome";
     };
