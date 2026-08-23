@@ -151,18 +151,6 @@ in
         "image/svg+xml" = "swayimg.desktop";
         "image/x-xpixmap" = "swayimg.desktop";
 
-        # Browser - vivaldi
-        "x-scheme-handler/http" = "vivaldi.desktop";
-        "x-scheme-handler/https" = "vivaldi.desktop";
-        "x-scheme-handler/chrome" = "vivaldi.desktop";
-        "text/html" = "vivaldi.desktop";
-        "application/xhtml+xml" = "vivaldi.desktop";
-        "application/x-extension-htm" = "vivaldi.desktop";
-        "application/x-extension-html" = "vivaldi.desktop";
-        "application/x-extension-shtml" = "vivaldi.desktop";
-        "application/x-extension-xhtml" = "vivaldi.desktop";
-        "application/x-extension-xht" = "vivaldi.desktop";
-
         # Apps
         "x-scheme-handler/viber" = "viber.desktop";
         "x-scheme-handler/tg" = "org.telegram.desktop.desktop";
