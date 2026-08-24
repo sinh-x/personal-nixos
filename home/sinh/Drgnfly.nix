@@ -24,6 +24,7 @@
       logseq
       andafin-jira-mcp
       personal-google-mcp
+      pi-coding-agent
     ];
 
     sessionVariables = {
