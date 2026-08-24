@@ -300,6 +300,9 @@ let
     "Min Home" = {
       pskRaw = "ext:bmt_minhome";
     };
+    "1993 Tea&Coffee" = {
+      pskRaw = "ext:kh_1993coffeenh";
+    };
     "BELLA CAFE 3" = {
       pskRaw = "ext:kh_bellacafe";
     };
