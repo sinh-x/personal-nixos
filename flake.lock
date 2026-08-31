@@ -2703,8 +2703,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1788027351,
-        "narHash": "sha256-0TUGbhiWYYWPJx9+xHhMUPBwCz2jrMsRm4SZKe6Xknc=",
+        "lastModified": 1788144590,
+        "narHash": "sha256-NOXH78lQnO8j6lE/RGh0R8YRs5w5cGXxckEOwt4COHM=",
         "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
         "type": "path"
       },
