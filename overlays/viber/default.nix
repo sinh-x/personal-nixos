@@ -9,6 +9,7 @@ _final: prev: {
       + ''
         # libxshmfence.so.1 — missing from Viber's bundled libs
         ln -s "${lib.getLib prev.libxshmfence}/lib/libxshmfence.so.1" "$out/opt/viber/lib/libxshmfence.so.1"
+        ln -sf "$out/opt/viber/Viber" "$out/bin/viber"
       '';
   });
 }
