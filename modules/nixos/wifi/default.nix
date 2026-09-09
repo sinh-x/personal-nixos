@@ -303,6 +303,9 @@ let
     "1993 Tea&Coffee" = {
       pskRaw = "ext:kh_1993coffeenh";
     };
+    "Hien Coffee" = {
+      pskRaw = "ext:kh_hiencoffeenh";
+    };
     "BELLA CAFE 3" = {
       pskRaw = "ext:kh_bellacafe";
     };
