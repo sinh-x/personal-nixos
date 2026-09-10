@@ -29,7 +29,7 @@
 
     sessionVariables = {
       EDITOR = "nvim";
-      BROWSER = "vivaldi";
+      BROWSER = "zen-twilight";
       LEFT_MONITOR = "eDP-1";
     };
 
@@ -41,17 +41,17 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      # Browser - vivaldi
-      "x-scheme-handler/http" = "vivaldi.desktop";
-      "x-scheme-handler/https" = "vivaldi.desktop";
-      "x-scheme-handler/chrome" = "vivaldi.desktop";
-      "text/html" = "vivaldi.desktop";
-      "application/xhtml+xml" = "vivaldi.desktop";
-      "application/x-extension-htm" = "vivaldi.desktop";
-      "application/x-extension-html" = "vivaldi.desktop";
-      "application/x-extension-shtml" = "vivaldi.desktop";
-      "application/x-extension-xhtml" = "vivaldi.desktop";
-      "application/x-extension-xht" = "vivaldi.desktop";
+      # Browser - Zen Twilight
+      "x-scheme-handler/http" = "zen-twilight.desktop";
+      "x-scheme-handler/https" = "zen-twilight.desktop";
+      "x-scheme-handler/chrome" = "zen-twilight.desktop";
+      "text/html" = "zen-twilight.desktop";
+      "application/xhtml+xml" = "zen-twilight.desktop";
+      "application/x-extension-htm" = "zen-twilight.desktop";
+      "application/x-extension-html" = "zen-twilight.desktop";
+      "application/x-extension-shtml" = "zen-twilight.desktop";
+      "application/x-extension-xhtml" = "zen-twilight.desktop";
+      "application/x-extension-xht" = "zen-twilight.desktop";
     };
   };
 
@@ -64,8 +64,10 @@
       web = {
         browser = {
           chrome = true;
+          edge = true;
         };
         vivaldi.enable = true;
+        zen-browser.enable = true;
       };
       utilities.enable = true;
       themes.enable = true;
