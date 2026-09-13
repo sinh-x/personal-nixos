@@ -19,8 +19,7 @@
       mermaid-cli # mmdc - diagram generation from text
       openai-whisper # speech-to-text recognition
       orca-ide # Stably AI Orca agent development environment
-      pa-core # PA platform core CLI
-      opa # PA platform opencode adapter CLI
+      pa-platform # PA platform with bundled Pi vimmode
       obsidian
       logseq
       andafin-jira-mcp

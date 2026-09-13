@@ -40,8 +40,11 @@ _final: prev: {
   personal-google-mcp =
     inputs.personal-google-mcp.packages.${prev.stdenv.hostPlatform.system}.default;
 
+  pa-platform = inputs.pa-platform.lib.mkPaPlatform prev.stdenv.hostPlatform.system {
+    enablePiVimMode = true;
+    enableProperBase = false;
+  };
   inherit (inputs.pa-platform.packages.${prev.stdenv.hostPlatform.system})
-    pa-platform
     pa-core
     opa
     ;
