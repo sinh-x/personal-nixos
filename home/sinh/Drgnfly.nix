@@ -18,6 +18,7 @@
       sound-theme-freedesktop # notification sounds
       mermaid-cli # mmdc - diagram generation from text
       openai-whisper # speech-to-text recognition
+      orca-ide # Stably AI Orca agent development environment
       pa-core # PA platform core CLI
       opa # PA platform opencode adapter CLI
       obsidian
