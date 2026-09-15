@@ -2,6 +2,8 @@
 # Managed declaratively by Nix home-manager (sinh-x.cli-apps.multiplexers.herdr)
 # Reference: https://herdr.dev
 
+onboarding = false
+
 [theme]
 name = "tokyo-night"
 
@@ -21,7 +23,7 @@ focus_agent = ["prefix+alt+1", "prefix+alt+2", "prefix+alt+3", "prefix+alt+4", "
 workspace_picker = ["prefix+w"]
 
 [[keys.command]]
-keys = ["prefix+a"]
+key = "prefix+a"
 type = "pane"
 command = '''
 target=$(${HERDR_BIN_PATH:-herdr} agent list | jq -r '.result.agents[] | "\(.terminal_id)\t\(.agent)\t\(.workspace_id)\t\(.cwd)"' 2>/dev/null | fzf --with-nth=2.. --prompt="Agent > " | awk '{print $1}')
