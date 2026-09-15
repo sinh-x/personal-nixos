@@ -2703,13 +2703,13 @@
         ]
       },
       "locked": {
-        "lastModified": 1789256330,
-        "narHash": "sha256-zGBpc6cnqXj0bqV8XUqMYEpv5YveaQH34IVyCUO9qqs=",
-        "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
+        "lastModified": 1789312125,
+        "narHash": "sha256-wn4W1ZRNZBzkSveaQ/4qPGOKSpyQ1Yr2MJOxwZt0Z3U=",
+        "path": "/home/sinh/orca/workspaces/pa-platform/PAP-191",
         "type": "path"
       },
       "original": {
-        "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
+        "path": "/home/sinh/orca/workspaces/pa-platform/PAP-191",
         "type": "path"
       }
     },
