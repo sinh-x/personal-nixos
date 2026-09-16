@@ -309,6 +309,9 @@ let
     "BELLA CAFE 3" = {
       pskRaw = "ext:kh_bellacafe";
     };
+    "TRAM COFFEE & MORE" = {
+      pskRaw = "ext:th_tramcoffee";
+    };
 
     # Open networks (no password)
     "TOCEPO" = { };
