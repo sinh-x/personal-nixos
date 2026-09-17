@@ -22,6 +22,8 @@
       pa-platform # PA platform with bundled Pi vimmode
       obsidian
       logseq
+      lgtm
+      treehouse
       andafin-jira-mcp
       personal-google-mcp
       pi-coding-agent
