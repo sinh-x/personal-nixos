@@ -309,6 +309,8 @@ let
     "BELLA CAFE 3" = {
       pskRaw = "ext:kh_bellacafe";
     };
+    "FOXHOUSE PICK BREW" = {
+    };
     "TRAM COFFEE & MORE" = {
       pskRaw = "ext:th_tramcoffee";
     };
