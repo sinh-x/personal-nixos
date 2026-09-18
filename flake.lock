@@ -2700,11 +2700,13 @@
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "piVimMode": "piVimMode",
+        "properPiExtensions": "properPiExtensions"
       },
       "locked": {
-        "lastModified": 1789653800,
-        "narHash": "sha256-XfQYAbIxy2FIwGVZK64z9AsZH10hXJ2F7JZm1F7lc0g=",
+        "lastModified": 1789773999,
+        "narHash": "sha256-pzZb7BPWIfPyUgHhQM5YMEDKL/oCkZqmaDrEZtocaOQ=",
         "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
         "type": "path"
       },
@@ -2732,6 +2734,23 @@
       "original": {
         "type": "git",
         "url": "file:///home/sinh/git-repos/sinh-x/tools/personal-google-mcp"
+      }
+    },
+    "piVimMode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784735821,
+        "narHash": "sha256-PNkKCjIXCA/gNSuXkUp6JcRk28CpJLdKrE+JqKidocI=",
+        "owner": "pekochan069",
+        "repo": "pi-vimmode",
+        "rev": "52bd6ac5e905157ac46ec15c120b7d0cc61a62df",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pekochan069",
+        "repo": "pi-vimmode",
+        "rev": "52bd6ac5e905157ac46ec15c120b7d0cc61a62df",
+        "type": "github"
       }
     },
     "pre-commit-hooks": {
@@ -2875,6 +2894,23 @@
       "original": {
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
+        "type": "github"
+      }
+    },
+    "properPiExtensions": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788299273,
+        "narHash": "sha256-XVrUvN4F7xgVeDZb4oOm0CIdbjlmd7mkuGTYbUZJfAM=",
+        "owner": "sharaf-nassar",
+        "repo": "proper-pi-extensions",
+        "rev": "859feb321ec81d773beea379d28e21d0b7d0c8c0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sharaf-nassar",
+        "repo": "proper-pi-extensions",
+        "rev": "859feb321ec81d773beea379d28e21d0b7d0c8c0",
         "type": "github"
       }
     },
