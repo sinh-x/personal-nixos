@@ -314,6 +314,9 @@ let
     "TRAM COFFEE & MORE" = {
       pskRaw = "ext:th_tramcoffee";
     };
+    "YuuCoffee Tret" = {
+      pskRaw = "ext:hcm_yuucoffeeq7";
+    };
 
     # Open networks (no password)
     "TOCEPO" = { };
