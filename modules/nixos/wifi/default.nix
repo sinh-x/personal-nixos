@@ -317,6 +317,12 @@ let
     "YuuCoffee Tret" = {
       pskRaw = "ext:hcm_yuucoffeeq7";
     };
+    "Hustle Viet Nam" = {
+      pskRaw = "ext:hcm_hustle_q7";
+    };
+    "PTCOM_L3" = {
+      pskRaw = "ext:hcm_airbnb_q7_ptcom";
+    };
 
     # Open networks (no password)
     "TOCEPO" = { };
