@@ -320,6 +320,12 @@ let
     "Hustle Viet Nam" = {
       pskRaw = "ext:hcm_hustle_q7";
     };
+    "WORKFLOW_MBS" = {
+      pskRaw = "ext:hcm_workflow_q7";
+    };
+    "Oharra-Coffee" = {
+      pskRaw = "ext:hcm_ohara_q7";
+    };
     "PTCOM_L3" = {
       pskRaw = "ext:hcm_airbnb_q7_ptcom";
     };
