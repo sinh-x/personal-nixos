@@ -323,7 +323,7 @@ let
     "WORKFLOW_MBS" = {
       pskRaw = "ext:hcm_workflow_q7";
     };
-    "Oharra-Coffee" = {
+    "Ohara-Coffee" = {
       pskRaw = "ext:hcm_ohara_q7";
     };
     "PTCOM_L3" = {
