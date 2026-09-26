@@ -69,7 +69,7 @@ ppa deploy requirements \
 The command must exit successfully without spawning an agent. Record the deployment ID and verify its repository evidence:
 
 ```console
-ppa registry show <deployment-id> --json
+ppa registry show <deployment-id>
 ```
 
 For requirements analysis, the evidence must name repo key `nixos` and canonical root `/home/sinh/git-repos/sinh-x/personal-nixos`, not the Orca worktree path. This check proves requirements identity only; it does not authenticate a future builder checkout.
