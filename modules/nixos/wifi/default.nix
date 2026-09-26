@@ -326,6 +326,9 @@ let
     "Ohara-Coffee" = {
       pskRaw = "ext:hcm_ohara_q7";
     };
+    "FPT lazania" = {
+      pskRaw = "ext:tn_lazania_datthanh";
+    };
     "PTCOM_L3" = {
       pskRaw = "ext:hcm_airbnb_q7_ptcom";
     };
