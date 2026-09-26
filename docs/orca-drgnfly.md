@@ -48,30 +48,32 @@ Orca owns its mutable profile. Home Manager intentionally does **not** create or
 
 ## Native Pi worktrees versus PPA
 
-These are separate workflows:
+These are separate trust paths:
 
-- **Native Pi sessions:** launch Pi from Orca's agent picker. Pi runs inside the Orca-created worktree and is used for isolated concurrent work.
-- **PPA deployments:** launch PPA manually from an Orca terminal with explicit repository identity `--repo nixos`. PPA resolves that key to the registered canonical root `/home/sinh/git-repos/sinh-x/personal-nixos`.
+- **Native Pi sessions:** launch Pi from Orca's agent picker. Pi runs inside the Orca-created worktree for isolated native work. That worktree is not, by itself, trusted PPA checkout evidence.
+- **PPA requirements analysis (`requirements/analyze`):** launch PPA from an Orca terminal with explicit repository identity `--repo nixos`. PPA resolves the key to the registered canonical root `/home/sinh/git-repos/sinh-x/personal-nixos`. Requirements uses that canonical root for read-only analysis and records repository identity, ticket, approved full base, planned branch, and create action; it neither requires nor creates a builder checkout.
+- **PPA builder execution:** after plan approval, the trusted builder launcher reserves capacity and acquires or reuses and authenticates a distinct ticket checkout. Protected runtime and registry evidence must bind that checkout to the canonical identity and exact ticket before the orchestrator materializes the linked branch or starts implementation.
+- **PPA builder-candidate final review (`requirements/review-auto`):** launch from the exact authenticated linked-worktree root without `--repo nixos` or another selector that forces canonical-root resolution. Verify the registered `nixos` canonical identity separately; `PA_REPO`, the current directory, Git top level, deployment context, and registry worktree evidence must equal the authenticated linked-worktree root.
 
-PPA execution against an Orca-managed worktree is out of scope until PAP-192. Never identify an Orca worktree as the PPA repository. Keep `--repo nixos` in every command, even if the current terminal happens to be at the canonical root.
+Never present an arbitrary Orca-created worktree, its current directory, or objective text as authenticated PPA builder or review evidence. At builder launch, `PA_REPO`, the current directory, Git top level, deployment context, and registry start evidence must all equal the authenticated ticket checkout supplied by the runtime. Explicit `--repo nixos` belongs only to the canonical-root `requirements/analyze` launches shown below.
 
-Before spawning an agent, use this smoke test from an Orca terminal (including one currently inside an Orca worktree):
+Before spawning an agent, use this requirements-path smoke test from an Orca terminal, including one currently inside an Orca worktree:
 
 ```console
 ppa deploy requirements \
   --mode analyze \
   --repo nixos \
   --dry-run \
-  --objective "Orca PPA canonical-root smoke test"
+  --objective "Orca PPA requirements identity smoke test"
 ```
 
 The command must exit successfully without spawning an agent. Record the deployment ID and verify its repository evidence:
 
 ```console
-ppa registry show <deployment-id> --json
+ppa registry show <deployment-id>
 ```
 
-The evidence must name repo key `nixos` and root `/home/sinh/git-repos/sinh-x/personal-nixos`, not the Orca worktree path.
+For requirements analysis, the evidence must name repo key `nixos` and canonical root `/home/sinh/git-repos/sinh-x/personal-nixos`, not the Orca worktree path. This check proves requirements identity only; it does not authenticate a future builder checkout.
 
 A normal requirements launch uses the same explicit repository selection and omits `--dry-run`:
 
@@ -83,7 +85,7 @@ ppa deploy requirements \
   --objective "<objective>"
 ```
 
-Use the appropriate approved team and mode for other PPA workflows; `--repo nixos` remains mandatory.
+Use only the approved ticket flow for builder work. Do not launch implementation against whichever Orca worktree happens to be open; the trusted builder/orchestrator launch must supply and authenticate the ticket checkout first.
 
 ## Persistence
 
@@ -138,7 +140,7 @@ Start `orca-ide` in a terminal and retain stderr and relevant journal output. Do
 
 ### PPA reports a repository identity error
 
-Confirm the registered repository key and use `--repo nixos`. Do not weaken identity checks and do not register an Orca worktree as a replacement root. Until PAP-192 is complete, keep native Pi worktree activity separate from canonical-root PPA deployments.
+Confirm the registered repository key, then distinguish the launch mode. For canonical-root `requirements/analyze`, use `--repo nixos` and verify that all runtime paths resolve to the registered canonical root. For builder-candidate `requirements/review-auto`, launch from the exact authenticated linked-worktree root without `--repo nixos` or another selector that forces canonical-root resolution; verify canonical repository identity separately and require the runtime paths and registry worktree evidence to equal that authenticated root. For builder execution, verify that protected launch evidence supplies one authenticated ticket checkout bound to the canonical identity, ticket, lease, capacity, lineage, and exact branch. Do not weaken identity checks, register an Orca worktree as a replacement canonical root, or substitute the currently open Orca worktree; a mismatch must stop before project-file or branch mutation.
 
 ### State is missing after reboot
 
