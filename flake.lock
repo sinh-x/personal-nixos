@@ -7,8 +7,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1788235443,
-        "narHash": "sha256-68TzkCAQdSQ+rb9l4gvkzvNlHDqKx0xvODbUbRrHLA8=",
+        "lastModified": 1790432455,
+        "narHash": "sha256-nFDaXlxtAM4b5btOy/AiEVW1R92tWsKjE6xRZsDkvLQ=",
         "path": "/home/sinh/git-repos/andafin/infrastructure/andafin-jira-mcp",
         "type": "path"
       },
@@ -2705,8 +2705,8 @@
         "properPiExtensions": "properPiExtensions"
       },
       "locked": {
-        "lastModified": 1790215558,
-        "narHash": "sha256-+HnjdO8nnfuVzmvsyidKky1Y22aB6BvArmQ9ah3p3N8=",
+        "lastModified": 1790439952,
+        "narHash": "sha256-soMqNjEIeaHpzHZ80KsjSbM/bKh+AmiwMMZBqN/10vw=",
         "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
         "type": "path"
       },
