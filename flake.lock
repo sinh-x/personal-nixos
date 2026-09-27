@@ -2705,8 +2705,8 @@
         "properPiExtensions": "properPiExtensions"
       },
       "locked": {
-        "lastModified": 1790439952,
-        "narHash": "sha256-soMqNjEIeaHpzHZ80KsjSbM/bKh+AmiwMMZBqN/10vw=",
+        "lastModified": 1790464420,
+        "narHash": "sha256-7Cf2ERGoKbbjT6uWeQjyD306LKLqlyLfMXUM64eWIeY=",
         "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
         "type": "path"
       },
