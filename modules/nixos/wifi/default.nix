@@ -329,6 +329,15 @@ let
     "FPT lazania" = {
       pskRaw = "ext:tn_lazania_datthanh";
     };
+    "Soi Vot Xua Inside" = {
+      pskRaw = "ext:tn_soivotxua";
+    };
+    "Cuu Long Ca Phe" = {
+      pskRaw = "ext:hcm_cuulongcaphe_q1";
+    };
+    "LUNA COFFEE" = {
+      pskRaw = "ext:kh_luna_nh";
+    };
     "PTCOM_L3" = {
       pskRaw = "ext:hcm_airbnb_q7_ptcom";
     };
