@@ -32,36 +32,63 @@ let
   directCtrlAltBindings = lib.filter isDirectCtrlAlt allBindings;
   sorted = lib.sort builtins.lessThan;
 
-  requiredRoutes = {
+  expectedActionRoutes = {
+    focus_pane_down = [
+      "prefix+down"
+      "prefix+j"
+    ];
+    focus_pane_left = [
+      "prefix+h"
+      "prefix+left"
+    ];
+    focus_pane_right = [
+      "prefix+l"
+      "prefix+right"
+    ];
+    focus_pane_up = [
+      "prefix+k"
+      "prefix+up"
+    ];
     next_tab = [
       "alt+shift+right"
       "prefix+n"
-      "prefix+right"
     ];
-    next_workspace = [
-      "alt+shift+down"
-      "prefix+down"
-    ];
+    next_workspace = [ "alt+shift+down" ];
     previous_tab = [
       "alt+shift+left"
-      "prefix+left"
       "prefix+p"
     ];
-    previous_workspace = [
-      "alt+shift+up"
-      "prefix+up"
-    ];
+    previous_workspace = [ "alt+shift+up" ];
     switch_workspace = map (index: "prefix+${toString index}") (lib.range 1 9);
   };
-  missingRequiredRoutes = lib.concatLists (
+  exactRouteSetViolations = lib.concatLists (
     lib.mapAttrsToList (
-      action: routes:
-      map (route: "${action}:${route}") (
-        lib.filter (route: !(lib.elem route (actionBindings.${action} or [ ]))) routes
-      )
-    ) requiredRoutes
+      action: expectedRoutes:
+      let
+        actualRoutes = actionBindings.${action} or [ ];
+      in
+      lib.optional (sorted actualRoutes != sorted expectedRoutes)
+        "${action}: expected [${lib.concatStringsSep ", " expectedRoutes}], got [${lib.concatStringsSep ", " actualRoutes}]"
+    ) expectedActionRoutes
   );
 
+  routeOwners =
+    route:
+    lib.attrNames (lib.filterAttrs (_action: routes: lib.elem route routes) actionBindings)
+    ++ lib.optional (lib.any (binding: binding.key == route) commandBindings) "command";
+  routeOwnershipViolations = lib.concatLists (
+    lib.mapAttrsToList (
+      action: routes:
+      map (
+        route: "${route}: expected owner ${action}, got [${lib.concatStringsSep ", " (routeOwners route)}]"
+      ) (lib.filter (route: routeOwners route != [ action ]) routes)
+    ) expectedActionRoutes
+  );
+
+  sequentialWorkspacePrefixExceptions = [
+    "next_workspace"
+    "previous_workspace"
+  ];
   requiredPrefixedActions = [
     "focus_agent"
     "focus_pane_down"
@@ -70,9 +97,7 @@ let
     "focus_pane_up"
     "new_tab"
     "next_tab"
-    "next_workspace"
     "previous_tab"
-    "previous_workspace"
     "split_vertical"
     "switch_workspace"
     "workspace_picker"
@@ -97,13 +122,16 @@ assert lib.assertMsg (
   directCtrlAltBindings == [ ]
 ) "Herdr must not define direct Ctrl+Alt bindings";
 assert lib.assertMsg (
-  missingRequiredRoutes == [ ]
-) "Herdr is missing required routes: ${lib.concatStringsSep ", " missingRequiredRoutes}";
+  exactRouteSetViolations == [ ]
+) "Herdr action route sets differ: ${lib.concatStringsSep "; " exactRouteSetViolations}";
+assert lib.assertMsg (routeOwnershipViolations == [ ])
+  "Herdr routes have incorrect or duplicate owners: ${lib.concatStringsSep "; " routeOwnershipViolations}";
 assert lib.assertMsg (
   missingPrefixedActions == [ ]
 ) "Herdr actions are missing prefix routes: ${lib.concatStringsSep ", " missingPrefixedActions}";
-assert lib.assertMsg (configuredActionsWithoutPrefix == [ ])
-  "Configured Herdr actions are missing prefix routes: ${lib.concatStringsSep ", " configuredActionsWithoutPrefix}";
+assert lib.assertMsg
+  (sorted configuredActionsWithoutPrefix == sorted sequentialWorkspacePrefixExceptions)
+  "Only previous_workspace and next_workspace may lack prefix routes; got: ${lib.concatStringsSep ", " configuredActionsWithoutPrefix}";
 assert lib.assertMsg (
   commandsWithoutPrefix == [ ]
 ) "Configured Herdr commands must use prefix routes";
