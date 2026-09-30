@@ -29,7 +29,10 @@
         "sd_mod"
         "rtsx_pci_sdmmc"
       ];
-      kernelModules = [ "dm_mod" ];
+      kernelModules = [
+        "dm_mod"
+        "i915"
+      ];
       supportedFilesystems = [
         "btrfs"
         "vfat"

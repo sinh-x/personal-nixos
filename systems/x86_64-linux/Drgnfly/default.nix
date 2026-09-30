@@ -108,10 +108,11 @@
     };
     # Note: deep sleep (S3) not supported on this hardware, only s2idle available
     kernelParams = [ ];
-    extraModprobeConfig = ''
-      options snd-hda-intel
-    '';
-    blacklistedKernelModules = [ "nouveau" ];
+    # TigerLake 9a60 is unsupported by xe on this kernel and must use i915.
+    blacklistedKernelModules = [
+      "nouveau"
+      "xe"
+    ];
   };
 
   services = {
