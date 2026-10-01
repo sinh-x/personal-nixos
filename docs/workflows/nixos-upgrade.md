@@ -116,9 +116,13 @@ Compare warnings against the Phase 2 baseline. Every new warning must be `fixed`
 3. Wait for Sinh's exact command result and observations for connectivity, display/session, boot-critical services, and other plan-identified critical services. Silence is not success.
 4. A failed UAT returns to non-editing diagnosis and, when a source change is needed, a fresh Phase 4 approval. Only a Sinh-reported passing Drgnfly test without critical regression permits a passing Phase 5 fingerprint.
 
-## Phase 6 — Audit, rollback, and handoff
+## Phase 6 — Sinh-approved persistent switch
 
-1. Validate the Phase 5 fingerprint and reconcile the ledger across all six phases. Require every command and exit status, skip reason, baseline, lock/input inventory, warning disposition, approval, diff, checkpoint, invalidation, UAT result, and rollback instruction to resolve.
+Admit this phase only after the automated-pass fingerprint and passing Phase 5 fingerprint both remain current and match in full. Zero fingerprint mismatches are permitted. This structural entry point does not authorize a persistent switch; detailed admission, execution, and failure controls must be established before use.
+
+## Phase 7 — Audit, rollback, and handoff
+
+1. Validate the Phase 6 fingerprint and reconcile the ledger across all seven phases. Require every command and exit status, skip reason, baseline, lock/input inventory, warning disposition, approval, diff, checkpoint, invalidation, UAT result, and rollback instruction to resolve.
 2. Validate non-privileged repository rollback in a disposable clone or equivalent isolated validation location, never by destructively changing the authenticated ticket checkout. Prove the documented sequence returns to the recorded baseline lineage and original lock digest. Only Sinh may run privileged system rollback.
 3. Confirm all authorized changes are committed, the authenticated checkout is clean, all four host evaluations and the Drgnfly build are current, UAT passed, and zero new warnings are undispositioned. Any missing evidence produces a blocked or rollback recommendation, never partial success.
 4. Publish the final branch, full HEAD, changed-path list, audit artifact, UAT evidence, rollback evidence, and recommendation. Sinh retains final merge and application authority.
@@ -127,4 +131,4 @@ Compare warnings against the Phase 2 baseline. Every new warning must be `fixed`
 
 ## Completion gate
 
-The workflow is complete only when all six phase fingerprints match; the full refresh preserves declared inputs; flake check, four-host evaluation, and the Drgnfly build pass; every repair has exact prior approval and remains within bounds; Sinh reports passing Drgnfly UAT; rollback validation and the command audit are complete; zero new warnings are undispositioned; and final handoff leaves merge, application, and checkout return to Sinh.
+The workflow is complete only when all seven phase fingerprints match; the full refresh preserves declared inputs; flake check, four-host evaluation, and the Drgnfly build pass; every repair has exact prior approval and remains within bounds; Sinh reports passing Drgnfly UAT; rollback validation and the command audit are complete; zero new warnings are undispositioned; and final handoff leaves merge, application, and checkout return to Sinh.
