@@ -25,7 +25,7 @@ Admission permits one active builder lineage per repository/ticket and at most f
 
 Only the authenticated builder orchestrator may use ordinary Git to create the exact planned branch from the approved base. For a later materialized run it may select only the exact runtime-authenticated linked branch. Before implementation starts, persist the checkout and lease binding, capacity permit, lineage and correlation identifiers, branch result, full HEAD, and complete launch status. Objective text, an arbitrary checkout, and an Orca-created worktree are not authentication evidence.
 
-Missing, stale, duplicate, replayed, self-asserted, or conflicting evidence fails closed. Every checkout stop diagnostic must be at most 2,000 JavaScript characters and use all five labels:
+Missing, stale, duplicate, replayed, self-asserted, or conflicting evidence fails closed. Every workflow stop diagnostic must be at most 2,000 JavaScript characters and use all five labels:
 
 ```text
 Condition: <what stopped>
@@ -58,7 +58,8 @@ At each phase boundary persist one resume fingerprint containing:
 - `flake.lock` SHA-256;
 - required local-input full HEADs and expected status;
 - allowed changed paths and relevant file hashes;
-- current approvals, warning state, and local checkpoint commits; and
+- current approvals, warning state, and local checkpoint commits;
+- for Phases 5 and 6, the current, target, active, boot, and booted generation identities, the network recovery plan, and the exact test, rebuild, and rollback command evidence; and
 - command-log and decision references.
 
 On resume, compare every field with fresh read-only observations before reusing prior work. A mismatch invalidates evidence from the earliest affected phase: admission or repository identity restarts Phase 1; baseline or declaration evidence restarts Phase 2; lock, source, verification, repair, or UAT drift restarts the phase that produced it. Preserve the mismatch and invalidated evidence; do not normalize the checkout. Expensive checks may be reused only after a complete fingerprint match.
@@ -118,7 +119,28 @@ Compare warnings against the Phase 2 baseline. Every new warning must be `fixed`
 
 ## Phase 6 — Sinh-approved persistent switch
 
-Admit this phase only after the automated-pass fingerprint and passing Phase 5 fingerprint both remain current and match in full. Zero fingerprint mismatches are permitted. This structural entry point does not authorize a persistent switch; detailed admission, execution, and failure controls must be established before use.
+1. Admit this phase only after fresh read-only observations prove that the automated-pass fingerprint and passing Phase 5 fingerprint both remain current, match each other in full, and identify the same reviewed feature candidate. Reconcile canonical and authenticated repository identity, ticket, branch, full HEAD, lock digest, local-input HEADs and statuses, allowed paths and hashes, warning dispositions, repair approvals and checkpoints, Phase 5 command and observations, generation evidence, and command-log references. Zero mismatches are permitted. Drift invalidates evidence from the earliest affected phase and blocks approval and execution.
+2. Before requesting approval, record network recovery readiness: the pre-switch connectivity baseline, a tested independent local or console access path, the responsible operator, the prior active and boot generation identities, and the concrete system rollback command below. A missing recovery path blocks the switch.
+3. Present one immutable approval record containing the canonical repository key and root; runtime-authenticated checkout path and Git top level; ticket; exact branch and full HEAD; `flake.lock` SHA-256; current generation number and store path; target generation number and candidate toplevel store path; the Phase 5 and automated-pass fingerprint references; network recovery evidence; and this exact checkout-bound command with the runtime value substituted:
+
+   ```console
+   cd '<runtime-authenticated checkout path>' && sudo sys rebuild
+   ```
+
+   Hash the complete presentation and record it in the decision ledger. The displayed target must be the already-reviewed Drgnfly build output; rebuilding a different HEAD, lock, or local-input state is forbidden.
+4. Obtain fresh explicit approval from Sinh, durably tied to that presentation hash and exact command. This is distinct from Phase 5: test approval does not approve persistent switch. Silence, elapsed time, a prior repair approval, or a passing test is not approval. Immediately before execution, re-read every admission field and the command; any change cancels the approval and returns to the earliest affected phase.
+5. Agents maintain zero agent-run privileged commands. Only Sinh may run the exact displayed command from the authenticated checkout. Sinh must report the exact command run, start and end timestamps, exit status, output or durable log reference, and whether execution was interrupted; an agent must not infer a result or retry the command.
+6. After the command, capture the active generation, the boot generation selected as the default for the next boot, and the currently booted generation, each by generation number and resolved store path. Require exit status 0 and require both the active generation and next-boot generation to equal the approved target. The currently booted generation may remain the recorded prior generation because there is no mandatory reboot. Repeat and record connectivity, display/session, boot-critical service, and every plan-named critical-service observation. All must pass with no critical regression.
+7. A nonzero or missing exit status, fingerprint or command drift, active or boot generation mismatch, connectivity loss, display/session failure, or boot-critical or plan-named service regression blocks success. Preserve the command output, observations, generation links, failure time, and unchanged authenticated checkout. Present the following concrete actions with every placeholder substituted from the ledger; only Sinh may run the privileged action:
+
+   ```console
+   sudo nixos-rebuild switch --rollback
+   git clone --no-local '<canonical repository root>' '<new disposable rollback clone>' && git -C '<new disposable rollback clone>' switch --detach '<baseline full HEAD>' && test "$(sha256sum '<new disposable rollback clone>/flake.lock' | cut -d ' ' -f1)" = '<original lock SHA-256>'
+   ```
+
+   Use the recorded local or console path if networking failed. After system rollback, Sinh reports its exit status and the active, next-boot, and booted generation identities plus the same critical observations; they must match the recorded baseline before recovery is accepted. The non-privileged repository command reconstructs and verifies the baseline only in a new disposable clone; it must not alter the authenticated ticket checkout. Diagnose without edits, then route source changes through a fresh bounded Phase 4 proposal and repeat every invalidated phase.
+8. Every Phase 6 stop records the bounded five-label diagnostic (`Condition`, `Source`, `Reason`, `Correction`, and `Resume Action`) in at most 2,000 JavaScript characters. Persist a passing Phase 6 fingerprint only when all admission, approval, execution, generation, service, warning, failure-readiness, and rollback-command evidence agrees.
+9. Switch this exact reviewed feature candidate before any merge decision. Switch approval authorizes only the displayed rebuild command: merge remains a separate later decision, as do branch removal, checkout alteration, checkout return, and any reboot.
 
 ## Phase 7 — Audit, rollback, and handoff
 
