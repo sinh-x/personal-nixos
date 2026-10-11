@@ -82,7 +82,7 @@
       mpd.enable = true;
       utilities.enable = true;
       tools = {
-        kdenlive.enable = false;
+        kdenlive.enable = true;
       };
     };
 
