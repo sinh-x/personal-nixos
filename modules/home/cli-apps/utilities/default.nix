@@ -155,7 +155,6 @@ in
         "x-scheme-handler/viber" = "viber.desktop";
         "x-scheme-handler/tg" = "org.telegram.desktop.desktop";
         "x-scheme-handler/tonsite" = "org.telegram.desktop.desktop";
-        "x-scheme-handler/anytype" = "anytype.desktop";
 
         # PDF
         "application/pdf" = "org.gnome.Evince.desktop";

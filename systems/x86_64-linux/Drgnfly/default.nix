@@ -17,6 +17,7 @@
   ];
 
   sinh-x.default-desktop.enable = true;
+  sinh-x.default-desktop.thunderbird.enable = false;
 
   modules = {
     r_setup.enable = false;

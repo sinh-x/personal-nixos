@@ -1,17 +1,18 @@
 { writeShellScriptBin, ... }:
 writeShellScriptBin "sys" ''
+  set -euo pipefail
 
   NIX_BUILD_CORES=''${NIX_BUILD_CORES:-2}
   MAX_JOBS=''${MAX_JOBS:-4}
 
   cmd_rebuild() {
       echo "🔨 Building system configuration with $REBUILD_COMMAND (cores: $NIX_BUILD_CORES, jobs: $MAX_JOBS)"
-      NIX_BUILD_CORES=$NIX_BUILD_CORES $REBUILD_COMMAND switch --flake .# --max-jobs $MAX_JOBS
+      "$REBUILD_COMMAND" switch --flake "$FLAKE_DIR#" --cores "$NIX_BUILD_CORES" --max-jobs "$MAX_JOBS" "''${REBUILD_ARGS[@]}"
   }
 
   cmd_test() {
       echo "🏗️ Building ephemeral system configuration with $REBUILD_COMMAND (cores: $NIX_BUILD_CORES, jobs: $MAX_JOBS)"
-      NIX_BUILD_CORES=$NIX_BUILD_CORES $REBUILD_COMMAND test --no-reexec --flake .# --max-jobs $MAX_JOBS
+      "$REBUILD_COMMAND" test --no-reexec --flake "$FLAKE_DIR#" --cores "$NIX_BUILD_CORES" --max-jobs "$MAX_JOBS" "''${REBUILD_ARGS[@]}"
   }
 
   # TODO: Make it update a single input
@@ -29,11 +30,10 @@ writeShellScriptBin "sys" ''
   cmd_usage() {
       cat <<-_EOF
   Usage:
-      $PROGRAM rebuild [--cores N]
-          Rebuild the system. (You must be in the system flake directory!)
-          Must be run as root.
-      $PROGRAM test [--cores N]
-          Like rebuild but faster and not persistant.
+      $PROGRAM rebuild [directory] [--cores N] [--jobs N] [nixos-rebuild options]
+          Rebuild and switch the system. Must be run as root.
+      $PROGRAM test [directory] [--cores N] [--jobs N] [nixos-rebuild options]
+          Build and activate temporarily. Must be run as root.
       $PROGRAM update [input]
           Update all inputs or the input specified. (You must be in the system flake directory!)
           Must be run as root.
@@ -45,6 +45,11 @@ writeShellScriptBin "sys" ''
   Options:
       --cores N    Cores per build job (default: 2, env: NIX_BUILD_CORES)
       --jobs N     Max parallel build jobs (default: 4, env: MAX_JOBS)
+      --max-jobs N Alias for --jobs (also accepts Nix values such as auto)
+
+  Build limits may appear before or after test/rebuild. Directory defaults to .
+  Additional nixos-rebuild options are forwarded unchanged, after these defaults.
+  Example: $PROGRAM test . --cores 4 --jobs 6 --option sandbox true
   _EOF
   }
 
@@ -55,25 +60,72 @@ writeShellScriptBin "sys" ''
     REBUILD_COMMAND=darwin-rebuild
   fi
 
-  # Parse --cores/--jobs before subcommand
-  for arg in "$@"; do
-      case "$arg" in
-          --cores) shift; NIX_BUILD_CORES="$1"; shift ;;
-          --cores=*) NIX_BUILD_CORES="''${arg#*=}"; shift ;;
-          --jobs) shift; MAX_JOBS="$1"; shift ;;
-          --jobs=*) MAX_JOBS="''${arg#*=}"; shift ;;
+  parse_build_limit() {
+      case "$1" in
+          --cores|--jobs|--max-jobs)
+              if [[ $# -lt 2 || -z "''${2:-}" || "''${2:-}" == --* ]]; then
+                  echo "$1 requires a value" >&2
+                  exit 2
+              fi
+              if [[ "$1" == --cores ]]; then
+                  NIX_BUILD_CORES="$2"
+              else
+                  MAX_JOBS="$2"
+              fi
+              PARSED_COUNT=2
+              ;;
+          --cores=*) NIX_BUILD_CORES="''${1#*=}"; PARSED_COUNT=1 ;;
+          --jobs=*|--max-jobs=*) MAX_JOBS="''${1#*=}"; PARSED_COUNT=1 ;;
+          *) return 1 ;;
       esac
-  done
+      if [[ -z "$NIX_BUILD_CORES" || -z "$MAX_JOBS" ]]; then
+          echo "Build limits require non-empty values" >&2
+          exit 2
+      fi
+  }
 
   PROGRAM=sys
-  COMMAND="$1"
-  case "$1" in
-      rebuild|r) shift;       cmd_rebuild ;;
-      test|t) shift;          cmd_test ;;
-      update|u) shift;        cmd_update ;;
-      clean|c) shift;         cmd_clean ;;
-      help|--help) shift;     cmd_usage "$@" ;;
-      *)              echo "Unknown command: $@" ;;
+  FLAKE_DIR=.
+  REBUILD_ARGS=()
+  while [[ $# -gt 0 ]] && parse_build_limit "$@"; do
+      shift "$PARSED_COUNT"
+  done
+  COMMAND="''${1:-help}"
+  if [[ $# -gt 0 ]]; then shift; fi
+
+  case "$COMMAND" in
+      rebuild|r|test|t)
+          if [[ $# -gt 0 && "$1" != -* ]]; then
+              FLAKE_DIR="$1"
+              shift
+          fi
+          while [[ $# -gt 0 ]]; do
+              if parse_build_limit "$@"; then
+                  shift "$PARSED_COUNT"
+              else
+                  case "$1" in
+                      --option)
+                          if [[ $# -lt 3 ]]; then
+                              echo "--option requires a name and value" >&2
+                              exit 2
+                          fi
+                          REBUILD_ARGS+=("$1" "$2" "$3")
+                          shift 3
+                          ;;
+                      --) shift; REBUILD_ARGS+=("$@"); break ;;
+                      *) REBUILD_ARGS+=("$1"); shift ;;
+                  esac
+              fi
+          done
+          ;;
   esac
-  exit 0
+
+  case "$COMMAND" in
+      rebuild|r) cmd_rebuild ;;
+      test|t) cmd_test ;;
+      update|u) cmd_update ;;
+      clean|c) cmd_clean ;;
+      help|--help|-h) cmd_usage ;;
+      *) echo "Unknown command: $COMMAND" >&2; exit 2 ;;
+  esac
 ''

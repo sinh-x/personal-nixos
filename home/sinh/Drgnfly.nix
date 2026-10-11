@@ -17,7 +17,7 @@
       sct # for setting color temperature
       sound-theme-freedesktop # notification sounds
       mermaid-cli # mmdc - diagram generation from text
-      openai-whisper # speech-to-text recognition
+      # openai-whisper # Speech-to-text temporarily deferred during the upgrade.
       orca-ide # Stably AI Orca agent development environment
       pa-platform # PA platform with bundled Pi vimmode
       obsidian
@@ -82,7 +82,7 @@
       mpd.enable = true;
       utilities.enable = true;
       tools = {
-        kdenlive.enable = true;
+        kdenlive.enable = false;
       };
     };
 
@@ -96,7 +96,7 @@
       shell.fish.enable = true;
       shell.zsh.enable = false;
       starship.enable = true;
-      multiplexers.zellij.enable = true;
+      multiplexers.zellij.enable = false;
       multiplexers.herdr.enable = true;
       editor.neovim.enable = true;
       backup.enable = true;

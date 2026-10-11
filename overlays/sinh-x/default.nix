@@ -10,7 +10,45 @@
   inputs,
   ...
 }:
-_final: prev: {
+let
+  # AnyIO 4.14.2 has an invalid TLS fixture and a racy global thread-count test.
+  # Correct the tests without adding skips or changing runtime behavior.
+  pythonAnyioFix = _final: prev: {
+    pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+      (_pythonFinal: pythonPrev: {
+        anyio = pythonPrev.anyio.overridePythonAttrs (
+          old:
+          prev.lib.optionalAttrs (old.version == "4.14.2") {
+            postPatch = (old.postPatch or "") + ''
+              substituteInPlace tests/streams/test_tls.py \
+                --replace-fail $'server_side=True,\n            hostname="localhost",' 'server_side=True,'
+              substituteInPlace tests/test_to_thread.py \
+                --replace-fail 'active_threads_before = threading.active_count()' \
+                  'threads_before = set(threading.enumerate())' \
+                --replace-fail 'assert threading.active_count() == active_threads_before' \
+                  $'assert not any(thread.is_alive() for thread in threads)\n        assert set(threading.enumerate()) <= threads_before'
+            '';
+          }
+        );
+      })
+    ];
+  };
+in
+_final: prev:
+(pythonAnyioFix _final prev)
+// {
+  # Model tests auto-detect CPU threads independently of Nix's build-core hint.
+  # Avoid nested test parallelism without skipping checks or changing runtime code.
+  llama-cpp = prev.llama-cpp.overrideAttrs (
+    old:
+    prev.lib.optionalAttrs (old.version == "0.6.0") {
+      enableParallelChecking = false;
+      preCheck = (old.preCheck or "") + ''
+        export LLAMA_ARG_THREADS=2
+      '';
+    }
+  );
+
   # For example, to pull a package from unstable NixPkgs make sure you have the
   # input `unstable = "github:nixos/nixpkgs/nixos-unstable"` in your flake.
 
@@ -23,11 +61,11 @@ _final: prev: {
 
   inherit (inputs.sinh-x-zeroclaw.packages.${prev.stdenv.hostPlatform.system}) sinh-x-zeroclaw;
 
-  nixvim = inputs.sinh-x-nixvim.packages.${prev.stdenv.hostPlatform.system}.nvim;
+  # Neovim uses its own package set, so apply the same fixture fix there.
+  nixvim = inputs.sinh-x-nixvim.packages.${prev.stdenv.hostPlatform.system}.nvim.override (args: {
+    pkgs = args.pkgs.extend pythonAnyioFix;
+  });
   zjstatus = inputs.zjstatus.packages.${prev.stdenv.hostPlatform.system}.default;
-
-  super-productivity =
-    inputs.sinh-x-super-productivity.packages.${prev.stdenv.hostPlatform.system}.default;
 
   inherit (inputs.sinh-x-zca-js.packages.${prev.stdenv.hostPlatform.system}) zca-listener;
 

@@ -209,7 +209,6 @@ in
           ssha = "ssh-add";
           sshref = "rm ~/.ssh/known_hosts";
           sshconfig = "nvim ~/.ssh/config";
-          anytype = "flatpak run io.anytype.anytype";
         };
 
         plugins = [

@@ -74,20 +74,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
     zjstatus = {
       url = "github:dj95/zjstatus";
-    };
-
-    sinh-x-super-productivity = {
-      url = "github:sinh-x/super-productivity/feat/worklog-data-structure";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     sinh-x-zca-js = {

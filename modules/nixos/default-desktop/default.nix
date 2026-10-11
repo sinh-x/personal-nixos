@@ -22,6 +22,11 @@ in
 {
   options.${namespace}.default-desktop = {
     enable = mkEnableOption "Enable default desktop.";
+    thunderbird.enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Install Thunderbird in the default desktop profile.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -98,17 +103,19 @@ in
 
     # list packages installed in system profile. to search, run:
     # $ nix search wget
-    environment.systemPackages = with pkgs; [
-      vim
-      wget
-      curl
-      openssl
-      ocamlPackages.ssl
+    environment.systemPackages =
+      with pkgs;
+      [
+        vim
+        wget
+        curl
+        openssl
+        ocamlPackages.ssl
 
-      thunderbird
-      sinh-x.sys
-      kdePackages.okular
-    ];
+        sinh-x.sys
+        kdePackages.okular
+      ]
+      ++ optional cfg.thunderbird.enable thunderbird;
 
     environment.variables = {
       EDITOR = "nvim";
