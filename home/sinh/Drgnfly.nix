@@ -40,6 +40,9 @@
     ];
   };
 
+  # Manual webcam preview and recording; no automatic capture or startup.
+  programs.obs-studio.enable = true;
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
