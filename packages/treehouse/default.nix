@@ -5,14 +5,14 @@
 }:
 let
   pname = "treehouse";
-  version = "2.3.0";
+  version = "3.1.3";
 in
 stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
     url = "https://github.com/kunchenguid/treehouse/releases/download/v${version}/treehouse-v${version}-linux-amd64.tar.gz";
-    hash = "sha256-lP0rLCDDWqwd3ClBMXiQrYLJkW9czsusSlDNp4Pu0Q8=";
+    hash = "sha256-eMggxYcr+dnT6xm77ddeSAS5JYyGIjiZP6Fgz50hXtg=";
   };
 
   sourceRoot = ".";
