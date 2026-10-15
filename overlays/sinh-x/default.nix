@@ -81,6 +81,9 @@ _final: prev:
   pa-platform = inputs.pa-platform.lib.mkPaPlatform prev.stdenv.hostPlatform.system {
     enablePiVimMode = true;
     enableProperBase = false;
+    enableGhAxi = true;
+    enableChromeDevtoolsAxi = true;
+    enableQuotaAxi = true;
   };
   inherit (inputs.pa-platform.packages.${prev.stdenv.hostPlatform.system})
     pa-core
