@@ -29,7 +29,7 @@
       terminal.kitty.enable = true;
       shell.fish.enable = true;
       starship.enable = true;
-      multiplexers.zellij.enable = true;
+      multiplexers.zellij.enable = false;
       editor.neovim.enable = true;
       backup.enable = true;
       nix.enable = true;

@@ -84,6 +84,7 @@ _final: prev:
     enableGhAxi = true;
     enableChromeDevtoolsAxi = true;
     enableQuotaAxi = true;
+    enableLavishAxi = true;
   };
   inherit (inputs.pa-platform.packages.${prev.stdenv.hostPlatform.system})
     pa-core

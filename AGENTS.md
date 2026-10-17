@@ -15,6 +15,7 @@ This file is the cross-agent entry point for this repository. Keep it concise: t
 - Repository safety and privileged-command boundaries: [Safety](docs/agents/safety.md)
 - Repository structure and configuration flow: [Architecture](docs/agents/architecture.md)
 - Development commands and change conventions: [Development](docs/agents/development.md)
+- Selected application updates and app-to-source inventory: [Targeted app updates](docs/workflows/targeted-app-updates.md)
 - NixOS dependency-upgrade orchestration: [NixOS upgrade workflow](docs/workflows/nixos-upgrade.md)
 
 ## Ownership
