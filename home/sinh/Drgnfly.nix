@@ -1,6 +1,12 @@
 # Drgnfly home config - Emberroot clone with impermanence
 # This will be installed on the new 2TB SSD
 { pkgs, ... }:
+let
+  # Moneydance 2024.4 ships with Java 21; avoid the failing Java 25/JavaFX build.
+  moneydance = pkgs.moneydance.override {
+    openjdk25 = pkgs.openjdk21;
+  };
+in
 {
   imports = [
     ./global
@@ -22,6 +28,7 @@
       pa-platform # PA platform with bundled Pi vimmode
       obsidian
       logseq
+      moneydance
       lgtm
       treehouse
       andafin-jira-mcp
@@ -42,6 +49,17 @@
 
   # Manual webcam preview and recording; no automatic capture or startup.
   programs.obs-studio.enable = true;
+
+  xdg.desktopEntries.moneydance = {
+    name = "Moneydance";
+    exec = "${moneydance}/bin/moneydance";
+    terminal = false;
+    type = "Application";
+    categories = [
+      "Office"
+      "Finance"
+    ];
+  };
 
   xdg.mimeApps = {
     enable = true;
