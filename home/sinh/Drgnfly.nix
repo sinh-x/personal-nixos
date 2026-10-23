@@ -1,6 +1,6 @@
 # Drgnfly home config - Emberroot clone with impermanence
 # This will be installed on the new 2TB SSD
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./global
@@ -154,6 +154,17 @@
       niri = {
         enable = true;
         monitors.primary = "eDP-1";
+        extraWindowRules = lib.mkAfter ''
+          // NX-061: observed auxiliary titles only; main/home remain tiled.
+          window-rule {
+              match app-id="^zoom$" title="^meeting bottombar popup$"
+              match app-id="^zoom$" title="^Toolbar Menu$"
+              // The Drgnfly bridge marks only the verified utility signature.
+              // Plain "Zoom Workplace" also occurs during main-meeting startup.
+              match app-id="^zoom[.]utility$" title="^Zoom Workplace$"
+              open-floating true
+          }
+        '';
       };
     };
 
