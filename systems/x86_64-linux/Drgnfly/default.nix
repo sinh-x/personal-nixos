@@ -7,7 +7,53 @@
   pkgs,
   ...
 }:
+let
+  zoomSatelliteCompat = pkgs.xwayland-satellite.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      (builtins.path {
+        path = ./zoom-utility-app-id.patch;
+        name = "zoom-utility-app-id.patch";
+      })
+    ];
+    patchFlags = [
+      "-p1"
+      "--fuzz=0"
+    ];
+    doCheck = true;
+    nativeCheckInputs = (old.nativeCheckInputs or [ ]) ++ [ pkgs.rustfmt ];
+    cargoTestFlags = (old.cargoTestFlags or [ ]) ++ [ "--lib" ];
+    checkFlags = (old.checkFlags or [ ]) ++ [ "zoom_utility_identity_" ];
+    preCheck = (old.preCheck or "") + ''
+      rustfmt --check --edition 2024 --config skip_children=true \
+        src/server/mod.rs src/server/tests.rs src/xstate/mod.rs src/xstate/tests.rs
+    '';
+    checkPhase = ''
+      set -eo pipefail
+      export CARGO_TERM_COLOR=never
+      mkdir -p "$out/nix-support"
+      # Keep the upstream hook's target/features and fail on its real errors.
+      # A direct call preserves errexit; wait also catches log-writer failure.
+      cargoCheckHook > >(tee "$out/nix-support/zoom-utility-tests.log") 2>&1
+      wait "$!"
+      ${pkgs.python3}/bin/python3 - "$out/nix-support/zoom-utility-tests.log" <<'PY'
+      import re
+      import sys
+      from pathlib import Path
+      text = Path(sys.argv[1]).read_text(encoding="utf-8")
+      expected = {"zoom_utility_identity_" + name for name in (
+          "normal_main", "formatting_utility", "other_class", "other_title",
+          "missing_type", "type_precedence", "property_update_order", "remap_consistency")}
+      passed = re.findall(r"^test (?:\w+::)*(zoom_utility_identity_\w+) \.\.\. ok$", text, re.M)
+      assert len(passed) == 8 and set(passed) == expected
+      assert re.search(r"test result: ok\. 8 passed; 0 failed; 0 ignored;", text)
+      PY
+    '';
+  });
+in
 {
+  # Inspectable checked output; shared package sets and other hosts stay intact.
+  system.build.zoomSatelliteCompat = zoomSatelliteCompat.out;
+
   imports = [
     inputs.disko.nixosModules.disko
     ./disks.nix
@@ -187,6 +233,8 @@
   };
 
   environment.systemPackages = with pkgs; [
+    # Win profile selection over the shared module's unpatched bridge on Drgnfly.
+    (lib.hiPrio zoomSatelliteCompat)
     parted
     gptfdisk
     lm_sensors

@@ -1,0 +1,456 @@
+--- a/src/server/mod.rs
++++ b/src/server/mod.rs
+@@ -114,0 +115 @@
++    zoom_utility_candidate: bool,
+@@ -119,0 +121,17 @@
++    }
++
++    fn toplevel_identity(&self, group: Option<&Self>) -> ToplevelIdentity {
++        ToplevelIdentity {
++            class: self
++                .class
++                .as_ref()
++                .or(group.and_then(|g| g.class.as_ref()))
++                .cloned(),
++            title: self
++                .title
++                .as_ref()
++                .or(group.and_then(|g| g.title.as_ref()))
++                .map(|t| t.name().to_owned()),
++            zoom_utility_candidate: self.zoom_utility_candidate
++                && self.class.as_deref() == Some("zoom"),
++        }
+@@ -237,0 +256,22 @@
++// Cache the properties actually forwarded to Wayland. Group fallbacks are
++// resolved at creation, just as before; do not change ordinary title semantics.
++#[derive(Debug)]
++struct ToplevelIdentity {
++    class: Option<String>,
++    title: Option<String>,
++    zoom_utility_candidate: bool,
++}
++
++impl ToplevelIdentity {
++    fn app_id(&self) -> Option<&str> {
++        if self.zoom_utility_candidate
++            && self.class.as_deref() == Some("zoom")
++            && self.title.as_deref() == Some("Zoom Workplace")
++        {
++            Some("zoom.utility")
++        } else {
++            self.class.as_deref()
++        }
++    }
++}
++
+@@ -240,0 +281 @@
++    identity: ToplevelIdentity,
+@@ -924,0 +966,27 @@
++    // Only metadata-derived identity changes; never change X11 properties,
++    // parent/role, dimensions, focus, or the compositor's floating state.
++    pub fn set_zoom_utility_candidate(&mut self, window: x::Window, candidate: bool) {
++        let Some(data) = self
++            .windows
++            .get(&window)
++            .copied()
++            .and_then(|id| self.world.entity(id).ok())
++        else {
++            return;
++        };
++        data.get::<&mut WindowData>()
++            .unwrap()
++            .attrs
++            .zoom_utility_candidate = candidate;
++        if let Some(mut role) = data.get::<&mut SurfaceRole>() {
++            if let SurfaceRole::Toplevel(Some(toplevel)) = &mut *role {
++                if toplevel.identity.zoom_utility_candidate != candidate {
++                    toplevel.identity.zoom_utility_candidate = candidate;
++                    if let Some(app_id) = toplevel.identity.app_id() {
++                        toplevel.toplevel.set_app_id(app_id.to_owned());
++                    }
++                }
++            }
++        }
++    }
++
+@@ -959,0 +1028 @@
++                data.identity.title = Some(title.name().to_owned());
+@@ -960,0 +1030,5 @@
++                if data.identity.zoom_utility_candidate {
++                    if let Some(app_id) = data.identity.app_id() {
++                        data.toplevel.set_app_id(app_id.to_owned());
++                    }
++                }
+@@ -982,3 +1056,6 @@
+-        if let Some(role) = data.get::<&SurfaceRole>() {
+-            if let SurfaceRole::Toplevel(Some(data)) = &*role {
+-                data.toplevel.set_app_id(class.to_string());
++        if let Some(mut role) = data.get::<&mut SurfaceRole>() {
++            if let SurfaceRole::Toplevel(Some(data)) = &mut *role {
++                data.identity.class = Some(class.clone());
++                if let Some(app_id) = data.identity.app_id() {
++                    data.toplevel.set_app_id(app_id.to_owned());
++                }
+@@ -1495 +1572 @@
+-        if let Some(class) = window
++        let identity = window
+@@ -1497,13 +1574,6 @@
+-            .class
+-            .as_ref()
+-            .or(group.as_ref().and_then(|g| g.attrs.class.as_ref()))
+-        {
+-            toplevel.set_app_id(class.to_string());
+-        }
+-        if let Some(title) = window
+-            .attrs
+-            .title
+-            .as_ref()
+-            .or(group.as_ref().and_then(|g| g.attrs.title.as_ref()))
+-        {
+-            toplevel.set_title(title.name().to_string());
++            .toplevel_identity(group.as_ref().map(|g| &g.attrs));
++        if let Some(app_id) = identity.app_id() {
++            toplevel.set_app_id(app_id.to_owned());
++        }
++        if let Some(title) = &identity.title {
++            toplevel.set_title(title.clone());
+@@ -1590,0 +1661 @@
++            identity,
+--- a/src/xstate/mod.rs
++++ b/src/xstate/mod.rs
+@@ -617,0 +618,18 @@
++    fn refresh_zoom_utility_candidate(
++        &self,
++        server_state: &mut super::RealServerState,
++        window: x::Window,
++    ) -> XResult<()> {
++        let class = self.get_raw_window_class(window)?;
++        let candidate = if class.as_deref() == Some("zoom") {
++            let types = self.get_net_wm_window_types(window)?.unwrap_or_default();
++            let transient = self.get_transient_for(window)?;
++            self.window_atoms
++                .zoom_utility_candidate(class.as_deref(), &types, transient)
++        } else {
++            false
++        };
++        server_state.set_zoom_utility_candidate(window, candidate);
++        Ok(())
++    }
++
+@@ -622,0 +641,3 @@
++        // Refresh before forwarding any initial properties or creating a role,
++        // including when the same X window is mapped again.
++        self.refresh_zoom_utility_candidate(server_state, window)?;
+@@ -701,0 +723,9 @@
++    }
++
++    fn get_raw_window_class(&self, window: x::Window) -> XResult<Option<String>> {
++        let cookie = self.get_property_cookie(window, x::ATOM_WM_CLASS, x::ATOM_STRING, 256);
++        let resolver =
++            |reply: x::GetPropertyReply| raw_window_class(reply.value::<u8>()).map(str::to_owned);
++        PropertyCookieWrapper::new(&self.connection, cookie)
++            .resolve(resolver)
++            .map(Option::flatten)
+@@ -838,0 +869,15 @@
++        }
++        // Re-read eligibility even on deletion, but preserve the existing
++        // property forwarding/role behavior for all nonqualifying windows.
++        if [
++            x::ATOM_WM_CLASS,
++            x::ATOM_WM_NAME,
++            self.atoms.net_wm_name,
++            self.window_atoms.ty,
++            self.atoms.wm_transient_for,
++        ]
++        .contains(&event.atom())
++        {
++            unwrap_or_skip_bad_window_ret!(
++                self.refresh_zoom_utility_candidate(server_state, event.window())
++            );
+@@ -944,0 +990,30 @@
++// Eligibility needs the actual class field, never the ordinary instance fallback.
++fn raw_window_class(value: &[u8]) -> Option<&str> {
++    std::str::from_utf8(value.split(|b| *b == 0).nth(1)?).ok()
++}
++
++impl WindowTypes {
++    fn zoom_utility_candidate(
++        &self,
++        class: Option<&str>,
++        types: &[x::Atom],
++        transient: Option<x::Window>,
++    ) -> bool {
++        let recognized = [
++            self.normal,
++            self.dialog,
++            self.drag_n_drop,
++            self.splash,
++            self.menu,
++            self.popup_menu,
++            self.dropdown_menu,
++            self.utility,
++            self.tooltip,
++            self.combo,
++        ];
++        class == Some("zoom")
++            && transient.is_some_and(|parent| parent.resource_id() != 0)
++            && types.iter().copied().find(|ty| recognized.contains(ty)) == Some(self.utility)
++    }
++}
++
+--- a/src/xstate/tests.rs
++++ b/src/xstate/tests.rs
+@@ -533,0 +534,67 @@
++
++#[test]
++fn zoom_utility_identity_other_class() {
++    let atoms = WindowTypes::new();
++    for class in [None, Some(""), Some("Zoom"), Some("other-app")] {
++        assert!(!atoms.zoom_utility_candidate(class, &[atoms.utility], Some(x::Window::new(1))));
++    }
++    for bytes in [
++        b"zoom".as_slice(),
++        b"zoom\0".as_slice(),
++        b"zoom\0\0".as_slice(),
++        b"zoom\0Zoom\0".as_slice(),
++    ] {
++        assert!(!atoms.zoom_utility_candidate(
++            raw_window_class(bytes),
++            &[atoms.utility],
++            Some(x::Window::new(1))
++        ));
++    }
++    assert!(atoms.zoom_utility_candidate(
++        raw_window_class(b"zoom\0zoom\0"),
++        &[atoms.utility],
++        Some(x::Window::new(1))
++    ));
++}
++
++#[test]
++fn zoom_utility_identity_missing_type() {
++    let atoms = WindowTypes::new();
++    for types in [vec![], vec![Atom::new(0xffff)]] {
++        assert!(!atoms.zoom_utility_candidate(Some("zoom"), &types, Some(x::Window::new(1))));
++    }
++    for parent in [None, Some(x::Window::new(0))] {
++        assert!(!atoms.zoom_utility_candidate(Some("zoom"), &[atoms.utility], parent));
++    }
++}
++
++#[test]
++fn zoom_utility_identity_type_precedence() {
++    // Give every recognized type its own atom in this regression fixture.
++    let atoms = WindowTypes {
++        tooltip: Atom::new(0x108),
++        ..WindowTypes::new()
++    };
++    assert!(atoms.zoom_utility_candidate(
++        Some("zoom"),
++        &[Atom::new(0xffff), atoms.utility, atoms.normal],
++        Some(x::Window::new(1))
++    ));
++    for preceding in [
++        atoms.normal,
++        atoms.dialog,
++        atoms.menu,
++        atoms.tooltip,
++        atoms.splash,
++        atoms.combo,
++        atoms.drag_n_drop,
++        atoms.popup_menu,
++        atoms.dropdown_menu,
++    ] {
++        assert!(!atoms.zoom_utility_candidate(
++            Some("zoom"),
++            &[preceding, atoms.utility],
++            Some(x::Window::new(1))
++        ));
++    }
++}
+--- a/src/server/tests.rs
++++ b/src/server/tests.rs
+@@ -3345,0 +3346,183 @@
++
++// In-process Wayland/X-connection fixture: no real display or user session.
++fn zoom_utility_toplevel(
++    class: &str,
++    title: &str,
++    candidate: bool,
++) -> (
++    TestFixture<FakeXConnection>,
++    Compositor,
++    Window,
++    TestObject<WlSurface>,
++    testwl::SurfaceId,
++) {
++    let (mut f, comp) = TestFixture::new_with_compositor();
++    let win = Window::new(1);
++    f.new_window(
++        win,
++        false,
++        WindowData {
++            mapped: true,
++            dims: WindowDims {
++                width: 50,
++                height: 50,
++                ..Default::default()
++            },
++            ..Default::default()
++        },
++    );
++    f.satellite.set_zoom_utility_candidate(win, candidate);
++    f.satellite.set_win_class(win, class.into());
++    f.satellite.set_win_title(win, WmName::WmName(title.into()));
++    let (buffer, surface) = comp.create_surface();
++    f.map_window(&comp, win, &surface.obj, &buffer);
++    f.run();
++    let id = f.check_new_surface();
++    (f, comp, win, surface, id)
++}
++
++#[test]
++fn zoom_utility_identity_normal_main() {
++    let (mut f, _comp, win, _surface, id) = zoom_utility_toplevel("zoom", "Zoom Workplace", false);
++    assert_eq!(
++        f.testwl
++            .get_surface_data(id)
++            .unwrap()
++            .toplevel()
++            .app_id
++            .as_deref(),
++        Some("zoom")
++    );
++    f.satellite
++        .set_win_title(win, WmName::NetWmName("Meeting".into()));
++    f.run();
++    assert_eq!(
++        f.testwl
++            .get_surface_data(id)
++            .unwrap()
++            .toplevel()
++            .app_id
++            .as_deref(),
++        Some("zoom")
++    );
++}
++
++#[test]
++fn zoom_utility_identity_formatting_utility() {
++    let (f, _comp, _win, _surface, id) = zoom_utility_toplevel("zoom", "Zoom Workplace", true);
++    // Check the first emitted toplevel, not an after-map correction.
++    let data = f.testwl.get_surface_data(id).unwrap();
++    assert_eq!(data.toplevel().app_id.as_deref(), Some("zoom.utility"));
++    assert_eq!(data.toplevel().title.as_deref(), Some("Zoom Workplace"));
++}
++
++#[test]
++fn zoom_utility_identity_other_title() {
++    for title in ["Other", ""] {
++        let (f, _comp, _win, _surface, id) = zoom_utility_toplevel("zoom", title, true);
++        assert_eq!(
++            f.testwl
++                .get_surface_data(id)
++                .unwrap()
++                .toplevel()
++                .app_id
++                .as_deref(),
++            Some("zoom")
++        );
++    }
++}
++
++#[test]
++fn zoom_utility_identity_property_update_order() {
++    let (mut f, _comp, win, _surface, id) = zoom_utility_toplevel("zoom", "Zoom Workplace", false);
++    let assert_id = |f: &TestFixture<FakeXConnection>, expected: &str| {
++        assert_eq!(
++            f.testwl
++                .get_surface_data(id)
++                .unwrap()
++                .toplevel()
++                .app_id
++                .as_deref(),
++            Some(expected)
++        );
++    };
++    f.satellite.set_zoom_utility_candidate(win, true);
++    f.run();
++    assert_id(&f, "zoom.utility");
++    f.satellite
++        .set_win_title(win, WmName::NetWmName("Meeting".into()));
++    f.run();
++    assert_id(&f, "zoom");
++    f.satellite
++        .set_win_title(win, WmName::NetWmName("Zoom Workplace".into()));
++    f.run();
++    assert_id(&f, "zoom.utility");
++    // Preserve the pre-existing _NET_WM_NAME priority over WM_NAME.
++    f.satellite
++        .set_win_title(win, WmName::WmName("Other".into()));
++    f.run();
++    assert_id(&f, "zoom.utility");
++    f.satellite.set_win_class(win, "other-app".into());
++    f.run();
++    assert_id(&f, "other-app");
++    f.satellite.set_win_class(win, "zoom".into());
++    f.run();
++    assert_id(&f, "zoom.utility");
++    f.satellite.set_zoom_utility_candidate(win, false);
++    f.run();
++    assert_id(&f, "zoom");
++
++    // Initial group fallback uses the production constructor, not a test predicate.
++    let group = super::WindowAttributes {
++        class: Some("zoom".into()),
++        title: Some(WmName::WmName("Zoom Workplace".into())),
++        ..Default::default()
++    };
++    let mut attrs = super::WindowAttributes {
++        class: Some("zoom".into()),
++        zoom_utility_candidate: true,
++        ..Default::default()
++    };
++    assert_eq!(
++        attrs.toplevel_identity(Some(&group)).app_id(),
++        Some("zoom.utility")
++    );
++    attrs.class = None;
++    assert_eq!(attrs.toplevel_identity(Some(&group)).app_id(), Some("zoom"));
++}
++
++#[test]
++fn zoom_utility_identity_remap_consistency() {
++    let (mut f, comp, win, mut surface, mut id) =
++        zoom_utility_toplevel("zoom", "Zoom Workplace", true);
++    for _ in 0..3 {
++        assert_eq!(
++            f.testwl
++                .get_surface_data(id)
++                .unwrap()
++                .toplevel()
++                .app_id
++                .as_deref(),
++            Some("zoom.utility")
++        );
++        f.satellite.unmap_window(win);
++        surface.obj.destroy();
++        f.run();
++        assert!(f.testwl.get_surface_data(id).is_none());
++        let (buffer, new_surface) = comp.create_surface();
++        f.satellite.set_zoom_utility_candidate(win, true);
++        f.map_window(&comp, win, &new_surface.obj, &buffer);
++        f.run();
++        id = f.check_new_surface();
++        surface = new_surface;
++    }
++    assert_eq!(
++        f.testwl
++            .get_surface_data(id)
++            .unwrap()
++            .toplevel()
++            .app_id
++            .as_deref(),
++        Some("zoom.utility")
++    );
++}
