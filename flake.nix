@@ -103,6 +103,7 @@
     pa-platform = {
       # url = "git+ssh://git@github.com/sinh-x/pa-platform?ref=develop";
       url = "/home/sinh/git-repos/sinh-x/tools/pa-platform";
+      # url = "/home/sinh/.treehouse/pa-platform-cdb114/2/pa-platform";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
