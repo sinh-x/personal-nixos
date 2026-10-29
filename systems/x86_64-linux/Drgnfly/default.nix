@@ -55,6 +55,7 @@ in
   system.build.zoomSatelliteCompat = zoomSatelliteCompat.out;
 
   imports = [
+    ./timelapse/drgnfly-timelapse.nix
     inputs.disko.nixosModules.disko
     ./disks.nix
     ./hardware-configuration.nix
