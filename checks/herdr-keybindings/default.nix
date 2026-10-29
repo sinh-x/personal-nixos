@@ -7,10 +7,73 @@ let
   config = builtins.fromTOML (builtins.readFile ../../modules/home/cli-apps/herdr/config.toml);
   inherit (config) keys;
 
-  actionBindings = builtins.removeAttrs keys [
-    "command"
-    "prefix"
+  # Native Left/Right arrows are fixed pane aliases. Only their h/l aliases
+  # are configurable; Up/Down must explicitly displace workspace navigation.
+  expectedNavigateRoutes = {
+    navigate_workspace_up = [ ];
+    navigate_workspace_down = [ ];
+    navigate_pane_left = [ "h" ];
+    navigate_pane_down = [
+      "j"
+      "down"
+    ];
+    navigate_pane_up = [
+      "k"
+      "up"
+    ];
+    navigate_pane_right = [ "l" ];
+  };
+  navigateActionNames = builtins.attrNames expectedNavigateRoutes;
+  navigateBindings = builtins.intersectAttrs expectedNavigateRoutes keys;
+  validNavigateBindings =
+    bindings:
+    let
+      routes = lib.concatLists (builtins.attrValues bindings);
+    in
+    builtins.attrNames bindings == navigateActionNames
+    && lib.all (
+      action: sorted bindings.${action} == sorted expectedNavigateRoutes.${action}
+    ) navigateActionNames
+    && builtins.length routes == builtins.length (lib.unique routes);
+  invalidNavigateBindings = [
+    # Wrong vertical direction.
+    (
+      navigateBindings
+      // {
+        navigate_pane_up = [
+          "k"
+          "down"
+        ];
+      }
+    )
+    # Restore the default arrow workspace route.
+    (
+      navigateBindings
+      // {
+        navigate_workspace_up = [ "up" ];
+        navigate_pane_up = [ "k" ];
+      }
+    )
+    # Two local actions claim the same key.
+    (
+      navigateBindings
+      // {
+        navigate_pane_right = [
+          "l"
+          "up"
+        ];
+      }
+    )
   ];
+
+  # Mode-local bare keys must not enter the global direct-key allowlist.
+  actionBindings = builtins.removeAttrs keys (
+    [
+      "command"
+      "prefix"
+    ]
+    ++ navigateActionNames
+  );
   commandBindings = keys.command or [ ];
   allBindings = lib.concatLists (
     (builtins.attrValues actionBindings) ++ [ (map (binding: binding.key) commandBindings) ]
@@ -28,7 +91,8 @@ let
     "alt+shift+right"
     "alt+shift+up"
   ];
-  directAltBindings = lib.filter isDirectAlt allBindings;
+  hasApprovedDirectAltBindings =
+    bindings: sorted (lib.filter isDirectAlt bindings) == sorted approvedDirectAltBindings;
   directCtrlAltBindings = lib.filter isDirectCtrlAlt allBindings;
   sorted = lib.sort builtins.lessThan;
 
@@ -60,6 +124,10 @@ let
     ];
     previous_workspace = [ "alt+shift+up" ];
     switch_workspace = map (index: "prefix+${toString index}") (lib.range 1 9);
+    workspace_picker = [
+      "prefix+m"
+      "prefix+w"
+    ];
   };
   exactRouteSetViolations = lib.concatLists (
     lib.mapAttrsToList (
@@ -115,9 +183,15 @@ let
   ) commandBindings;
 in
 assert lib.assertMsg (keys.prefix == "ctrl+b") "Herdr prefix must remain ctrl+b";
+assert lib.assertMsg (validNavigateBindings navigateBindings)
+  "Herdr Navigate mode must retain h/j/k/l and pane-only arrows without duplicate local ownership";
+assert lib.assertMsg (lib.all (bindings: !validNavigateBindings bindings) invalidNavigateBindings)
+  "Herdr Navigate validation must reject wrong directions, workspace arrows and duplicate local ownership";
 assert lib.assertMsg (
-  sorted directAltBindings == sorted approvedDirectAltBindings
-) "Herdr direct Alt bindings must be exactly alt+shift+left/right/up/down";
+  !hasApprovedDirectAltBindings (allBindings ++ [ "alt+x" ])
+) "Herdr global validation must reject an extra direct Alt binding";
+assert lib.assertMsg (hasApprovedDirectAltBindings allBindings)
+  "Herdr direct Alt bindings must be exactly alt+shift+left/right/up/down";
 assert lib.assertMsg (
   directCtrlAltBindings == [ ]
 ) "Herdr must not define direct Ctrl+Alt bindings";

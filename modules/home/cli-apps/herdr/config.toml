@@ -10,8 +10,8 @@ name = "tokyo-night"
 [keys]
 # Ctrl+B is the primary action namespace; only previous_workspace and next_workspace lack prefix routes.
 prefix = "ctrl+b"
-# Direct-key allowlist: only the four Alt+Shift+Arrow bindings below bypass Ctrl+B.
-# Directional semantics: prefix+Arrows focus panes; Alt+Shift+Left/Right move between tabs and Alt+Shift+Up/Down move between workspaces.
+# Global direct-key allowlist: only the four Alt+Shift+Arrow bindings below bypass Ctrl+B.
+# Directional semantics: prefix+Arrows focus panes once; Alt+Shift+Left/Right move between tabs and Alt+Shift+Up/Down move between workspaces.
 focus_pane_left = ["prefix+h", "prefix+left"]
 focus_pane_right = ["prefix+l", "prefix+right"]
 focus_pane_up = ["prefix+k", "prefix+up"]
@@ -25,7 +25,18 @@ previous_workspace = ["alt+shift+up"]
 next_workspace = ["alt+shift+down"]
 switch_workspace = ["prefix+1", "prefix+2", "prefix+3", "prefix+4", "prefix+5", "prefix+6", "prefix+7", "prefix+8", "prefix+9"]
 focus_agent = ["prefix+alt+1", "prefix+alt+2", "prefix+alt+3", "prefix+alt+4", "prefix+alt+5", "prefix+alt+6", "prefix+alt+7", "prefix+alt+8", "prefix+alt+9"]
-workspace_picker = ["prefix+w"]
+workspace_picker = ["prefix+w", "prefix+m"]
+
+# Ctrl+B then M (or W) opens native Navigate mode. All arrows and h/j/k/l repeatedly
+# focus panes; disable the default Up/Down workspace selection in this mode.
+# Left/Right arrows are native aliases and must not be configured here.
+# Enter/Esc leave the mode; other native shortcuts (including 1–9) are unchanged.
+navigate_workspace_up = []
+navigate_workspace_down = []
+navigate_pane_left = ["h"]
+navigate_pane_down = ["j", "down"]
+navigate_pane_up = ["k", "up"]
+navigate_pane_right = ["l"]
 
 [[keys.command]]
 key = "prefix+a"
