@@ -344,6 +344,9 @@ let
     "PTCOM_L3" = {
       pskRaw = "ext:hcm_airbnb_q7_ptcom";
     };
+    "Lena Den 5G" = {
+      pskRaw = "ext:hcm_lena";
+    };
     "NergyLand Coffee 5G" = {
       pskRaw = "ext:kh_vg_nergy";
     };
