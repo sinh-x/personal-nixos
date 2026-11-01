@@ -2362,6 +2362,22 @@
     },
     "nixpkgs_20": {
       "locked": {
+        "lastModified": 1791456040,
+        "narHash": "sha256-H83yz/do+hjOO0uujHyH8RgtIQP2v7Mw+cLwcZK/xKc=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e7439b6b14ad3cc35d05608ebca9bce01a25f5f8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e7439b6b14ad3cc35d05608ebca9bce01a25f5f8",
+        "type": "github"
+      }
+    },
+    "nixpkgs_21": {
+      "locked": {
         "lastModified": 1790689126,
         "narHash": "sha256-ilerN1WLSvF+HMjziC/Wv99J5y02maDH+6hZPwsORKg=",
         "owner": "nixos",
@@ -2376,7 +2392,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_21": {
+    "nixpkgs_22": {
       "locked": {
         "lastModified": 1789073787,
         "narHash": "sha256-xfX/toC2QV707s06GbP4II/TxYF0fNQj7s5/LClNDKc=",
@@ -2950,6 +2966,7 @@
         "sinh-x-zeroclaw": "sinh-x-zeroclaw",
         "sops-nix": "sops-nix",
         "systems": "systems_16",
+        "timestamp-timelapse": "timestamp-timelapse",
         "zen-browser": "zen-browser",
         "zjstatus": "zjstatus"
       }
@@ -3768,6 +3785,26 @@
         "type": "github"
       }
     },
+    "timestamp-timelapse": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_20"
+      },
+      "locked": {
+        "lastModified": 1793435690,
+        "narHash": "sha256-KGKMQ1dYLbQcOoNogY+m9cWxFMMijPn0XryQylGpLLg=",
+        "ref": "develop",
+        "rev": "693feed0ff0961616b63326f57455fd3dcfdf95a",
+        "revCount": 34,
+        "type": "git",
+        "url": "file:///home/sinh/git-repos/sinh-x/timestamp-timelapse"
+      },
+      "original": {
+        "ref": "develop",
+        "rev": "693feed0ff0961616b63326f57455fd3dcfdf95a",
+        "type": "git",
+        "url": "file:///home/sinh/git-repos/sinh-x/timestamp-timelapse"
+      }
+    },
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
@@ -3887,7 +3924,7 @@
     "zen-browser": {
       "inputs": {
         "home-manager": "home-manager_6",
-        "nixpkgs": "nixpkgs_20"
+        "nixpkgs": "nixpkgs_21"
       },
       "locked": {
         "lastModified": 1791587008,
@@ -3907,7 +3944,7 @@
       "inputs": {
         "crane": "crane",
         "flake-utils": "flake-utils_18",
-        "nixpkgs": "nixpkgs_21",
+        "nixpkgs": "nixpkgs_22",
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
