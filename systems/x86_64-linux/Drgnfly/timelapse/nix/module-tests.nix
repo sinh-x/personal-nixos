@@ -46,6 +46,13 @@ assert service.serviceConfig.ProtectSystem == "strict";
 assert service.serviceConfig.UMask == "0077";
 assert service.serviceConfig.ReadWritePaths == [ "/var/lib/timestamp-timelapse" ];
 assert service.serviceConfig.IPAddressDeny == "any";
+assert
+  service.serviceConfig.RestrictAddressFamilies == [
+    "AF_UNIX"
+    "AF_INET"
+    "AF_INET6"
+    "AF_NETLINK"
+  ];
 assert builtins.length scopedAssertions == 3;
 assert builtins.all (a: a.assertion) scopedAssertions;
 assert !(builtins.all (a: a.assertion) (scoped invalidPort));
