@@ -1,21 +1,13 @@
-# Operator-reviewed Drgnfly deployment of TTL-014 candidate 967380ba862d88e352b8947a3b9ee59e71083147.
+# Drgnfly lifecycle/persistence integration; the native package comes from the timestamp-timelapse input.
 # This file contains paths/configuration only, NEVER password/token/private-key contents.
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
 }:
 let
-  # Keep the server on the reviewed/cache-verified Go1.26.8 package set even if
-  # the host has a separate pending nixpkgs upgrade. No host lock update occurs.
-  archivePkgs = import (builtins.fetchTree {
-    type = "github";
-    owner = "NixOS";
-    repo = "nixpkgs";
-    rev = "e7439b6b14ad3cc35d05608ebca9bce01a25f5f8";
-    narHash = "sha256-H83yz/do+hjOO0uujHyH8RgtIQP2v7Mw+cLwcZK/xKc=";
-  }) { system = pkgs.stdenv.hostPlatform.system; };
   account = "timestamp-timelapse";
   credentials = "/var/lib/timelapse-credentials";
   hostname = "drgnfly.tail10c2c6.ts.net";
@@ -87,7 +79,7 @@ in
   ];
   services.timestamp-timelapse = {
     enable = true;
-    package = archivePkgs.callPackage ./nix/package.nix { };
+    package = inputs.timestamp-timelapse.packages.${pkgs.stdenv.hostPlatform.system}.timelapse-server;
     tailnetAddress = "100.83.89.101";
     inherit hostname;
     port = 8443;

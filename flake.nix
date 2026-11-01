@@ -107,6 +107,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    timestamp-timelapse = {
+      # Exact reviewed local commit; retain its input-owned nixpkgs/Go toolchain.
+      url = "git+file:///home/sinh/git-repos/sinh-x/timestamp-timelapse?ref=develop&rev=693feed0ff0961616b63326f57455fd3dcfdf95a";
+    };
+
     opencode.url = "github:sinh-x/opencode/sinh-x-dev";
 
     herdr = {

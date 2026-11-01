@@ -1,10 +1,11 @@
 # Pure configuration evaluation only. Does NOT activate a service or issue a certificate.
-{ nixpkgs }:
+{ nixpkgs, timelapse }:
 let
   make =
     extra:
     nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs.inputs.timestamp-timelapse = timelapse;
       modules = [
         ./drgnfly-timelapse.nix
         ({ lib, ... }: {
@@ -42,6 +43,7 @@ let
     (import ./drgnfly-timelapse.nix {
       inherit (s) config pkgs;
       inherit (nixpkgs) lib;
+      inputs.timestamp-timelapse = timelapse;
     }).assertions;
   wrongHost = make ({ lib, ... }: { networking.hostName = lib.mkForce "OtherHost"; });
   noTailnet = make ({ lib, ... }: { services.tailscale.enable = lib.mkForce false; });
@@ -53,7 +55,7 @@ assert c.services.timestamp-timelapse.hostname == "drgnfly.tail10c2c6.ts.net";
 assert c.services.timestamp-timelapse.port == 8443;
 assert
   c.services.timestamp-timelapse.package.outPath
-  == "/nix/store/9c7mld4w5m2qjpw01ksm7ha91bq995p0-timelapse-server-0.1.0";
+  == timelapse.packages.x86_64-linux.timelapse-server.outPath;
 assert c.networking.firewall.allowedTCPPorts == [ ];
 assert
   c.networking.firewall.trustedInterfaces == [
