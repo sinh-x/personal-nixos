@@ -14,7 +14,7 @@
 
     packages = with pkgs; [
       sound-theme-freedesktop
-      onlyoffice-desktopeditors
+      libreoffice-stable
     ];
 
     sessionVariables = {

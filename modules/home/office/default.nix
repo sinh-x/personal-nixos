@@ -24,7 +24,7 @@ in
       evince # GNOME document viewer
       # obsidian # Document management - disabled, not used
       # wpsoffice
-      onlyoffice-desktopeditors
+      libreoffice-stable
       inkscape # Vector graphics editor
     ];
   };
