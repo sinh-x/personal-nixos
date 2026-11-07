@@ -2696,13 +2696,13 @@
         "properPiExtensions": "properPiExtensions"
       },
       "locked": {
-        "lastModified": 1793668632,
-        "narHash": "sha256-IhDaKSiB5B56MgmPwrfrQibApmvHdnWSFghqXY3Qc2c=",
-        "path": "/home/sinh/.treehouse/pa-platform-cdb114/15/pa-platform",
+        "lastModified": 1794057935,
+        "narHash": "sha256-1BwiCEXmqTZnUQeMHHj2tpRchkH//7Ev8BOjJGq3jJA=",
+        "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
         "type": "path"
       },
       "original": {
-        "path": "/home/sinh/.treehouse/pa-platform-cdb114/15/pa-platform",
+        "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
         "type": "path"
       }
     },
