@@ -125,6 +125,8 @@ in
       };
       shellAliases = {
         # ----- general alias -----
+        # Dev shells can put the non-Readline Bash ahead of the interactive build.
+        bash = "${pkgs.bashInteractive}/bin/bash";
         vim = "nvim";
         ssha = "ssh-add";
         sshconfig = "nvim ~/.ssh/config";
