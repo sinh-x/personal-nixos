@@ -350,6 +350,9 @@ let
     "NergyLand Coffee 5G" = {
       pskRaw = "ext:kh_vg_nergy";
     };
+    "Faro Cafe 5G" = {
+      pskRaw = "ext:hcm_faro";
+    };
 
     # Open networks (no password)
     "TOCEPO" = { };
