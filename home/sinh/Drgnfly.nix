@@ -32,6 +32,7 @@ in
       lgtm
       treehouse
       andafin-jira-mcp
+      bitbucket-cli-avivsinai # bkt - Bitbucket Cloud and Data Center CLI
       personal-google-mcp
       pi-coding-agent
     ];

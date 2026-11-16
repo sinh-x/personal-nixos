@@ -7,8 +7,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1793637623,
-        "narHash": "sha256-OZ9F8FThTG2iezWECtNFZUVANs5Ne7oz9Z5XURblV2M=",
+        "lastModified": 1794826213,
+        "narHash": "sha256-I+xhPZ+A5s8KL6pWnVH10d7obUF4HtTFYs4RnnKL9Oc=",
         "path": "/home/sinh/git-repos/andafin/infrastructure/andafin-jira-mcp",
         "type": "path"
       },
@@ -2692,12 +2692,13 @@
         "nixpkgs": [
           "nixpkgs"
         ],
+        "piHostNixpkgs": "piHostNixpkgs",
         "piVimMode": "piVimMode",
         "properPiExtensions": "properPiExtensions"
       },
       "locked": {
-        "lastModified": 1794057935,
-        "narHash": "sha256-1BwiCEXmqTZnUQeMHHj2tpRchkH//7Ev8BOjJGq3jJA=",
+        "lastModified": 1794841138,
+        "narHash": "sha256-ThXaptHRH5z9gZPAyoVuMPwmQKNhaThPTln+N8u8G3s=",
         "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
         "type": "path"
       },
@@ -2725,6 +2726,22 @@
       "original": {
         "type": "git",
         "url": "file:///home/sinh/git-repos/sinh-x/tools/personal-google-mcp"
+      }
+    },
+    "piHostNixpkgs": {
+      "locked": {
+        "lastModified": 1793540411,
+        "narHash": "sha256-fiPJ88izTVucjeo2EQ3jk4aWmLg03I1D4vxnX2QjEgE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0bb2eedc20e4739f29e8045034f2828ad7054f8f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0bb2eedc20e4739f29e8045034f2828ad7054f8f",
+        "type": "github"
       }
     },
     "piVimMode": {
