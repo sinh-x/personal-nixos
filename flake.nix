@@ -101,8 +101,8 @@
     };
 
     pa-platform = {
-      url = "/home/sinh/git-repos/sinh-x/tools/pa-platform";
-      # url = "/home/sinh/.treehouse/pa-platform-cdb114/14/pa-platform";
+      # url = "/home/sinh/git-repos/sinh-x/tools/pa-platform";
+      url = "/home/sinh/.treehouse/pa-platform-cdb114/6/pa-platform";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

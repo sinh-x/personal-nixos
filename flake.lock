@@ -7,7 +7,7 @@
         ]
       },
       "locked": {
-        "lastModified": 1794826213,
+        "lastModified": 1794994063,
         "narHash": "sha256-I+xhPZ+A5s8KL6pWnVH10d7obUF4HtTFYs4RnnKL9Oc=",
         "path": "/home/sinh/git-repos/andafin/infrastructure/andafin-jira-mcp",
         "type": "path"
@@ -2697,13 +2697,13 @@
         "properPiExtensions": "properPiExtensions"
       },
       "locked": {
-        "lastModified": 1794841138,
-        "narHash": "sha256-ThXaptHRH5z9gZPAyoVuMPwmQKNhaThPTln+N8u8G3s=",
-        "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
+        "lastModified": 1795074474,
+        "narHash": "sha256-Uxmrep6fko78S4pVp9eTlqfPPUjVpgq1+HqzL3Ftkyw=",
+        "path": "/home/sinh/.treehouse/pa-platform-cdb114/6/pa-platform",
         "type": "path"
       },
       "original": {
-        "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
+        "path": "/home/sinh/.treehouse/pa-platform-cdb114/6/pa-platform",
         "type": "path"
       }
     },
