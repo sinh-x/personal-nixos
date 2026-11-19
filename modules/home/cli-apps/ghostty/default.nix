@@ -18,8 +18,8 @@ in
       enable = true;
       enableFishIntegration = true;
       settings = {
-        # Colors — Catppuccin Mocha
-        background = "#1e1e2e";
+        # Fullscreen-style canvas; retain the Catppuccin Mocha text palette.
+        background = "#1c1c2b";
         foreground = "#cdd6f4";
         selection-background = "#585b70";
         selection-foreground = "#cdd6f4";
@@ -62,8 +62,8 @@ in
         window-padding-y = 12;
         window-decoration = false; # Remove title bar
 
-        # Background
-        background-opacity = 0.90;
+        # Keep the canvas independent of wallpaper and fullscreen compositing.
+        background-opacity = 1.0;
 
         # Misc
         confirm-close-surface = false;

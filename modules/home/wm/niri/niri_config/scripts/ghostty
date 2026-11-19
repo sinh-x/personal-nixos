@@ -9,8 +9,7 @@ elif [ "$1" == "-F" ]; then
 		  --fullscreen \
 		  --window-padding-x=30 \
 		  --window-padding-y=30 \
-		  --font-size=14 \
-		  --background-opacity=0.95
+		  --font-size=14
 else
 	ghostty "$@"
 fi
