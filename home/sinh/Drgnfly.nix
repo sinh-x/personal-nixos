@@ -122,6 +122,7 @@ in
       multiplexers.herdr.enable = true;
       editor.neovim.enable = true;
       backup.enable = true;
+      gmail-downloader.enable = true;
       nix.enable = true;
       tools = {
         asciinema.enable = true;
