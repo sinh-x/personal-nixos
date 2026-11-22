@@ -30,7 +30,7 @@ in
       go
       icu
       jre_minimal
-      julia-lts
+      julia-bin
       kotlin
       # lldb
       lua-language-server
