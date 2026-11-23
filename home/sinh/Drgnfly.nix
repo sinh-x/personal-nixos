@@ -33,6 +33,7 @@ in
       treehouse
       andafin-jira-mcp
       bitbucket-cli-avivsinai # bkt - Bitbucket Cloud and Data Center CLI
+      neon-cli # Official Neon CLI, pinned independently of the WebDAV library
       personal-google-mcp
       pi-coding-agent
     ];
