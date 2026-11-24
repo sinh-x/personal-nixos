@@ -24,7 +24,6 @@ in
       sound-theme-freedesktop # notification sounds
       mermaid-cli # mmdc - diagram generation from text
       # openai-whisper # Speech-to-text temporarily deferred during the upgrade.
-      orca-ide # Stably AI Orca agent development environment
       pa-platform # PA platform with bundled Pi vimmode
       obsidian
       logseq

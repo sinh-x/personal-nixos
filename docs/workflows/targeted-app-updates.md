@@ -23,7 +23,6 @@ Re-read the linked files before every update; source ownership can change. Names
 | PA / bundled Pi | Local `pa-platform` input plus `mkPaPlatform` options | D; [overlay](../../overlays/sinh-x/default.nix), [input declaration](../../flake.nix). A refresh can change multiple bundled tools/extensions, not just Pi. |
 | Standalone `pi-coding-agent` | Root `nixpkgs` | C; [home package list](../../home/sinh/Drgnfly.nix). It is also installed alongside PA; updating it is not the same as updating PA's bundled Pi. |
 | Droid | Repository derivation with version and npm artifact hash | B; [package](../../packages/droid/default.nix). The wrapper disables the upstream auto-updater. |
-| Orca IDE | Repository derivation with source revision and dependency hashes | B; [package](../../packages/orca-ide/default.nix), [Orca update notes](../orca-drgnfly.md#updating). Review pnpm, Electron and native-runtime compatibility too. |
 | Chrome, Edge, Vivaldi | Root `nixpkgs`: `google-chrome`, `microsoft-edge`, `vivaldi` | C; [browser module](../../modules/home/apps/web/browser/default.nix), [Vivaldi module](../../modules/home/apps/web/vivaldi/default.nix). |
 | Ghostty, Kitty, Warp, Fish | Root `nixpkgs`: `ghostty`, `kitty`, `warp-terminal`, `fish` | C; [Ghostty](../../modules/home/cli-apps/ghostty/default.nix), [Kitty](../../modules/home/cli-apps/kitty/default.nix), [Warp](../../modules/home/cli-apps/warp/default.nix), [Fish](../../modules/home/cli-apps/fish/default.nix) modules. Fish plugin revisions/hashes are separate source pins in its module. |
 | Obsidian, Logseq | Root `nixpkgs`: `obsidian`, `logseq` | C; [home package list](../../home/sinh/Drgnfly.nix). |
@@ -93,7 +92,7 @@ A tag/fixed revision such as `fcitx5-lotus`'s `snapshot-20260330` will not move 
 
 ### B — A repository-owned derivation or plugin pin
 
-For Droid, update only the approved version and matching artifact hash in `packages/droid/default.nix`. For Orca, follow its [package-specific update notes](../orca-drgnfly.md#updating): source revision/hash, pnpm dependency hash, executable pin and Electron assumptions may all need coordinated review. Fish plugins use their own revision/hash pairs in the module, not `flake.lock`.
+For Droid, update only the approved version and matching artifact hash in `packages/droid/default.nix`. Fish plugins use their own revision/hash pairs in the module, not `flake.lock`.
 
 1. Verify the requested upstream release and exact source/artifact location. Do not execute an upstream installer or self-updater.
 2. Propose the precise file/attribute changes and compatibility risks, then obtain approval before editing.
@@ -119,7 +118,7 @@ Resolve the exact current URL/path from `flake.nix`; do not substitute another c
 
 - `pa-platform` and `andafin-jira-mcp` currently use local path inputs. A targeted refresh captures local source contents; a clean Git HEAD alone is insufficient evidence for a dirty path source. Record the intended content and resulting NAR hash without publishing protected data.
 - `personal-google-mcp` currently uses `git+file`. Record its locked revision/ref and verify the intended source state before refreshing. Git-tracked/dirty-file handling and explicit ref selection differ from a raw path input; do not assume uncommitted files are either all included or all ignored. For a commit-bound refresh, require the source to be clean at the approved commit; otherwise stop for exact content review.
-- Updating PA's bundle may update Pi, adapters and extensions together. Updating root `pi-coding-agent` separately may leave the effective `pi` unchanged because both are installed. Check executable resolution in the actual terminal/Orca/PA launch context after activation; do not change `PATH` or remove either installation without approval.
+- Updating PA's bundle may update Pi, adapters and extensions together. Updating root `pi-coding-agent` separately may leave the effective `pi` unchanged because both are installed. Check executable resolution in the actual terminal/PA launch context after activation; do not change `PATH` or remove either installation without approval.
 
 Once local state and intended bundle changes are approved, use the same named-input form (for example, `nix flake update pa-platform`), then apply Route A's lock-diff checks. Preserve existing `mkPaPlatform` feature choices. This does not authorize edits to the PA repository or to live agent state.
 
@@ -139,11 +138,10 @@ Agree on the exact checks before running them; the following is a suggested plan
 
    ```console
    nix build --no-link --no-write-lock-file --max-jobs 4 --cores 2 .#droid
-   nix build --no-link --no-write-lock-file --max-jobs 4 --cores 2 .#orca-ide
    nix build --no-link --no-write-lock-file --max-jobs 4 --cores 2 .#pkgs.x86_64-linux.nixpkgs.opencode
    ```
 
-   `.#droid` and `.#orca-ide` exist because they are repository packages. Do not assume `.#discord` or `.#opencode` exists. For module-selected packages such as Zen, inspect the module's actual package option or validate the user's integrated home closure:
+   `.#droid` exists because it is a repository package. Do not assume `.#discord` or `.#opencode` exists. For module-selected packages such as Zen, inspect the module's actual package option or validate the user's integrated home closure:
 
    ```console
    nix build --no-link --no-write-lock-file --max-jobs 4 --cores 2 .#nixosConfigurations.Drgnfly.config.home-manager.users.sinh.home.path

@@ -23,7 +23,7 @@ After approval, the trusted PPA builder/orchestrator launcher reserves capacity,
 
 Admission permits one active builder lineage per repository/ticket and at most four active ticket checkouts per canonical repository. A parent and its authenticated direct implementation child count as one lineage. A duplicate lineage or fifth checkout is rejected before project-file or branch mutation and before child/runtime spawn.
 
-Only the authenticated builder orchestrator may use ordinary Git to create the exact planned branch from the approved base. For a later materialized run it may select only the exact runtime-authenticated linked branch. Before implementation starts, persist the checkout and lease binding, capacity permit, lineage and correlation identifiers, branch result, full HEAD, and complete launch status. Objective text, an arbitrary checkout, and an Orca-created worktree are not authentication evidence.
+Only the authenticated builder orchestrator may use ordinary Git to create the exact planned branch from the approved base. For a later materialized run it may select only the exact runtime-authenticated linked branch. Before implementation starts, persist the checkout and lease binding, capacity permit, lineage and correlation identifiers, branch result, full HEAD, and complete launch status. Objective text, an arbitrary checkout, and an externally created worktree are not authentication evidence.
 
 Missing, stale, duplicate, replayed, self-asserted, or conflicting evidence fails closed. Every checkout stop diagnostic must be at most 2,000 JavaScript characters and use all five labels:
 
