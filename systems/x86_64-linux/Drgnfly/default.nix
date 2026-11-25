@@ -56,6 +56,7 @@ in
 
   imports = [
     ./timelapse/drgnfly-timelapse.nix
+    inputs.pa-platform.nixosModules.pa-server
     inputs.disko.nixosModules.disko
     ./disks.nix
     ./hardware-configuration.nix
@@ -165,6 +166,13 @@ in
   };
 
   services = {
+    # Boot-time loopback API; reuse the home-installed PA bundle and sinh's data.
+    pa-server = {
+      enable = true;
+      user = "sinh";
+      package = pkgs.pa-platform;
+    };
+
     # Monthly btrfs scrub to detect data corruption
     btrfs.autoScrub = {
       enable = true;

@@ -2697,8 +2697,8 @@
         "properPiExtensions": "properPiExtensions"
       },
       "locked": {
-        "lastModified": 1795370865,
-        "narHash": "sha256-MD3Xm50Xr1nto2hVlxyNmLATfrr0PzJ+qd95moQdVrs=",
+        "lastModified": 1795633731,
+        "narHash": "sha256-XMB6xSqI89Kxk323hd4Nq0U4kYcKU6VdtM5ImaShtYM=",
         "path": "/home/sinh/git-repos/sinh-x/tools/pa-platform",
         "type": "path"
       },
@@ -3020,11 +3020,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1786668358,
-        "narHash": "sha256-E8daxoVwDFKXEmOS3L6dJhWY75JeFR9Y68llVmc3Pcw=",
+        "lastModified": 1795585437,
+        "narHash": "sha256-Xi/wwopw/AkA64oYiqd1t9ItCC9CI/b+vOn3Bg4gndk=",
         "owner": "sinh-x",
         "repo": "avodah",
-        "rev": "be1a8d5c912e90f7524c5a2a04e250251e09b087",
+        "rev": "ad76199f5984e63b9b83278494212fb93693894d",
         "type": "github"
       },
       "original": {
