@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# Existing Vivaldi, Zen and Chrome windows only; never launch a browser.
+# Keep the Ghostty picker's interaction and theme without changing its behavior.
+
+RASI="$HOME/.config/niri/rofi/ghostty_switcher.rasi"
+
+if ! windows_json=$(niri msg --json windows 2>/dev/null); then
+    printf 'Browser picker: could not query Niri windows.\n' >&2
+    exit 1
+fi
+
+# Sanitize control characters before building line/tab-delimited rows. IDs stay
+# separate from displayed titles, so duplicate titles cannot change the target.
+if ! entries_text=$(jq -r '
+    def browser_name:
+        if type != "string" then ""
+        else ascii_downcase |
+            if . == "vivaldi" or . == "vivaldi-stable" then "Vivaldi"
+            elif . == "zen" or . == "zen-twilight" then "Zen"
+            elif . == "google-chrome" or . == "google-chrome-stable"
+                or . == "com.google.chrome" then "Chrome"
+            else "" end
+        end;
+    if type != "array" then error("expected a window array") else . end
+    | .[]
+    | select(type == "object")
+    | (.app_id | browser_name) as $browser
+    | select($browser != "")
+    | select(.id | type == "number")
+    | select(.id >= 0 and .id == (.id | floor))
+    | (if (.title | type) == "string" and .title != ""
+       then .title else "[Untitled]" end
+       | gsub("[\u0000-\u001f\u007f-\u009f\u2028\u2029]"; " ")) as $title
+    | "\($browser): \($title)\t\(.id)"
+' <<< "$windows_json" 2>/dev/null); then
+    printf 'Browser picker: invalid Niri window data.\n' >&2
+    exit 1
+fi
+
+[[ -z "$entries_text" ]] && exit 0
+mapfile -t entries <<< "$entries_text"
+
+titles=()
+ids=()
+for entry in "${entries[@]}"; do
+    titles+=("${entry%$'\t'*}")
+    ids+=("${entry##*$'\t'}")
+done
+
+chosen_index=$(
+    for index in "${!titles[@]}"; do
+        printf '[%d] %s\n' "$((index + 1))" "${titles[$index]}"
+    done | rofi -dmenu -no-custom -format i -p "Browser" -theme "$RASI"
+) || exit 0
+
+# Compare as strings instead of evaluating Rofi output as an array subscript.
+# Cancellation, custom input and invalid/out-of-range indices cannot focus.
+for index in "${!ids[@]}"; do
+    if [[ "$chosen_index" == "$index" ]]; then
+        exec niri msg action focus-window --id "${ids[$index]}"
+    fi
+done
+exit 0
