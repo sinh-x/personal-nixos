@@ -15,10 +15,38 @@ let
     name = "umbriel-trial";
     runtimeInputs = [
       pkgs.rofi
-      pkgs.libnotify
+      pkgs.systemd
+      config.programs.noctalia.package
     ];
     text = ''
       exec ${pkgs.python3}/bin/python3 ${./ipc.py} "$@"
+    '';
+  };
+  controls = pkgs.writeShellApplication {
+    name = "umbriel-controls";
+    runtimeInputs = [
+      pkgs.systemd
+      pkgs.swaylock
+      pkgs.wireplumber
+      pkgs.brightnessctl
+      config.programs.noctalia.package
+    ];
+    text = ''
+      exec ${pkgs.python3}/bin/python3 -B ${./.}/controls.py "$@"
+    '';
+  };
+  capture = pkgs.writeShellApplication {
+    name = "umbriel-capture";
+    runtimeInputs = [
+      pkgs.systemd
+      pkgs.rofi
+      pkgs.slurp
+      pkgs.wf-recorder
+      config.programs.noctalia.package
+    ];
+    text = ''
+      export NX077_WF_RECORDER=${pkgs.wf-recorder}/bin/wf-recorder
+      exec ${pkgs.python3}/bin/python3 -B ${./.}/capture.py "$@"
     '';
   };
   desktop = import ./settings.nix {
@@ -72,18 +100,25 @@ in
         enable = true;
         # Do not retarget wayland.systemd.target for unrelated HM services.
         systemd.enable = false;
-        settings.shell = {
-          polkit_agent = false;
-          clipboard_enabled = true;
+        settings = import ./noctalia-settings.nix {
+          inherit controls;
+          inherit (config.home) homeDirectory;
         };
       };
     };
 
     # The Niri watcher deliberately exports image AND path. It must never react
     # to an explicit Save in the trial, even when both use the same directory.
-    ${namespace}.wm.niri.screenshotWatcherTarget = "niri-session.target";
+    ${namespace}.wm.niri = {
+      screenshotWatcherTarget = "niri-session.target";
+      isolateShellServices = true;
+    };
 
-    home.packages = [ adapter ];
+    home.packages = [
+      adapter
+      controls
+      capture
+    ];
 
     systemd.user.services = {
       umbriel-workspaces = {
@@ -113,8 +148,10 @@ in
         };
         Service = {
           Type = "notify";
+          ExecStartPre = "${controls}/bin/umbriel-controls clipboard-ready";
           ExecStart = lib.getExe noctalia;
           Restart = "on-failure";
+          RestartSec = 5;
           TimeoutStartSec = 30;
           TimeoutStopSec = 10;
         };

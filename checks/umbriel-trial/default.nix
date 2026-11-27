@@ -39,9 +39,16 @@ pkgs.runCommand "umbriel-trial" { nativeBuildInputs = [ pkgs.python3 ]; } ''
   python3 -B ${./test-parity.py} \
     ${home.xdg.configFile."umbriel/config.toml".source} ${manifest} \
     ${../../modules/home/wm/niri/niri_config/config.kdl} \
-    ${../../home/sinh/niri-extras.nix} ${../../home/sinh/Drgnfly.nix} diagnostics.json
+    ${../../home/sinh/niri-extras.nix} ${../../home/sinh/Drgnfly.nix} diagnostics.json \
+    ${home.xdg.configFile."noctalia/config.toml".source} \
+    ${home.home.file.".config/niri/config.kdl".source}
+  ${pkgs.niri}/bin/niri validate --config ${home.home.file.".config/niri/config.kdl".source}
+  python3 -B ${./test-controls.py} ${../../modules/home/wm/umbriel}
+  # swaylock 1.8.6 deliberately returns 1 for help; bind the known interface
+  # and version instead of treating this as a live-lock or readiness test.
+  python3 -c 'import subprocess,sys; r=subprocess.run([sys.argv[1], "--help"], capture_output=True, text=True); text=r.stdout+r.stderr; assert r.returncode == 1 and "Usage: swaylock" in text and "--ready-fd" in text; v=subprocess.check_output([sys.argv[1], "--version"], text=True); assert v.strip() == "swaylock version 1.8.6"' ${pkgs.swaylock}/bin/swaylock
   test -e ${inputs.self.checks.${pkgs.stdenv.hostPlatform.system}.umbriel-session-wiring}
   mkdir "$out"
   cp diagnostics.json "$out/config-diagnostics.json"
-  echo '112 source triggers, 110 accepted target chords, 17 rule dispositions, 8 workspaces; runtime parity unverified.' > "$out/summary"
+  echo '112 source triggers, 110 accepted target chords, 17 rule dispositions, 8 workspaces; P3 negative fixtures and native configs checked; real capture/power/runtime parity unverified.' > "$out/summary"
 ''

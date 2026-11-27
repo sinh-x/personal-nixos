@@ -355,5 +355,9 @@ if __name__ == "__main__":
     except (OSError, ValueError, KeyError, InvalidState, subprocess.SubprocessError) as error:
         print(f"Umbriel trial adapter: {error}", file=sys.stderr)
         # Only fixed diagnostics, never window titles, enter the notification.
-        subprocess.run(["notify-send", "Umbriel trial", "Desktop action failed; see session log."], check=False)
+        subprocess.run(["busctl", "--user", "--auto-start=no", "call", "org.freedesktop.Notifications",
+                        "/org/freedesktop/Notifications", "org.freedesktop.Notifications", "Notify",
+                        "susssasa{sv}i", "Umbriel trial", "0", "", "Umbriel trial",
+                        "Desktop action failed; see session log.", "0", "0", "6000"],
+                       check=False, capture_output=True, timeout=3)
         sys.exit(1)

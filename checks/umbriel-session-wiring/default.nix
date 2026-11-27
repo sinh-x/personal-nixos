@@ -34,6 +34,7 @@ in
 assert !baseline.modules.wm.umbriel.enable;
 assert !baseline.home-manager.users.sinh.${namespace}.wm.umbriel.enable;
 assert baseline.modules.wm.niri.globalSessionIdentity;
+assert !baseline.home-manager.users.sinh.${namespace}.wm.niri.isolateShellServices;
 assert
   baseline.home-manager.users.sinh.systemd.user.services.screenshot-watcher.Install.WantedBy == [
     "graphical-session.target"
@@ -42,12 +43,14 @@ assert lib.all (host: !host.modules.wm.umbriel.enable) otherHosts;
 assert trial.programs.umbriel.enable;
 assert trial.programs.niri.enable;
 assert trial.systemd.user.targets.niri-session.bindsTo == [ "niri.service" ];
+assert !trial.systemd.user.targets.niri-session.unitConfig.DefaultDependencies;
 assert trial.systemd.user.targets.niri-session.after == [ "niri.service" ];
 assert builtins.elem "niri-session.target" trial.systemd.user.services.niri.wants;
 assert
   trial.systemd.user.services.polkit-gnome-authentication-agent-1.partOf
   == [ "graphical-session.target" ];
 assert trial.services.gnome.gnome-keyring.enable == baseline.services.gnome.gnome-keyring.enable;
+assert trial.security.pam.services.swaylock.text == baseline.security.pam.services.swaylock.text;
 assert niri.greetd.autoLogin == baseline.modules.wm.niri.greetd.autoLogin;
 assert greeter.initial_session.user == baseline.services.greetd.settings.initial_session.user;
 assert greeter.initial_session.command == "${niri.greetd.sessionPackage}/bin/niri-session";
@@ -79,11 +82,30 @@ assert home.systemd.user.services.fcitx5-umbriel.Install.WantedBy == [ "umbriel-
 assert
   home.systemd.user.services.fcitx5-umbriel.Service.ExecStart
   == [ "${trial.i18n.inputMethod.package}/bin/fcitx5" ];
-assert lib.all (name: !(builtins.hasAttr name home.systemd.user.services)) [
-  "noctalia"
-  "waybar"
-  "mako"
-];
+assert !(home.systemd.user.services ? noctalia);
+assert home.${namespace}.wm.niri.isolateShellServices;
+assert lib.all
+  (
+    name:
+    let
+      service = home.systemd.user.services.${name};
+    in
+    service.Unit.ConditionEnvironment == "XDG_CURRENT_DESKTOP=niri"
+    && service.Unit.PartOf == [ "niri-session.target" ]
+    && service.Unit.BindsTo == [ "niri.service" ]
+    && service.Install.WantedBy == [ "niri-session.target" ]
+  )
+  [
+    "waybar"
+    "mako"
+    "niri-awww"
+    "niri-wallpaper"
+    "niri-cliphist-text"
+    "niri-cliphist-image"
+    "fcitx5-niri"
+  ];
+assert home.systemd.user.services.mako.Service.BusName == "org.freedesktop.Notifications";
+assert lib.hasInfix "Hidden=true" home.xdg.configFile."autostart/org.fcitx.Fcitx5.desktop".text;
 pkgs.runCommand "umbriel-session-wiring" { nativeBuildInputs = [ pkgs.python3 ]; } ''
   # Production-boundary fixtures inject every process call. No real compositor,
   # portal, environment import, lock screen or power action is executed.

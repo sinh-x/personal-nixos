@@ -48,9 +48,17 @@ activation environment; no in-session blanket portal restart is used as a repair
 
 Noctalia and the trial Fcitx5 client follow `umbriel-session.target` and bind to
 `umbriel.service`. The existing host Fcitx5 package, Lotus server, Secret Service,
-Polkit and authentication policy remain in use. Niri retains its old shell stack.
-A repository-owned `niri-session.target` binds its legacy screenshot watcher to
-Niri: upstream Niri v26.04 does not provide that target. The global Home Manager
+Polkit and authentication policy remain in use. Niri retains its old shell stack,
+binaries and configuration, but trial isolation moves its seven configured shell
+startup processes into Niri-only user units. Pinned Niri spawns independent scopes,
+so relying on child-process ancestry alone would leak owners across logout. Mako
+uses its D-Bus activation unit name with a Niri condition; Fcitx's XDG autostart is
+hidden only while explicit per-session services own it. No unrelated app scopes or
+operator processes are killed. Begin the first candidate trial from a fresh login
+and qualify any processes retained from the previous generation with Sinh.
+A repository-owned `niri-session.target` (without implicit target ordering) binds
+these units and its legacy screenshot watcher to Niri: upstream Niri v26.04 does
+not provide that target. The global Home Manager
 session target is not changed. Operator UI overrides or independently started
 services can still conflict and must be qualified during the real session trial.
 
@@ -107,9 +115,48 @@ required. Startup retains Vivaldi; interactive browser launch uses BROWSER/Zen.
 The bounded check is `nix build .#checks.x86_64-linux.umbriel-trial --no-link
 --no-write-lock-file`. It validates the actual rendered TOML with the pinned
 `umbriel config validate -c <file> --json`, checks the full source ledger and runs
-injected-IPC negative fixtures without connecting to the desktop. Capture and
-utility command names in the translation are P3 dependencies: do not enable or
-activate this intermediate configuration before those implementations and P4.
+injected-IPC negative fixtures without connecting to the desktop. Source checks do not establish real capture, input, locking or display behavior.
+
+## Capture, power and persistence safeguards
+
+`umbriel-capture` uses Noctalia region/window/focused-screen commands with per-call
+annotation enabled and automatic save/copy/pipe/copy-on-close disabled. Save and
+Copy leave the editor open for retry. The five screenshot menu entries retain the
+focused-screen, region, window and 5/10-second focused-screen choices. No helper
+exports a screenshot itself or starts the Niri image/path watcher. Actual explicit
+Save/Copy/Cancel and failed-delivery recovery remain human UAT, not fixture claims.
+
+Recordings use wf-recorder with optional audio and an explicit structured output
+selection. A selected region must belong to one enabled output; an ambiguous
+cross-output region or changed output geometry is refused, not silently retargeted.
+Each display has private runtime state containing a random native-unit ownership
+marker, never a shared PID. Stop validates the transient unit, marker, session
+relationship and SIGINT policy before finalizing. A stale record cannot signal an
+unrelated process. Requisite prevents a recorder from starting an ended compositor;
+PartOf stops it with the trial target. Failed starts save no active claim. Native
+unit shutdown and playable MP4 finalization still require operator qualification.
+
+`umbriel-controls` retains MPD transport bindings/the existing MPD menu (including
+repeat/random/seek), caps speaker volume at 100%, targets the default microphone,
+and uses brightnessctl rather than the Niri helper's missing light dependency.
+The only sleep action shown is labelled Hibernate. Its command, and Noctalia's
+underlying suspend override, invoke the same serialized swaylock ready-FD gate.
+Noctalia's second lock UI is disabled. A ten-second newline acknowledgement and
+client-liveness check precede ordinary systemctl hibernate; EOF, error, timeout or
+duplicate requests dispatch no power. Denial leaves the lock in place. The guard
+never kills a possibly secure locker and retains its singleton until that client
+exits. It uses explicit swaylock options without daemonization/profile inheritance,
+preserving the existing PAM policy. No fail-open hook or privilege fallback is used.
+All-output security, compositor blanking after locker failure and resume remain UAT.
+
+Noctalia storage explicitly uses the existing Secret Service, with no key file.
+A metadata-only ExecStartPre checks an existing default collection's unlocked flag
+without activation, unlocking, secret reads or provider setup. Unavailable storage
+refuses shell startup and reports the owner action rather than silently accepting
+memory-only history. This is not proof that Noctalia can persist its own data;
+text/image history across actual logins is still mandatory. Niri cliphist is not
+imported, altered or migrated. Diagnostics use no-autostart D-Bus notification calls
+so a failed trial shell cannot accidentally activate the old Mako owner.
 
 ## Qualification and recovery
 

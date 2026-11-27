@@ -3,6 +3,7 @@
   config,
   pkgs,
   namespace,
+  osConfig ? null,
   ...
 }:
 with lib;
@@ -12,6 +13,12 @@ in
 {
   options.${namespace}.wm.niri = {
     enable = mkEnableOption "Niri config using hm";
+
+    isolateShellServices = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Own Niri shell daemons with Niri-only user units for the multi-session trial.";
+    };
 
     screenshotWatcherTarget = mkOption {
       type = types.str;
@@ -76,7 +83,21 @@ in
               spawnAtStartupApps
             ]
             configTemplate;
-        configText = builtins.replaceStrings [ "@PRIMARY_OUTPUT@" ] [ primaryOutput ] withUserContent;
+        resolvedConfig = builtins.replaceStrings [ "@PRIMARY_OUTPUT@" ] [ primaryOutput ] withUserContent;
+        managedStartup = [
+          ''spawn-at-startup "bash" "-c" "~/.config/niri/scripts/statusbar"''
+          ''spawn-at-startup "mako"''
+          ''spawn-at-startup "awww-daemon"''
+          ''spawn-at-startup "bash" "-c" "sleep 1 && ~/.config/niri/scripts/wallpaper --default"''
+          ''spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"''
+          ''spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"''
+          ''spawn-at-startup "fcitx5"''
+        ];
+        configText =
+          if cfg.isolateShellServices then
+            builtins.replaceStrings managedStartup (map (_: "") managedStartup) resolvedConfig
+          else
+            resolvedConfig;
         workspaceMonitorsScript = builtins.replaceStrings [ "@PRIMARY_OUTPUT@" ] [ primaryOutput ] (
           builtins.readFile ./niri_config/scripts/workspace_monitors
         );
@@ -131,44 +152,64 @@ in
         });
       };
 
-    # Screenshot watcher service - copies both image + path to clipboard
-    systemd.user.services.screenshot-watcher = {
-      Unit = {
-        Description = "Watch for new screenshots and copy to clipboard";
-        After = [ cfg.screenshotWatcherTarget ];
-        PartOf = [ cfg.screenshotWatcherTarget ];
-      };
-      Service = {
-        Type = "simple";
-        ExecStart = "${pkgs.writeShellScript "screenshot-watcher" ''
-          WATCH_DIR="$HOME/Pictures/Screenshots"
-          ICON_DIR="$HOME/.config/mako/icons"
-
-          mkdir -p "$WATCH_DIR"
-
-          ${pkgs.inotify-tools}/bin/inotifywait -m -e close_write --format '%w%f' "$WATCH_DIR" | while read -r filepath; do
-            [[ "$filepath" != *.png ]] && continue
-            sleep 0.2
-            [[ ! -s "$filepath" ]] && continue
-
-            # Copy path to clipboard (clipboard manager saves this)
-            echo -n "$filepath" | ${pkgs.wl-clipboard}/bin/wl-copy
-            sleep 0.1
-            # Copy image to clipboard (becomes active item)
-            ${pkgs.wl-clipboard}/bin/wl-copy < "$filepath"
-
-            ${pkgs.libnotify}/bin/notify-send -h string:x-canonical-private-synchronous:screenshot \
-              -u low -i "''${ICON_DIR}/picture.png" \
-              "Screenshot Saved" \
-              "Clipboard: image + path"
-          done
-        ''}";
-        Restart = "on-failure";
-        RestartSec = 5;
-      };
-      Install = {
-        WantedBy = [ cfg.screenshotWatcherTarget ];
-      };
+    # Dedicated session units own Fcitx5; do not also use its XDG autostart.
+    # Existing operator file conflicts are left to Home Manager/operator handling.
+    xdg.configFile."autostart/org.fcitx.Fcitx5.desktop" = mkIf cfg.isolateShellServices {
+      text = ''
+        [Desktop Entry]
+        Type=Application
+        Name=Fcitx5 (session service owned)
+        Hidden=true
+      '';
     };
+
+    # Screenshot watcher service - copies both image + path to clipboard
+    systemd.user.services = {
+      screenshot-watcher = {
+        Unit = {
+          Description = "Watch for new screenshots and copy to clipboard";
+          After = [ cfg.screenshotWatcherTarget ];
+          PartOf = [ cfg.screenshotWatcherTarget ];
+        };
+        Service = {
+          Type = "simple";
+          ExecStart = "${pkgs.writeShellScript "screenshot-watcher" ''
+            WATCH_DIR="$HOME/Pictures/Screenshots"
+            ICON_DIR="$HOME/.config/mako/icons"
+
+            mkdir -p "$WATCH_DIR"
+
+            ${pkgs.inotify-tools}/bin/inotifywait -m -e close_write --format '%w%f' "$WATCH_DIR" | while read -r filepath; do
+              [[ "$filepath" != *.png ]] && continue
+              sleep 0.2
+              [[ ! -s "$filepath" ]] && continue
+
+              # Copy path to clipboard (clipboard manager saves this)
+              echo -n "$filepath" | ${pkgs.wl-clipboard}/bin/wl-copy
+              sleep 0.1
+              # Copy image to clipboard (becomes active item)
+              ${pkgs.wl-clipboard}/bin/wl-copy < "$filepath"
+
+              ${pkgs.libnotify}/bin/notify-send -h string:x-canonical-private-synchronous:screenshot \
+                -u low -i "''${ICON_DIR}/picture.png" \
+                "Screenshot Saved" \
+                "Clipboard: image + path"
+            done
+          ''}";
+          Restart = "on-failure";
+          RestartSec = 5;
+        };
+        Install = {
+          WantedBy = [ cfg.screenshotWatcherTarget ];
+        };
+      };
+    }
+    // lib.optionalAttrs cfg.isolateShellServices (
+      import ./session-services.nix {
+        inherit pkgs;
+        inherit (config.home) homeDirectory;
+        inputMethodPackage = if osConfig == null then pkgs.fcitx5 else osConfig.i18n.inputMethod.package;
+      }
+    );
   };
 }

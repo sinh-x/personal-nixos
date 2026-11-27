@@ -7,7 +7,7 @@ import re
 import sys
 import tomllib
 
-config_path, manifest_path, template_path, extras_path, host_path, diagnostic_path = map(Path, sys.argv[1:])
+config_path, manifest_path, template_path, extras_path, host_path, diagnostic_path, noctalia_path, niri_path = map(Path, sys.argv[1:])
 config = tomllib.loads(config_path.read_text())
 manifest = json.loads(manifest_path.read_text())
 template, extras, host = (path.read_text() for path in (template_path, extras_path, host_path))
@@ -75,4 +75,25 @@ assert len(config["general"]["autostart"]) == 1
 assert "startup" in config["general"]["autostart"][0]
 assert "noctalia" not in config["general"]["autostart"][0]
 assert not set(config["environment"]) & {"XDG_CURRENT_DESKTOP", "XDG_SESSION_DESKTOP", "XDG_SESSION_TYPE"}
-print("PASS: source/config inventory, explicit deviations, 17 rule dispositions and 8 qualified names; live parity unverified")
+niri = niri_path.read_text()
+for daemon in ('spawn-at-startup "mako"', 'spawn-at-startup "awww-daemon"', 'spawn-at-startup "wl-paste"', 'spawn-at-startup "fcitx5"', '~/.config/niri/scripts/statusbar', 'sleep 1 && ~/.config/niri/scripts/wallpaper --default'):
+    assert daemon not in niri, "duplicate unsupervised Niri shell startup"
+assert len(pattern.findall(niri)) == 112
+assert '~/.config/niri/scripts/startup_apps' in niri
+noctalia = tomllib.loads(noctalia_path.read_text())
+assert noctalia["storage"] == {"key_source": "secret-service", "key_file": ""}
+assert noctalia["wallpaper"]["directory"] == "/home/sinh/Pictures/Wallpapers"
+assert not noctalia["lockscreen"]["enabled"]
+assert not noctalia["shell"]["polkit_agent"]
+assert noctalia["shell"]["clipboard_auto_paste"] == "off"
+for name in ("save_to_file", "copy_to_clipboard", "pipe_to_command", "copy_on_close", "close_on_copy", "close_on_save"):
+    assert noctalia["shell"]["screenshot"][name] is False
+assert noctalia["shell"]["screenshot"]["annotate"] is True
+assert noctalia["shell"]["screenshot"]["format"] == "png"
+actions = noctalia["shell"]["session"]["actions"]
+assert [action["label"] for action in actions] == ["Lock", "Hibernate", "Logout", "Reboot", "Shutdown"]
+assert all(action["action"] not in ("suspend", "lock_and_suspend") for action in actions)
+assert actions[1]["command"].endswith("/bin/umbriel-controls hibernate")
+assert noctalia["shell"]["session"]["power"]["suspend"] == actions[1]["command"]
+assert all(behavior["enabled"] is False for behavior in noctalia["idle"]["behavior"].values())
+print("PASS: source/config inventory, exact deviations, 17 rule dispositions, 8 names and declared capture/power/storage safeguards; live parity unverified")

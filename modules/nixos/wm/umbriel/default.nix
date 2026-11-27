@@ -101,6 +101,7 @@ in
       # legacy watcher rather than silently binding it to a nonexistent target.
       targets.niri-session = {
         description = "Niri-only auxiliary services";
+        unitConfig.DefaultDependencies = false;
         bindsTo = [ "niri.service" ];
         after = [ "niri.service" ];
       };
