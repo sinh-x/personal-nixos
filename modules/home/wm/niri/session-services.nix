@@ -11,7 +11,12 @@ let
       "niri-session.target"
     ];
     PartOf = [ "niri-session.target" ];
-    BindsTo = [ "niri.service" ];
+    # PartOf the bound target supplies teardown without an activation dependency:
+    # D-Bus activation (notably Mako) must never pull a compositor back up.
+    Requisite = [
+      "niri.service"
+      "niri-session.target"
+    ];
   };
   service = command: {
     Unit = unit;

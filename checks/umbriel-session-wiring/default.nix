@@ -96,7 +96,16 @@ assert lib.all
     in
     service.Unit.ConditionEnvironment == "XDG_CURRENT_DESKTOP=niri"
     && service.Unit.PartOf == [ "niri-session.target" ]
-    && service.Unit.BindsTo == [ "niri.service" ]
+    && !(service.Unit ? BindsTo)
+    &&
+      service.Unit.Requisite == [
+        "niri.service"
+        "niri-session.target"
+      ]
+    && lib.all (name: lib.elem name service.Unit.After) [
+      "niri.service"
+      "niri-session.target"
+    ]
     && service.Install.WantedBy == [ "niri-session.target" ]
   )
   [

@@ -53,7 +53,9 @@ Polkit and authentication policy remain in use. Niri retains its old shell stack
 binaries, desktop bindings and shell settings, but trial isolation moves its seven configured shell
 startup processes into Niri-only user units. Pinned Niri spawns independent scopes,
 so relying on child-process ancestry alone would leak owners across logout. Mako
-uses its D-Bus activation unit name with a Niri condition; Fcitx's XDG autostart is
+uses its D-Bus activation unit name with a Niri condition. Shell units require an
+already-active compositor/target without pulling either up on a D-Bus request;
+teardown follows the bound target. Fcitx's XDG autostart is
 hidden only while explicit per-session services own it. No unrelated app scopes or
 operator processes are killed. Begin the first trial from a fresh candidate boot
 or an operator-qualified clean session: greeter logout alone does not qualify
