@@ -74,6 +74,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # NX-077: optional Drgnfly trial; retain each upstream's own dependency pins.
+    umbriel.url = "github:noctalia-dev/umbriel/b56b66ce66b4cf84d34e522d3ad63a82b215ccd9";
+    noctalia.url = "github:noctalia-dev/noctalia/30254799f51c6bdb06fa21936e36214c93a455b5";
+
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
     zjstatus = {

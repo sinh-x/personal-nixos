@@ -13,6 +13,12 @@ in
   options.${namespace}.wm.niri = {
     enable = mkEnableOption "Niri config using hm";
 
+    screenshotWatcherTarget = mkOption {
+      type = types.str;
+      default = "graphical-session.target";
+      description = "Session target owning the legacy image-and-path screenshot watcher.";
+    };
+
     monitors = {
       primary = mkOption {
         type = types.nullOr types.str;
@@ -129,8 +135,8 @@ in
     systemd.user.services.screenshot-watcher = {
       Unit = {
         Description = "Watch for new screenshots and copy to clipboard";
-        After = [ "graphical-session.target" ];
-        PartOf = [ "graphical-session.target" ];
+        After = [ cfg.screenshotWatcherTarget ];
+        PartOf = [ cfg.screenshotWatcherTarget ];
       };
       Service = {
         Type = "simple";
@@ -161,7 +167,7 @@ in
         RestartSec = 5;
       };
       Install = {
-        WantedBy = [ "graphical-session.target" ];
+        WantedBy = [ cfg.screenshotWatcherTarget ];
       };
     };
   };

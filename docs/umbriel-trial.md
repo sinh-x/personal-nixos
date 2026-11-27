@@ -30,6 +30,37 @@ Secret Service ownership is observable, but does not prove that a collection is
 unlocked or that Noctalia history persists. Never export secrets, add a credential
 store without direction, use plaintext keys or migrate Niri's cliphist silently.
 
+## Session isolation
+
+The trial options are `modules.wm.umbriel.enable` (NixOS) and
+`sinh-x.wm.umbriel.enable` (Home Manager). Both default to false. Keep host enables
+off until the translated configuration, capture/power safety paths and P4 checks
+are complete; phase commits alone are not permission to activate upstream defaults.
+The source fixture enables a synthetic configuration only to inspect declarations.
+
+When enabled, the greeter boundary calls the documented `niri-session` and
+`start-umbriel` launchers, rather than starting the compositor binary directly.
+It serializes transitions in the private user runtime directory, refuses an active
+or starting compositor, and stops stale portal backends only at the inactive
+session boundary. The selected launcher imports the fresh identity and supplies
+compositor readiness. Logout/failure cleans the selected service/target and stale
+activation environment; no in-session blanket portal restart is used as a repair.
+
+Noctalia and the trial Fcitx5 client follow `umbriel-session.target` and bind to
+`umbriel.service`. The existing host Fcitx5 package, Lotus server, Secret Service,
+Polkit and authentication policy remain in use. Niri retains its old shell stack.
+A repository-owned `niri-session.target` binds its legacy screenshot watcher to
+Niri: upstream Niri v26.04 does not provide that target. The global Home Manager
+session target is not changed. Operator UI overrides or independently started
+services can still conflict and must be qualified during the real session trial.
+
+The pinned public [installation manual](https://github.com/noctalia-dev/umbriel/blob/b56b66ce66b4cf84d34e522d3ad63a82b215ccd9/docs/user/installation.md)
+and [configuration manual](https://github.com/noctalia-dev/umbriel/blob/b56b66ce66b4cf84d34e522d3ad63a82b215ccd9/docs/user/configuration.md)
+document these public launcher/readiness/configuration APIs. They are independent
+sources, not a workaround to retrieve previously denied upstream files. That
+source-access incident remains unresolved; do not retry those coordinates without
+owner-qualified access. Live lifecycle and portal round-trip UAT remain mandatory.
+
 ## Qualification and recovery
 
 Only Drgnfly may enable the trial. Preserve the Niri bridge patch and other hosts.
