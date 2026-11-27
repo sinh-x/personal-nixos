@@ -171,6 +171,7 @@ in
         workspaces.distribution = "split"; # 1-5,11-15 left; 6-10,16-20 right
       };
       hyprland.enable = false;
+      umbriel.enable = true;
       niri = {
         enable = true;
         monitors.primary = "eDP-1";

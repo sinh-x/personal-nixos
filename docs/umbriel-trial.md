@@ -33,10 +33,11 @@ store without direction, use plaintext keys or migrate Niri's cliphist silently.
 ## Session isolation
 
 The trial options are `modules.wm.umbriel.enable` (NixOS) and
-`sinh-x.wm.umbriel.enable` (Home Manager). Both default to false. Keep host enables
-off until the translated configuration, capture/power safety paths and P4 checks
-are complete; phase commits alone are not permission to activate upstream defaults.
-The source fixture enables a synthetic configuration only to inspect declarations.
+`sinh-x.wm.umbriel.enable` (Home Manager). Both module defaults are false; the
+checked candidate opts in only Drgnfly, adding a selectable greeter session while
+retaining Niri autologin. Nothing is activated by editing or building this source.
+Phase commits are not permission to activate unqualified defaults. The source
+fixtures exercise both enabled and disabled modes with the real translation.
 
 When enabled, the greeter boundary calls the documented `niri-session` and
 `start-umbriel` launchers, rather than starting the compositor binary directly.
@@ -49,17 +50,19 @@ activation environment; no in-session blanket portal restart is used as a repair
 Noctalia and the trial Fcitx5 client follow `umbriel-session.target` and bind to
 `umbriel.service`. The existing host Fcitx5 package, Lotus server, Secret Service,
 Polkit and authentication policy remain in use. Niri retains its old shell stack,
-binaries and configuration, but trial isolation moves its seven configured shell
+binaries, desktop bindings and shell settings, but trial isolation moves its seven configured shell
 startup processes into Niri-only user units. Pinned Niri spawns independent scopes,
 so relying on child-process ancestry alone would leak owners across logout. Mako
 uses its D-Bus activation unit name with a Niri condition; Fcitx's XDG autostart is
 hidden only while explicit per-session services own it. No unrelated app scopes or
-operator processes are killed. Begin the first candidate trial from a fresh login
-and qualify any processes retained from the previous generation with Sinh.
+operator processes are killed. Begin the first trial from a fresh candidate boot
+or an operator-qualified clean session: greeter logout alone does not qualify
+unowned processes retained from an older generation.
 A repository-owned `niri-session.target` (without implicit target ordering) binds
 these units and its legacy screenshot watcher to Niri: upstream Niri v26.04 does
-not provide that target. The global Home Manager
-session target is not changed. Operator UI overrides or independently started
+not provide that target. The trial-only scripts bundle excludes raw templates
+that would shadow explicitly rendered helpers; other hosts keep their old source.
+The global Home Manager session target is not changed. Operator UI overrides or independently started
 services can still conflict and must be qualified during the real session trial.
 
 The pinned public [installation manual](https://github.com/noctalia-dev/umbriel/blob/b56b66ce66b4cf84d34e522d3ad63a82b215ccd9/docs/user/installation.md)
@@ -90,8 +93,8 @@ approval.
 `modules/home/wm/umbriel/bindings.nix` is the executable 112-entry source-to-target
 shortcut ledger. `settings.nix` owns eight output-qualified workspace declarations,
 three unchanged mixed-DPI profiles and 17 rule dispositions. Sixteen rule blocks
-have candidate translations; the Drgnfly Zoom block remains explicitly unverified
-and is not copied to direct Xwayland. Obtain consent-backed auxiliary/main/startup
+have candidate translations; the Drgnfly Zoom block remains unimplemented pending
+consented metadata and is not copied to direct Xwayland. Obtain consent-backed auxiliary/main/startup
 metadata before adding any Zoom predicates. Do not inherit NX-061 exceptions.
 
 The adapter parses bounded JSON and sends typed IPC fields. Window IDs remain
@@ -115,7 +118,12 @@ required. Startup retains Vivaldi; interactive browser launch uses BROWSER/Zen.
 The bounded check is `nix build .#checks.x86_64-linux.umbriel-trial --no-link
 --no-write-lock-file`. It validates the actual rendered TOML with the pinned
 `umbriel config validate -c <file> --json`, checks the full source ledger and runs
-injected-IPC negative fixtures without connecting to the desktop. Source checks do not establish real capture, input, locking or display behavior.
+injected-IPC/control negative fixtures without connecting to the desktop. It also
+checks assembled Home Manager symlink identities so recursive files cannot shadow
+the rendered Niri helper/config, Noctalia config or Fcitx autostart override. The
+candidate Niri binary validates its generated KDL; this is not installed-KDL
+comparison. Source checks do not establish real capture, input, locking or display
+behavior.
 
 ## Capture, power and persistence safeguards
 
@@ -151,10 +159,11 @@ All-output security, compositor blanking after locker failure and resume remain 
 
 Noctalia storage explicitly uses the existing Secret Service, with no key file.
 A metadata-only ExecStartPre checks an existing default collection's unlocked flag
-without activation, unlocking, secret reads or provider setup. Unavailable storage
-refuses shell startup and reports the owner action rather than silently accepting
-memory-only history. This is not proof that Noctalia can persist its own data;
-text/image history across actual logins is still mandatory. Niri cliphist is not
+without activation, unlocking, secret reads or provider setup. A missing or locked
+collection refuses shell startup and reports the owner action. This does not prove
+that Noctalia can consume the key or persist its own data; text/image history across
+actual logins is still mandatory. Any persistence failure blocks qualification:
+stop and ask Sinh, rather than accept memory-only history or configure a new store. Niri cliphist is not
 imported, altered or migrated. Diagnostics use no-autostart D-Bus notification calls
 so a failed trial shell cannot accidentally activate the old Mako owner.
 
@@ -166,6 +175,25 @@ and a non-activating Drgnfly build on the exact candidate. Keep failures visible
 Sinh alone performs privileged system activation and real capture/sharing,
 Vietnamese input, mixed-DPI/hotplug, clipboard persistence, Zoom, lock and
 hibernate/resume qualification. No live private content capture is authorized.
+
+Before any operator trial:
+
+1. Save work, preserve the known-good boot generation, match the report's exact
+   commit/lock/toplevel identities, and resolve operator-owned config conflicts
+   without deleting state. Sinh alone chooses and performs test activation; use
+   the reviewed ticket worktree explicitly, never a different checkout by default.
+2. Qualify Niri → Umbriel → Niri: greeter entries/autologin, fresh activation
+   identity, one bar/notification/Fcitx/clipboard owner, cleanup and portal routing.
+3. Compare the fixed shortcut, rule and layout cases, all eight names, mixed-DPI
+   hotplug/routing, existing-window selectors, smart spawn and app readiness. Obtain
+   consented direct-Xwayland Zoom metadata before implementing its missing rule.
+4. Using non-private operator-approved samples, exercise capture Save/Copy/Cancel
+   and delivery failures, screen/region/audio recording and playable finalization,
+   Vietnamese input, notifications/utilities and text/image clipboard persistence
+   across real logins. Do not mistake collection metadata for persistence.
+5. Qualify all-output lock security, refusal/duplicate/crash behavior and actual
+   Hibernate/resume. Record unmet cases and exact deviations, then obtain separate
+   independent review and owner disposition. A build cannot waive any of these.
 
 A failed trial must retain the Niri greeter entry. Log out and select Niri first.
 If the greeter is unusable, Sinh selects the previous known-good NixOS generation

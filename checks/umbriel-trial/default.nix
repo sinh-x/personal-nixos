@@ -10,8 +10,8 @@ let
     (inputs.self.nixosConfigurations.Drgnfly.extendModules {
       modules = [
         {
-          modules.wm.umbriel.enable = true;
-          home-manager.users.sinh.${namespace}.wm.umbriel.enable = true;
+          modules.wm.umbriel.enable = lib.mkForce true;
+          home-manager.users.sinh.${namespace}.wm.umbriel.enable = lib.mkForce true;
         }
       ];
     }).config;
@@ -42,7 +42,18 @@ pkgs.runCommand "umbriel-trial" { nativeBuildInputs = [ pkgs.python3 ]; } ''
     ${../../home/sinh/niri-extras.nix} ${../../home/sinh/Drgnfly.nix} diagnostics.json \
     ${home.xdg.configFile."noctalia/config.toml".source} \
     ${home.home.file.".config/niri/config.kdl".source}
-  ${pkgs.niri}/bin/niri validate --config ${home.home.file.".config/niri/config.kdl".source}
+  # Check the assembled Home Manager product, not just option declarations.
+  test "$(readlink -f ${home.home.activationPackage}/home-files/.config/niri/scripts/workspace_monitors)" = \
+    "${home.home.file.".config/niri/scripts/workspace_monitors".source}"
+  test "$(readlink -f ${home.home.activationPackage}/home-files/.config/niri/config.kdl)" = \
+    "${home.home.file.".config/niri/config.kdl".source}"
+  test "$(readlink -f ${home.home.activationPackage}/home-files/.config/noctalia/config.toml)" = \
+    "${home.xdg.configFile."noctalia/config.toml".source}"
+  test "$(readlink -f ${home.home.activationPackage}/home-files/.config/autostart/org.fcitx.Fcitx5.desktop)" = \
+    "${home.xdg.configFile."autostart/org.fcitx.Fcitx5.desktop".source}"
+  ${trial.programs.niri.package}/bin/niri validate --config ${
+    home.home.file.".config/niri/config.kdl".source
+  }
   python3 -B ${./test-controls.py} ${../../modules/home/wm/umbriel}
   # swaylock 1.8.6 deliberately returns 1 for help; bind the known interface
   # and version instead of treating this as a live-lock or readiness test.

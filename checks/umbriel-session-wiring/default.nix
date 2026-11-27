@@ -6,20 +6,22 @@
   ...
 }:
 let
-  baseline = inputs.self.nixosConfigurations.Drgnfly.config;
-  # Evaluation-only enablement of the actual translated settings. Host defaults
-  # stay disabled; parser and adapter parity checks live in umbriel-trial.
-  trial =
+  actual = inputs.self.nixosConfigurations.Drgnfly.config;
+  # Exercise both modes regardless of the host's selected opt-in value.
+  fixture =
+    enabled:
     (inputs.self.nixosConfigurations.Drgnfly.extendModules {
       modules = [
         {
-          modules.wm.umbriel.enable = true;
+          modules.wm.umbriel.enable = lib.mkForce enabled;
           home-manager.users.sinh = {
-            ${namespace}.wm.umbriel.enable = true;
+            ${namespace}.wm.umbriel.enable = lib.mkForce enabled;
           };
         }
       ];
     }).config;
+  baseline = fixture false;
+  trial = fixture true;
   home = trial.home-manager.users.sinh;
   shell = home.systemd.user.services.noctalia-umbriel;
   watcher = home.systemd.user.services.screenshot-watcher;
@@ -31,6 +33,8 @@ let
     "Lily"
   ];
 in
+assert
+  actual.modules.wm.umbriel.enable == actual.home-manager.users.sinh.${namespace}.wm.umbriel.enable;
 assert !baseline.modules.wm.umbriel.enable;
 assert !baseline.home-manager.users.sinh.${namespace}.wm.umbriel.enable;
 assert baseline.modules.wm.niri.globalSessionIdentity;

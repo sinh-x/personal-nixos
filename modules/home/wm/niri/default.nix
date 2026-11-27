@@ -116,7 +116,20 @@ in
         file = {
           ".config/niri/config.kdl".text = configText;
           ".config/niri/scripts" = {
-            source = ./niri_config/scripts;
+            source =
+              if cfg.isolateShellServices then
+                lib.cleanSourceWith {
+                  src = ./niri_config/scripts;
+                  # Recursive files otherwise shadow the explicit rendered ones.
+                  filter =
+                    path: _type:
+                    let
+                      name = baseNameOf path;
+                    in
+                    name != "workspace_monitors" && !(cfg.startupScript != null && name == "startup_apps");
+                }
+              else
+                ./niri_config/scripts;
             recursive = true;
           };
           ".config/niri/scripts/workspace_monitors" = {
