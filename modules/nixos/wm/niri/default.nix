@@ -11,7 +11,25 @@ in
   options.modules.wm.niri = {
     enable = lib.mkEnableOption "niri";
 
+    globalSessionIdentity = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Publish Niri desktop identity globally (disable for isolated multi-session hosts).";
+    };
+
     greetd = {
+      sessionPackage = lib.mkOption {
+        type = lib.types.package;
+        default = pkgs.niri;
+        description = "Niri session package providing bin/niri-session and its desktop entry.";
+      };
+
+      extraSessionPackages = lib.mkOption {
+        type = lib.types.listOf lib.types.package;
+        default = [ ];
+        description = "Additional Wayland session packages offered by tuigreet.";
+      };
+
       enable = lib.mkEnableOption "greetd display manager with niri";
 
       autoLogin = {
@@ -35,13 +53,15 @@ in
     environment.sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = "1";
       NIXOS_OZONE_WL = "1";
-      XDG_CURRENT_DESKTOP = "niri";
-      XDG_SESSION_TYPE = "wayland";
-      XDG_SESSION_DESKTOP = "niri";
       # Video acceleration for NVIDIA (VA-API)
       LIBVA_DRIVER_NAME = "nvidia";
       NVD_BACKEND = "direct";
       __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    }
+    // lib.optionalAttrs cfg.globalSessionIdentity {
+      XDG_CURRENT_DESKTOP = "niri";
+      XDG_SESSION_TYPE = "wayland";
+      XDG_SESSION_DESKTOP = "niri";
     };
 
     xdg.portal = {
@@ -174,14 +194,19 @@ in
       settings = {
         # Always show tuigreet on logout (default_session persists across restarts)
         default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${pkgs.niri}/share/wayland-sessions";
+          command =
+            let
+              sessions = [ cfg.greetd.sessionPackage ] ++ cfg.greetd.extraSessionPackages;
+              sessionPath = lib.concatMapStringsSep ":" (p: "${p}/share/wayland-sessions") sessions;
+            in
+            "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${sessionPath}";
           user = "greeter";
         };
       }
       // lib.optionalAttrs cfg.greetd.autoLogin.enable {
         # Auto-login: initial_session runs once on boot, then falls back to default_session on logout
         initial_session = {
-          command = "${pkgs.niri}/bin/niri-session";
+          command = "${cfg.greetd.sessionPackage}/bin/niri-session";
           inherit (cfg.greetd.autoLogin) user;
         };
       };

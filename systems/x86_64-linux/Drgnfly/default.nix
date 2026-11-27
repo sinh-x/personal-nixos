@@ -82,6 +82,7 @@ in
     wm = {
       bspwm.enable = false;
       hyprland.enable = false;
+      umbriel.enable = true; # Selectable trial only; Niri remains the autologin session.
       niri = {
         enable = true;
         greetd.enable = true;
