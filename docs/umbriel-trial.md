@@ -61,6 +61,56 @@ sources, not a workaround to retrieve previously denied upstream files. That
 source-access incident remains unresolved; do not retry those coordinates without
 owner-qualified access. Live lifecycle and portal round-trip UAT remain mandatory.
 
+## Accepted trial-only differences
+
+During the d-74af86 implementation continuation, Sinh explicitly selected shared
+scrolling instead of a compositor patch. At the pinned Umbriel revision,
+`Mod+TouchpadScrollUp/Down` shares `Mod+WheelUp/Down` and its 150 ms cooldown.
+`Mod+Shift+touchpad` also moves columns between workspaces, unlike the unbound
+Niri input. Keep all 112 source triggers in the parity ledger; two pairs share
+one target each (110 target chords). This is an exact trial-only deviation, not
+UAT, general shortcut-waiver authority or a change to Niri.
+
+Sinh also explicitly accepted `Mod+I` dismissing all active Noctalia notifications,
+rather than only one notification. `Mod+Shift+I` retains its all-dismiss behavior.
+The pinned Noctalia CLI has all-dismiss but no single/latest-dismiss command. This
+second exact difference applies only to the trial and is not general deviation
+approval.
+
+## Translation and IPC contracts
+
+`modules/home/wm/umbriel/bindings.nix` is the executable 112-entry source-to-target
+shortcut ledger. `settings.nix` owns eight output-qualified workspace declarations,
+three unchanged mixed-DPI profiles and 17 rule dispositions. Sixteen rule blocks
+have candidate translations; the Drgnfly Zoom block remains explicitly unverified
+and is not copied to direct Xwayland. Obtain consent-backed auxiliary/main/startup
+metadata before adding any Zoom predicates. Do not inherit NX-061 exceptions.
+
+The adapter parses bounded JSON and sends typed IPC fields. Window IDs remain
+opaque strings; titles are sanitized display labels, never commands. Browser and
+Ghostty selectors focus existing windows only, requery selected IDs, and do nothing
+on cancel, no match, malformed/custom/out-of-range selection or stale identity.
+Tab traversal and bottom-expel use explicit column/row inventories; whole-column
+moves use native column actions, not loops moving individual windows. These are
+candidate semantics requiring the fixed real Niri/trial comparison, not a claim
+of live parity from a binding count.
+
+All eight names are initially declared exactly once on the laptop. Startup and
+connector-enablement changes reconcile ext-* to the sorted first external, with
+laptop fallback. Focus-only updates do not undo deliberate workspace transfers.
+Routes use the current workspace output, not its ID prefix or original connector.
+Smart spawn requeries after focus/topology changes and refuses unresolved or
+substituted targets. The compositor supplies the launch token; an accepted IPC
+reply is not application readiness. Real concurrent-hotplug qualification remains
+required. Startup retains Vivaldi; interactive browser launch uses BROWSER/Zen.
+
+The bounded check is `nix build .#checks.x86_64-linux.umbriel-trial --no-link
+--no-write-lock-file`. It validates the actual rendered TOML with the pinned
+`umbriel config validate -c <file> --json`, checks the full source ledger and runs
+injected-IPC negative fixtures without connecting to the desktop. Capture and
+utility command names in the translation are P3 dependencies: do not enable or
+activate this intermediate configuration before those implementations and P4.
+
 ## Qualification and recovery
 
 Only Drgnfly may enable the trial. Preserve the Niri bridge patch and other hosts.

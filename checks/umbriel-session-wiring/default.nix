@@ -7,8 +7,8 @@
 }:
 let
   baseline = inputs.self.nixosConfigurations.Drgnfly.config;
-  # Evaluation-only fixture: {} is not the P2 translated desktop config and is
-  # never enabled on a host. Do not treat this as parser or live-session proof.
+  # Evaluation-only enablement of the actual translated settings. Host defaults
+  # stay disabled; parser and adapter parity checks live in umbriel-trial.
   trial =
     (inputs.self.nixosConfigurations.Drgnfly.extendModules {
       modules = [
@@ -16,7 +16,6 @@ let
           modules.wm.umbriel.enable = true;
           home-manager.users.sinh = {
             ${namespace}.wm.umbriel.enable = true;
-            programs.umbriel.settings = { };
           };
         }
       ];
@@ -89,5 +88,6 @@ pkgs.runCommand "umbriel-session-wiring" { nativeBuildInputs = [ pkgs.python3 ];
   # Production-boundary fixtures inject every process call. No real compositor,
   # portal, environment import, lock screen or power action is executed.
   python3 -B ${./test-session.py} ${../../modules/nixos/wm/umbriel/session.py}
+  python3 -B ${./test-ipc.py} ${../../modules/home/wm/umbriel/ipc.py}
   echo 'Declared wiring and boundary fixtures passed; live session UAT unverified.' > "$out"
 ''

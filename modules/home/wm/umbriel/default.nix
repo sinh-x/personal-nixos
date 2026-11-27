@@ -9,6 +9,23 @@
 }:
 let
   cfg = config.${namespace}.wm.umbriel;
+  primary = config.${namespace}.wm.niri.monitors.primary;
+  primaryOutput = if primary == null then "eDP-1" else primary;
+  adapter = pkgs.writeShellApplication {
+    name = "umbriel-trial";
+    runtimeInputs = [
+      pkgs.rofi
+      pkgs.libnotify
+    ];
+    text = ''
+      exec ${pkgs.python3}/bin/python3 ${./ipc.py} "$@"
+    '';
+  };
+  desktop = import ./settings.nix {
+    inherit lib adapter;
+    inherit (config.home) homeDirectory;
+    primary = primaryOutput;
+  };
   noctalia = pkgs.writeShellApplication {
     name = "noctalia-umbriel";
     runtimeInputs = config.programs.noctalia.extraPackages;
@@ -47,7 +64,10 @@ in
     ];
 
     programs = {
-      umbriel.enable = true;
+      umbriel = {
+        enable = true;
+        inherit (desktop) settings;
+      };
       noctalia = {
         enable = true;
         # Do not retarget wayland.systemd.target for unrelated HM services.
@@ -63,7 +83,25 @@ in
     # to an explicit Save in the trial, even when both use the same directory.
     ${namespace}.wm.niri.screenshotWatcherTarget = "niri-session.target";
 
+    home.packages = [ adapter ];
+
     systemd.user.services = {
+      umbriel-workspaces = {
+        Unit = {
+          Description = "Umbriel named-workspace topology reconciliation";
+          ConditionEnvironment = "XDG_CURRENT_DESKTOP=umbriel";
+          After = [ "umbriel.service" ];
+          PartOf = [ "umbriel-session.target" ];
+          BindsTo = [ "umbriel.service" ];
+        };
+        Service = {
+          ExecStart = "${adapter}/bin/umbriel-trial watch --primary ${primaryOutput}";
+          Restart = "on-failure";
+          RestartSec = 2;
+          TimeoutStopSec = 5;
+        };
+        Install.WantedBy = [ "umbriel-session.target" ];
+      };
       noctalia-umbriel = {
         Unit = {
           Description = "Noctalia shell for the optional Umbriel session";
