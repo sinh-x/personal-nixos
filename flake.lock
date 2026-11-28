@@ -1994,6 +1994,28 @@
         "type": "github"
       }
     },
+    "mandara": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay_2"
+      },
+      "locked": {
+        "lastModified": 1795711897,
+        "narHash": "sha256-1KDofBX7AYBpmDFykWQmClTuoMYGJzGp3vrPx6D65cc=",
+        "owner": "theHamdiz",
+        "repo": "mandara",
+        "rev": "7759e8e7a2fef94d4bd697b97176742fe4cdb41b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "theHamdiz",
+        "repo": "mandara",
+        "rev": "7759e8e7a2fef94d4bd697b97176742fe4cdb41b",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -2980,6 +3002,7 @@
         "hyprland": "hyprland",
         "hyprland-plugins": "hyprland-plugins",
         "impermanence": "impermanence",
+        "mandara": "mandara",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-gurk": "nixpkgs-gurk",
         "noctalia": "noctalia",
@@ -3042,6 +3065,27 @@
       }
     },
     "rust-overlay_2": {
+      "inputs": {
+        "nixpkgs": [
+          "mandara",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794040562,
+        "narHash": "sha256-7eEiezSku3lbZPUOXW8we1a7+xd5axkCQdyI3rzOKjo=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "d3fe74269f2a6652437e21e78eb7e83be81f6982",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_3": {
       "inputs": {
         "nixpkgs": [
           "zjstatus",
@@ -4021,7 +4065,7 @@
         "crane": "crane",
         "flake-utils": "flake-utils_18",
         "nixpkgs": "nixpkgs_24",
-        "rust-overlay": "rust-overlay_2"
+        "rust-overlay": "rust-overlay_3"
       },
       "locked": {
         "lastModified": 1789299614,

@@ -78,6 +78,12 @@
     umbriel.url = "github:noctalia-dev/umbriel/b56b66ce66b4cf84d34e522d3ad63a82b215ccd9";
     noctalia.url = "github:noctalia-dev/noctalia/30254799f51c6bdb06fa21936e36214c93a455b5";
 
+    # Mandara candidate: keep the current shell until parity is qualified.
+    mandara = {
+      url = "github:theHamdiz/mandara/7759e8e7a2fef94d4bd697b97176742fe4cdb41b";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
     zjstatus = {
