@@ -7,11 +7,12 @@
 }:
 let
   actual = inputs.self.nixosConfigurations.Drgnfly.config;
-  # Exercise disabled, selectable-only and default modes independently of the host.
+  # Exercise session selection and both login modes independently of the host.
   fixture =
     {
       enabled,
       defaultSession ? false,
+      autoLogin ? true,
     }:
     (inputs.self.nixosConfigurations.Drgnfly.extendModules {
       modules = [
@@ -20,6 +21,7 @@ let
             enable = lib.mkForce enabled;
             defaultSession = lib.mkForce defaultSession;
           };
+          modules.wm.niri.greetd.autoLogin.enable = lib.mkForce autoLogin;
           home-manager.users.sinh = {
             ${namespace}.wm.umbriel.enable = lib.mkForce enabled;
           };
@@ -31,6 +33,11 @@ let
   primary = fixture {
     enabled = true;
     defaultSession = true;
+  };
+  passwordLogin = fixture {
+    enabled = true;
+    defaultSession = true;
+    autoLogin = false;
   };
   home = trial.home-manager.users.sinh;
   shell = home.systemd.user.services.noctalia-umbriel;
@@ -73,14 +80,15 @@ assert niri.greetd.autoLogin == baseline.modules.wm.niri.greetd.autoLogin;
 assert greeter.initial_session.user == baseline.services.greetd.settings.initial_session.user;
 assert niri.greetd.sessionExecutable == "niri-session";
 assert greeter.initial_session.command == "${niri.greetd.sessionPackage}/bin/niri-session";
+assert !actual.modules.wm.niri.greetd.autoLogin.enable;
+assert !(actual.services.greetd.settings ? initial_session);
+assert !(passwordLogin.services.greetd.settings ? initial_session);
 assert
-  actual.services.greetd.settings.initial_session.command
-  == "${actual.modules.wm.niri.greetd.sessionPackage}/bin/${
-    if actual.modules.wm.umbriel.enable && actual.modules.wm.umbriel.defaultSession then
-      "umbriel-trial-session"
-    else
-      "niri-session"
-  }";
+  passwordLogin.services.greetd.settings.default_session
+  == primary.services.greetd.settings.default_session;
+assert actual.security.pam.services.login.enableGnomeKeyring;
+assert lib.hasInfix "auth substack login" actual.security.pam.services.greetd.text;
+assert lib.hasInfix "session include login" actual.security.pam.services.greetd.text;
 assert primary.modules.wm.niri.greetd.sessionExecutable == "umbriel-trial-session";
 assert builtins.length primary.modules.wm.niri.greetd.extraSessionPackages == 1;
 assert

@@ -7,7 +7,7 @@ import re
 import sys
 import tomllib
 
-config_path, manifest_path, template_path, extras_path, host_path, diagnostic_path, noctalia_path, niri_path = map(Path, sys.argv[1:])
+config_path, manifest_path, template_path, extras_path, host_path, diagnostic_path, noctalia_path, niri_path, niri_startup_path = map(Path, sys.argv[1:])
 config = tomllib.loads(config_path.read_text())
 manifest = json.loads(manifest_path.read_text())
 template, extras, host = (path.read_text() for path in (template_path, extras_path, host_path))
@@ -31,13 +31,24 @@ assert set(config["keybinds"]) == set(by_target)
 # Store prefixes differ between manifest fixture and real installed helper.
 for target, record in by_target.items():
     binding = config["keybinds"][target]
-    for key in ("allow_when_locked", "cooldown_ms"):
+    for key in ("allow_when_locked", "cooldown_ms", "repeat", "release"):
         assert binding.get(key) == record["binding"].get(key), (target, key)
 locked = {key for key, value in config["keybinds"].items() if value.get("allow_when_locked", False)}
 source_locked = {line.strip().split()[0] for line in template.splitlines() if "allow-when-locked=true" in line}
 assert len(locked) == 10 and locked == source_locked
 for target in ("Mod+WheelUp", "Mod+WheelDown", "Mod+Shift+WheelUp", "Mod+Shift+WheelDown"):
     assert config["keybinds"][target]["cooldown_ms"] == 150
+numbered_names = ("main-term", "main-browser", "main-code", "chat", "email", "ext-term", "ext-browser", "ext-code")
+for index, name in enumerate(numbered_names, 1):
+    target = f"Mod+{index}"
+    expected = {"action": f"workspace-switch {name}", "repeat": False}
+    assert config["keybinds"][target] == expected, target
+    assert by_target[target]["binding"] == expected, target
+    shifted = f"Mod+Shift+{index}"
+    assert config["keybinds"][shifted]["action"].startswith("spawn ")
+    assert config["keybinds"][shifted]["action"].endswith(f"/bin/umbriel-trial move {name}")
+assert config["keybinds"]["Ctrl+Alt+Up"] == {"action": "workspace-previous"}
+assert config["keybinds"]["Ctrl+Alt+Down"] == {"action": "workspace-next"}
 assert config["keybinds"]["Ctrl+Alt+B"]["action"].endswith("select browser")
 assert config["keybinds"]["Mod+BracketRight"]["action"].endswith("expel")
 assert config["keybinds"]["Mod+Tab"]["action"].endswith("tab next")
@@ -80,6 +91,10 @@ for daemon in ('spawn-at-startup "mako"', 'spawn-at-startup "awww-daemon"', 'spa
     assert daemon not in niri, "duplicate unsupervised Niri shell startup"
 assert len(pattern.findall(niri)) == 112
 assert '~/.config/niri/scripts/startup_apps' in niri
+niri_startup = niri_startup_path.read_text()
+assert re.findall(r'^([A-Za-z0-9-]+) &$', niri_startup, re.M) == ["discord", "signal-desktop", "Telegram", "viber", "logseq"]
+assert "\nsleep 2\n" in niri_startup and "exec ghostty" in niri_startup
+assert not re.search(r'^\s*vivaldi\b', niri_startup, re.M), "browser must not autostart"
 noctalia = tomllib.loads(noctalia_path.read_text())
 assert noctalia["storage"] == {"key_source": "secret-service", "key_file": ""}
 assert noctalia["wallpaper"]["directory"] == "/home/sinh/Pictures/Wallpapers"

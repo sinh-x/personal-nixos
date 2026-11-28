@@ -41,8 +41,11 @@ pkgs.runCommand "umbriel-trial" { nativeBuildInputs = [ pkgs.python3 ]; } ''
     ${../../modules/home/wm/niri/niri_config/config.kdl} \
     ${../../home/sinh/niri-extras.nix} ${../../home/sinh/Drgnfly.nix} diagnostics.json \
     ${home.xdg.configFile."noctalia/config.toml".source} \
-    ${home.home.file.".config/niri/config.kdl".source}
+    ${home.home.file.".config/niri/config.kdl".source} \
+    ${../../modules/home/wm/niri/niri_config/scripts/startup_apps}
   # Check the assembled Home Manager product, not just option declarations.
+  cmp ${home.home.activationPackage}/home-files/.config/niri/scripts/startup_apps \
+    ${../../modules/home/wm/niri/niri_config/scripts/startup_apps}
   test "$(readlink -f ${home.home.activationPackage}/home-files/.config/niri/scripts/workspace_monitors)" = \
     "${home.home.file.".config/niri/scripts/workspace_monitors".source}"
   test "$(readlink -f ${home.home.activationPackage}/home-files/.config/niri/config.kdl)" = \

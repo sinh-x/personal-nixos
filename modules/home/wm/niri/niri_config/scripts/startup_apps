@@ -19,8 +19,7 @@ signal-desktop &
 Telegram &
 viber &
 
-# Phase 2: Browser and productivity (window rule -> main-browser / email workspace)
-vivaldi &
+# Phase 2: Productivity (window rule -> email workspace)
 logseq &
 
 # Phase 3: Terminal last so it gets focus (window rule -> main-term workspace)

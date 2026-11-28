@@ -288,26 +288,29 @@ def routing_lock():
         os.close(directory)
 
 
-def startup(ipc, primary, run=subprocess.run):
+def startup(ipc, primary, sleep=time.sleep):
+    # Like Niri, app startup needs the compositor, not the desktop shell.
+    # Noctalia keeps its independent encrypted-storage readiness guard.
+    # Do not hold the routing lock while waiting for readiness or settling apps.
     deadline = time.monotonic() + 20
     while True:
         try:
-            outputs(ipc)
-            status = run(["noctalia", "msg", "status"], capture_output=True, timeout=2, check=False)
-            if status.returncode == 0:
+            if outputs(ipc):
                 break
-        except (OSError, InvalidState, subprocess.TimeoutExpired):
+        except (OSError, InvalidState):
             pass
         if time.monotonic() >= deadline:
-            raise InvalidState("compositor/shell startup readiness timed out")
-        time.sleep(0.2)
-    reconcile(ipc, primary)
-    for argv in (["discord"], ["signal-desktop"], ["Telegram"], ["viber"], ["vivaldi"], ["logseq"]):
-        if argv == ["vivaldi"]:
-            focus_workspace(ipc, named(ipc, "main-browser"))
-        ipc.action("spawn", command=shlex.join(argv))
-    focus_workspace(ipc, named(ipc, "main-term"))
-    ipc.action("spawn", command="ghostty")
+            raise InvalidState("compositor startup readiness timed out")
+        sleep(0.2)
+    with routing_lock():
+        reconcile(ipc, primary)
+        for argv in (["discord"], ["signal-desktop"], ["Telegram"], ["viber"], ["logseq"]):
+            ipc.action("spawn", command=shlex.join(argv))
+    # Match Niri's terminal-last policy; this is not application readiness.
+    sleep(2)
+    with routing_lock():
+        route(ipc, "main-term")
+        ipc.action("spawn", command="ghostty")
 
 
 def main():
@@ -319,6 +322,9 @@ def main():
     ipc = IPC()
     if args.command == "select":
         select_window(ipc, args.argument)
+        return
+    if args.command == "startup":
+        startup(ipc, args.primary)
         return
     if args.command == "watch":
         # Only connector enablement changes trigger routing. Focus/scale events
@@ -345,8 +351,6 @@ def main():
             expel_bottom(ipc)
         elif args.command == "reconcile":
             reconcile(ipc, args.primary)
-        elif args.command == "startup":
-            startup(ipc, args.primary)
 
 
 if __name__ == "__main__":

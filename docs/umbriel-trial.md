@@ -1,7 +1,7 @@
 # Drgnfly Umbriel + Noctalia trial (NX-077)
 
-Umbriel is Drgnfly's configured initial autologin session; Niri remains selectable
-at the greeter as a fallback. This source selection does not activate the system
+Drgnfly uses password login, with Umbriel listed first at the greeter and Niri
+selectable as a fallback. This source selection does not activate the system
 or establish human acceptance, independent review or live-session qualification.
 Do not activate an incomplete or failed candidate.
 
@@ -36,12 +36,16 @@ store without direction, use plaintext keys or migrate Niri's cliphist silently.
 The trial options are `modules.wm.umbriel.enable` (NixOS) and
 `sinh-x.wm.umbriel.enable` (Home Manager). Both module defaults are false; the
 checked candidate opts in only Drgnfly. `modules.wm.umbriel.defaultSession` defaults
-to false, but Drgnfly sets it to true to autologin through the isolated Umbriel
-launcher and list Umbriel first at the greeter, retaining the isolated Niri session
-as a fallback. Set it to false to restore Niri autologin while keeping Umbriel
-selectable. Nothing is activated by editing or building this source. Phase commits
-are not permission to activate unqualified defaults. The source fixtures exercise
-disabled, selectable-only and Umbriel-default modes with the real translation.
+to false, but Drgnfly sets it to true to list Umbriel first at the greeter,
+retaining the isolated Niri session as a fallback. Set it to false to list Niri
+first while keeping Umbriel selectable. Drgnfly explicitly disables
+`modules.wm.niri.greetd.autoLogin.enable`: password login supplies PAM with the
+password needed to unlock the existing login keyring. A differently configured
+keyring may still require manual unlocking; verify this after a fresh login.
+Nothing is activated by editing or building this source. Phase commits are not
+permission to activate unqualified defaults. The source fixtures exercise disabled,
+selectable-only and Umbriel-default modes with the real translation, plus password
+login without an `initial_session` and the existing greetd-to-login PAM wiring.
 
 When enabled, the greeter boundary calls the documented `niri-session` and
 `start-umbriel` launchers, rather than starting the compositor binary directly.
@@ -103,6 +107,13 @@ have candidate translations; the Drgnfly Zoom block remains unimplemented pendin
 consented metadata and is not copied to direct Xwayland. Obtain consent-backed auxiliary/main/startup
 metadata before adding any Zoom predicates. Do not inherit NX-061 exceptions.
 
+`Super+1..8` uses native `workspace-switch <name>` press actions with repeat
+disabled. All eight configured names are unique, so native global name lookup
+follows workspaces between outputs without spawning a helper or taking its routing
+lock. Keep these names unique; native duplicate-name resolution is not the
+adapter's strict uniqueness check. Shifted number bindings retain the column-move
+adapter. Animation settings are independent of this shortcut-path optimization.
+
 The adapter parses bounded JSON and sends typed IPC fields. Window IDs remain
 opaque strings; titles are sanitized display labels, never commands. Browser and
 Ghostty selectors focus existing windows only, requery selected IDs, and do nothing
@@ -119,7 +130,17 @@ Routes use the current workspace output, not its ID prefix or original connector
 Smart spawn requeries after focus/topology changes and refuses unresolved or
 substituted targets. The compositor supplies the launch token; an accepted IPC
 reply is not application readiness. Real concurrent-hotplug qualification remains
-required. Startup retains Vivaldi; interactive browser launch uses BROWSER/Zen.
+required. Neither Niri nor Umbriel autostarts Vivaldi; it remains installed, and
+interactive browser launch still uses BROWSER/Zen. Like Niri, app autostart waits
+for compositor IPC, reconciles workspace placement, then launches Discord, Signal,
+Telegram, Viber and Logseq. After a two-second
+settling delay, it resolves `main-term` again and launches Ghostty last. Neither the
+bounded compositor-readiness wait nor the settling delay holds the routing lock.
+App startup does not wait for Noctalia: a locked keyring must not suppress the app
+sequence. Noctalia's encrypted-storage guard is unchanged and may still refuse the
+shell. The delay and accepted spawn replies do not prove app readiness or final
+focus; those remain fresh-login UAT. Startup runs once per compositor session, not
+on config reload, and a partial sequence is not automatically retried.
 
 The bounded check is `nix build .#checks.x86_64-linux.umbriel-trial --no-link
 --no-write-lock-file`. It validates the actual rendered TOML with the pinned
@@ -188,7 +209,7 @@ Before any operator trial:
    commit/lock/toplevel identities, and resolve operator-owned config conflicts
    without deleting state. Sinh alone chooses and performs test activation; use
    the reviewed ticket worktree explicitly, never a different checkout by default.
-2. Qualify Niri → Umbriel → Niri: greeter entries/autologin, fresh activation
+2. Qualify Niri → Umbriel → Niri: greeter entries/password login, fresh activation
    identity, one bar/notification/Fcitx/clipboard owner, cleanup and portal routing.
 3. Compare the fixed shortcut, rule and layout cases, all eight names, mixed-DPI
    hotplug/routing, existing-window selectors, smart spawn and app readiness. Obtain

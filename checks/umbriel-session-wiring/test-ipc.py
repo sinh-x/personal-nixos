@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Negative fixtures for the production IPC adapter; no real desktop calls."""
 
+import contextlib
 import copy
 import importlib.util
 import io
@@ -77,17 +78,87 @@ class IPCFixtures(unittest.TestCase):
                 self.assertEqual(json.loads(sent), {"cmd": "action", "action": "window-focus", "window": "opaque;$(not-shell)"})
                 connection.connect.assert_called_once_with("/fixture/socket")
 
-    def test_startup_policy_and_readiness_failure(self):
+    def test_startup_policy_does_not_depend_on_noctalia(self):
         fake = Fake()
-        adapter.startup(fake, "eDP-1", lambda *_args, **_kwargs: SimpleNamespace(returncode=0))
+        sleep = mock.Mock()
+        with mock.patch.object(adapter, "routing_lock", side_effect=contextlib.nullcontext), \
+                mock.patch.object(adapter.subprocess, "run", side_effect=AssertionError("shell must not be queried")) as run:
+            adapter.startup(fake, "eDP-1", sleep)
+        run.assert_not_called()
+        sleep.assert_called_once_with(2)
         spawns = [fields["command"] for action, fields in fake.actions if action == "spawn"]
-        self.assertEqual(spawns, ["discord", "signal-desktop", "Telegram", "viber", "vivaldi", "logseq", "ghostty"])
-        failed = Fake()
-        failed.query = mock.Mock(side_effect=OSError("fixture unavailable"))
-        with mock.patch.object(adapter.time, "monotonic", side_effect=(0, 21)):
-            with self.assertRaises(adapter.InvalidState):
-                adapter.startup(failed, "eDP-1", lambda *_args, **_kwargs: self.fail("shell queried without compositor"))
-        self.assertEqual(failed.actions, [])
+        self.assertEqual(spawns, ["discord", "signal-desktop", "Telegram", "viber", "logseq", "ghostty"])
+        self.assertNotIn(("workspace-switch", {"workspace": "main-browser", "output": "eDP-1"}), fake.actions)
+        self.assertEqual(fake.actions[-2:], [("workspace-switch", {"workspace": "main-term", "output": "eDP-1"}),
+                                            ("spawn", {"command": "ghostty"})])
+
+    def test_startup_readiness_and_terminal_delay_are_outside_lock(self):
+        fake = Fake()
+        held = False
+        waits = []
+        original_query, original_action = fake.query, fake.action
+        first = True
+
+        def query(command):
+            nonlocal first
+            if first:
+                first = False
+                self.assertFalse(held)
+                raise OSError("compositor not ready")
+            return original_query(command)
+
+        def action(*args, **kwargs):
+            self.assertTrue(held)
+            return original_action(*args, **kwargs)
+
+        @contextlib.contextmanager
+        def lock():
+            nonlocal held
+            self.assertFalse(held, "startup must not acquire a nested routing lock")
+            held = True
+            try:
+                yield
+            finally:
+                held = False
+
+        def sleep(seconds):
+            self.assertFalse(held)
+            waits.append(seconds)
+            if seconds == 2:
+                # A workspace transfer during the delay must be resolved afresh.
+                fake.workspace_data[0]["output"] = "DP-2"
+
+        fake.query, fake.action = query, action
+        with mock.patch.object(adapter, "routing_lock", side_effect=lock):
+            adapter.startup(fake, "eDP-1", sleep)
+        self.assertEqual(waits, [0.2, 2])
+        self.assertEqual(fake.actions[-2], ("workspace-switch", {"workspace": "main-term", "output": "DP-2"}))
+        self.assertFalse(held)
+
+    def test_startup_readiness_failure_never_locks_or_launches(self):
+        for disabled in (False, True):
+            with self.subTest(disabled=disabled):
+                failed = Fake()
+                if disabled:
+                    for output in failed.output_data:
+                        output["enabled"] = False
+                else:
+                    failed.query = mock.Mock(side_effect=OSError("fixture unavailable"))
+                with mock.patch.object(adapter.time, "monotonic", side_effect=(0, 21)), \
+                        mock.patch.object(adapter, "routing_lock") as lock:
+                    with self.assertRaisesRegex(adapter.InvalidState, "compositor startup readiness timed out"):
+                        adapter.startup(failed, "eDP-1", lambda _seconds: self.fail("slept after deadline"))
+                lock.assert_not_called()
+                self.assertEqual(failed.actions, [])
+
+    def test_startup_dispatch_has_no_outer_routing_lock(self):
+        fake = Fake()
+        with mock.patch.object(adapter.sys, "argv", ["adapter", "startup", "--primary", "fixture-output"]), \
+                mock.patch.object(adapter, "IPC", return_value=fake), \
+                mock.patch.object(adapter, "startup") as startup, \
+                mock.patch.object(adapter, "routing_lock", side_effect=AssertionError("outer lock")):
+            adapter.main()
+        startup.assert_called_once_with(fake, "fixture-output")
 
     def test_assignment_preflights_all_names(self):
         fake = Fake()

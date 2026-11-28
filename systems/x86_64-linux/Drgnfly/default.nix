@@ -89,7 +89,8 @@ in
       niri = {
         enable = true;
         greetd.enable = true;
-        greetd.autoLogin.enable = true;
+        # Password authentication lets PAM unlock the encrypted login keyring.
+        greetd.autoLogin.enable = false;
       };
     };
 

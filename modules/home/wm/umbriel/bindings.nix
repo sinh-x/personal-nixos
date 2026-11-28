@@ -116,7 +116,9 @@ let
       [
         {
           name = "Mod+${toString index}";
-          value = command "focus ${name}";
+          # Names are unique across outputs; native lookup follows moved workspaces
+          # without spawning a shell/Python helper or waiting for its routing lock.
+          value = "workspace-switch ${name}";
         }
         {
           name = "Mod+Shift+${toString index}";
@@ -142,6 +144,7 @@ lib.mapAttrsToList (source: action: {
   binding = {
     inherit action;
   }
+  // lib.optionalAttrs (lib.hasPrefix "workspace-switch " action) { repeat = false; }
   // lib.optionalAttrs (lib.hasPrefix "XF86" source) { allow_when_locked = true; }
   // lib.optionalAttrs (lib.hasInfix "Scroll" source) { cooldown_ms = 150; };
 }) actions
