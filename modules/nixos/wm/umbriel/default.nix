@@ -55,7 +55,7 @@ let
   umbrielSession = mkSession {
     desktop = "umbriel";
     launcher = "umbriel-trial-session";
-    name = "Umbriel (trial)";
+    name = "Umbriel";
     command = "${umbriel}/bin/start-umbriel";
   };
 in
@@ -64,7 +64,7 @@ in
 
   options.modules.wm.umbriel = {
     enable = lib.mkEnableOption "the optional Drgnfly Umbriel trial";
-    defaultSession = lib.mkEnableOption "Umbriel as the default greetd session, retaining Niri as a fallback";
+    defaultSession = lib.mkEnableOption "Umbriel as the explicit default greetd command, retaining Niri as a fallback";
   };
 
   config = lib.mkIf cfg.enable {

@@ -1,7 +1,7 @@
 # Drgnfly Umbriel + Noctalia trial (NX-077)
 
-Drgnfly uses password login, with Umbriel listed first at the greeter and Niri
-selectable as a fallback. This source selection does not activate the system
+Drgnfly uses password login, with **Umbriel** (without a trial suffix) as the
+explicit default greeter command and Niri selectable as a fallback. This source selection does not activate the system
 or establish human acceptance, independent review or live-session qualification.
 Do not activate an incomplete or failed candidate.
 
@@ -36,9 +36,12 @@ store without direction, use plaintext keys or migrate Niri's cliphist silently.
 The trial options are `modules.wm.umbriel.enable` (NixOS) and
 `sinh-x.wm.umbriel.enable` (Home Manager). Both module defaults are false; the
 checked candidate opts in only Drgnfly. `modules.wm.umbriel.defaultSession` defaults
-to false, but Drgnfly sets it to true to list Umbriel first at the greeter,
-retaining the isolated Niri session as a fallback. Set it to false to list Niri
-first while keeping Umbriel selectable. Drgnfly explicitly disables
+to false, but Drgnfly sets it to true to select Umbriel by default at the greeter,
+retaining the isolated Niri session as a fallback. The multi-session greeter uses
+an explicit `--cmd` for the selected session: session-directory ordering alone
+does not establish tuigreet's default. Set it to false to default to Niri while
+keeping Umbriel selectable. The desktop entry is labelled `Umbriel`; the internal
+`umbriel-trial-session` launcher name remains unchanged for compatibility. Drgnfly explicitly disables
 `modules.wm.niri.greetd.autoLogin.enable`: password login supplies PAM with the
 password needed to unlock the existing login keyring. A differently configured
 keyring may still require manual unlocking; verify this after a fresh login.

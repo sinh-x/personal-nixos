@@ -101,10 +101,16 @@ assert
 assert primary.services.greetd.settings.initial_session.user == greeter.initial_session.user;
 assert
   primary.services.greetd.settings.default_session.command
-  == "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${primary.modules.wm.niri.greetd.sessionPackage}/share/wayland-sessions:${niri.greetd.sessionPackage}/share/wayland-sessions";
+  == "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${primary.modules.wm.niri.greetd.sessionPackage}/share/wayland-sessions:${niri.greetd.sessionPackage}/share/wayland-sessions --cmd ${lib.escapeShellArg "${primary.modules.wm.niri.greetd.sessionPackage}/bin/umbriel-trial-session"}";
 assert
   greeter.default_session.command
-  == "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${niri.greetd.sessionPackage}/share/wayland-sessions:${builtins.head niri.greetd.extraSessionPackages}/share/wayland-sessions";
+  == "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${niri.greetd.sessionPackage}/share/wayland-sessions:${builtins.head niri.greetd.extraSessionPackages}/share/wayland-sessions --cmd ${lib.escapeShellArg "${niri.greetd.sessionPackage}/bin/niri-session"}";
+assert actual.modules.wm.umbriel.defaultSession;
+assert actual.modules.wm.niri.greetd.sessionExecutable == "umbriel-trial-session";
+assert lib.hasSuffix (
+  " --cmd "
+  + lib.escapeShellArg "${actual.modules.wm.niri.greetd.sessionPackage}/bin/umbriel-trial-session"
+) actual.services.greetd.settings.default_session.command;
 assert builtins.length niri.greetd.extraSessionPackages == 1;
 assert !(trial.environment.sessionVariables ? XDG_CURRENT_DESKTOP);
 assert !(trial.environment.sessionVariables ? XDG_SESSION_DESKTOP);
@@ -164,6 +170,9 @@ assert lib.all
 assert home.systemd.user.services.mako.Service.BusName == "org.freedesktop.Notifications";
 assert lib.hasInfix "Hidden=true" home.xdg.configFile."autostart/org.fcitx.Fcitx5.desktop".text;
 pkgs.runCommand "umbriel-session-wiring" { nativeBuildInputs = [ pkgs.python3 ]; } ''
+  # Check the rendered login entry, without starting the greeter or compositor.
+  grep -Fx 'Name=Umbriel' ${primary.modules.wm.niri.greetd.sessionPackage}/share/wayland-sessions/umbriel.desktop
+  grep -Fx 'Name=Niri' ${builtins.head primary.modules.wm.niri.greetd.extraSessionPackages}/share/wayland-sessions/niri.desktop
   # Production-boundary fixtures inject every process call. No real compositor,
   # portal, environment import, lock screen or power action is executed.
   python3 -B ${./test-session.py} ${../../modules/nixos/wm/umbriel/session.py}

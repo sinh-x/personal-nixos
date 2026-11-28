@@ -27,7 +27,7 @@ in
       sessionExecutable = lib.mkOption {
         type = lib.types.str;
         default = "niri-session";
-        description = "Executable in the default session package used for auto-login.";
+        description = "Executable in the default session package used for auto-login and the multi-session greeter default.";
       };
 
       extraSessionPackages = lib.mkOption {
@@ -204,8 +204,12 @@ in
             let
               sessions = [ cfg.greetd.sessionPackage ] ++ cfg.greetd.extraSessionPackages;
               sessionPath = lib.concatMapStringsSep ":" (p: "${p}/share/wayland-sessions") sessions;
+              # Session discovery sorts entries; directory order is not a default.
+              defaultCommand = lib.optionalString (cfg.greetd.extraSessionPackages != [ ]) (
+                " --cmd " + lib.escapeShellArg "${cfg.greetd.sessionPackage}/bin/${cfg.greetd.sessionExecutable}"
+              );
             in
-            "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${sessionPath}";
+            "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${sessionPath}${defaultCommand}";
           user = "greeter";
         };
       }
