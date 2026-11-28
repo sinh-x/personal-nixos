@@ -21,7 +21,13 @@ in
       sessionPackage = lib.mkOption {
         type = lib.types.package;
         default = pkgs.niri;
-        description = "Niri session package providing bin/niri-session and its desktop entry.";
+        description = "Default session package providing its launcher and desktop entry.";
+      };
+
+      sessionExecutable = lib.mkOption {
+        type = lib.types.str;
+        default = "niri-session";
+        description = "Executable in the default session package used for auto-login.";
       };
 
       extraSessionPackages = lib.mkOption {
@@ -206,7 +212,7 @@ in
       // lib.optionalAttrs cfg.greetd.autoLogin.enable {
         # Auto-login: initial_session runs once on boot, then falls back to default_session on logout
         initial_session = {
-          command = "${cfg.greetd.sessionPackage}/bin/niri-session";
+          command = "${cfg.greetd.sessionPackage}/bin/${cfg.greetd.sessionExecutable}";
           inherit (cfg.greetd.autoLogin) user;
         };
       };

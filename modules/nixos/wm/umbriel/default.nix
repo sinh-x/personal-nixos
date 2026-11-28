@@ -62,7 +62,10 @@ in
 {
   imports = [ inputs.umbriel.nixosModules.default ];
 
-  options.modules.wm.umbriel.enable = lib.mkEnableOption "the optional Drgnfly Umbriel trial";
+  options.modules.wm.umbriel = {
+    enable = lib.mkEnableOption "the optional Drgnfly Umbriel trial";
+    defaultSession = lib.mkEnableOption "Umbriel as the default greetd session, retaining Niri as a fallback";
+  };
 
   config = lib.mkIf cfg.enable {
     assertions = [
@@ -85,8 +88,9 @@ in
     modules.wm.niri = {
       globalSessionIdentity = false;
       greetd = {
-        sessionPackage = niriSession;
-        extraSessionPackages = [ umbrielSession ];
+        sessionPackage = if cfg.defaultSession then umbrielSession else niriSession;
+        sessionExecutable = if cfg.defaultSession then "umbriel-trial-session" else "niri-session";
+        extraSessionPackages = [ (if cfg.defaultSession then niriSession else umbrielSession) ];
       };
     };
 

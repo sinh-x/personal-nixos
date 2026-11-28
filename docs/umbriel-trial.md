@@ -1,8 +1,9 @@
 # Drgnfly Umbriel + Noctalia trial (NX-077)
 
-This trial is optional. Niri remains the initial autologin and production fallback.
-Do not activate an incomplete or failed candidate. Builds and source translation
-are not human acceptance, independent review or production promotion.
+Umbriel is Drgnfly's configured initial autologin session; Niri remains selectable
+at the greeter as a fallback. This source selection does not activate the system
+or establish human acceptance, independent review or live-session qualification.
+Do not activate an incomplete or failed candidate.
 
 ## Baseline and scope
 
@@ -34,10 +35,13 @@ store without direction, use plaintext keys or migrate Niri's cliphist silently.
 
 The trial options are `modules.wm.umbriel.enable` (NixOS) and
 `sinh-x.wm.umbriel.enable` (Home Manager). Both module defaults are false; the
-checked candidate opts in only Drgnfly, adding a selectable greeter session while
-retaining Niri autologin. Nothing is activated by editing or building this source.
-Phase commits are not permission to activate unqualified defaults. The source
-fixtures exercise both enabled and disabled modes with the real translation.
+checked candidate opts in only Drgnfly. `modules.wm.umbriel.defaultSession` defaults
+to false, but Drgnfly sets it to true to autologin through the isolated Umbriel
+launcher and list Umbriel first at the greeter, retaining the isolated Niri session
+as a fallback. Set it to false to restore Niri autologin while keeping Umbriel
+selectable. Nothing is activated by editing or building this source. Phase commits
+are not permission to activate unqualified defaults. The source fixtures exercise
+disabled, selectable-only and Umbriel-default modes with the real translation.
 
 When enabled, the greeter boundary calls the documented `niri-session` and
 `start-umbriel` launchers, rather than starting the compositor binary directly.

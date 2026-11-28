@@ -61,7 +61,7 @@ in
     ./disks.nix
     ./hardware-configuration.nix
     ../common/optional/pipewire.nix
-    # ../common/optional/sddm.nix  # Disabled - using greetd with Niri
+    # ../common/optional/sddm.nix  # Disabled - using greetd with Umbriel
   ];
 
   sinh-x.default-desktop.enable = true;
@@ -82,7 +82,10 @@ in
     wm = {
       bspwm.enable = false;
       hyprland.enable = false;
-      umbriel.enable = true; # Selectable trial only; Niri remains the autologin session.
+      umbriel = {
+        enable = true;
+        defaultSession = true; # Keep Niri selectable as a fallback.
+      };
       niri = {
         enable = true;
         greetd.enable = true;

@@ -7,21 +7,31 @@
 }:
 let
   actual = inputs.self.nixosConfigurations.Drgnfly.config;
-  # Exercise both modes regardless of the host's selected opt-in value.
+  # Exercise disabled, selectable-only and default modes independently of the host.
   fixture =
-    enabled:
+    {
+      enabled,
+      defaultSession ? false,
+    }:
     (inputs.self.nixosConfigurations.Drgnfly.extendModules {
       modules = [
         {
-          modules.wm.umbriel.enable = lib.mkForce enabled;
+          modules.wm.umbriel = {
+            enable = lib.mkForce enabled;
+            defaultSession = lib.mkForce defaultSession;
+          };
           home-manager.users.sinh = {
             ${namespace}.wm.umbriel.enable = lib.mkForce enabled;
           };
         }
       ];
     }).config;
-  baseline = fixture false;
-  trial = fixture true;
+  baseline = fixture { enabled = false; };
+  trial = fixture { enabled = true; };
+  primary = fixture {
+    enabled = true;
+    defaultSession = true;
+  };
   home = trial.home-manager.users.sinh;
   shell = home.systemd.user.services.noctalia-umbriel;
   watcher = home.systemd.user.services.screenshot-watcher;
@@ -38,6 +48,10 @@ assert
 assert !baseline.modules.wm.umbriel.enable;
 assert !baseline.home-manager.users.sinh.${namespace}.wm.umbriel.enable;
 assert baseline.modules.wm.niri.globalSessionIdentity;
+assert baseline.modules.wm.niri.greetd.sessionExecutable == "niri-session";
+assert
+  baseline.services.greetd.settings.initial_session.command
+  == "${baseline.modules.wm.niri.greetd.sessionPackage}/bin/niri-session";
 assert !baseline.home-manager.users.sinh.${namespace}.wm.niri.isolateShellServices;
 assert
   baseline.home-manager.users.sinh.systemd.user.services.screenshot-watcher.Install.WantedBy == [
@@ -57,7 +71,29 @@ assert trial.services.gnome.gnome-keyring.enable == baseline.services.gnome.gnom
 assert trial.security.pam.services.swaylock.text == baseline.security.pam.services.swaylock.text;
 assert niri.greetd.autoLogin == baseline.modules.wm.niri.greetd.autoLogin;
 assert greeter.initial_session.user == baseline.services.greetd.settings.initial_session.user;
+assert niri.greetd.sessionExecutable == "niri-session";
 assert greeter.initial_session.command == "${niri.greetd.sessionPackage}/bin/niri-session";
+assert
+  actual.services.greetd.settings.initial_session.command
+  == "${actual.modules.wm.niri.greetd.sessionPackage}/bin/${
+    if actual.modules.wm.umbriel.enable && actual.modules.wm.umbriel.defaultSession then
+      "umbriel-trial-session"
+    else
+      "niri-session"
+  }";
+assert primary.modules.wm.niri.greetd.sessionExecutable == "umbriel-trial-session";
+assert builtins.length primary.modules.wm.niri.greetd.extraSessionPackages == 1;
+assert
+  primary.modules.wm.niri.greetd.sessionPackage == builtins.head niri.greetd.extraSessionPackages;
+assert
+  builtins.head primary.modules.wm.niri.greetd.extraSessionPackages == niri.greetd.sessionPackage;
+assert
+  primary.services.greetd.settings.initial_session.command
+  == "${primary.modules.wm.niri.greetd.sessionPackage}/bin/umbriel-trial-session";
+assert primary.services.greetd.settings.initial_session.user == greeter.initial_session.user;
+assert
+  primary.services.greetd.settings.default_session.command
+  == "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${primary.modules.wm.niri.greetd.sessionPackage}/share/wayland-sessions:${niri.greetd.sessionPackage}/share/wayland-sessions";
 assert
   greeter.default_session.command
   == "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --sessions ${niri.greetd.sessionPackage}/share/wayland-sessions:${builtins.head niri.greetd.extraSessionPackages}/share/wayland-sessions";
