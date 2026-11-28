@@ -24,6 +24,7 @@ _: {
           match app-id="signal"
           match app-id="org.telegram.desktop"
           match app-id="ViberPC"
+          match app-id="^viber$" // Native Wayland ID; retain ViberPC for Xwayland.
           open-on-workspace "chat"
           open-maximized true
           open-maximized-to-edges false
@@ -41,7 +42,6 @@ _: {
       // Email & productivity apps -> open on "email" workspace without stealing focus
       window-rule {
           match app-id="superProductivity"
-          match app-id="Logseq"
           open-on-workspace "email"
           open-focused false
       }

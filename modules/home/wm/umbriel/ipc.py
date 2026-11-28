@@ -304,7 +304,7 @@ def startup(ipc, primary, sleep=time.sleep):
         sleep(0.2)
     with routing_lock():
         reconcile(ipc, primary)
-        for argv in (["discord"], ["signal-desktop"], ["Telegram"], ["viber"], ["logseq"]):
+        for argv in (["discord"], ["signal-desktop"], ["Telegram"], ["viber"]):
             ipc.action("spawn", command=shlex.join(argv))
     # Match Niri's terminal-last policy; this is not application readiness.
     sleep(2)

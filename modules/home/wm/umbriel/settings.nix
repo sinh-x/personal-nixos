@@ -63,6 +63,7 @@ let
           "signal"
           "org.telegram.desktop"
           "ViberPC"
+          "^viber$" # Native Wayland ID; retain ViberPC for Xwayland.
         ];
         default_workspace = "chat";
         default_maximize = true;
@@ -82,7 +83,6 @@ let
       {
         match.app_id = [
           "superProductivity"
-          "Logseq"
         ];
         default_workspace = "email";
         default_focused = false;

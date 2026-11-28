@@ -136,8 +136,9 @@ reply is not application readiness. Real concurrent-hotplug qualification remain
 required. Neither Niri nor Umbriel autostarts Vivaldi; it remains installed, and
 interactive browser launch still uses BROWSER/Zen. Like Niri, app autostart waits
 for compositor IPC, reconciles workspace placement, then launches Discord, Signal,
-Telegram, Viber and Logseq. After a two-second
-settling delay, it resolves `main-term` again and launches Ghostty last. Neither the
+Telegram and Viber. Logseq is no longer installed or autostarted by this
+configuration. After a two-second settling delay, it resolves `main-term` again
+and launches Ghostty last. Neither the
 bounded compositor-readiness wait nor the settling delay holds the routing lock.
 App startup does not wait for Noctalia: a locked keyring must not suppress the app
 sequence. Noctalia's encrypted-storage guard is unchanged and may still refuse the

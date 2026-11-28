@@ -87,7 +87,7 @@ class IPCFixtures(unittest.TestCase):
         run.assert_not_called()
         sleep.assert_called_once_with(2)
         spawns = [fields["command"] for action, fields in fake.actions if action == "spawn"]
-        self.assertEqual(spawns, ["discord", "signal-desktop", "Telegram", "viber", "logseq", "ghostty"])
+        self.assertEqual(spawns, ["discord", "signal-desktop", "Telegram", "viber", "ghostty"])
         self.assertNotIn(("workspace-switch", {"workspace": "main-browser", "output": "eDP-1"}), fake.actions)
         self.assertEqual(fake.actions[-2:], [("workspace-switch", {"workspace": "main-term", "output": "eDP-1"}),
                                             ("spawn", {"command": "ghostty"})])

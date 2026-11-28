@@ -25,7 +25,7 @@ Re-read the linked files before every update; source ownership can change. Names
 | Droid | Repository derivation with version and npm artifact hash | B; [package](../../packages/droid/default.nix). The wrapper disables the upstream auto-updater. |
 | Chrome, Edge, Vivaldi | Root `nixpkgs`: `google-chrome`, `microsoft-edge`, `vivaldi` | C; [browser module](../../modules/home/apps/web/browser/default.nix), [Vivaldi module](../../modules/home/apps/web/vivaldi/default.nix). |
 | Ghostty, Kitty, Warp, Fish | Root `nixpkgs`: `ghostty`, `kitty`, `warp-terminal`, `fish` | C; [Ghostty](../../modules/home/cli-apps/ghostty/default.nix), [Kitty](../../modules/home/cli-apps/kitty/default.nix), [Warp](../../modules/home/cli-apps/warp/default.nix), [Fish](../../modules/home/cli-apps/fish/default.nix) modules. Fish plugin revisions/hashes are separate source pins in its module. |
-| Obsidian, Logseq | Root `nixpkgs`: `obsidian`, `logseq` | C; [home package list](../../home/sinh/Drgnfly.nix). |
+| Obsidian | Root `nixpkgs`: `obsidian` | C; [home package list](../../home/sinh/Drgnfly.nix). |
 | Discord, Telegram, Signal, Element, Zoom | Root `nixpkgs`: `discord`, `telegram-desktop`, `signal-desktop` / `signal-cli`, `element-desktop`, `zoom-us` | C; [social module](../../modules/home/social-app/default.nix). |
 | Viber | Root `nixpkgs` plus repository installation fix | C; [social module](../../modules/home/social-app/default.nix), [Viber overlay](../../overlays/viber/default.nix). Preserve the library/launcher fix. |
 | Bitwarden desktop | Root `nixpkgs`: `bitwarden-desktop` | C; [module](../../modules/home/security/bitwarden/default.nix). |

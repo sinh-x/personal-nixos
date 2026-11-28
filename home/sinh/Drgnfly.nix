@@ -26,7 +26,6 @@ in
       # openai-whisper # Speech-to-text temporarily deferred during the upgrade.
       pa-platform # PA platform with bundled Pi vimmode
       obsidian
-      logseq
       moneydance
       lgtm
       treehouse

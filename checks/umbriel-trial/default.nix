@@ -44,6 +44,7 @@ pkgs.runCommand "umbriel-trial" { nativeBuildInputs = [ pkgs.python3 ]; } ''
     ${home.home.file.".config/niri/config.kdl".source} \
     ${../../modules/home/wm/niri/niri_config/scripts/startup_apps}
   # Check the assembled Home Manager product, not just option declarations.
+  test ! -e ${home.home.path}/bin/logseq
   cmp ${home.home.activationPackage}/home-files/.config/niri/scripts/startup_apps \
     ${../../modules/home/wm/niri/niri_config/scripts/startup_apps}
   test "$(readlink -f ${home.home.activationPackage}/home-files/.config/niri/scripts/workspace_monitors)" = \

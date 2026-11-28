@@ -13,16 +13,13 @@ done
 # Phase 0: Move ext-* workspaces to external monitor (if connected)
 ~/.config/niri/scripts/workspace_monitors
 
-# Phase 1: Chat & productivity apps (window rules -> chat/email workspace)
+# Phase 1: Chat apps (window rules -> chat workspace)
 discord &
 signal-desktop &
 Telegram &
 viber &
 
-# Phase 2: Productivity (window rule -> email workspace)
-logseq &
-
-# Phase 3: Terminal last so it gets focus (window rule -> main-term workspace)
+# Phase 2: Terminal last so it gets focus (window rule -> main-term workspace)
 sleep 2
 niri msg action focus-workspace "main-term"
 exec ghostty

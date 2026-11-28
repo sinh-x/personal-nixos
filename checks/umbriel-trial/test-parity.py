@@ -69,6 +69,25 @@ assert [entry["sourceRule"] for entry in manifest["ruleLedger"]] == list(range(1
 assert manifest["ruleLedger"][-1]["disposition"] == "unverified-direct-xwayland-zoom-awaits-consented-metadata"
 for rule in config["window_rule"]:
     assert "zoom" not in json.dumps(rule).lower(), "unevidenced Zoom rule"
+    assert "logseq" not in json.dumps(rule).lower(), "removed Logseq window rule"
+assert not re.search(r'match app-id="Logseq"', extras), "removed Niri Logseq window rule"
+# Viber's native Wayland ID differs from its legacy Xwayland class. Both
+# compositors must route either identity to chat, without matching other apps.
+chat_rules = [rule for rule in config["window_rule"] if rule.get("default_workspace") == "chat"]
+assert len(chat_rules) == 1
+chat_rule = chat_rules[0]
+niri_chat = re.search(r'window-rule\s*\{([^{}]*open-on-workspace "chat"[^{}]*)\}', extras)
+assert niri_chat is not None
+niri_chat_apps = re.findall(r'match app-id="([^"]+)"', niri_chat[1])
+for app in ("viber", "ViberPC"):
+    assert any(re.search(pattern, app) for pattern in chat_rule["match"]["app_id"]), ("Umbriel chat", app)
+    assert any(re.search(pattern, app) for pattern in niri_chat_apps), ("Niri chat", app)
+for app in ("not-viber", "viber-helper"):
+    assert not any(re.search(pattern, app) for pattern in chat_rule["match"]["app_id"]), app
+    assert not any(re.search(pattern, app) for pattern in niri_chat_apps), app
+assert chat_rule["default_focused"] is False
+assert chat_rule["default_maximize"] is True
+assert chat_rule["default_fullscreen"] is False
 expected_names = {"main-term", "main-browser", "main-code", "chat", "email", "ext-term", "ext-browser", "ext-code"}
 assert len(config["workspace"]) == 8
 assert {entry["name"] for entry in config["workspace"]} == expected_names
@@ -92,7 +111,7 @@ for daemon in ('spawn-at-startup "mako"', 'spawn-at-startup "awww-daemon"', 'spa
 assert len(pattern.findall(niri)) == 112
 assert '~/.config/niri/scripts/startup_apps' in niri
 niri_startup = niri_startup_path.read_text()
-assert re.findall(r'^([A-Za-z0-9-]+) &$', niri_startup, re.M) == ["discord", "signal-desktop", "Telegram", "viber", "logseq"]
+assert re.findall(r'^([A-Za-z0-9-]+) &$', niri_startup, re.M) == ["discord", "signal-desktop", "Telegram", "viber"]
 assert "\nsleep 2\n" in niri_startup and "exec ghostty" in niri_startup
 assert not re.search(r'^\s*vivaldi\b', niri_startup, re.M), "browser must not autostart"
 noctalia = tomllib.loads(noctalia_path.read_text())
