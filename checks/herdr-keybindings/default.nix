@@ -117,6 +117,8 @@ let
       "alt+shift+right"
       "prefix+n"
     ];
+    move_tab_previous = [ "prefix+shift+left" ];
+    move_tab_next = [ "prefix+shift+right" ];
     next_workspace = [ "alt+shift+down" ];
     previous_tab = [
       "alt+shift+left"
@@ -164,6 +166,8 @@ let
     "focus_pane_right"
     "focus_pane_up"
     "new_tab"
+    "move_tab_previous"
+    "move_tab_next"
     "next_tab"
     "previous_tab"
     "split_vertical"
