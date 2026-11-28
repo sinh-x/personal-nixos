@@ -67,6 +67,8 @@ in
   sinh-x.default-desktop.enable = true;
   sinh-x.default-desktop.thunderbird.enable = false;
 
+  i18n.inputMethod.fcitx5.waylandFrontend = true;
+
   modules = {
     r_setup.enable = false;
     python.enable = false;

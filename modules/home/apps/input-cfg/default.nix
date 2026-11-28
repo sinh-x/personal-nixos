@@ -8,7 +8,7 @@
   config,
   namespace,
   ...
-}:
+}@args:
 with lib;
 let
   cfg = config.${namespace}.apps.input-cfg;
@@ -23,11 +23,14 @@ in
       sessionVariables = {
         IMSETTINGS_MODULE = "fcitx";
         INPUT_METHOD = "fcitx";
-        GTK_IM_MODULE = "fcitx";
         QT_IM_MODULE = "fcitx";
         GLFW_IM_MODULE = "fcitx";
         XMODIFIERS = "@im=fcitx";
         SDL_IM_MODULE = "fcitx";
+      }
+      # Standalone Home Manager has no osConfig; retain its GTK override.
+      // optionalAttrs (!(args.osConfig.i18n.inputMethod.fcitx5.waylandFrontend or false)) {
+        GTK_IM_MODULE = "fcitx";
       };
     };
   };
